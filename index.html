@@ -3,128 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arsip Sekolah - Data Dapodik</title>
+    <title>Pusat Data Siswa Sekolah</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f7f6; padding: 20px; margin: 0; }
-        .container { max-width: 1000px; margin: 20px auto; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        h2 { color: #2c3e50; text-align: center; margin-bottom: 5px; }
-        .sub { text-align: center; color: #7f8c8d; margin-bottom: 25px; }
-        .filter-box { display: flex; gap: 10px; margin-bottom: 20px; }
-        select, input, button { padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
-        select { flex: 1; }
-        input { flex: 2; }
-        button { background: #3498db; color: white; border: none; font-weight: bold; cursor: pointer; }
-        button:hover { background: #2980b9; }
-        .btn-excel { background: #27ae60; margin-left: auto; display: block; margin-bottom: 15px; }
-        .btn-excel:hover { background: #219653; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
-        th { background: #f8f9fa; color: #2c3e50; position: sticky; top: 0; }
-        #loading { text-align: center; font-weight: bold; color: #e67e22; display: none; padding: 20px; }
+        body { padding: 20px; background-color: #f8f9fa; }
+        .container { max-width: 1100px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .login-box { max-width: 400px; margin: 100px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .table-responsive { max-height: 500px; overflow-y: auto; }
+        .hidden { display: none; }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 
-<div class="container">
-    <h2>📂 Portal Arsip Sekolah</h2>
-    <p class="sub">Data Real-Time langsung dari Web Service Dapodik Sekolah</p>
+<div id="loginPage" class="login-box">
+    <h4 class="text-center mb-3">🔒 Login Akses Data Siswa</h4>
+    <p class="text-muted text-center small">Masukkan Username dan Password Guru.</p>
+    <div class="mb-3">
+        <input type="text" id="usernameInput" class="form-control" placeholder="Username">
+    </div>
+    <div class="mb-3">
+        <input type="password" id="passwordInput" class="form-control" placeholder="Password">
+    </div>
+    <div class="d-grid">
+        <button onclick="prosesLogin()" id="btnLogin" class="btn btn-primary">Masuk</button>
+    </div>
+    <div id="loginError" class="text-danger text-center small mt-2 hidden">Username atau Password salah!</div>
+</div>
 
-    <div class="filter-box">
-        <button onclick="tarikDataDapodik()">🔄 Tarik Data Terbaru</button>
-        <input type="text" id="cariNama" onkeyup="filterNama()" placeholder="Ketik nama siswa untuk menyaring...">
+<div id="mainPage" class="container hidden">
+    <h2 class="text-center mb-4">🏫 Pusat Data & Unduh Data Siswa</h2>
+    
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <p class="text-muted mb-0">Selamat datang! Anda login sebagai: <strong id="namaUser">Guru</strong></p>
+        <button onclick="logout()" class="btn btn-sm btn-outline-danger">Keluar / Log Out</button>
+    </div>
+    
+    <div class="row g-3 mb-4">
+        <div class="col-md-8">
+            <input type="text" id="searchInput" class="form-control" placeholder="Ketik nama siswa, NISN, atau kelas untuk mencari...">
+        </div>
+        
+        <div class="col-md-4 d-grid">
+            <button onclick="downloadExcel()" class="btn btn-success">📥 Unduh Seluruh Data Siswa (Excel)</button>
+        </div>
     </div>
 
-    <div id="loading">⏳ Sedang mengambil data langsung dari laptop Dapodik...</div>
-
-    <button class="btn-excel" onclick="unduhExcel()">📊 Unduh Format Excel</button>
-
-    <table id="tabelSiswa">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Nama Siswa</th>
-                <th>L/P</th>
-                <th>NISN</th>
-                <th>Tempat Lahir</th>
-                <th>Tanggal Lahir</th>
-                <th>Nama Ibu Kandung</th>
-            </tr>
-        </thead>
-        <tbody id="badanTabel">
-            <tr><td colspan="7" style="text-align:center; color:#999;">Silahkan klik tombol "Tarik Data Terbaru" di atas.</td></tr>
-        </tbody>
-    </table>
+    <div class="table-responsive border rounded">
+        <table class="table table-striped table-hover align-middle mb-0">
+            <thead class="table-dark" id="tableHeader"></thead>
+            <tbody id="tableBody">
+                <tr>
+                    <td colspan="100%" class="text-center text-muted">Sedang memuat data siswa...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script>
-let dataSiswaMaster = []; // Tempat menyimpan data mentah dari Dapodik
+    // ⚠️ PENGATURAN KEDUA SPREADSHEET ANDA
+    // 1. Masukkan ID File Spreadsheet khusus ACCOUNTS/LOGIN (File B)
+    const ID_SPREADSHEET_AKUN = 'MASUKKAN_ID_FILE_AKUN_DI_SINI';
+    const NAMA_SHEET_AKUN = 'Sheet1'; // Ganti jika nama halaman akunnya berbeda
 
-function tarikDataDapodik() {
-    let loading = document.getElementById("loading");
-    loading.style.display = "block";
-    
-    // Memanggil file PHP perantara yang tadi kita buat
-    fetch('ambil_data.php')
-    .then(response => response.json())
-    .then(data => {
-        loading.style.display = "none";
-        // Dapodik biasanya membungkus datanya di dalam properti "rows"
-        dataSiswaMaster = data.rows || data; 
-        tampilkanTabel(dataSiswaMaster);
-    })
-    .catch(error => {
-        loading.style.display = "none";
-        alert("Gagal konek ke laptop Dapodik! Pastikan laptop Dapodik menyala dan Wi-Fi sama.");
-        console.error(error);
+    // 2. Masukkan ID File Spreadsheet khusus DATA SISWA (File A)
+    const ID_SPREADSHEET_SISWA = 'MASUKKAN_ID_FILE_DATA_SISWA_DI_SINI';
+    const NAMA_SHEET_SISWA = 'Sheet1'; // Ganti jika nama halaman data siswanya berbeda
+
+    let globalDataSiswa = [];
+
+    function prosesLogin() {
+        const userInput = document.getElementById('usernameInput').value.trim().toLowerCase();
+        const passInput = document.getElementById('passwordInput').value.trim();
+        const btn = document.getElementById('btnLogin');
+        
+        if(!userInput || !passInput) return alert('Isi semua kolom!');
+        
+        btn.innerText = "Memeriksa...";
+        btn.disabled = true;
+
+        // Tarik data dari File B (Akun)
+        const urlUser = `https://docs.google.com/spreadsheets/d/${ID_SPREADSHEET_AKUN}/gviz/tq?tqx=out:json&sheet=${NAMA_SHEET_AKUN}`;
+        
+        fetch(urlUser)
+            .then(res => res.text())
+            .then(data => {
+                const temp = data.substr(47).slice(0, -2);
+                const json = JSON.parse(temp);
+                const rows = json.table.rows;
+                
+                let loginSukses = false;
+                for (let row of rows) {
+                    const u = row.c[0] ? String(row.c[0].v).toLowerCase().trim() : ''; // Kolom A
+                    const p = row.c[1] ? String(row.c[1].v).trim() : '';              // Kolom B
+                    
+                    if (userInput === u && passInput === p) {
+                        loginSukses = true;
+                        break;
+                    }
+                }
+
+                if (loginSukses) {
+                    document.getElementById('loginPage').classList.add('hidden');
+                    document.getElementById('mainPage').classList.remove('hidden');
+                    document.getElementById('namaUser').innerText = userInput;
+                    ambilDataSiswa(); // Baru panggil File A (Data Siswa) setelah sukses login
+                } else {
+                    document.getElementById('loginError').classList.remove('hidden');
+                    btn.innerText = "Masuk";
+                    btn.disabled = false;
+                }
+            })
+            .catch(err => {
+                alert('Gagal sistem login. Periksa ID Spreadsheet Akun Anda.');
+                btn.innerText = "Masuk";
+                btn.disabled = false;
+            });
+    }
+
+    function ambilDataSiswa() {
+        // Tarik data dari File A (Data Siswa)
+        const urlData = `https://docs.google.com/spreadsheets/d/${ID_SPREADSHEET_SISWA}/gviz/tq?tqx=out:json&sheet=${NAMA_SHEET_SISWA}`;
+        
+        fetch(urlData)
+            .then(res => res.text())
+            .then(data => {
+                const temp = data.substr(47).slice(0, -2);
+                const json = JSON.parse(temp);
+                const rows = json.table.rows;
+                const cols = json.table.cols;
+
+                // Bikin Header Tabel otomatis
+                let headerHtml = '<tr>';
+                cols.forEach(col => { headerHtml += `<th>${col.label || ''}</th>`; });
+                headerHtml += '</tr>';
+                document.getElementById('tableHeader').innerHTML = headerHtml;
+
+                // Ambil semua isi baris data siswa
+                globalDataSiswa = rows.map(row => {
+                    return row.c.map(cell => cell ? (cell.f || cell.v) : '');
+                });
+                tampilkanData(globalDataSiswa);
+            })
+            .catch(err => {
+                document.getElementById('tableBody').innerHTML = `<tr><td colspan="100%" class="text-center text-danger">Gagal memuat data siswa. Cek pengaturan share File Data Siswa Anda.</td></tr>`;
+            });
+    }
+
+    function tampilkanData(data) {
+        let bodyHtml = '';
+        data.forEach(row => {
+            bodyHtml += '<tr>';
+            row.forEach(cell => { bodyHtml += `<td>${cell}</td>`; });
+            bodyHtml += '</tr>';
+        });
+        document.getElementById('tableBody').innerHTML = bodyHtml || '<tr><td colspan="100%" class="text-center">Data tidak ditemukan.</td></tr>';
+    }
+
+    // Fungsi Pencarian Live
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        const keyword = e.target.value.toLowerCase();
+        const filteredData = globalDataSiswa.filter(row => {
+            return row.some(cell => String(cell).toLowerCase().includes(keyword));
+        });
+        tampilkanData(filteredData);
     });
-}
 
-function tampilkanTabel(data) {
-    let badanTabel = document.getElementById("badanTabel");
-    badanTabel.innerHTML = "";
-    
-    if(data.length === 0) {
-        badanTabel.innerHTML = `<tr><td colspan="7" style="text-align:center;">Data Kosong</td></tr>`;
-        return;
+    // Fungsi Download Excel
+    function downloadExcel() {
+        if(globalDataSiswa.length === 0) return alert('Data belum siap atau masih kosong!');
+        const headers = Array.from(document.querySelectorAll("#tableHeader th")).map(th => th.innerText);
+        const dataToDownload = [headers, ...globalDataSiswa];
+        const worksheet = XLSX.utils.aoa_to_sheet(dataToDownload);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Data Siswa");
+        XLSX.writeFile(workbook, `Data_Siswa_${new Date().toISOString().slice(0,10)}.xlsx`);
     }
 
-    data.forEach((siswa, index) => {
-        let row = document.createElement("tr");
-        row.className = "baris-siswa";
-        row.innerHTML = `
-            <td>${index + 1}</td>
-            <td class="nama-siswa"><b>${siswa.nama}</b></td>
-            <td>${siswa.jenis_kelamin}</td>
-            <td>${siswa.nisn || '-'}</td>
-            <td>${siswa.tempat_lahir}</td>
-            <td>${siswa.tanggal_lahir}</td>
-            <td>${siswa.nama_ibu_kandung || '-'}</td>
-        `;
-        badanTabel.appendChild(row);
-    });
-}
-
-function filterNama() {
-    let kataKunci = document.getElementById("cariNama").value.toLowerCase().trim();
-    let baris = document.getElementsByClassName("baris-siswa");
-    
-    for (let i = 0; i < baris.length; i++) {
-        let nama = baris[i].getElementsByClassName("nama-siswa")[0].innerText.toLowerCase();
-        baris[i].style.display = nama.includes(kataKunci) ? "" : "none";
+    function logout() {
+        document.getElementById('usernameInput').value = '';
+        document.getElementById('passwordInput').value = '';
+        document.getElementById('loginPage').classList.remove('hidden');
+        document.getElementById('mainPage').classList.add('hidden');
+        document.getElementById('loginError').classList.add('hidden');
+        document.getElementById('btnLogin').innerText = "Masuk";
+        document.getElementById('btnLogin').disabled = false;
+        globalDataSiswa = [];
     }
-}
-
-function unduhExcel() {
-    if(dataSiswaMaster.length === 0) {
-        alert("Belum ada data yang ditarik! Klik Tarik Data dulu.");
-        return;
-    }
-    // Proses mengubah tabel HTML menjadi file Excel .xlsx otomatis
-    let tabel = document.getElementById("tabelSiswa");
-    let fileExcel = XLSX.utils.table_to_book(tabel, {sheet: "Data Siswa Dapodik"});
-    XLSX.writeFile(fileExcel, "Arsip_Siswa_Dapodik.xlsx");
-}
 </script>
 </body>
 </html>
