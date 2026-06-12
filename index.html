@@ -165,21 +165,22 @@
         if(pilihan === 'guru') document.getElementById('pageGuru').classList.remove('hidden');
     }
 
-    // FUNGSI UMUM: ORANG TUA CARI NISN
+   // FUNGSI UMUM: ORANG TUA CARI NISN (LANGSUNG TEMBAK KOLOM 43)
     function cariNisnPembuat() {
         const namaCari = document.getElementById('searchNisnInput').value.trim().toLowerCase();
         const wadahHasil = document.getElementById('hasilCariPublik');
         if(!namaCari) return alert('Silakan ketik nama anak terlebih dahulu!');
         
-        // Cari di baris database (Asumsi: Kolom Nama ada di indeks 0 atau 1, NISN di kolom lainnya)
-        // Kode ini pintar, dia mencari nama yang mengandung kata tersebut
         let cocok = globalAllSiswa.filter(row => row.some(cell => String(cell).toLowerCase().includes(namaCari)));
         
         if(cocok.length > 0) {
             let html = '<div class="alert alert-info mt-2 small"><strong>Hasil Ditemukan:</strong><br><ul class="mb-0">';
             cocok.forEach(row => {
-                // Menampilkan isi baris siswa ke publik (Aman, hanya info umum yang tertulis di baris itu)
-                html += `<li><strong>${row[0]}</strong> - Kelas ${row[2]} (NISN: ${row[1]})</li>`;
+                let namaSiswa  = row[1];  // Kolom 2 (Nama)
+                let nisnSiswa  = row[4];  // Kolom 5 (NISN)
+                let kelasSiswa = row[42]; // Kolom 43 (Kelas) -> Langsung lompat ke sini!
+                
+                html += `<li><strong>${namaSiswa || '-'}</strong> - Kelas ${kelasSiswa || '-'} <br> 🔑 NISN: <span class="badge bg-success">${nisnSiswa || '-'}</span></li>`;
             });
             html += '</ul></div>';
             wadahHasil.innerHTML = html;
