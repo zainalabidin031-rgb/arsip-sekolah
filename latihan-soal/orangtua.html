@@ -1,0 +1,186 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Orang Tua</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f3f6fb;
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    box-sizing:border-box;
+}
+
+button{
+    padding:10px 20px;
+    cursor:pointer;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+table, th, td{
+    border:1px solid #ddd;
+}
+
+th, td{
+    padding:10px;
+    text-align:left;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>Portal Orang Tua</h2>
+
+<p>Masukkan PIN:</p>
+
+<input type="password" id="pin" placeholder="Masukkan PIN">
+
+<button onclick="lihatHasil()">
+Lihat Hasil
+</button>
+
+<div id="hasil"></div>
+
+</div>
+
+<script>
+
+const API_BASE =
+"https://script.google.com/macros/s/AKfycbwqhRU2shRUdBbuqdjeUt6tgd3uqbO6B9krfvf9JD0eubNNeoDZDyXBz9Iqw65xCRTjJQ/exec";
+
+async function lihatHasil(){
+
+    const pin =
+        document.getElementById("pin").value.trim();
+
+    if(pin===""){
+        alert("Masukkan PIN.");
+        return;
+    }
+
+    try{
+
+        const resStudent =
+            await fetch(API_BASE + "?sheet=students");
+
+        const students =
+            await resStudent.json();
+
+        const siswa =
+            students.find(s =>
+                String(s.pin).trim() === pin
+            );
+
+        if(!siswa){
+
+            document.getElementById("hasil").innerHTML =
+                "<p><b>PIN tidak ditemukan.</b></p>";
+
+            return;
+
+        }
+
+        const resResult =
+            await fetch(API_BASE + "?sheet=results");
+
+        const results =
+            await resResult.json();
+
+        const data =
+            results.filter(r =>
+                String(r.nama).trim() === String(siswa.nama).trim() &&
+                String(r.kelas).trim() === String(siswa.kelas).trim()
+            );
+
+        let html = "";
+
+        html += "<h3>Data Siswa</h3>";
+        html += "<p><b>Nama:</b> " + siswa.nama + "</p>";
+        html += "<p><b>Kelas:</b> " + siswa.kelas + "</p>";
+
+        if(data.length===0){
+
+            html += "<p>Belum ada hasil latihan.</p>";
+
+            document.getElementById("hasil").innerHTML =
+                html;
+
+            return;
+
+        }
+
+        html += `
+        <table>
+            <tr>
+                <th>Tanggal</th>
+                <th>Mapel</th>
+                <th>Bab</th>
+                <th>Nilai</th>
+            </tr>
+        `;
+
+        data.forEach(d=>{
+
+            html += `
+            <tr>
+                <td>${d.tanggal}</td>
+                <td>${d.mapel}</td>
+                <td>${d.bab}</td>
+                <td>${d.nilai}</td>
+            </tr>
+            `;
+
+        });
+
+        html += "</table>";
+
+        document.getElementById("hasil").innerHTML =
+            html;
+
+    }catch(err){
+
+        console.error(err);
+
+        document.getElementById("hasil").innerHTML =
+            "<p>Gagal mengambil data.</p>";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
+```
