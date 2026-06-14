@@ -145,14 +145,35 @@
 </div>
 
 <script>
-document.getElementById("loginForm").addEventListener("submit", function(e){
+document.getElementById("loginForm").addEventListener("submit", async function(e){
     e.preventDefault();
 
-    // Nanti bagian ini diganti dengan validasi ke Google Apps Script
-    alert("Fitur login akan dihubungkan ke Google Apps Script.");
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // Ganti dengan URL Web App Anda
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCxHDy6JjF4FMY16lT6hHuTrb-uLRxTscJ7-mRFJTxExDOX1pfuTmVEoq-uONsPbjp/exec";
+
+    const response = await fetch(SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify({
+            action: "login",
+            username: username,
+            password: password
+        })
+    });
+
+    const result = await response.json();
+
+    if(result.success){
+        localStorage.setItem("guruLogin", "true");
+        localStorage.setItem("guruNama", result.nama);
+        window.location.href = "dashboard.html";
+    } else {
+        alert("Username atau password salah.");
+    }
 });
 </script>
 
 </body>
 </html>
-```
