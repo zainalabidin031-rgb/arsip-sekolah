@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nomor Ijazah</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+header{
+    background:#1976d2;
+    color:#fff;
+    text-align:center;
+    padding:18px;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.container{
+    max-width:800px;
+    margin:30px auto;
+    padding:20px;
+}
+
+.back{
+    display:inline-block;
+    margin-bottom:20px;
+    text-decoration:none;
+    color:#1976d2;
+    font-weight:bold;
+}
+
+.card{
+    background:#fff;
+    border-radius:12px;
+    padding:24px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.input-group{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+input{
+    flex:1;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+}
+
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:8px;
+    background:#1976d2;
+    color:#fff;
+    cursor:pointer;
+    font-size:15px;
+}
+
+button:hover{
+    background:#125ea9;
+}
+
+#hasil{
+    margin-top:25px;
+    display:none;
+    background:#eef6ff;
+    border-radius:10px;
+    padding:18px;
+    line-height:1.8;
+}
+
+#error{
+    margin-top:20px;
+    color:red;
+    text-align:center;
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+if (localStorage.getItem("guruLogin") !== "true") {
+    window.location.href = "index.html";
+}
+</script>
+
+<header>
+    🎓 Data Nomor Ijazah
+</header>
+
+<div class="container">
+
+    <a href="dashboard.html" class="back">← Kembali ke Dashboard</a>
+
+    <div class="card">
+
+        <h2>Cari Nomor Ijazah</h2>
+
+        <div class="input-group">
+            <input
+                type="text"
+                id="keyword"
+                placeholder="Masukkan NISN atau Nama Siswa">
+            <button onclick="cariData()">🔍 Cari</button>
+        </div>
+
+        <div id="hasil">
+            <strong>Nama:</strong> <span id="nama"></span><br>
+            <strong>NISN:</strong> <span id="nisn"></span><br>
+            <strong>Nomor Ijazah:</strong> <span id="nomor"></span><br>
+            <strong>Tahun Lulus:</strong> <span id="tahun"></span>
+        </div>
+
+        <div id="error">
+            Data tidak ditemukan.
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+const SCRIPT_URL = "PASTE_URL_WEB_APP_ANDA_DI_SINI";
+
+async function cariData() {
+
+    const keyword = document.getElementById("keyword").value.trim();
+
+    if (keyword === "") {
+        alert("Masukkan NISN atau Nama Siswa.");
+        return;
+    }
+
+    document.getElementById("hasil").style.display = "none";
+    document.getElementById("error").style.display = "none";
+
+    try {
+
+        const response = await fetch(SCRIPT_URL, {
+            method: "POST",
+            body: JSON.stringify({
+                action: "cariIjazah",
+                keyword: keyword
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+
+            document.getElementById("nama").textContent = result.nama;
+            document.getElementById("nisn").textContent = result.nisn;
+            document.getElementById("nomor").textContent = result.nomor;
+            document.getElementById("tahun").textContent = result.tahun;
+
+            document.getElementById("hasil").style.display = "block";
+
+        } else {
+
+            document.getElementById("error").style.display = "block";
+
+        }
+
+    } catch (e) {
+
+        alert("Terjadi kesalahan saat mengambil data.");
+        console.error(e);
+
+    }
+
+}
+</script>
+
+</body>
+</html>
