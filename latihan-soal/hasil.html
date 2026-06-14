@@ -52,12 +52,11 @@ document.getElementById("nilai").innerText=
 
 document.getElementById("nama").innerText=
 localStorage.getItem("nama");
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbwqhRU2shRUdBbuqdjeUt6tgd3uqbO6B9krfvf9JD0eubNNeoDZDyXBz9Iqw65xCRTjJQ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwqhRU2shRUdBbuqdjeUt6tgd3uqbO6B9krfvf9JD0eubNNeoDZDyXBz9Iqw65xCRTjJQ/exec";
 
 async function simpanHasil() {
   try {
-    await fetch(API_URL, {
+    const response = await fetch(API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -70,6 +69,17 @@ async function simpanHasil() {
         nilai: localStorage.getItem("nilai")
       })
     });
+
+    const hasil = await response.text();
+    console.log("Respon server:", hasil);
+
+  } catch (error) {
+    console.error("Gagal menyimpan:", error);
+  }
+}
+
+// Jalankan sekali saat halaman hasil dibuka
+simpanHasil();
 
     console.log("Hasil berhasil disimpan.");
   } catch (err) {
