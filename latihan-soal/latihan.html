@@ -42,90 +42,130 @@ button{
 
 </div>
 
+```html
 <script>
 
-const soalData = [
+const API_URL = "https://script.google.com/macros/s/AKfycbwqhRU2shRUdBbuqdjeUt6tgd3uqbO6B9krfvf9JD0eubNNeoDZDyXBz9Iqw65xCRTjJQ/exec";
 
-{
-soal:"15 + 27 = ...",
-pilihan:["32","42","52","37"],
-jawaban:"42"
-},
+let soalData = [];
+let nomor = 0;
+let benar = 0;
 
-{
-soal:"7 x 8 = ...",
-pilihan:["54","56","64","48"],
-jawaban:"56"
-},
+async function loadSoal() {
 
-{
-soal:"20 - 5 = ...",
-pilihan:["10","15","18","20"],
-jawaban:"15"
-}
+    try {
 
-];
+        const response = await fetch(API_URL);
+        const data = await response.json();
 
-let nomor=0;
-let benar=0;
+        soalData = data.map(item => {
 
-tampil();
+            const pilihan = [
+                String(item.opsi_a),
+                String(item.opsi_b),
+                String(item.opsi_c),
+                String(item.opsi_d)
+            ];
 
-function tampil(){
+            let jawabanBenar = "";
 
-document.getElementById("judul").innerText=
-"Soal "+(nomor+1)+" dari "+soalData.length;
+            switch (String(item.jawaban).trim().toUpperCase()) {
+                case "A":
+                    jawabanBenar = pilihan[0];
+                    break;
+                case "B":
+                    jawabanBenar = pilihan[1];
+                    break;
+                case "C":
+                    jawabanBenar = pilihan[2];
+                    break;
+                case "D":
+                    jawabanBenar = pilihan[3];
+                    break;
+            }
 
-document.getElementById("soal").innerText=
-soalData[nomor].soal;
+            return {
+                soal: String(item.soal),
+                pilihan: pilihan,
+                jawaban: jawabanBenar
+            };
 
-let html="";
+        });
 
-soalData[nomor].pilihan.forEach(p=>{
+        if (soalData.length === 0) {
+            alert("Tidak ada soal.");
+            return;
+        }
 
-html+=`
-<label>
-<input type="radio" name="jawab" value="${p}">
-${p}
-</label><br><br>
-`;
+        tampil();
 
-});
+    } catch (err) {
 
-document.getElementById("opsi").innerHTML=html;
+        console.error(err);
+        alert("Gagal mengambil soal.");
 
-}
-
-function berikutnya(){
-
-const pilih=document.querySelector('input[name="jawab"]:checked');
-
-if(!pilih){
-alert("Pilih jawaban terlebih dahulu.");
-return;
-}
-
-if(pilih.value===soalData[nomor].jawaban){
-benar++;
-}
-
-nomor++;
-
-if(nomor>=soalData.length){
-
-const nilai=Math.round((benar/soalData.length)*100);
-
-localStorage.setItem("nilai",nilai);
-
-window.location.href="hasil.html";
-
-return;
+    }
 
 }
 
-tampil();
+function tampil() {
+
+    document.getElementById("judul").innerText =
+        "Soal " + (nomor + 1) + " dari " + soalData.length;
+
+    document.getElementById("soal").innerText =
+        soalData[nomor].soal;
+
+    let html = "";
+
+    soalData[nomor].pilihan.forEach(function(p) {
+
+        html += `
+            <label>
+                <input type="radio" name="jawab" value="${p}">
+                ${p}
+            </label>
+            <br><br>
+        `;
+
+    });
+
+    document.getElementById("opsi").innerHTML = html;
 
 }
+
+function berikutnya() {
+
+    const pilih = document.querySelector('input[name="jawab"]:checked');
+
+    if (!pilih) {
+        alert("Pilih jawaban terlebih dahulu.");
+        return;
+    }
+
+    if (pilih.value === soalData[nomor].jawaban) {
+        benar++;
+    }
+
+    nomor++;
+
+    if (nomor >= soalData.length) {
+
+        const nilai = Math.round((benar / soalData.length) * 100);
+
+        localStorage.setItem("nilai", nilai);
+
+        window.location.href = "hasil.html";
+        return;
+    }
+
+    tampil();
+
+}
+
+loadSoal();
+
+</script>
 
 </script>
 
