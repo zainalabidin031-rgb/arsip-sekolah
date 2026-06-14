@@ -55,6 +55,11 @@ document.getElementById("nama").innerText =
 const API_URL = "https://script.google.com/macros/s/AKfycbwqhRU2shRUdBbuqdjeUt6tgd3uqbO6B9krfvf9JD0eubNNeoDZDyXBz9Iqw65xCRTjJQ/exec";
 
 async function simpanHasil() {
+    const status = document.createElement("p");
+    status.id = "status";
+    status.innerText = "⏳ Sedang menyimpan hasil...";
+    document.querySelector(".card").appendChild(status);
+
     try {
         const response = await fetch(API_URL, {
             method: "POST",
@@ -71,13 +76,12 @@ async function simpanHasil() {
         });
 
         const hasil = await response.text();
-        console.log("Respon server:", hasil);
+        status.innerText = "✅ Berhasil menyimpan: " + hasil;
 
     } catch (error) {
-        console.error("Gagal menyimpan:", error);
+        status.innerText = "❌ Gagal menyimpan: " + error.message;
     }
 }
-
 // Simpan hasil saat halaman dibuka
 simpanHasil();
 
