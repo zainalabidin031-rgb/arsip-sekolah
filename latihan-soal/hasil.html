@@ -47,46 +47,55 @@ Kembali ke Beranda
 
 <script>
 document.getElementById("nilai").innerText =
-    "Nilai : " + localStorage.getItem("nilai");
+  "Nilai : " + (localStorage.getItem("nilai") || "-");
 
 document.getElementById("nama").innerText =
-    localStorage.getItem("nama");
+  localStorage.getItem("nama") || "";
 
-const API_URL = "https://script.google.com/macros/s/AKfycbwqhRU2shRUdBbuqdjeUt6tgd3uqbO6B9krfvf9JD0eubNNeoDZDyXBz9Iqw65xCRTjJQ/exec";
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbwqhRU2shRUdBbuqdjeUt6tgd3uqbO6B9krfvf9JD0eubNNeoDZDyXBz9Iqw65xCRTjJQ/exec";
 
 async function simpanHasil() {
-    const status = document.createElement("p");
-    status.id = "status";
-    status.innerText = "⏳ Sedang menyimpan hasil...";
-    document.querySelector(".card").appendChild(status);
 
-    try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                nama: localStorage.getItem("nama"),
-                kelas: localStorage.getItem("kelas"),
-                mapel: localStorage.getItem("mapel"),
-                bab: localStorage.getItem("bab"),
-                nilai: localStorage.getItem("nilai")
-            })
-        });
+  const status = document.createElement("p");
+  status.id = "status";
+  status.innerText = "⏳ Menyimpan hasil...";
+  document.querySelector(".card").appendChild(status);
 
-        const hasil = await response.text();
-        status.innerText = "✅ Berhasil menyimpan: " + hasil;
+  try {
 
-    } catch (error) {
-        status.innerText = "❌ Gagal menyimpan: " + error.message;
-    }
+    const form = new URLSearchParams();
+
+    form.append("nama", localStorage.getItem("nama") || "");
+    form.append("kelas", localStorage.getItem("kelas") || "");
+    form.append("mapel", localStorage.getItem("mapel") || "");
+    form.append("bab", localStorage.getItem("bab") || "");
+    form.append("nilai", localStorage.getItem("nilai") || "");
+
+    const res = await fetch(API_URL, {
+      method: "POST",
+      body: form
+    });
+
+    const text = await res.text();
+
+    status.innerText = "✅ Berhasil disimpan";
+
+    console.log(text);
+
+  } catch (err) {
+
+    status.innerText = "❌ Gagal menyimpan";
+
+    console.error(err);
+
+  }
 }
-// Simpan hasil saat halaman dibuka
+
 simpanHasil();
 
 function ulang() {
-    window.location.href = "index.html";
+  window.location.href = "index.html";
 }
 </script>
 
