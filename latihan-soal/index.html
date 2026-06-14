@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latihan Soal Online</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:#f3f6fb;
+    }
+
+    header{
+      background:#2563eb;
+      color:white;
+      padding:30px 20px;
+      text-align:center;
+    }
+
+    header h1{
+      margin-bottom:10px;
+    }
+
+    header p{
+      opacity:0.95;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:auto;
+      padding:30px 20px;
+    }
+
+    h2{
+      text-align:center;
+      margin-bottom:25px;
+      color:#222;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:white;
+      border-radius:12px;
+      padding:30px 20px;
+      text-align:center;
+      cursor:pointer;
+      transition:.2s;
+      box-shadow:0 2px 8px rgba(0,0,0,.08);
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 8px 18px rgba(0,0,0,.15);
+    }
+
+    .icon{
+      font-size:42px;
+      margin-bottom:15px;
+    }
+
+    .title{
+      font-size:20px;
+      font-weight:bold;
+      color:#222;
+    }
+
+    footer{
+      text-align:center;
+      padding:25px;
+      color:#666;
+      font-size:14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>📚 Latihan Soal Online</h1>
+  <p>Silakan pilih mata pelajaran yang ingin dipelajari.</p>
+</header>
+
+<div class="container">
+
+  <h2>Pilih Mata Pelajaran</h2>
+
+ <div class="grid">
+
+  <div class="card" onclick="pilihMapel('Pendidikan Agama Islam')">
+    <div class="icon">🕌</div>
+    <div class="title">Pendidikan Agama Islam</div>
+  </div>
+
+  <div class="card" onclick="pilihMapel('Pendidikan Pancasila')">
+    <div class="icon">🇮🇩</div>
+    <div class="title">Pendidikan Pancasila</div>
+  </div>
+
+  <div class="card" onclick="pilihMapel('Bahasa Indonesia')">
+    <div class="icon">📖</div>
+    <div class="title">Bahasa Indonesia</div>
+  </div>
+
+  <div class="card" onclick="pilihMapel('Matematika')">
+    <div class="icon">➗</div>
+    <div class="title">Matematika</div>
+  </div>
+
+  <div class="card" onclick="pilihMapel('IPAS')">
+    <div class="icon">🔬</div>
+    <div class="title">IPAS</div>
+  </div>
+
+  <div class="card" onclick="pilihMapel('PJOK')">
+    <div class="icon">⚽</div>
+    <div class="title">PJOK</div>
+  </div>
+
+  <div class="card" onclick="pilihMapel('Seni Budaya')">
+    <div class="icon">🎨</div>
+    <div class="title">Seni Budaya</div>
+  </div>
+
+  <div class="card" onclick="pilihMapel('Bahasa Inggris')">
+    <div class="icon">🔤</div>
+    <div class="title">Bahasa Inggris</div>
+  </div>
+
+  <div class="card" onclick="pilihMapel('Bahasa Jawa')">
+    <div class="icon">📝</div>
+    <div class="title">Bahasa Jawa</div>
+  </div>
+
+  <div class="card" onclick="pilihMapel('Literasi Digital')">
+    <div class="icon">💻</div>
+    <div class="title">Literasi Digital</div>
+  </div>
+
+</div>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Latihan Soal Online
+</footer>
+
+<script>
+function pilihMapel(mapel){
+    // Simpan pilihan mata pelajaran
+    localStorage.setItem("mapel", mapel);
+
+    // Pindah ke halaman pilih kelas
+    window.location.href = "kelas.html";
+}
+</script>
+
+</body>
+</html>
