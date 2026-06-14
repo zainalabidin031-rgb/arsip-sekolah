@@ -122,21 +122,63 @@ daftarBab.forEach((bab) => {
 </div>
 
 <script>
-document.getElementById("nama").textContent =
-    localStorage.getItem("nama") || "-";
+const API_URL = "https://script.google.com/macros/s/AKfycbwqhRU2shRUdBbuqdjeUt6tgd3uqbO6B9krfvf9JD0eubNNeoDZDyXBz9Iqw65xCRTjJQ/exec";
 
-document.getElementById("mapel").textContent =
-    localStorage.getItem("mapel") || "-";
+const nama = localStorage.getItem("nama") || "-";
+const mapel = localStorage.getItem("mapel") || "-";
+const kelas = localStorage.getItem("kelas") || "-";
 
-document.getElementById("kelas").textContent =
-    localStorage.getItem("kelas") || "-";
+document.getElementById("nama").textContent = nama;
+document.getElementById("mapel").textContent = mapel;
+document.getElementById("kelas").textContent = kelas;
 
-function pilihBab(bab){
-    localStorage.setItem("bab", bab);
+async function loadBab() {
+    try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
 
-    // Nanti menuju halaman latihan
-    window.location.href = "latihan.html";
+        // Ambil bab yang sesuai mapel & kelas
+        const babSet = new Set();
+
+        data.forEach(item => {
+            if (
+                item.mapel === mapel &&
+                String(item.kelas) === String(kelas)
+            ) {
+                babSet.add(item.bab);
+            }
+        });
+
+        const daftarBab = [...babSet];
+        const container = document.getElementById("daftarBab");
+        container.innerHTML = "";
+
+        if (daftarBab.length === 0) {
+            container.innerHTML =
+                "<p>Belum ada bab yang tersedia untuk mata pelajaran dan kelas ini.</p>";
+            return;
+        }
+
+        daftarBab.forEach(bab => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.textContent = "📘 " + bab;
+
+            card.onclick = () => {
+                localStorage.setItem("bab", bab);
+                window.location.href = "latihan.html";
+            };
+
+            container.appendChild(card);
+        });
+
+    } catch (err) {
+        console.error(err);
+        alert("Gagal memuat daftar bab.");
+    }
 }
+
+loadBab();
 </script>
 
 </body>
