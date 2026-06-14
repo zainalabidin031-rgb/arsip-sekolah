@@ -20,14 +20,14 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark navbar-sekolah sticky-top">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="#" onclick="bukaHalaman('publik')">🏫 SDN NEGERI BUTOH I NGASEM</a>
+        <a class="navbar-brand fw-bold" href="#" onclick="bukaHalaman('publik')">🏫 SD NEGERI BUTOH I NGASEM</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-span"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link active" href="#" onclick="bukaHalaman('publik')">Beranda / Umum</a></li>
-                <li class="nav-item"><a class="btn btn-warning btn-sm text-dark fw-bold ms-lg-3 px-3 mt-2 mt-lg-0" href="#" onclick="bukaHalaman('login')">🔒 Portal Guru</a></li>
+                <li class="nav-item"><a class="btn btn-warning btn-sm text-dark fw-bold ms-lg-3 px-3 mt-2 mt-lg-0" href="portal-guru/" onclick="bukaHalaman('login')">🔒 Portal Guru</a></li>
             </ul>
         </div>
     </div>
@@ -93,63 +93,6 @@
     </div>
 </div>
   
-<div id="pageLogin" class="container hidden" style="max-width: 400px; margin-top: 60px; margin-bottom: 60px;">
-    <div class="card p-4 shadow-sm border-0">
-        <h4 class="text-center fw-bold mb-3 text-primary">🔒 Login Portal Guru</h4>
-        <p class="text-muted text-center small">Masukkan akun resmi Anda untuk mengelola data kelas.</p>
-        <div class="mb-3">
-            <label class="small fw-bold">Username</label>
-            <input type="text" id="usernameInput" class="form-control" placeholder="Username">
-        </div>
-        <div class="mb-3">
-            <label class="small fw-bold">Password</label>
-            <input type="password" id="passwordInput" class="form-control" placeholder="Password">
-        </div>
-        <div class="d-grid">
-            <button onclick="prosesLogin()" id="btnLogin" class="btn btn-primary fw-bold">Masuk Sistem</button>
-        </div>
-        <div id="loginError" class="text-danger text-center small mt-2 hidden">Username atau Password salah!</div>
-    </div>
-</div>
-
-<div id="pageGuru" class="container section-padding hidden">
-    <div class="card p-4 shadow-sm border-0">
-        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
-            <div>
-                <h3 class="fw-bold mb-0 text-primary">📋 Data Siswa Internal</h3>
-                <span class="badge bg-secondary mt-1">Akses Kelas: <span id="aksesKelas">-</span></span>
-            </div>
-            <button onclick="logout()" class="btn btn-sm btn-outline-danger">Keluar / Log Out</button>
-        </div>
-        
-        <p>Selamat bekerja, <strong id="namaUser">Guru</strong>. Berikut data siswa di kelas yang Anda ampu:</p>
-        
-        <div class="row g-3 mb-4">
-            <div class="col-md-8">
-                <input type="text" id="searchGuruInput" class="form-control" placeholder="Cari siswa di kelas ini...">
-            </div>
-            <div class="col-md-4 d-grid">
-                <button onclick="downloadExcel()" class="btn btn-success fw-bold">📥 Unduh Data Kelas (Excel)</button>
-            </div>
-        </div>
-
-        <div class="table-responsive border rounded">
-            <table class="table table-striped table-hover align-middle mb-0">
-                <thead class="table-dark" id="tableHeader"></thead>
-                <tbody id="tableBody">
-                    <tr>
-                        <td colspan="100%" class="text-center text-muted">Memuat data siswa...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<footer class="bg-dark text-white text-center py-3 mt-5">
-    <div class="container small">
-        &copy; 2026 SDN BUTOH I. Hak Cipta Dilindungi Undang-Undang.
-    </div>
 </footer>
 
 <script>
