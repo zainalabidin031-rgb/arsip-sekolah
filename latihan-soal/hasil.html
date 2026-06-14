@@ -52,7 +52,33 @@ document.getElementById("nilai").innerText=
 
 document.getElementById("nama").innerText=
 localStorage.getItem("nama");
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbwqhRU2shRUdBbuqdjeUt6tgd3uqbO6B9krfvf9JD0eubNNeoDZDyXBz9Iqw65xCRTjJQ/exec";
 
+async function simpanHasil() {
+  try {
+    await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nama: localStorage.getItem("nama"),
+        kelas: localStorage.getItem("kelas"),
+        mapel: localStorage.getItem("mapel"),
+        bab: localStorage.getItem("bab"),
+        nilai: localStorage.getItem("nilai")
+      })
+    });
+
+    console.log("Hasil berhasil disimpan.");
+  } catch (err) {
+    console.error(err);
+    alert("Gagal menyimpan hasil.");
+  }
+}
+
+simpanHasil();
 function ulang(){
 
 window.location.href="index.html";
