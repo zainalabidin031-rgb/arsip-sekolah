@@ -1,0 +1,159 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Guru</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f4f6f9;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            padding:20px;
+        }
+
+        .container{
+            width:100%;
+            max-width:420px;
+        }
+
+        .back-btn{
+            display:inline-block;
+            margin-bottom:15px;
+            text-decoration:none;
+            color:#1565c0;
+            font-weight:bold;
+        }
+
+        .card{
+            background:#fff;
+            border-radius:12px;
+            padding:30px;
+            box-shadow:0 4px 12px rgba(0,0,0,.08);
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:10px;
+            color:#222;
+        }
+
+        p{
+            text-align:center;
+            color:#666;
+            margin-bottom:25px;
+            font-size:14px;
+            line-height:1.5;
+        }
+
+        label{
+            display:block;
+            margin-bottom:6px;
+            font-weight:bold;
+        }
+
+        input{
+            width:100%;
+            padding:12px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            margin-bottom:18px;
+            font-size:15px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            border:none;
+            border-radius:8px;
+            background:#1976d2;
+            color:#fff;
+            font-size:16px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#125ea9;
+        }
+
+        .info{
+            margin-top:18px;
+            font-size:13px;
+            color:#777;
+            text-align:center;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="../index.html" class="back-btn">
+        ← Kembali ke Beranda
+    </a>
+
+    <div class="card">
+
+        <h1>👨‍🏫 Portal Guru</h1>
+
+        <p>
+            Silakan masuk menggunakan akun yang diberikan oleh administrator
+            sekolah untuk mengakses data internal.
+        </p>
+
+        <form id="loginForm">
+
+            <label>Username</label>
+            <input
+                type="text"
+                id="username"
+                placeholder="Masukkan username"
+                required
+            >
+
+            <label>Password</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="Masukkan password"
+                required
+            >
+
+            <button type="submit">
+                🔐 Masuk
+            </button>
+
+        </form>
+
+        <div class="info">
+            Portal ini hanya untuk guru dan tenaga kependidikan yang berwenang.
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    // Nanti bagian ini diganti dengan validasi ke Google Apps Script
+    alert("Fitur login akan dihubungkan ke Google Apps Script.");
+});
+</script>
+
+</body>
+</html>
+```
