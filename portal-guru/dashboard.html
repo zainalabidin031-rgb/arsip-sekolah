@@ -116,13 +116,7 @@
     }
 </style>
 </head>
-<script>
-document.getElementById("namaGuru").textContent =
-    "👤 Login sebagai: " + (localStorage.getItem("guruNama") || "-");
 
-document.getElementById("roleGuru").textContent =
-    "Role: " + (localStorage.getItem("guruRole") || "-");
-</script>
 <body>
 <script>
 if (localStorage.getItem("guruLogin") !== "true") {
@@ -203,11 +197,21 @@ if (localStorage.getItem("guruLogin") !== "true") {
     Portal Guru • Sistem Informasi Sekolah
 </footer>
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("namaGuru").textContent =
+        "👤 Login sebagai: " + (localStorage.getItem("guruNama") || "-");
+
+    document.getElementById("roleGuru").textContent =
+        "Role: " + (localStorage.getItem("guruRole") || "-");
+});
+
 function logout() {
     localStorage.removeItem("guruLogin");
     localStorage.removeItem("guruNama");
+    localStorage.removeItem("guruRole");
     window.location.href = "index.html";
 }
+</script>
 </script>
 </body>
 </html>
