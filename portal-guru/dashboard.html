@@ -1,0 +1,200 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Portal Guru</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+        background:#f4f6f9;
+    }
+
+    header{
+        background:#1976d2;
+        color:white;
+        padding:18px;
+        text-align:center;
+        font-size:24px;
+        font-weight:bold;
+    }
+
+    nav{
+        background:white;
+        display:flex;
+        justify-content:center;
+        gap:12px;
+        padding:12px;
+        box-shadow:0 2px 6px rgba(0,0,0,.08);
+        flex-wrap:wrap;
+    }
+
+    nav a{
+        text-decoration:none;
+        color:#1976d2;
+        font-weight:bold;
+        padding:8px 14px;
+        border-radius:8px;
+        transition:.2s;
+    }
+
+    nav a:hover{
+        background:#e3f2fd;
+    }
+
+    .container{
+        max-width:1100px;
+        margin:auto;
+        padding:30px 20px;
+    }
+
+    .welcome{
+        text-align:center;
+        margin-bottom:30px;
+    }
+
+    .welcome h2{
+        margin-bottom:8px;
+        color:#222;
+    }
+
+    .welcome p{
+        color:#666;
+    }
+
+    .grid{
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+        gap:20px;
+    }
+
+    .card{
+        background:white;
+        border-radius:14px;
+        padding:25px;
+        text-align:center;
+        text-decoration:none;
+        color:#222;
+        box-shadow:0 4px 10px rgba(0,0,0,.08);
+        transition:.2s;
+    }
+
+    .card:hover{
+        transform:translateY(-4px);
+    }
+
+    .icon{
+        font-size:42px;
+        margin-bottom:12px;
+    }
+
+    .title{
+        font-size:18px;
+        font-weight:bold;
+        margin-bottom:8px;
+    }
+
+    .desc{
+        font-size:14px;
+        color:#666;
+        line-height:1.5;
+    }
+
+    footer{
+        margin-top:40px;
+        padding:20px;
+        text-align:center;
+        color:#777;
+        font-size:14px;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    👨‍🏫 Dashboard Portal Guru
+</header>
+
+<nav>
+    <a href="../index.html">🏠 Beranda Website</a>
+    <a href="index.html">🔑 Login</a>
+    <a href="#">🚪 Logout</a>
+</nav>
+
+<div class="container">
+
+    <div class="welcome">
+        <h2>Selamat Datang</h2>
+        <p>Pilih menu yang ingin Anda akses.</p>
+    </div>
+
+    <div class="grid">
+
+        <a class="card" href="#">
+            <div class="icon">📄</div>
+            <div class="title">Arsip Rapor</div>
+            <div class="desc">
+                Melihat dan mencari arsip rapor siswa.
+            </div>
+        </a>
+
+        <a class="card" href="#">
+            <div class="icon">🎓</div>
+            <div class="title">Nomor Ijazah</div>
+            <div class="desc">
+                Cek data nomor ijazah peserta didik.
+            </div>
+        </a>
+
+        <a class="card" href="#">
+            <div class="icon">📊</div>
+            <div class="title">Nilai Ijazah</div>
+            <div class="desc">
+                Menampilkan rekap nilai ijazah siswa.
+            </div>
+        </a>
+
+        <a class="card" href="#">
+            <div class="icon">👨‍🎓</div>
+            <div class="title">Data Siswa</div>
+            <div class="desc">
+                Akses informasi dasar peserta didik.
+            </div>
+        </a>
+
+        <a class="card" href="#">
+            <div class="icon">👨‍🏫</div>
+            <div class="title">Data Guru</div>
+            <div class="desc">
+                Informasi dan daftar tenaga pendidik.
+            </div>
+        </a>
+
+        <a class="card" href="#">
+            <div class="icon">📝</div>
+            <div class="title">Portal Nilai</div>
+            <div class="desc">
+                Mengelola dan melihat data nilai siswa.
+            </div>
+        </a>
+
+    </div>
+
+</div>
+
+<footer>
+    Portal Guru • Sistem Informasi Sekolah
+</footer>
+
+</body>
+</html>
+```
