@@ -58,15 +58,10 @@ async function loadSoal() {
         const data = await response.json();
 
         const kelasSiswa = String(localStorage.getItem("kelas")).trim();
-        const mapelSiswa = String(localStorage.getItem("mapel")).trim();
-        const babSiswa = String(localStorage.getItem("bab")).trim();
 
 soalData = data
-    .filter(item =>
-        String(item.kelas).trim() === kelasSiswa &&
-        String(item.mapel).trim() === mapelSiswa &&
-        String(item.bab).trim() === babSiswa
-    )
+    .filter(item => String(item.kelas).trim() === kelasSiswa)
+    .map(item => {
 
         const pilihan = [
             String(item.opsi_a),
@@ -99,7 +94,6 @@ soalData = data
         };
 
     });
-
         if (soalData.length === 0) {
             alert("Tidak ada soal.");
             return;
