@@ -57,39 +57,43 @@ async function loadSoal() {
         const response = await fetch(API_URL);
         const data = await response.json();
 
-        soalData = data.map(item => {
+        const kelasSiswa = String(localStorage.getItem("kelas")).trim();
 
-            const pilihan = [
-                String(item.opsi_a),
-                String(item.opsi_b),
-                String(item.opsi_c),
-                String(item.opsi_d)
-            ];
+soalData = data
+    .filter(item => String(item.kelas).trim() === kelasSiswa)
+    .map(item => {
 
-            let jawabanBenar = "";
+        const pilihan = [
+            String(item.opsi_a),
+            String(item.opsi_b),
+            String(item.opsi_c),
+            String(item.opsi_d)
+        ];
 
-            switch (String(item.jawaban).trim().toUpperCase()) {
-                case "A":
-                    jawabanBenar = pilihan[0];
-                    break;
-                case "B":
-                    jawabanBenar = pilihan[1];
-                    break;
-                case "C":
-                    jawabanBenar = pilihan[2];
-                    break;
-                case "D":
-                    jawabanBenar = pilihan[3];
-                    break;
-            }
+        let jawabanBenar = "";
 
-            return {
-                soal: String(item.soal),
-                pilihan: pilihan,
-                jawaban: jawabanBenar
-            };
+        switch (String(item.jawaban).trim().toUpperCase()) {
+            case "A":
+                jawabanBenar = pilihan[0];
+                break;
+            case "B":
+                jawabanBenar = pilihan[1];
+                break;
+            case "C":
+                jawabanBenar = pilihan[2];
+                break;
+            case "D":
+                jawabanBenar = pilihan[3];
+                break;
+        }
 
-        });
+        return {
+            soal: String(item.soal),
+            pilihan: pilihan,
+            jawaban: jawabanBenar
+        };
+
+    });
 
         if (soalData.length === 0) {
             alert("Tidak ada soal.");
