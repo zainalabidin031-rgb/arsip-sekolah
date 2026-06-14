@@ -46,54 +46,45 @@ Kembali ke Beranda
 </div>
 
 <script>
+document.getElementById("nilai").innerText =
+    "Nilai : " + localStorage.getItem("nilai");
 
-document.getElementById("nilai").innerText=
-"Nilai : "+localStorage.getItem("nilai");
+document.getElementById("nama").innerText =
+    localStorage.getItem("nama");
 
-document.getElementById("nama").innerText=
-localStorage.getItem("nama");
 const API_URL = "https://script.google.com/macros/s/AKfycbwqhRU2shRUdBbuqdjeUt6tgd3uqbO6B9krfvf9JD0eubNNeoDZDyXBz9Iqw65xCRTjJQ/exec";
 
 async function simpanHasil() {
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        nama: localStorage.getItem("nama"),
-        kelas: localStorage.getItem("kelas"),
-        mapel: localStorage.getItem("mapel"),
-        bab: localStorage.getItem("bab"),
-        nilai: localStorage.getItem("nilai")
-      })
-    });
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nama: localStorage.getItem("nama"),
+                kelas: localStorage.getItem("kelas"),
+                mapel: localStorage.getItem("mapel"),
+                bab: localStorage.getItem("bab"),
+                nilai: localStorage.getItem("nilai")
+            })
+        });
 
-    const hasil = await response.text();
-    console.log("Respon server:", hasil);
+        const hasil = await response.text();
+        console.log("Respon server:", hasil);
 
-  } catch (error) {
-    console.error("Gagal menyimpan:", error);
-  }
+    } catch (error) {
+        console.error("Gagal menyimpan:", error);
+    }
 }
 
-// Jalankan sekali saat halaman hasil dibuka
+// Simpan hasil saat halaman dibuka
 simpanHasil();
 
-    console.log("Hasil berhasil disimpan.");
-  } catch (err) {
-    console.error(err);
-    alert("Gagal menyimpan hasil.");
-  }
+function ulang() {
+    window.location.href = "index.html";
 }
-
-simpanHasil();
-function ulang(){
-
-window.location.href="index.html";
-
-}
+</script>
 
 </script>
 
