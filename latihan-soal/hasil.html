@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Hasil Latihan</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f3f6fb;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:12px;
+text-align:center;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+h1{
+color:#2563eb;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>🎉 Selamat!</h1>
+
+<h2 id="nilai"></h2>
+
+<p id="nama"></p>
+
+<button onclick="ulang()">
+Kembali ke Beranda
+</button>
+
+</div>
+
+<script>
+
+document.getElementById("nilai").innerText=
+"Nilai : "+localStorage.getItem("nilai");
+
+document.getElementById("nama").innerText=
+localStorage.getItem("nama");
+
+function ulang(){
+
+window.location.href="index.html";
+
+}
+
+</script>
+
+</body>
+
+</html>
