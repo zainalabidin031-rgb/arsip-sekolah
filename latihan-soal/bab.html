@@ -78,17 +78,44 @@ header{
         <strong>Kelas:</strong> <span id="kelas"></span>
     </div>
 
-    <div class="grid">
+    <div class="grid" id="daftarBab"></div>
 
-        <div class="card" onclick="pilihBab('Bab 1')">📘 Bab 1</div>
-        <div class="card" onclick="pilihBab('Bab 2')">📗 Bab 2</div>
-        <div class="card" onclick="pilihBab('Bab 3')">📙 Bab 3</div>
-        <div class="card" onclick="pilihBab('Bab 4')">📗 Bab 2</div>
-        <div class="card" onclick="pilihBab('Bab 5')">📘 Bab 1</div>
-        <div class="card" onclick="pilihBab('Bab 6')">📗 Bab 2</div>
-        <div class="card" onclick="pilihBab('Bab 7')">📙 Bab 3</div>
-        <div class="card" onclick="pilihBab('Bab 8')">📗 Bab 2</div>
-        <div class="card" onclick="pilihBab('Bab 9')">📕 Bab 4</div>
+       <script>
+const nama = localStorage.getItem("nama") || "-";
+const mapel = localStorage.getItem("mapel") || "-";
+const kelas = localStorage.getItem("kelas") || "-";
+
+document.getElementById("nama").textContent = nama;
+document.getElementById("mapel").textContent = mapel;
+document.getElementById("kelas").textContent = kelas;
+
+// Contoh data sementara
+const daftarBab = [
+  "Bab 1",
+  "Bab 2",
+  "Bab 3",
+  "Bab 4",
+  "Bab 5",
+  "Bab 6",
+  "Bab 7",
+  "Bab 8",
+  "Bab 9",
+  "Bab 10"
+];
+
+const container = document.getElementById("daftarBab");
+
+daftarBab.forEach((bab) => {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.textContent = "📘 " + bab;
+  card.onclick = () => {
+    localStorage.setItem("bab", bab);
+    window.location.href = "latihan.html";
+  };
+  container.appendChild(card);
+});
+</script>
 
     </div>
 
