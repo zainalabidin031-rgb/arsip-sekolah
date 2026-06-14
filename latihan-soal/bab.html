@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilih Bab</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f3f6fb;
+}
+
+header{
+    background:#2563eb;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:25px;
+}
+
+.info{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:25px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+    line-height:1.8;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    text-align:center;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:18px;
+    transition:.2s;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 6px 16px rgba(0,0,0,.15);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>📖 Pilih Bab</h1>
+</header>
+
+<div class="container">
+
+    <div class="info">
+        <strong>Nama:</strong> <span id="nama"></span><br>
+        <strong>Mata Pelajaran:</strong> <span id="mapel"></span><br>
+        <strong>Kelas:</strong> <span id="kelas"></span>
+    </div>
+
+    <div class="grid">
+
+        <div class="card" onclick="pilihBab('Bab 1')">📘 Bab 1</div>
+        <div class="card" onclick="pilihBab('Bab 2')">📗 Bab 2</div>
+        <div class="card" onclick="pilihBab('Bab 3')">📙 Bab 3</div>
+        <div class="card" onclick="pilihBab('Bab 4')">📗 Bab 2</div>
+        <div class="card" onclick="pilihBab('Bab 5')">📘 Bab 1</div>
+        <div class="card" onclick="pilihBab('Bab 6')">📗 Bab 2</div>
+        <div class="card" onclick="pilihBab('Bab 7')">📙 Bab 3</div>
+        <div class="card" onclick="pilihBab('Bab 8')">📗 Bab 2</div>
+        <div class="card" onclick="pilihBab('Bab 9')">📕 Bab 4</div>
+
+    </div>
+
+</div>
+
+<script>
+document.getElementById("nama").textContent =
+    localStorage.getItem("nama") || "-";
+
+document.getElementById("mapel").textContent =
+    localStorage.getItem("mapel") || "-";
+
+document.getElementById("kelas").textContent =
+    localStorage.getItem("kelas") || "-";
+
+function pilihBab(bab){
+    localStorage.setItem("bab", bab);
+
+    // Nanti menuju halaman latihan
+    window.location.href = "latihan.html";
+}
+</script>
+
+</body>
+</html>
