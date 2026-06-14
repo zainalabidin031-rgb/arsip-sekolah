@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arsip Nilai Rapor Siswa</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            background:#f4f7fb;
+        }
+
+        .hero{
+            background:linear-gradient(135deg,#0d47a1,#1976d2);
+            color:white;
+            padding:50px 20px;
+            text-align:center;
+        }
+
+        .card-custom{
+            border:none;
+            border-radius:18px;
+            box-shadow:0 8px 25px rgba(0,0,0,.08);
+        }
+
+        #hasilArea{
+            display:none;
+        }
+
+        .nilai-table td{
+            padding:10px;
+        }
+
+        footer{
+            margin-top:50px;
+            color:#777;
+            font-size:14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>📄 Arsip Nilai Rapor</h1>
+    <p class="mb-0">
+        SDN Negeri Butoh I Ngasem
+    </p>
+</div>
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+            <div class="card card-custom p-4">
+
+                <h4 class="text-center mb-4">
+                    Cari Arsip Nilai Rapor
+                </h4>
+
+                <label class="form-label">
+                    Masukkan NISN
+                </label>
+
+                <input
+                    type="text"
+                    class="form-control mb-3"
+                    id="nisnInput"
+                    placeholder="Contoh: 0051234567">
+
+                <button
+                    class="btn btn-primary w-100"
+                    id="btnCari">
+
+                    🔍 Cari Data
+
+                </button>
+<div id="pesanStatus" class="mt-3"></div>
+                <div id="hasilArea" class="mt-4" style="display:none;">
+
+                    <hr>
+
+                    <div class="mb-3">
+
+                        <strong>Nama :</strong>
+                        <span id="namaSiswa">-</span>
+
+                        <br>
+
+                        <strong>NISN :</strong>
+                        <span id="nisnSiswa">-</span>
+
+                        <br>
+
+                        <strong>Peringkat :</strong>
+                        <span id="peringkatSiswa">-</span>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Tahun Ajaran
+                            </label>
+
+                            <select class="form-select" id="tahunSelect">
+                                <option value="">
+                                    Pilih Tahun
+                                </option>
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Semester
+                            </label>
+
+                            <select class="form-select" id="semesterSelect">
+                                <option value="">
+                                    Pilih Semester
+                                </option>
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="btn btn-success w-100 mb-4"
+                        id="btnTampil">
+
+                        📑 Tampilkan Nilai
+
+                    </button>
+
+                    <table class="table table-bordered nilai-table">
+
+                        <tbody>
+
+                            <tr><td>PAI</td><td id="pai">-</td></tr>
+                            <tr><td>PKN</td><td id="pkn">-</td></tr>
+                            <tr><td>BIN</td><td id="bin">-</td></tr>
+                            <tr><td>MTK</td><td id="mtk">-</td></tr>
+                            <tr><td>IPAS</td><td id="ipas">-</td></tr>
+                            <tr><td>PJOK</td><td id="pjok">-</td></tr>
+                            <tr><td>SENI</td><td id="seni">-</td></tr>
+                            <tr><td>BIG</td><td id="big">-</td></tr>
+                            <tr><td>BJ</td><td id="bj">-</td></tr>
+                            <tr><td>LIDI</td><td id="lidi">-</td></tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+<div style="text-align: center; margin: 20px 0;">
+    <a href="https://zainalabidin031-rgb.github.io/arsip-sekolah/"
+       style="
+           display: inline-block;
+           padding: 10px 18px;
+           background-color: #2563eb;
+           color: white;
+           text-decoration: none;
+           border-radius: 8px;
+           font-weight: bold;
+       ">
+        ← Kembali ke Beranda
+    </a>
+</div>
+</div>
+                        
+<footer class="text-center pb-4">
+    © 2026 SDN Negeri Butoh I Ngasem
+</footer>
+
+<script>
+/*
+
+</script>
+<script>
+const SPREADSHEET_ID = "1fmjRjhstWd1n_il7mTQXp6uyLxEUNMdJOIesL8B3UKo";
+const SHEET_NAME = "rapor";
+
+let semuaData = [];
+
+// Ambil data dari Google Sheet
+async function loadData() {
+    const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+
+    const res = await fetch(url);
+    const text = await res.text();
+
+    const json = JSON.parse(text.substring(47).slice(0, -2));
+
+    semuaData = json.table.rows.map(r =>
+        r.c.map(c => c ? (c.f || c.v) : "")
+    );
+}
+
+// Jalankan saat halaman dibuka
+window.addEventListener("load", async () => {
+    try {
+        await loadData();
+    } catch (e) {
+        document.getElementById("pesanStatus").innerHTML =
+            `<div class="alert alert-danger">
+                Gagal memuat data spreadsheet.
+            </div>`;
+    }
+});
+
+// Tombol Cari
+document.getElementById("btnCari").addEventListener("click", () => {
+
+    const nisn = document.getElementById("nisnInput").value.trim();
+
+    if (!nisn) {
+        alert("Masukkan NISN terlebih dahulu.");
+        return;
+    }
+
+    const hasil = semuaData.filter(row => String(row[0]).trim() === nisn);
+
+    if (hasil.length === 0) {
+
+        document.getElementById("pesanStatus").innerHTML =
+            `<div class="alert alert-danger">
+                Data tidak ditemukan.
+            </div>`;
+
+        document.getElementById("hasilArea").style.display = "none";
+        return;
+    }
+
+    document.getElementById("pesanStatus").innerHTML = "";
+
+    document.getElementById("hasilArea").style.display = "block";
+
+    document.getElementById("namaSiswa").textContent = hasil[0][1];
+    document.getElementById("nisnSiswa").textContent = hasil[0][0];
+    document.getElementById("peringkatSiswa").textContent = hasil[0][2] || "-";
+
+    // Isi dropdown Tahun
+    const tahunSelect = document.getElementById("tahunSelect");
+    tahunSelect.innerHTML = '<option value="">Pilih Tahun</option>';
+
+    [...new Set(hasil.map(x => x[3]))].forEach(tahun => {
+        tahunSelect.innerHTML +=
+            `<option value="${tahun}">${tahun}</option>`;
+    });
+
+    // Reset semester
+    document.getElementById("semesterSelect").innerHTML =
+        '<option value="">Pilih Semester</option>';
+});
+
+// Saat Tahun berubah
+document.getElementById("tahunSelect").addEventListener("change", () => {
+
+    const nisn = document.getElementById("nisnInput").value.trim();
+    const tahun = document.getElementById("tahunSelect").value;
+
+    const semesterSelect = document.getElementById("semesterSelect");
+
+    semesterSelect.innerHTML =
+        '<option value="">Pilih Semester</option>';
+
+    const data = semuaData.filter(r =>
+        String(r[0]).trim() === nisn &&
+        String(r[3]) === tahun
+    );
+
+    [...new Set(data.map(x => x[4]))].forEach(semester => {
+
+        semesterSelect.innerHTML +=
+            `<option value="${semester}">
+                ${semester}
+            </option>`;
+    });
+
+});
+
+// Tombol tampilkan nilai
+document.getElementById("btnTampil").addEventListener("click", () => {
+
+    const nisn = document.getElementById("nisnInput").value.trim();
+    const tahun = document.getElementById("tahunSelect").value;
+    const semester = document.getElementById("semesterSelect").value;
+
+    const row = semuaData.find(r =>
+        String(r[0]).trim() === nisn &&
+        String(r[3]) === tahun &&
+        String(r[4]) === semester
+    );
+
+    if (!row) {
+        alert("Silahkan pilih Tahun Ajaran.");
+        return;
+    }
+
+    document.getElementById("pai").textContent = row[5];
+    document.getElementById("pkn").textContent = row[6];
+    document.getElementById("bin").textContent = row[7];
+    document.getElementById("mtk").textContent = row[8];
+    document.getElementById("ipas").textContent = row[9];
+    document.getElementById("pjok").textContent = row[10];
+    document.getElementById("seni").textContent = row[11];
+    document.getElementById("big").textContent = row[12];
+    document.getElementById("bj").textContent = row[13];
+    document.getElementById("lidi").textContent = row[14];
+
+});
+</script>
+</body>
+</html>
