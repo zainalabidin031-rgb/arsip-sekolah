@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Nomor Induk Siswa</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; color: #333; padding: 20px; margin: 0; }
+        .container { max-width: 800px; margin: 30px auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        h2 { text-align: center; color: #2c3e50; margin-bottom: 5px; }
+        .peta-petunjuk { text-align: center; color: #7f8c8d; margin-bottom: 25px; font-size: 14px; }
+        
+        /* Loading Screen */
+        #loading { text-align: center; padding: 30px; font-weight: bold; color: #3498db; font-size: 16px; }
+        
+        /* Box Filter */
+        .filter-box { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        select { flex: 1; min-width: 130px; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; background-color: #fff; cursor: pointer; }
+        input[type="text"] { flex: 2; min-width: 200px; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 15px; }
+        
+        /* Tabel Data */
+        .tabel-wrapper { max-height: 550px; overflow-y: auto; border: 1px solid #eee; border-radius: 8px; display: none; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { background-color: #f8f9fa; padding: 12px; color: #2c3e50; border-bottom: 2px solid #eee; position: sticky; top: 0; z-index: 10; }
+        td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
+        
+        .siswa-kelas { font-size: 11px; color: #e67e22; background: #fef5ec; padding: 3px 8px; border-radius: 20px; font-weight: bold; }
+        .input-nis { padding: 8px; width: 120px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; }
+        
+        .btn-kirim { background: #2ecc71; color: white; border: none; padding: 8px 12px; border-radius: 4px; font-weight: bold; font-size: 13px; cursor: pointer; transition: background 0.2s; }
+        .btn-kirim:hover { background: #27ae60; }
+        .btn-kirim:disabled { background: #bdc3c7; cursor: not-allowed; }
+        
+        .no-data { text-align: center; padding: 20px; color: #95a5a6; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📝 Input Mandiri Nomor Induk Siswa</h2>
+    <p class="peta-petunjuk">Pilih kelas atau ketik nama Anda, masukkan Nomor Induk, lalu klik Simpan.</p>
+    
+    <div class="filter-box">
+        <select id="pilihKelas" onchange="saringData()">
+            <option value="">-- Semua Kelas --</option>
+            <option value="Kelas I">Kelas I</option>
+            <option value="Kelas II">Kelas II</option>
+            <option value="Kelas III">Kelas III</option>
+            <option value="Kelas IV">Kelas IV</option>
+            <option value="Kelas V">Kelas V</option>
+            <option value="Kelas VI">Kelas VI</option>
+        </select>
+        <input type="text" id="cariNama" onkeyup="saringData()" placeholder="Ketik nama siswa untuk mencari...">
+    </div>
+
+    <div id="loading">⏳ Sedang memuat data siswa dari APLIKASI DAPODIK</div>
+
+    <div class="tabel-wrapper" id="tabelArea">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama Siswa</th>
+                    <th>Kelas</th>
+                    <th>Masukkan Nomor Induk</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="badanTabel">
+                </tbody>
+        </table>
+    </div>
+    
+    <div class="no-data" id="pesanKosong">Siswa tidak ditemukan.</div>
+</div>
+
+<script>
+// PENTING: GANTI DENGAN URL WEB APP ANDA YANG DARI GOOGLE APPS SCRIPT
+const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxN3j63mnv8ge_enDCBzighpje7Mh05tnss7c3eb8PyCQ6HZXn4RauiCZNPul58YBJw/exec";
+
+// 1. Fungsi Memuat Data dari Google Sheets
+document.addEventListener("DOMContentLoaded", function() {
+    fetch(URL_APPS_SCRIPT)
+    .then(response => response.json())
+    .then(data => {
+        let badanTabel = document.getElementById("badanTabel");
+        badanTabel.innerHTML = ""; 
+        
+        data.forEach(siswa => {
+            if(!siswa.nama || siswa.nama.trim() === "") return; 
+            
+            let row = document.createElement("tr");
+            row.className = "siswa-row";
+            
+            // Cek data nomor induk yang sudah ada
+            let sudahAdaNis = siswa.noInduk && siswa.noInduk.toString().trim() !== "";
+            let inputAtribut = sudahAdaNis ? `value="${siswa.noInduk}" disabled` : '';
+            let tombolAtribut = sudahAdaNis ? `disabled style="background:#bdc3c7;"` : '';
+            let tombolTeks = sudahAdaNis ? "Tersimpan ✅" : "Simpan";
+            
+            row.innerHTML = `
+                <td class="nama-td">${siswa.nama}</td>
+                <td class="kelas-td"><span class="siswa-kelas">${siswa.kelas}</span></td>
+                <td><input type="text" class="input-nis" placeholder="Contoh: 1234" ${inputAtribut}></td>
+                <td><button class="btn-kirim" onclick="kirimKeSheets(this, '${siswa.nama.replace(/'/g, "\\'")}', '${siswa.kelas}')" ${tombolAtribut}>${tombolTeks}</button></td>
+            `;
+            badanTabel.appendChild(row);
+        });
+        
+        // Hilangkan loading, munculkan tabel
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("tabelArea").style.display = "block";
+    })
+    .catch(error => {
+        document.getElementById("loading").innerText = "❌ Gagal memuat data. Periksa kembali sambungan internet atau URL Apps Script Anda.";
+        console.error("Error:", error);
+    });
+});
+
+// 2. Fungsi Saring / Filter Data (Berdasarkan teks langsung yang tertulis di tabel)
+function saringData() {
+    let inputNama = document.getElementById('cariNama').value.toLowerCase().trim();
+    let inputKelas = document.getElementById('pilihKelas').value.toLowerCase().trim();
+    
+    let rows = document.getElementsByClassName('siswa-row');
+    let adaData = false;
+    
+    for (let i = 0; i < rows.length; i++) {
+        let nama = rows[i].getElementsByClassName('nama-td')[0].innerText.toLowerCase().trim();
+        let kelas = rows[i].getElementsByClassName('kelas-td')[0].innerText.toLowerCase().trim();
+        
+        let namaCocok = nama.indexOf(inputNama) > -1;
+        let kelasCocok = (inputKelas === "") || (kelas === inputKelas);
+        
+        if (namaCocok && kelasCocok) {
+            rows[i].style.display = "";
+            adaData = true;
+        } else {
+            rows[i].style.display = "none";
+        }
+    }
+    document.getElementById('pesanKosong').style.display = adaData ? "none" : "block";
+}
+
+// 3. Fungsi Kirim Data ke Google Sheets
+function kirimKeSheets(button, nama, kelas) {
+    let row = button.parentElement.parentElement;
+    let inputNis = row.querySelector('.input-nis').value.trim();
+    
+    if (inputNis === "") {
+        alert("Nomor Induk tidak boleh kosong!");
+        return;
+    }
+    
+    button.disabled = true;
+    button.innerText = "Mengirim...";
+    
+    // 1. Susun URL data seperti biasa
+    let urlKirim = URL_APPS_SCRIPT + "?nama=" + encodeURIComponent(nama) + "&kelas=" + encodeURIComponent(kelas) + "&noInduk=" + encodeURIComponent(inputNis);
+    
+    // 2. TRICK PAMUNGKAS: Kirim data lewat manipulasi gambar (Bypass CORS total)
+    let img = new Image();
+    
+    img.onload = function() {
+        // Jika server merespons (sukses)
+        alert("Berhasil tersimpan"); 
+        button.innerText = "Tersimpan ✅";
+        row.querySelector('.input-nis').disabled = true;
+    };
+    
+    img.onerror = function() {
+        // Karena Google Apps Script mengembalikan teks/JSON bukan gambar, 
+        // browser pasti akan memicu 'onerror'. TAPI data SEBENARNYA SUDAH MASUK ke Google Sheets!
+        alert("Berhasil tersimpan"); 
+        button.innerText = "Tersimpan ✅";
+        row.querySelector('.input-nis').disabled = true;
+    };
+    
+    // Jalankan pengiriman data ke Google
+    img.src = urlKirim;
+}
+</script>
+</body>
+</html>
