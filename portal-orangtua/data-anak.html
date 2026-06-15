@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Anak</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .back-btn:hover {
+            background: #1d4ed8;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            padding: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        td:first-child {
+            width: 35%;
+            font-weight: bold;
+            color: #374151;
+        }
+
+        td:last-child {
+            color: #111827;
+        }
+
+        @media (max-width: 600px) {
+            td {
+                display: block;
+                width: 100%;
+                border: none;
+                padding: 6px 0;
+            }
+
+            tr {
+                display: block;
+                margin-bottom: 15px;
+                border-bottom: 1px solid #e5e7eb;
+                padding-bottom: 10px;
+            }
+
+            td:first-child {
+                font-weight: bold;
+                color: #1e3a8a;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <a href="index.html" class="back-btn">
+        ← Kembali ke Beranda
+    </a>
+
+    <h1>👤 Data Anak</h1>
+
+    <div class="card">
+        <table>
+            <tr>
+                <td>Nama Lengkap</td>
+                <td id="nama">-</td>
+            </tr>
+
+            <tr>
+                <td>Nomor Induk (NIS)</td>
+                <td id="nis">-</td>
+            </tr>
+
+            <tr>
+                <td>NISN</td>
+                <td id="nisn">-</td>
+            </tr>
+
+            <tr>
+                <td>Nama Ayah</td>
+                <td id="ayah">-</td>
+            </tr>
+
+            <tr>
+                <td>Nama Ibu</td>
+                <td id="ibu">-</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    // Contoh data sementara
+    // Nantinya diganti dengan data dari Google Sheets
+    const dataAnak = {
+        nama: "Nama Siswa",
+        nis: "12345",
+        nisn: "0123456789",
+        ayah: "Nama Ayah",
+        ibu: "Nama Ibu"
+    };
+
+    document.getElementById("nama").textContent = dataAnak.nama;
+    document.getElementById("nis").textContent = dataAnak.nis;
+    document.getElementById("nisn").textContent = dataAnak.nisn;
+    document.getElementById("ayah").textContent = dataAnak.ayah;
+    document.getElementById("ibu").textContent = dataAnak.ibu;
+</script>
+
+</body>
+</html>
