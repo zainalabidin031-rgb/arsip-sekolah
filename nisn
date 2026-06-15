@@ -1,0 +1,11 @@
+<h2>Cari NISN Siswa</h2>
+
+<label>Nama Lengkap</label><br>
+<input type="text" id="nama" placeholder="Masukkan nama lengkap"><br><br>
+
+<label>Tanggal Lahir</label><br>
+<input type="date" id="tgl"><br><br>
+
+<button onclick="cariData()">Cari NISN</button>
+
+<div id="hasil"></div>
