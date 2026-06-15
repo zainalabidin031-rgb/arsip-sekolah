@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -121,6 +122,22 @@ button:hover{
     margin-top:22px;
 }
 
+.card{
+    background:#f8fbff;
+    border:1px solid #dbeafe;
+    border-radius:12px;
+    padding:16px;
+}
+
+.card h3{
+    color:#2196F3;
+    margin-bottom:10px;
+}
+
+.card p{
+    margin:8px 0;
+}
+
 /* Footer */
 footer{
     margin-top:auto;
@@ -141,7 +158,6 @@ footer{
 </header>
 
 <div class="nav">
-    <!-- Ganti href sesuai halaman utama -->
     <a href="index.html" class="back-btn">← Beranda</a>
 </div>
 
@@ -160,13 +176,11 @@ footer{
         type="date"
         id="tanggal">
 
-    <button type="button">
+    <button type="button" onclick="cariData()">
         🔍 Cari NISN
     </button>
 
-    <div id="hasil">
-        <!-- Hasil pencarian akan muncul di sini -->
-    </div>
+    <div id="hasil"></div>
 
 </div>
 
@@ -174,5 +188,69 @@ footer{
     Portal NISN SDN Butoh I Ngasem
 </footer>
 
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzRoGQ0XuMx_gbHQi21BloWu7hkDy1vqhh2ELQJkD-qMYJD6sW3ZUxpx-wKv_hA9Du6VQ/exec";
+
+async function cariData() {
+
+    const nama = document.getElementById("nama").value.trim();
+    const tanggal = document.getElementById("tanggal").value;
+    const hasil = document.getElementById("hasil");
+
+    if (!nama || !tanggal) {
+        alert("Silakan isi nama dan tanggal lahir.");
+        return;
+    }
+
+    hasil.innerHTML = "Sedang mencari...";
+
+    try {
+
+        const response = await fetch(
+            `${SCRIPT_URL}?nama=${encodeURIComponent(nama)}&tanggal=${encodeURIComponent(tanggal)}`
+        );
+
+        const data = await response.json();
+
+        if (!data.success) {
+            hasil.innerHTML = `
+                <div class="card">
+                    <h3>Data Tidak Ditemukan</h3>
+                    <p>Pastikan nama dan tanggal lahir sudah sesuai dengan data sekolah.</p>
+                </div>
+            `;
+            return;
+        }
+
+        hasil.innerHTML = `
+            <div class="card">
+                <h3>${data.nama}</h3>
+
+                <p><strong>NISN</strong><br>${data.nisn}</p>
+
+                <p><strong>Status</strong><br>${data.status}</p>
+
+                ${data.tahunLulus
+                    ? `<p><strong>Tahun Lulus</strong><br>${data.tahunLulus}</p>`
+                    : ""
+                }
+            </div>
+        `;
+
+    } catch (err) {
+
+        console.error(err);
+
+        hasil.innerHTML = `
+            <div class="card">
+                <h3>Terjadi Kesalahan</h3>
+                <p>Tidak dapat mengambil data dari server.</p>
+            </div>
+        `;
+    }
+}
+</script>
+
 </body>
 </html>
+```
