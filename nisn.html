@@ -1,11 +1,178 @@
-<h2>Cari NISN Siswa</h2>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal NISN SDN Butoh I Ngasem</title>
 
-<label>Nama Lengkap</label><br>
-<input type="text" id="nama" placeholder="Masukkan nama lengkap"><br><br>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
 
-<label>Tanggal Lahir</label><br>
-<input type="date" id="tgl"><br><br>
+body{
+    background:#f5f7fb;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
 
-<button onclick="cariData()">Cari NISN</button>
+/* Header */
+header{
+    background:#2196F3;
+    color:white;
+    padding:18px;
+    text-align:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.15);
+}
 
-<div id="hasil"></div>
+header h1{
+    font-size:24px;
+}
+
+header p{
+    font-size:14px;
+    margin-top:4px;
+    opacity:0.95;
+}
+
+/* Tombol kembali */
+.nav{
+    max-width:500px;
+    width:92%;
+    margin:18px auto 0;
+}
+
+.back-btn{
+    display:inline-block;
+    text-decoration:none;
+    background:#ffffff;
+    color:#2196F3;
+    border:2px solid #2196F3;
+    padding:10px 16px;
+    border-radius:10px;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.back-btn:hover{
+    background:#2196F3;
+    color:#fff;
+}
+
+/* Card utama */
+.container{
+    width:92%;
+    max-width:500px;
+    margin:16px auto;
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+}
+
+.container h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#333;
+}
+
+label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+    color:#444;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:1px solid #d6d6d6;
+    border-radius:10px;
+    font-size:16px;
+    margin-bottom:18px;
+}
+
+input:focus{
+    outline:none;
+    border-color:#2196F3;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    background:#2196F3;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:.95;
+}
+
+#hasil{
+    margin-top:22px;
+}
+
+/* Footer */
+footer{
+    margin-top:auto;
+    background:#2196F3;
+    color:white;
+    text-align:center;
+    padding:14px;
+    font-size:14px;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+    <h1>Portal NISN</h1>
+    <p>SDN Butoh I Ngasem</p>
+</header>
+
+<div class="nav">
+    <!-- Ganti href sesuai halaman utama -->
+    <a href="index.html" class="back-btn">← Beranda</a>
+</div>
+
+<div class="container">
+
+    <h2>Cari Data NISN</h2>
+
+    <label>Nama Lengkap</label>
+    <input
+        type="text"
+        id="nama"
+        placeholder="Masukkan nama lengkap">
+
+    <label>Tanggal Lahir</label>
+    <input
+        type="date"
+        id="tanggal">
+
+    <button type="button">
+        🔍 Cari NISN
+    </button>
+
+    <div id="hasil">
+        <!-- Hasil pencarian akan muncul di sini -->
+    </div>
+
+</div>
+
+<footer>
+    Portal NISN SDN Butoh I Ngasem
+</footer>
+
+</body>
+</html>
