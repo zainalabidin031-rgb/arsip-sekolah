@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Orang Tua / Wali</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 18px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #1d4ed8;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 35px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #222;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e40af;
+            margin-bottom: 8px;
+        }
+
+        .desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Ganti href sesuai halaman utama websitemu -->
+    <a href="../index.html" class="back-btn">
+        ← Kembali ke Beranda
+    </a>
+
+    <h1>👨‍👩‍👧 Portal Orang Tua / Wali</h1>
+
+    <p class="subtitle">
+        Silakan pilih layanan yang ingin diakses.
+    </p>
+
+    <div class="grid">
+
+        <a href="data-anak.html" class="card">
+            <div class="icon">👤</div>
+            <div class="title">Data Anak</div>
+            <div class="desc">
+                Lihat identitas dan informasi dasar siswa.
+            </div>
+        </a>
+
+        <a href="nilai.html" class="card">
+            <div class="icon">📊</div>
+            <div class="title">Portal Nilai</div>
+            <div class="desc">
+                Lihat nilai ulangan harian, CBT, rapor, dan ijazah.
+            </div>
+        </a>
+
+        <a href="arsip-rapor.html" class="card">
+            <div class="icon">📚</div>
+            <div class="title">Arsip Rapor</div>
+            <div class="desc">
+                Melihat arsip rapor siswa.
+            </div>
+        </a>
+
+        <a href="arsip-ijazah.html" class="card">
+            <div class="icon">🎓</div>
+            <div class="title">Arsip Ijazah</div>
+            <div class="desc">
+                Melihat nomor dan arsip ijazah siswa.
+            </div>
+        </a>
+
+    </div>
+
+    <footer>
+        Portal Orang Tua / Wali
+    </footer>
+
+</div>
+
+</body>
+</html>
