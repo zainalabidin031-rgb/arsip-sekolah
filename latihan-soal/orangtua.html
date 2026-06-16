@@ -6,63 +6,110 @@
 <title>Portal Orang Tua</title>
 
 <style>
+```css
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
 body{
-    font-family: Arial, sans-serif;
-    background:#f3f6fb;
-    max-width:900px;
-    margin:auto;
+    background:linear-gradient(180deg,#E3F2FD,#F4F9FF);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
     padding:20px;
 }
 
 .card{
-    background:#fff;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,.1);
+    width:100%;
+    max-width:700px;
+    background:#ffffff;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+}
+
+h2{
+    text-align:center;
+    color:#2196F3;
+    margin-bottom:10px;
+    font-size:28px;
+}
+
+p{
+    color:#555;
+    margin-bottom:10px;
 }
 
 input{
     width:100%;
-    padding:10px;
-    margin:10px 0;
-    box-sizing:border-box;
+    padding:14px;
+    margin:12px 0;
+    border:1px solid #d6d6d6;
+    border-radius:10px;
+    font-size:16px;
+}
+
+input:focus{
+    outline:none;
+    border-color:#2196F3;
 }
 
 button{
     background:#2196F3;
     color:white;
     border:none;
-    padding:10px 20px;
-    border-radius:8px;
+    padding:12px 18px;
+    border-radius:10px;
     cursor:pointer;
     font-size:16px;
+    font-weight:bold;
     margin-top:10px;
+    margin-right:8px;
+    transition:.2s;
 }
 
 button:hover{
-    opacity:0.9;
+    background:#1E88E5;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
     margin-top:20px;
+    overflow:hidden;
+    border-radius:10px;
 }
 
 table, th, td{
-    border:1px solid #ddd;
-}
-
-th, td{
-    padding:10px;
-    text-align:left;
+    border:1px solid #e5e7eb;
 }
 
 th{
-    background:#2563eb;
+    background:#2196F3;
     color:white;
+    padding:12px;
+    text-align:left;
+}
+
+td{
+    padding:10px;
+}
+
+tr:nth-child(even){
+    background:#f8fbff;
+}
+
+#hasil{
+    margin-top:24px;
 }
 </style>
+```
+
 </head>
 
 <body>
@@ -75,12 +122,15 @@ th{
 
 <input type="password" id="pin" placeholder="Masukkan PIN">
 
-<button onclick="lihatHasil()">
-Lihat Hasil
-</button>
-<button onclick="window.location.href='index.html'">
-    ← 🏠Home
-</button>
+<div style="display:flex; gap:10px; margin-top:10px;">
+    <button onclick="lihatHasil()" style="flex:1;">
+        🔍 Lihat Hasil
+    </button>
+
+    <button onclick="window.location.href='index.html'" style="flex:1;">
+        🏠 Home
+    </button>
+</div>
 <div id="hasil"></div>
 
 </div>
