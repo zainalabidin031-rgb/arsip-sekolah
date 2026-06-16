@@ -1,98 +1,163 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Kelola Peserta Didik</title>
-<style>
-body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#f3f7fc;color:#1e293b}
-header{background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;padding:22px}
-.container{max-width:1200px;margin:24px auto;padding:0 16px}
-.card{background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.08);padding:20px}
-.toolbar{display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;align-items:center}
-input{padding:10px 12px;border:1px solid #dbeafe;border-radius:10px;min-width:260px}
-button{border:none;border-radius:10px;padding:10px 16px;cursor:pointer}
-.primary{background:#2563eb;color:#fff}
-.secondary{background:#64748b;color:#fff}
-table{width:100%;border-collapse:collapse;margin-top:16px}
-th,td{padding:12px;border-bottom:1px solid #e5e7eb;text-align:left}
-th{background:#2563eb;color:#fff}
-tr:hover{background:#f8fbff}
-#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center}
-.modal-box{background:#fff;border-radius:14px;padding:20px;max-width:700px;width:95%}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:700px){.grid{grid-template-columns:1fr}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Peserta Didik</title>
+
+    <!-- =========================
+         CSS
+    ========================== -->
+    <style>
+        /* ---------- Warna Dasar ---------- */
+        :root {
+            --primary: #42a5f5;
+            --primary-dark: #2196f3;
+            --bg: #eef7ff;
+            --card: #ffffff;
+            --border: #d6eeff;
+            --text: #1f2937;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 24px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        input {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
-<header><h2>Kelola Peserta Didik</h2></header>
-<div class="container">
-<div class="card">
-<div class="toolbar">
-<div>
-<button class="secondary" onclick="history.back()">🏠 Kembali ke Dashboard</button>
-</div>
-<input id="q" placeholder="Cari Nama atau NISN">
-</div>
-<table>
-<thead><tr><th>NISN</th><th>NIS</th><th>Nama</th><th>Kelas</th><th>Status</th><th>Aksi</th></tr></thead>
-<tbody id="tb"><tr><td colspan="6">Memuat...</td></tr></tbody>
-</table>
-</div>
-</div>
-<div id="modal"><div class="modal-box">
-<h3>Edit Data</h3>
-<div class="grid">
-<input id="nisn" placeholder="NISN">
-<input id="nis" placeholder="NIS">
-<input id="nama" placeholder="Nama">
-<input id="kelas" placeholder="Kelas">
-<input id="status" placeholder="Status">
-<input id="waliKelas" placeholder="Wali Kelas">
-</div>
-<div style="margin-top:16px">
-<button class="primary" onclick="save()">Simpan</button>
-<button class="secondary" onclick="closeModal()">Batal</button>
-</div>
-</div></div>
-<script>
-const SCRIPT="https://script.google.com/macros/s/AKfycbyGXsz7p4zTIlQ8A9JDCMPnwPJ63pXKYtBBFHFzEryirz1s1hcW31oHCPlRZ0d2V3-l/exec";
-let rows=[],current=null;
-async function loadData(){
- const res=await fetch(SCRIPT+"?action=list");
- const js=await res.json();
- rows=js.data||[];
- render(rows);
-}
-function render(data){
- const tb=document.getElementById("tb");
- tb.innerHTML=data.map(r=>`<tr>
-<td>${r.NISN||""}</td><td>${r.NIS||""}</td><td>${r.Nama||""}</td>
-<td>${r.Kelas||""}</td><td>${r.Status||""}</td>
-<td><button class='primary' onclick='edit("${r.NISN}")'>Edit</button></td>
-</tr>`).join("")||"<tr><td colspan='6'>Tidak ada data</td></tr>";
-}
-document.getElementById("q").oninput=e=>{
- const s=e.target.value.toLowerCase();
- render(rows.filter(r=>(r.Nama||"").toLowerCase().includes(s)||(r.NISN||"").toLowerCase().includes(s)));
-}
-function edit(n){
- current=rows.find(r=>String(r.NISN)===String(n));
- ["nisn","nis","nama","kelas","status","waliKelas"].forEach(id=>document.getElementById(id).value="");
- nisn.value=current.NISN||"";nis.value=current.NIS||"";nama.value=current.Nama||"";kelas.value=current.Kelas||"";status.value=current.Status||"";waliKelas.value=current["Wali Kelas"]||"";
- modal.style.display="flex";
-}
-function closeModal(){modal.style.display="none";}
-async function save(){
- const p=new URLSearchParams({
- action:"update",nisn:nisn.value,nis:nis.value,nama:nama.value,kelas:kelas.value,status:status.value,waliKelas:waliKelas.value
- });
- const res=await fetch(SCRIPT+"?"+p.toString());
- const js=await res.json();
- alert(js.message||"Selesai");
- closeModal();
- loadData();
-}
-loadData();
-</script>
-</body></html>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header>
+        <h2>Kelola Peserta Didik</h2>
+    </header>
+
+    <div class="container">
+        <div class="card">
+
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <button onclick="history.back()">
+                    🏠 Kembali ke Dashboard
+                </button>
+
+                <input
+                    id="searchBox"
+                    type="text"
+                    placeholder="Cari Nama atau NISN..."
+                >
+            </div>
+
+            <!-- Tabel -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>NISN</th>
+                        <th>NIS</th>
+                        <th>Nama</th>
+                        <th>Kelas</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tableBody">
+                    <tr>
+                        <td colspan="6">
+                            Memuat data...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+    <script>
+        const SCRIPT_URL =
+            "https://script.google.com/macros/s/AKfycbyGXsz7p4zTIlQ8A9JDCMPnwPJ63pXKYtBBFHFzEryirz1s1hcW31oHCPlRZ0d2V3-l/exec";
+
+        // Tempat menaruh data siswa
+        let dataSiswa = [];
+
+        // TODO:
+        // - loadData()
+        // - renderTable()
+        // - editData()
+        // - saveData()
+        //
+        // Semua fungsi sengaja dipisahkan agar mudah dicari dan diedit.
+    </script>
+
+</body>
+</html>
