@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Portal Nilai Siswa</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    background:linear-gradient(135deg,#dff4ff,#edf9ff);
+
+    min-height:100vh;
+
+}
+
+/* ========================= */
+
+.container{
+
+    width:95%;
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:30px 15px;
+
+}
+
+/* ========================= */
+
+.login-card{
+
+    background:#fff;
+
+    max-width:500px;
+
+    margin:60px auto;
+
+    padding:35px;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.08);
+
+}
+
+/* ========================= */
+
+.logo{
+
+    text-align:center;
+
+    font-size:55px;
+
+    margin-bottom:10px;
+
+}
+
+/* ========================= */
+
+.title{
+
+    text-align:center;
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:#0d47a1;
+
+}
+
+/* ========================= */
+
+.subtitle{
+
+    text-align:center;
+
+    color:#666;
+
+    margin-top:8px;
+
+    margin-bottom:25px;
+
+}
+
+/* ========================= */
+
+.form-group{
+
+    margin-bottom:18px;
+
+}
+
+/* ========================= */
+
+label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+    color:#1565c0;
+
+}
+
+/* ========================= */
+
+input,
+select{
+
+    width:100%;
+
+    padding:13px;
+
+    border-radius:10px;
+
+    border:1px solid #cfd8dc;
+
+    outline:none;
+
+    font-size:15px;
+
+}
+
+input:focus{
+
+    border-color:#42a5f5;
+
+}
+
+/* ========================= */
+
+.btn{
+
+    width:100%;
+
+    border:none;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    background:#1e88e5;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    transition:.2s;
+
+}
+
+.btn:hover{
+
+    background:#1565c0;
+
+}
+
+/* ========================= */
+
+.loading{
+
+    display:none;
+
+    text-align:center;
+
+    margin-top:20px;
+
+    color:#1976d2;
+
+    font-weight:bold;
+
+}
+
+/* ========================= */
+
+.error{
+
+    display:none;
+
+    margin-top:15px;
+
+    background:#ffebee;
+
+    color:#c62828;
+
+    padding:12px;
+
+    border-radius:10px;
+
+}
+
+/* ========================= */
+
+.dashboard{
+
+    display:none;
+
+}
+
+/* ========================= */
+
+.header{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.07);
+
+    margin-bottom:20px;
+
+}
+
+.header h2{
+
+    color:#1565c0;
+
+}
+
+.header p{
+
+    color:#666;
+
+    margin-top:5px;
+
+}
+
+/* ========================= */
+
+.filter-card{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.07);
+
+}
+
+.filter-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(180px,1fr));
+
+    gap:15px;
+
+}
+
+/* ========================= */
+
+.table-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    overflow:auto;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.07);
+
+}
+
+/* ========================= */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+th{
+
+    background:#e3f2fd;
+
+    color:#1565c0;
+
+    padding:12px;
+
+    text-align:left;
+
+}
+
+td{
+
+    padding:12px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+tr:hover{
+
+    background:#f7fbff;
+
+}
+
+/* ========================= */
+
+.badge{
+
+    display:inline-block;
+
+    background:#1976d2;
+
+    color:white;
+
+    padding:4px 10px;
+
+    border-radius:30px;
+
+    font-size:12px;
+
+}
+
+/* ========================= */
+
+@media(max-width:700px){
+
+.login-card{
+
+margin-top:20px;
+
+padding:22px;
+
+}
+
+.title{
+
+font-size:24px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LOGIN -->
+
+    <div class="login-card" id="loginCard">
+
+        <div class="logo">
+            🎓
+        </div>
+
+        <div class="title">
+            Portal Nilai
+        </div>
+
+        <div class="subtitle">
+            Masukkan NISN dan Tanggal Lahir untuk melihat nilai siswa
+        </div>
+
+        <div class="form-group">
+
+            <label>NISN</label>
+
+            <input
+                type="text"
+                id="nisn"
+                placeholder="Masukkan NISN">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Tanggal Lahir</label>
+
+            <input
+                type="date"
+                id="tanggalLahir">
+
+        </div>
+
+        <button
+            class="btn"
+            onclick="loginSiswa()">
+
+            Masuk Portal
+
+        </button>
+
+        <div
+            class="loading"
+            id="loading">
+
+            Memverifikasi data...
+
+        </div>
+
+        <div
+            class="error"
+            id="errorBox">
+
+        </div>
+
+    </div>
+
+    <!-- DASHBOARD -->
+
+    <div
+        class="dashboard"
+        id="dashboard">
+
+        <div class="header">
+
+            <h2 id="namaSiswa">
+                -
+            </h2>
+
+            <p id="infoSiswa">
+                -
+            </p>
+
+        </div>
+<!-- ========================= -->
+<!-- FILTER -->
+<!-- ========================= -->
+
+<div class="filter-card">
+
+    <div class="filter-grid">
+
+        <div>
+            <label>Tahun Ajaran</label>
+            <select id="filterTahun">
+                <option value="">Semua Tahun Ajaran</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Semester</label>
+            <select id="filterSemester">
+                <option value="">Semua Semester</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Mata Pelajaran</label>
+            <select id="filterMapel">
+                <option value="">Semua Mata Pelajaran</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Jenis Nilai</label>
+            <select id="filterJenis">
+                <option value="">Semua Jenis Nilai</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;">
+
+        <button
+            class="btn"
+            style="width:auto;padding:12px 25px;"
+            onclick="loadNilai()">
+
+            Terapkan Filter
+
+        </button>
+
+        <button
+            class="btn"
+            style="
+            width:auto;
+            padding:12px 25px;
+            background:#90caf9;
+            color:#0d47a1;"
+            onclick="resetFilter()">
+
+            Reset Filter
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ========================= -->
+<!-- RINGKASAN -->
+<!-- ========================= -->
+
+<div class="filter-card">
+
+    <div style="
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;">
+
+        <div>
+
+            <strong>Total Data</strong>
+
+            <div
+                id="totalData"
+                style="font-size:28px;
+                margin-top:8px;
+                color:#1565c0;">
+
+                0
+
+            </div>
+
+        </div>
+
+        <div>
+
+            <strong>Rata-rata Nilai</strong>
+
+            <div
+                id="rataNilai"
+                style="font-size:28px;
+                margin-top:8px;
+                color:#2e7d32;">
+
+                -
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ========================= -->
+<!-- TABEL -->
+<!-- ========================= -->
+
+<div class="table-card">
+
+    <table id="tabelNilai">
+
+        <thead>
+
+            <tr>
+
+                <th>No</th>
+
+                <th>Tahun Ajaran</th>
+
+                <th>Semester</th>
+
+                <th>Mata Pelajaran</th>
+
+                <th>Jenis Nilai</th>
+
+                <th>Keterangan</th>
+
+                <th>Nilai</th>
+
+                <th>Tanggal Input</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="tbodyNilai">
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    style="
+                    text-align:center;
+                    padding:30px;">
+
+                    Silakan login untuk melihat data nilai.
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+    </div>
+
+</div>
+
+<script>
+
+// =====================================================
+// KONFIGURASI
+// =====================================================
+
+// GANTI DENGAN URL WEB APP APPS SCRIPT
+const API_URL = "https://script.google.com/macros/s/AKfycbwenduoVbUKyNtH3up1JRucLHwltqT6lBc9KNSBunnMkJLw-qa1tljs43zR2oSwzb3UvQ/exec";
+
+// =====================================================
+// SESSION SEDERHANA
+// =====================================================
+
+let currentNISN = "";
+let currentTanggalLahir = "";
+
+// =====================================================
+// HELPER ELEMEN
+// =====================================================
+
+const loadingBox = document.getElementById("loading");
+const errorBox = document.getElementById("errorBox");
+
+// =====================================================
+// TAMPILKAN ERROR
+// =====================================================
+
+function showError(message){
+
+    errorBox.style.display="block";
+
+    errorBox.innerHTML=message;
+
+}
+
+// =====================================================
+// SEMBUNYIKAN ERROR
+// =====================================================
+
+function hideError(){
+
+    errorBox.style.display="none";
+
+    errorBox.innerHTML="";
+
+}
+
+// =====================================================
+// LOADING
+// =====================================================
+
+function showLoading(){
+
+    loadingBox.style.display="block";
+
+}
+
+function hideLoading(){
+
+    loadingBox.style.display="none";
+
+}
+
+// =====================================================
+// LOGIN
+// =====================================================
+
+async function loginSiswa(){
+
+    hideError();
+
+    const nisn=document
+    .getElementById("nisn")
+    .value
+    .trim();
+
+    const tanggal=document
+    .getElementById("tanggalLahir")
+    .value
+    .trim();
+
+    if(!nisn){
+
+        showError("Silakan masukkan NISN.");
+
+        return;
+
+    }
+
+    if(!tanggal){
+
+        showError("Silakan masukkan Tanggal Lahir.");
+
+        return;
+
+    }
+
+    showLoading();
+
+    try{
+
+        const url=
+        API_URL+
+        "?action=login"+
+        "&nisn="+encodeURIComponent(nisn)+
+        "&tanggalLahir="+encodeURIComponent(tanggal);
+
+        const res=await fetch(url);
+
+        const json=await res.json();
+
+        hideLoading();
+
+        if(!json.success){
+
+            showError(json.message);
+
+            return;
+
+        }
+
+        currentNISN=nisn;
+        currentTanggalLahir=tanggal;
+        allNilai = [];
+      
+        document
+        .getElementById("loginCard")
+        .style
+        .display="none";
+
+        document
+        .getElementById("dashboard")
+        .style
+        .display="block";
+
+        document
+        .getElementById("namaSiswa")
+        .innerHTML=json.siswa.nama;
+
+        document
+        .getElementById("infoSiswa")
+        .innerHTML=
+        "NISN : "+
+        json.siswa.nisn+
+        " | Kelas : "+
+        json.siswa.kelas;
+
+        // lanjut ambil nilai
+
+        loadNilai();
+
+    }
+
+    catch(err){
+
+        hideLoading();
+
+        showError(
+        "Tidak dapat terhubung ke server."
+        );
+
+        console.log(err);
+
+    }
+
+}
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+function logout(){
+
+    currentNISN="";
+    currentTanggalLahir="";
+    allNilai = [];
+  
+    document
+    .getElementById("loginCard")
+    .style
+    .display="block";
+
+    document
+    .getElementById("dashboard")
+    .style
+    .display="none";
+
+    document
+    .getElementById("nisn")
+    .value="";
+
+    document
+    .getElementById("tanggalLahir")
+    .value="";
+
+    hideError();
+
+}
+  
+// =====================================================
+// MEMUAT SELURUH DATA NILAI
+// =====================================================
+
+async function loadNilai() {
+
+    try {
+
+        const url =
+            API_URL +
+            "?action=getNilai" +
+            "&nisn=" + encodeURIComponent(currentNISN) +
+            "&tanggalLahir=" + encodeURIComponent(currentTanggalLahir);
+
+        const res = await fetch(url);
+        const json = await res.json();
+
+        if (!json.success) {
+            showError(json.message || "Gagal mengambil data nilai.");
+            return;
+        }
+
+        // Simpan semua data di browser
+        allNilai = Array.isArray(json.data) ? json.data : [];
+
+        // Isi dropdown filter
+        isiFilter();
+
+        // Render tabel pertama kali
+        terapkanFilter();
+
+    } catch (err) {
+
+        console.error(err);
+
+        showError("Gagal mengambil data dari server.");
+
+    }
+
+}
+
+// =====================================================
+// MENGISI DROPDOWN FILTER
+// =====================================================
+
+function isiFilter() {
+
+    isiSelectUnik("filterTahun", "tahunAjaran");
+    isiSelectUnik("filterSemester", "semester");
+    isiSelectUnik("filterMapel", "mataPelajaran");
+    isiSelectUnik("filterJenis", "jenisNilai");
+
+}
+
+// =====================================================
+// HELPER ISI SELECT
+// =====================================================
+
+function isiSelectUnik(selectId, field) {
+
+    const select = document.getElementById(selectId);
+
+    // Simpan option pertama
+    const firstOption = select.options[0].outerHTML;
+
+    const unik = [...new Set(
+
+        allNilai
+            .map(x => String(x[field] || "").trim())
+            .filter(x => x !== "")
+
+    )].sort();
+
+    select.innerHTML = firstOption;
+
+    unik.forEach(function(item){
+
+        const opt = document.createElement("option");
+
+        opt.value = item;
+
+        opt.textContent = item;
+
+        select.appendChild(opt);
+
+    });
+
+}
+
+// =====================================================
+// TERAPKAN FILTER
+// =====================================================
+
+function terapkanFilter() {
+
+    const tahun =
+        document.getElementById("filterTahun").value.trim().toLowerCase();
+
+    const semester =
+        document.getElementById("filterSemester").value.trim().toLowerCase();
+
+    const mapel =
+        document.getElementById("filterMapel").value.trim().toLowerCase();
+
+    const jenis =
+        document.getElementById("filterJenis").value.trim().toLowerCase();
+
+    const hasil = allNilai.filter(function(item){
+
+        if (
+            tahun &&
+            String(item.tahunAjaran).toLowerCase() !== tahun
+        ) return false;
+
+        if (
+            semester &&
+            String(item.semester).toLowerCase() !== semester
+        ) return false;
+
+        if (
+            mapel &&
+            String(item.mataPelajaran).toLowerCase() !== mapel
+        ) return false;
+
+        if (
+            jenis &&
+            String(item.jenisNilai).toLowerCase() !== jenis
+        ) return false;
+
+        return true;
+
+    });
+
+    renderTabel(hasil);
+
+}
+
+// =====================================================
+// RENDER TABEL
+// =====================================================
+
+function renderTabel(data) {
+
+    const tbody = document.getElementById("tbodyNilai");
+
+    tbody.innerHTML = "";
+
+    if (!Array.isArray(data) || data.length === 0) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" style="text-align:center;padding:30px;">
+                    Tidak ada data yang sesuai dengan filter.
+                </td>
+            </tr>
+        `;
+
+        document.getElementById("totalData").textContent = "0";
+        document.getElementById("rataNilai").textContent = "-";
+
+        return;
+
+    }
+
+    let totalNilai = 0;
+    let jumlahNilai = 0;
+
+    data.forEach(function(item, index){
+
+        const nilai = Number(item.nilai);
+
+        if (!isNaN(nilai)) {
+            totalNilai += nilai;
+            jumlahNilai++;
+        }
+
+        tbody.innerHTML += `
+            <tr>
+
+                <td>${index + 1}</td>
+
+                <td>${item.tahunAjaran || ""}</td>
+
+                <td>${item.semester || ""}</td>
+
+                <td>${item.mataPelajaran || ""}</td>
+
+                <td>
+                    <span class="badge">
+                        ${item.jenisNilai || ""}
+                    </span>
+                </td>
+
+                <td>${item.keterangan || ""}</td>
+
+                <td>${item.nilai ?? ""}</td>
+
+                <td>${item.tanggalInput || ""}</td>
+
+            </tr>
+        `;
+
+    });
+
+    document.getElementById("totalData").textContent =
+        data.length;
+
+    if (jumlahNilai > 0) {
+
+        document.getElementById("rataNilai").textContent =
+            (totalNilai / jumlahNilai).toFixed(2);
+
+    } else {
+
+        document.getElementById("rataNilai").textContent = "-";
+
+    }
+
+}
+
+// =====================================================
+// RESET FILTER
+// =====================================================
+
+function resetFilter() {
+
+    document.getElementById("filterTahun").value = "";
+
+    document.getElementById("filterSemester").value = "";
+
+    document.getElementById("filterMapel").value = "";
+
+    document.getElementById("filterJenis").value = "";
+
+    renderTabel(allNilai);
+
+}
+
+</script>
+
+</body>
+</html>
