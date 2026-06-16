@@ -25,12 +25,7 @@ th{background:#2d8cff;color:#fff}
 <table>
 <thead>
 <tr>
-<th>NISN</th>
-<th>NIS</th>
-<th>Nama</th>
-<th>Kelas</th>
-<th>Status</th>
-<th>Aksi</th>
+<th>NISN</th><th>NIS</th><th>Nama</th><th>Kelas</th><th>Status</th><th>Aksi</th>
 </tr>
 </thead>
 <tbody id="tb">
@@ -50,18 +45,15 @@ async function load(){
 function render(data){
  const tb=document.getElementById("tb");
  if(!data.length){tb.innerHTML="<tr><td colspan='5'>Tidak ada data</td></tr>";return;}
-tb.innerHTML=data.map(r=>`<tr>
-<td>${r["NISN"] ?? ""}</td>
-<td>${r["NIS"] ?? ""}</td>
-<td>${r["Nama"] ?? ""}</td>
-<td>${r["Kelas"] ?? ""}</td>
-<td>${r["Status"] ?? ""}</td>
-<td>
-    <button onclick='editData(${JSON.stringify(r)})'>
-        ✏️ Edit
-    </button>
-</td>
+ tb.innerHTML=data.map((r,i)=>`<tr>
+<td>${r["NISN"]??""}</td>
+<td>${r["NIS"]??""}</td>
+<td>${r["Nama"]??""}</td>
+<td>${r["Kelas"]??""}</td>
+<td>${r["Status"]??""}</td>
+<td><button onclick="editData(${i})">✏️ Edit</button></td>
 </tr>`).join("");
+}
 document.getElementById("q").addEventListener("input",e=>{
  const s=e.target.value.toLowerCase();
  render(rows.filter(r=>(String(r["Nama"]||"").toLowerCase().includes(s)||String(r["NISN"]||"").toLowerCase().includes(s))));
@@ -70,15 +62,13 @@ load().catch(err=>{
  document.getElementById("tb").innerHTML="<tr><td colspan='5'>Gagal memuat data</td></tr>";
  console.error(err);
 });
-</script>
- function editData(data){
-    console.log(data);
-    alert(
-        "Edit siswa:\n\n" +
-        data["Nama"] +
-        "\nNISN: " +
-        data["NISN"]
-    );
+
+function editData(index){
+  const d = rows[index];
+  alert("Fitur edit sedang disiapkan.\n\nNama: "+(d["Nama"]||"")+"\nNISN: "+(d["NISN"]||""));
 }
+
+
+</script>
 </body>
 </html>
