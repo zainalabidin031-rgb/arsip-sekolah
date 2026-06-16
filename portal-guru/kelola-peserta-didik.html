@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kelola Peserta Didik</title>
+<style>
+body{font-family:Arial,sans-serif;background:#eef6ff;margin:0}
+header{background:#2d8cff;color:#fff;padding:16px 20px}
+main{max-width:1100px;margin:20px auto;background:#fff;padding:20px;border-radius:10px}
+input{padding:10px;width:100%;max-width:380px}
+table{width:100%;border-collapse:collapse;margin-top:16px}
+th,td{border:1px solid #ddd;padding:8px;text-align:left}
+th{background:#2d8cff;color:#fff}
+.small{color:#666;font-size:.9em}
+</style>
+</head>
+<body>
+<header>
+<h2>Kelola Peserta Didik</h2>
+<div class="small">Versi awal (daftar & pencarian)</div>
+</header>
+<main>
+<input id="q" placeholder="Cari Nama atau NISN...">
+<table>
+<thead>
+<tr>
+<th>NISN</th><th>NIS</th><th>Nama</th><th>Kelas</th><th>Status</th>
+</tr>
+</thead>
+<tbody id="tb">
+<tr><td colspan="5">Memuat data...</td></tr>
+</tbody>
+</table>
+</main>
+<script>
+const API="https://script.google.com/macros/s/AKfycbyGXsz7p4zTIlQ8A9JDCMPnwPJ63pXKYtBBFHFzEryirz1s1hcW31oHCPlRZ0d2V3-l/exec?action=list";
+let rows=[];
+async function load(){
+ const res=await fetch(API);
+ const js=await res.json();
+ rows=js.data||[];
+ render(rows);
+}
+function render(data){
+ const tb=document.getElementById("tb");
+ if(!data.length){tb.innerHTML="<tr><td colspan='5'>Tidak ada data</td></tr>";return;}
+ tb.innerHTML=data.map(r=>`<tr>
+<td>${r["NISN"]??""}</td>
+<td>${r["NIS"]??""}</td>
+<td>${r["Nama"]??""}</td>
+<td>${r["Kelas"]??""}</td>
+<td>${r["Status"]??""}</td>
+</tr>`).join("");
+}
+document.getElementById("q").addEventListener("input",e=>{
+ const s=e.target.value.toLowerCase();
+ render(rows.filter(r=>(String(r["Nama"]||"").toLowerCase().includes(s)||String(r["NISN"]||"").toLowerCase().includes(s))));
+});
+load().catch(err=>{
+ document.getElementById("tb").innerHTML="<tr><td colspan='5'>Gagal memuat data</td></tr>";
+ console.error(err);
+});
+</script>
+</body>
+</html>
