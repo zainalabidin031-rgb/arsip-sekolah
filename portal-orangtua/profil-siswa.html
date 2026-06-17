@@ -1,831 +1,533 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Data Siswa & Alumni</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
-
-body{
-
-    background:
-    linear-gradient(
-        135deg,
-        #e3f2fd,
-        #f5fbff,
-        #ffffff
-    );
-
-    min-height:100vh;
-
-    padding:20px;
-
-}
-
-.container{
-
-    width:100%;
-
-    max-width:900px;
-
-    margin:auto;
-
-}
-
-.back-home{
-
-    display:inline-block;
-
-    margin-bottom:20px;
-
-    text-decoration:none;
-
-    background:#2196f3;
-
-    color:white;
-
-    padding:10px 18px;
-
-    border-radius:10px;
-
-    font-weight:600;
-
-}
-
-.back-home:hover{
-
-    background:#1976d2;
-
-}
-
-.login-card{
-
-    max-width:460px;
-
-    margin:30px auto;
-
-    background:white;
-
-    border-radius:22px;
-
-    padding:35px;
-
-    box-shadow:
-    0 8px 30px rgba(0,0,0,.08);
-
-}
-
-.logo{
-
-    text-align:center;
-
-    font-size:60px;
-
-}
-
-.title{
-
-    text-align:center;
-
-    margin-top:10px;
-
-    font-size:30px;
-
-    font-weight:700;
-
-    color:#1565c0;
-
-}
-
-.subtitle{
-
-    text-align:center;
-
-    margin-top:8px;
-
-    margin-bottom:25px;
-
-    color:#607d8b;
-
-}
-
-.form-group{
-
-    margin-bottom:18px;
-
-}
-
-label{
-
-    display:block;
-
-    margin-bottom:8px;
-
-    color:#1976d2;
-
-    font-weight:600;
-
-}
-
-input{
-
-    width:100%;
-
-    padding:13px;
-
-    border-radius:10px;
-
-    border:1px solid #cfd8dc;
-
-    outline:none;
-
-    font-size:15px;
-
-}
-
-input:focus{
-
-    border-color:#2196f3;
-
-}
-
-.btn{
-
-    width:100%;
-
-    border:none;
-
-    cursor:pointer;
-
-    background:#2196f3;
-
-    color:#ffffff;
-
-    padding:14px;
-
-    border-radius:12px;
-
-    font-size:16px;
-
-    font-weight:700;
-
-    transition:0.2s;
-
-}
-
-.btn:hover{
-
-    background:#1976d2;
-
-}
-
-
-.loading{
-
-    display:none;
-
-    margin-top:15px;
-
-    text-align:center;
-
-    color:#00838f;
-
-    font-weight:600;
-
-}
-
-.error{
-
-    display:none;
-
-    margin-top:15px;
-
-    background:#ffebee;
-
-    color:#c62828;
-
-    padding:12px;
-
-    border-radius:10px;
-
-}
-
-.profile{
-
-    display:none;
-
-}
-
-.profile-card{
-
-    background:#ffffff;
-
-    border-radius:22px;
-
-    padding:35px;
-
-    border-top:5px solid #2196f3;
-
-    box-shadow:0 8px 30px rgba(0,0,0,.08);
-
-}
-
-.avatar{
-
-    width:100px;
-
-    height:100px;
-
-    margin:auto;
-
-    border-radius:50%;
-
-    background:#e3f2fd;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:44px;
-
-}
-
-.student-name{
-
-    text-align:center;
-
-    margin-top:15px;
-
-    font-size:28px;
-
-    font-weight:700;
-
-    color:#1565c0;
-
-}
-
-.status-box{
-
-    text-align:center;
-
-    margin-top:12px;
-
-}
-
-.badge{
-
-    display:inline-block;
-
-    padding:8px 18px;
-
-    border-radius:30px;
-
-    color:white;
-
-    font-weight:600;
-
-}
-
-.badge.aktif{
-
-    background:#2e7d32;
-
-}
-
-.badge.lulus{
-
-    background:#1976d2;
-
-}
-
-.info-table{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-    margin-top:30px;
-
-}
-
-.info-table td{
-
-    padding:14px 10px;
-
-    border-bottom:1px solid #eceff1;
-
-}
-
-.info-table td:first-child{
-
-    width:35%;
-
-    font-weight:600;
-
-    color:#1565c0;
-
-}
-
-.footer-note{
-
-    margin-top:20px;
-
-    text-align:center;
-
-    color:#78909c;
-
-    font-size:13px;
-
-}
-
-@media(max-width:700px){
-
-    .login-card,
-    .profile-card{
-
-        padding:22px;
-
-    }
-
-    .student-name{
-
-        font-size:22px;
-
-    }
-
-    .info-table td{
-
-        display:block;
-
-        width:100%;
-
-        border:none;
-
-        padding:6px 0;
-
-    }
-
-    .info-table tr{
-
-        display:block;
-
-        border-bottom:1px solid #eceff1;
-
-        margin-bottom:15px;
-
-        padding-bottom:10px;
-
-    }
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Siswa & Alumni | SDN Butoh 1 Ngasem</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-light: #e6f2ff;
+            --primary-accent: #0077ff;
+            --primary-gradient: linear-gradient(135deg, #0088ff 0%, #00c6ff 100%);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --shadow-card: 0 20px 40px rgba(0, 136, 255, 0.05);
+            --shadow-input: 0 2px 4px rgba(0, 0, 0, 0.02);
+            --green-success: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            margin: auto;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 25px;
+            padding: 10px 18px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .back-home:hover {
+            color: var(--primary-accent);
+            border-color: var(--primary-light);
+            transform: translateX(-3px);
+        }
+
+        /* CARD STYLE */
+        .login-card, .profile-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px 35px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(0, 136, 255, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card {
+            max-width: 460px;
+            margin: 0 auto;
+        }
+
+        /* Garis pemanis atas kartu */
+        .login-card::before, .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: var(--primary-gradient);
+        }
+
+        .logo-box {
+            background: var(--primary-gradient);
+            color: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 6px 16px rgba(0, 136, 255, 0.2);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 13.5px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 15px 13px 45px;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            outline: none;
+            font-size: 14px;
+            color: var(--text-dark);
+            background-color: #fcffff;
+            box-shadow: var(--shadow-input);
+            transition: all 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--primary-accent);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 119, 255, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            background: var(--primary-gradient);
+            color: #ffffff;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 136, 255, 0.2);
+            transition: all 0.2s;
+            margin-top: 25px;
+        }
+
+        .btn:hover {
+            box-shadow: 0 6px 18px rgba(0, 136, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* LOADING & ERROR */
+        .loading {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            color: var(--primary-accent);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .error {
+            display: none;
+            margin-top: 20px;
+            background: #fef2f2;
+            color: #ef4444;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 13.5px;
+            font-weight: 600;
+            border: 1px solid #fca5a5;
+            text-align: center;
+        }
+
+        /* PROFILE SECTION */
+        .profile {
+            display: none;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 4px 12px rgba(0, 119, 255, 0.1);
+        }
+
+        .student-name {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .status-box {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge.aktif {
+            background: var(--green-success);
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+        }
+
+        .badge.lulus {
+            background: var(--primary-accent);
+            box-shadow: 0 4px 10px rgba(0, 119, 255, 0.2);
+        }
+
+        /* TABLE INFO */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        .info-table td {
+            padding: 15px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .info-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .info-table td:first-child {
+            width: 38%;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .info-table td:last-child {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .footer-note {
+            margin-top: 30px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 500;
+            border-top: 1px dashed #e2e8f0;
+            padding-top: 18px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* RESPONSIVE LAYOUT */
+        @media(max-width: 600px){
+            body { padding: 20px 15px; }
+            .login-card, .profile-card { padding: 30px 20px; }
+            .student-name { font-size: 20px; }
+            
+            .info-table td {
+                display: block;
+                width: 100%;
+                padding: 6px 6px;
+                border: none;
+            }
+            .info-table td:first-child {
+                padding-top: 14px;
+                font-size: 13px;
+            }
+            .info-table td:last-child {
+                padding-bottom: 14px;
+                border-bottom: 1px solid #f1f5f9;
+                font-size: 15px;
+            }
+            .info-table tr:last-child td:last-child {
+                border-bottom: none;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
 <div class="container">
 
-<a
-href="index.html"
-class="back-home">
+    <a href="../" class="back-home">
+        <i class="fa-solid fa-arrow-left"></i> Beranda
+    </a>
 
-← Beranda
+    <div class="login-card" id="loginCard">
+        <div class="logo-box">
+            <i class="fa-solid fa-user-graduate"></i>
+        </div>
+        <div class="title">Data Siswa & Alumni</div>
+        <div class="subtitle">Masukkan NISN dan Tanggal Lahir Siswa</div>
 
-</a>
+        <div class="form-group">
+            <label>NISN</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-fingerprint"></i>
+                <input type="text" id="nisn" placeholder="Masukkan 10 digit NISN">
+            </div>
+        </div>
 
-<div
-class="login-card"
-id="loginCard">
+        <div class="form-group">
+            <label>Tanggal Lahir</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-calendar-days"></i>
+                <input type="date" id="tanggalLahir">
+            </div>
+        </div>
 
-<div class="logo">
+        <button class="btn" onclick="loginProfil()">
+            <i class="fa-solid fa-magnifying-glass"></i> Cari Data Siswa
+        </button>
 
-🎓
+        <div class="loading" id="loading">
+            <i class="fa-solid fa-circle-notch fa-spin"></i> Memuat data, mohon tunggu...
+        </div>
 
-</div>
+        <div class="error" id="errorBox"></div>
+    </div>
 
-<div class="title">
+    <div class="profile" id="profile">
+        <div class="profile-card">
+            <div class="avatar">
+                <i class="fa-solid fa-user-tie"></i>
+            </div>
+            
+            <div class="student-name" id="nama">-</div>
+            
+            <div class="status-box">
+                <span class="badge aktif" id="status">-</span>
+            </div>
 
-👤 Data Siswa & Alumni
+            <table class="info-table">
+                <tr>
+                    <td>Nama Lengkap</td>
+                    <td id="namaView">-</td>
+                </tr>
+                <tr>
+                    <td>NIS</td>
+                    <td id="nis">-</td>
+                </tr>
+                <tr>
+                    <td>NISN</td>
+                    <td id="nisnView">-</td>
+                </tr>
+                <tr>
+                    <td>Kelas</td>
+                    <td id="kelas">-</td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td id="statusText">-</td>
+                </tr>
+                <tr>
+                    <td>Wali Kelas</td>
+                    <td id="wali">-</td>
+                </tr>
+                <tr>
+                    <td>Nama Ayah</td>
+                    <td id="ayah">-</td>
+                </tr>
+                <tr>
+                    <td>Nama Ibu</td>
+                    <td id="ibu">-</td>
+                </tr>
+            </table>
 
-</div>
-
-<div class="subtitle">
-
-Masukkan NISN dan Tanggal Lahir
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-NISN
-
-</label>
-
-<input
-type="text"
-id="nisn"
-placeholder="Masukkan NISN">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Tanggal Lahir
-
-</label>
-
-<input
-type="date"
-id="tanggalLahir">
-
-</div>
-
-<button
-class="btn"
-onclick="loginProfil()">
-
-Lihat Data
-
-</button>
-
-<div
-class="loading"
-id="loading">
-
-Memuat data...
-
-</div>
-
-<div
-class="error"
-id="errorBox">
-
-</div>
-
-</div>
-
-<div
-class="profile"
-id="profile">
-
-<div class="profile-card">
-
-<div class="avatar">
-
-👦
+            <div class="footer-note" id="updateInfo">
+                Terakhir diperbarui: -
+            </div>
+        </div>
+    </div>
 
 </div>
 
-<div
-class="student-name"
-id="nama">
-
--
-
-</div>
-
-<div
-class="status-box">
-
-<span
-class="badge aktif"
-id="status">
-
--
-
-</span>
-
-</div>
-
-<table class="info-table">
-
-<tr>
-
-<td>Nama Lengkap</td>
-
-<td id="namaView">-</td>
-
-</tr>
-
-<tr>
-
-<td>NIS</td>
-
-<td id="nis">-</td>
-
-</tr>
-
-<tr>
-
-<td>NISN</td>
-
-<td id="nisnView">-</td>
-
-</tr>
-
-<tr>
-
-<td>Kelas</td>
-
-<td id="kelas">-</td>
-
-</tr>
-
-<tr>
-
-<td>Status</td>
-
-<td id="statusText">-</td>
-
-</tr>
-
-<tr>
-
-<td>Wali Kelas</td>
-
-<td id="wali">-</td>
-
-</tr>
-
-<tr>
-
-<td>Nama Ayah</td>
-
-<td id="ayah">-</td>
-
-</tr>
-
-<tr>
-
-<td>Nama Ibu</td>
-
-<td id="ibu">-</td>
-
-</tr>
-
-</table>
-
-<div
-class="footer-note"
-id="updateInfo">
-
-Terakhir diperbarui: -
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- JavaScript akan ditambahkan pada bagian berikutnya -->
 <script>
-
 // ========================================
-// GANTI DENGAN URL WEB APP APPS SCRIPT
+// URL WEB APP APPS SCRIPT KANTONG GOOGLE SPREADSHEET
 // ========================================
-
 const API_URL = "https://script.google.com/macros/s/AKfycbx4UAzzQ6Ft9D014LQdlu6KGsE9kTtz3EZIlWcxa0nmtg349enyzfETElpjhiSg2JOa/exec";
-
 // ========================================
 
-const loading =
-document.getElementById("loading");
-
-const errorBox =
-document.getElementById("errorBox");
-
-// ========================================
+const loading = document.getElementById("loading");
+const errorBox = document.getElementById("errorBox");
 
 function showLoading(){
-
     loading.style.display="block";
-
 }
 
 function hideLoading(){
-
     loading.style.display="none";
-
 }
 
 function showError(msg){
-
     errorBox.style.display="block";
-
     errorBox.textContent=msg;
-
 }
 
 function hideError(){
-
     errorBox.style.display="none";
-
     errorBox.textContent="";
-
 }
 
-// ========================================
-
 async function loginProfil(){
-
     hideError();
-
-    const nisn =
-    document
-    .getElementById("nisn")
-    .value
-    .trim();
-
-    const tanggal =
-    document
-    .getElementById("tanggalLahir")
-    .value;
+    const nisn = document.getElementById("nisn").value.trim();
+    const tanggal = document.getElementById("tanggalLahir").value;
 
     if(!nisn){
-
-        showError(
-        "Silakan masukkan NISN."
-        );
-
+        showError("Silakan masukkan NISN.");
         return;
-
     }
-
     if(!tanggal){
-
-        showError(
-        "Silakan pilih Tanggal Lahir."
-        );
-
+        showError("Silakan pilih Tanggal Lahir.");
         return;
-
     }
 
     showLoading();
 
     try{
-
-        const url =
-        API_URL +
-        "?action=profil" +
-        "&nisn=" +
-        encodeURIComponent(nisn) +
-        "&tanggalLahir=" +
-        encodeURIComponent(tanggal);
-
-        const res =
-        await fetch(url);
-
-        const json =
-        await res.json();
+        const url = API_URL + "?action=profil" + "&nisn=" + encodeURIComponent(nisn) + "&tanggalLahir=" + encodeURIComponent(tanggal);
+        const res = await fetch(url);
+        const json = await res.json();
 
         hideLoading();
 
         if(!json.success){
-
-            showError(
-            json.message ||
-            "Data tidak ditemukan."
-            );
-
+            showError(json.message || "Data tidak ditemukan.");
             return;
-
         }
 
-        tampilkanProfil(
-        json.data
-        );
-
+        tampilkanProfil(json.data);
     }
-
     catch(err){
-
         hideLoading();
-
-        showError(
-        "Tidak dapat terhubung ke server."
-        );
-
+        showError("Tidak dapat terhubung ke server.");
         console.log(err);
-
     }
-
 }
-
-// ========================================
 
 function tampilkanProfil(data){
+    document.getElementById("loginCard").style.display="none";
+    document.getElementById("profile").style.display="block";
 
-    document
-    .getElementById("loginCard")
-    .style
-    .display="none";
+    document.getElementById("nama").textContent = data.nama || "-";
+    document.getElementById("namaView").textContent = data.nama || "-";
+    document.getElementById("nis").textContent = data.nis || "-";
+    document.getElementById("nisnView").textContent = data.nisn || "-";
+    document.getElementById("kelas").textContent = data.kelas || "-";
+    document.getElementById("wali").textContent = data.waliKelas || "-";
+    document.getElementById("ayah").textContent = data.namaAyah || "-";
+    document.getElementById("ibu").textContent = data.namaIbu || "-";
+    document.getElementById("statusText").textContent = data.status || "-";
+    
+    document.getElementById("updateInfo").textContent = "Terakhir diperbarui: " + (data.terakhirUpdate || "-");
 
-    document
-    .getElementById("profile")
-    .style
-    .display="block";
-
-    document
-    .getElementById("nama")
-    .textContent =
-    data.nama || "-";
-
-    document
-    .getElementById("namaView")
-    .textContent =
-    data.nama || "-";
-
-    document
-    .getElementById("nis")
-    .textContent =
-    data.nis || "-";
-
-    document
-    .getElementById("nisnView")
-    .textContent =
-    data.nisn || "-";
-
-    document
-    .getElementById("kelas")
-    .textContent =
-    data.kelas || "-";
-
-    document
-    .getElementById("wali")
-    .textContent =
-    data.waliKelas || "-";
-
-    document
-    .getElementById("ayah")
-    .textContent =
-    data.namaAyah || "-";
-
-    document
-    .getElementById("ibu")
-    .textContent =
-    data.namaIbu || "-";
-
-    document
-    .getElementById("statusText")
-    .textContent =
-    data.status || "-";
-
-    document
-    .getElementById("updateInfo")
-    .textContent =
-    "Terakhir diperbarui: " +
-    (data.terakhirUpdate || "-");
-
-    const badge =
-    document
-    .getElementById("status");
-
-    badge.textContent =
-    data.status || "-";
-
-    badge.className =
-    "badge " +
-    (
-        String(data.status)
-        .toLowerCase() ===
-        "lulus"
-
-        ?
-
-        "lulus"
-
-        :
-
-        "aktif"
-    );
-
+    const badge = document.getElementById("status");
+    badge.textContent = data.status || "-";
+    
+    badge.className = "badge " + (String(data.status).toLowerCase() === "lulus" ? "lulus" : "aktif");
 }
-
 </script>
   
 </body>
