@@ -1,228 +1,342 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Portal Guru</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Portal Guru | SDN Butoh 1 Ngasem</title>
 
-<style>
-    *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-        font-family:Arial, Helvetica, sans-serif;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    body{
-        background:#f4f6f9;
-    }
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0088ff 0%, #00c6ff 100%);
+            --accent-color: #0077ff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --shadow-card: 0 10px 25px rgba(0, 136, 255, 0.04);
+            --danger-color: #ef4444;
+        }
 
-    header{
-        background:#1976d2;
-        color:white;
-        padding:18px;
-        text-align:center;
-        font-size:24px;
-        font-weight:bold;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
 
-    nav{
-        background:white;
-        display:flex;
-        justify-content:center;
-        gap:12px;
-        padding:12px;
-        box-shadow:0 2px 6px rgba(0,0,0,.08);
-        flex-wrap:wrap;
-    }
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
 
-    nav a{
-        text-decoration:none;
-        color:#1976d2;
-        font-weight:bold;
-        padding:8px 14px;
-        border-radius:8px;
-        transition:.2s;
-    }
+        /* HEADER & NAVIGATION */
+        header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 35px 20px 25px 20px;
+            text-align: center;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            box-shadow: 0 4px 20px rgba(0, 136, 255, 0.1);
+        }
 
-    nav a:hover{
-        background:#e3f2fd;
-    }
+        nav {
+            background: white;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 14px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.03);
+            flex-wrap: wrap;
+            border-bottom: 1px solid #f1f5f9;
+        }
 
-    .container{
-        max-width:1100px;
-        margin:auto;
-        padding:30px 20px;
-    }
+        nav a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 10px 18px;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid transparent;
+        }
 
-    .welcome{
-        text-align:center;
-        margin-bottom:30px;
-    }
+        nav a:hover {
+            background: #f1f5f9;
+            color: var(--text-dark);
+        }
 
-    .welcome h2{
-        margin-bottom:8px;
-        color:#222;
-    }
+        nav a.logout-btn {
+            color: var(--danger-color);
+        }
 
-    .welcome p{
-        color:#666;
-    }
+        nav a.logout-btn:hover {
+            background: #fef2f2;
+            color: var(--danger-color);
+        }
 
-    .grid{
-        display:grid;
-        grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-        gap:20px;
-    }
+        /* INFO BOX USER */
+        .user-info-section {
+            background: white;
+            max-width: 450px;
+            margin: -15px auto 0 auto;
+            padding: 16px 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            z-index: 10;
+        }
 
-    .card{
-        background:white;
-        border-radius:14px;
-        padding:25px;
-        text-align:center;
-        text-decoration:none;
-        color:#222;
-        box-shadow:0 4px 10px rgba(0,0,0,.08);
-        transition:.2s;
-    }
+        .user-info-section h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
 
-    .card:hover{
-        transform:translateY(-4px);
-    }
+        .user-info-section p {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-    .icon{
-        font-size:42px;
-        margin-bottom:12px;
-    }
+        /* MAIN LAYOUT CONTAINER */
+        .container {
+            width: 100%;
+            max-width: 1140px;
+            margin: auto;
+            padding: 40px 20px;
+        }
 
-    .title{
-        font-size:18px;
-        font-weight:bold;
-        margin-bottom:8px;
-    }
+        .welcome {
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
-    .desc{
-        font-size:14px;
-        color:#666;
-        line-height:1.5;
-    }
+        .welcome h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
 
-    footer{
-        margin-top:40px;
-        padding:20px;
-        text-align:center;
-        color:#777;
-        font-size:14px;
-    }
-</style>
+        .welcome p {
+            font-size: 14.5px;
+            color: var(--text-muted);
+        }
+
+        /* CARD GRID SYSTEM */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 25px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-dark);
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(0, 136, 255, 0.02);
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: transparent;
+            transition: background 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 136, 255, 0.08);
+        }
+
+        .card:hover::before {
+            background: var(--primary-gradient);
+        }
+
+        .icon {
+            background: #f1f5f9;
+            color: var(--accent-color);
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            transition: all 0.25s ease;
+        }
+
+        .card:hover .icon {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 6px 15px rgba(0, 136, 255, 0.2);
+        }
+
+        .title {
+            font-size: 16.5px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            letter-spacing: -0.3px;
+        }
+
+        .desc {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 30px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13.5px;
+            font-weight: 500;
+            border-top: 1px solid #e2e8f0;
+            background: white;
+        }
+    </style>
 </head>
 
 <body>
+
 <script>
+// Validasi Proteksi Keamanan Beranda Guru
 if (localStorage.getItem("guruLogin") !== "true") {
     window.location.href = "index.html";
 }
 </script>
+
 <header>
-    👨‍🏫 Dashboard Portal Guru
+    <i class="fa-solid fa-chalkboard-user me-2"></i> Portal Utama Dashboard Guru
 </header>
-<div style="text-align:center; padding:20px;"> <h2 id="namaGuru"></h2> <p id="roleGuru"></p> </div>
+
+<div class="user-info-section">
+    <h3 id="namaGuru"><i class="fa-solid fa-user-tie me-1"></i> Memuat nama...</h3>
+    <p id="roleGuru">Role: -</p>
+</div>
+
 <nav>
-    <a href="../index.html">🏠 Home</a>
-    <a href="#" onclick="logout()">🚪 Logout</a>
+    <a href="../index.html"><i class="fa-solid fa-house"></i> Lihat Beranda Utama</a>
+    <a href="#" onclick="logout()" class="logout-btn"><i class="fa-solid fa-power-off"></i> Keluar Aplikasi</a>
 </nav>
 
 <div class="container">
 
     <div class="welcome">
-        <h2>Selamat Datang</h2>
-        <p>Pilih menu yang ingin Anda akses.</p>
+        <h2>Selamat Datang Kembali</h2>
+        <p>Silakan pilih modul administrasi di bawah ini untuk memulai pengelolaan data sekolah.</p>
     </div>
 
     <div class="grid">
 
         <a class="card" href="kelola-data-rapor.html">
-            <div class="icon">📄</div>
+            <div class="icon"><i class="fa-solid fa-file-invoice"></i></div>
             <div class="title">Kelola Data Rapor</div>
-            <div class="desc">
-                Mengarsipkan Data Rapor Siswa dan Alumni.
-            </div>
+            <div class="desc">Mengarsipkan dan mengelola berkas lembar penilaian rapor siswa serta alumni.</div>
         </a>
 
         <a class="card" href="nomor-ijazah.html">
-            <div class="icon">🎓</div>
+            <div class="icon"><i class="fa-solid fa-graduation-cap"></i></div>
             <div class="title">Nomor Ijazah</div>
-            <div class="desc">
-                Cek data nomor ijazah peserta didik.
-            </div>
+            <div class="desc">Cek dan sinkronisasi data nomor ijazah kelulusan resmi peserta didik.</div>
         </a>
 
         <a class="card" href="#">
-            <div class="icon">📊</div>
+            <div class="icon"><i class="fa-solid fa-chart-simple"></i></div>
             <div class="title">Nilai Ijazah</div>
-            <div class="desc">
-                Menampilkan arsip nilai ijazah siswa.
-            </div>
+            <div class="desc">Menampilkan dan merekap transkrip data nilai ijazah kelulusan siswa.</div>
         </a>
 
         <a class="card" href="kelola-peserta-didik.html">
-            <div class="icon">👨‍🎓</div>
+            <div class="icon"><i class="fa-solid fa-user-graduate"></i></div>
             <div class="title">Kelola Data Siswa</div>
-            <div class="desc">
-                Lihat, edit dan tambah peserta didik.
-            </div>
+            <div class="desc">Manajemen profil, mutasi, edit, serta tambah data peserta didik aktif.</div>
         </a>
 
         <a class="card" href="#">
-            <div class="icon">👨‍🏫</div>
+            <div class="icon"><i class="fa-solid fa-users-gear"></i></div>
             <div class="title">Data Guru</div>
-            <div class="desc">
-                Informasi dan daftar tenaga pendidik.
-            </div>
+            <div class="desc">Informasi profil lengkap dan direktori daftar staf tenaga pendidik sekolah.</div>
         </a>
 
         <a class="card" href="arsip-sekolah/nilai.html">
-            <div class="icon">📝</div>
+            <div class="icon"><i class="fa-solid fa-pen-to-square"></i></div>
             <div class="title">Portal Nilai</div>
-            <div class="desc">
-                Mengelola dan melihat data nilai siswa.
-            </div>
-         <a class="card" href="input-no-induk">
-            <div class="icon">👤</div>
+            <div class="desc">Mengelola, mengecek, serta memantau perolehan skor nilai ujian real-time.</div>
+        </a>
+
+        <a class="card" href="input-no-induk">
+            <div class="icon"><i class="fa-solid fa-id-card"></i></div>
             <div class="title">Input Nomor Induk</div>
-            <div class="desc">
-                Informasi dan daftar tenaga pendidik.
-            </div>
+            <div class="desc">Pencatatan dan pengaturan nomor induk siswa nasional secara digital terpusat.</div>
+        </a>
+
         <a class="card" href="pusat-unduhan.html">
-            <div class="icon">📥</div>
+            <div class="icon"><i class="fa-solid fa-cloud-arrow-down"></i></div>
             <div class="title">Pusat Unduhan</div>
-            <div class="desc">
-              Unduh data siswa, data guru, dan dokumen penting lainnya.
-             </div>
-         </a>
+            <div class="desc">Unduh berkas excel siswa, profil guru, dokumen akreditasi, dan templat penting.</div>
+        </a>
+
     </div>
 
 </div>
 
 <footer>
-    Portal Guru • SD Negeri Butoh I Ngasem
+    Portal internal Guru • SD Negeri Butoh I Ngasem • Hak Cipta © 2026
 </footer>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("namaGuru").textContent =
-        "👤 Login sebagai: " + (localStorage.getItem("guruNama") || "-");
+    // Inject Nama Guru
+    const nama = localStorage.getItem("guruNama") || "Tenaga Pendidik";
+    document.getElementById("namaGuru").innerHTML = `<i class="fa-solid fa-user-tie me-1"></i> Login sebagai: ${nama}`;
 
-    document.getElementById("roleGuru").textContent =
-        "Role: " + (localStorage.getItem("guruRole") || "-");
+    // Inject Role Guru
+    const role = localStorage.getItem("guruRole") || "-";
+    document.getElementById("roleGuru").textContent = `Akses Sistem: ${role}`;
 });
 
 function logout() {
-    localStorage.removeItem("guruLogin");
-    localStorage.removeItem("guruNama");
-    localStorage.removeItem("guruRole");
-    window.location.href = "index.html";
+    if(confirm("Apakah Anda yakin ingin keluar dari Portal Guru ini?")) {
+        localStorage.removeItem("guruLogin");
+        localStorage.removeItem("guruNama");
+        localStorage.removeItem("guruRole");
+        window.location.href = "index.html";
+    }
 }
-</script>
 </script>
 </body>
 </html>
