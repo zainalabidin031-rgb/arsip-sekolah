@@ -58,12 +58,17 @@ tr:hover{background:#f8fbff}
 <script>
 const SCRIPT="https://script.google.com/macros/s/AKfycbyGXsz7p4zTIlQ8A9JDCMPnwPJ63pXKYtBBFHFzEryirz1s1hcW31oHCPlRZ0d2V3-l/exec";
 let rows=[],current=null;
+
+// Ambil referensi modal sekali saja di luar
+const modal = document.getElementById("modal");
+
 async function loadData(){
  const res=await fetch(SCRIPT+"?action=list");
  const js=await res.json();
  rows=js.data||[];
  render(rows);
 }
+
 function render(data){
  const tb=document.getElementById("tb");
  tb.innerHTML=data.map(r=>`<tr>
@@ -72,21 +77,43 @@ function render(data){
 <td><button class='primary' onclick='edit("${r.NISN}")'>Edit</button></td>
 </tr>`).join("")||"<tr><td colspan='6'>Tidak ada data</td></tr>";
 }
+
 document.getElementById("q").oninput=e=>{
  const s=e.target.value.toLowerCase();
  render(rows.filter(r=>(r.Nama||"").toLowerCase().includes(s)||(r.NISN||"").toLowerCase().includes(s)));
 }
+
 function edit(n){
  current=rows.find(r=>String(r.NISN)===String(n));
+ 
+ // Reset form dengan mengambil elemen secara eksplisit
  ["nisn","nis","nama","kelas","status","waliKelas"].forEach(id=>document.getElementById(id).value="");
- nisn.value=current.NISN||"";nis.value=current.NIS||"";nama.value=current.Nama||"";kelas.value=current.Kelas||"";status.value=current.Status||"";waliKelas.value=current["Wali Kelas"]||"";
+ 
+ // Mengisi data ke form menggunakan document.getElementById agar aman dari konflik nama
+ document.getElementById("nisn").value=current.NISN||"";
+ document.getElementById("nis").value=current.NIS||"";
+ document.getElementById("nama").value=current.Nama||"";
+ document.getElementById("kelas").value=current.Kelas||"";
+ document.getElementById("status").value=current.Status||"";
+ document.getElementById("waliKelas").value=current["Wali Kelas"]||"";
+ 
  modal.style.display="flex";
 }
+
 function closeModal(){modal.style.display="none";}
+
 async function save(){
+ // Mengambil value secara eksplisit menggunakan document.getElementById
  const p=new URLSearchParams({
- action:"update",nisn:nisn.value,nis:nis.value,nama:nama.value,kelas:kelas.value,status:status.value,waliKelas:waliKelas.value
+ action:"update",
+ nisn: document.getElementById("nisn").value,
+ nis: document.getElementById("nis").value,
+ nama: document.getElementById("nama").value,
+ kelas: document.getElementById("kelas").value,
+ status: document.getElementById("status").value,
+ waliKelas: document.getElementById("waliKelas").value
  });
+ 
  const res=await fetch(SCRIPT+"?"+p.toString());
  const js=await res.json();
  alert(js.message||"Selesai");
