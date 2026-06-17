@@ -47,7 +47,7 @@ tr:hover{background:#f8fbff}
 <input id="nis" placeholder="NIS">
 <input id="nama" placeholder="Nama">
 <input id="kelas" placeholder="Kelas">
-<input id="Status" placeholder="Status">
+<input id="status" placeholder="Status">
 <input id="waliKelas" placeholder="Wali Kelas">
 </div>
 <div style="margin-top:16px">
@@ -79,7 +79,14 @@ document.getElementById("q").oninput=e=>{
 function edit(n){
  current=rows.find(r=>String(r.NISN)===String(n));
  ["nisn","nis","nama","kelas","status","waliKelas"].forEach(id=>document.getElementById(id).value="");
- nisn.value=current.NISN||"";nis.value=current.NIS||"";nama.value=current.Nama||"";kelas.value=current.Kelas||"";status.value=current.Status||"";waliKelas.value=current["Wali Kelas"]||"";
+ 
+ // Sekarang baris di bawah ini sudah aman dijalankan karena id-nya match
+ nisn.value=current.NISN||"";
+ nis.value=current.NIS||"";
+ nama.value=current.Nama||"";
+ kelas.value=current.Kelas||"";
+ status.value=current.Status||"";
+ waliKelas.value=current["Wali Kelas"]||"";
  modal.style.display="flex";
 }
 function closeModal(){modal.style.display="none";}
