@@ -3,94 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Guru</title>
+    <title>Portal Guru | SDN Butoh 1 Ngasem</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, Helvetica, sans-serif;
+        :root {
+            --primary-light: #e6f2ff;
+            --primary-accent: #0077ff;
+            --primary-gradient: linear-gradient(135deg, #0088ff 0%, #00c6ff 100%);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --shadow-card: 0 20px 40px rgba(0, 136, 255, 0.06);
+            --shadow-input: 0 2px 4px rgba(0, 0, 0, 0.02);
         }
 
-        body{
-            background:#f4f6f9;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            min-height:100vh;
-            padding:20px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        .container{
-            width:100%;
-            max-width:360px;
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background-image: radial-gradient(#0088ff 0.5px, transparent 0.5px), radial-gradient(#0088ff 0.5px, #f8fafc 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            background-opacity: 0.02; /* Sentuhan background estetik */
         }
 
-        .back-btn{
-            display:inline-block;
-            margin-bottom:15px;
-            text-decoration:none;
-            color:#1565c0;
-            font-weight:bold;
+        /* Mengakomodasi opacity background dot */
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(248, 250, 252, 0.85);
+            z-index: -1;
         }
 
-        .card{
-            background:#fff;
-            border-radius:12px;
-            padding:22px;
-            box-shadow:0 4px 12px rgba(0,0,0,.08);
+        .container {
+            width: 100%;
+            max-width: 400px;
+            animation: fadeIn 0.5s ease;
         }
 
-        h1{
-            text-align:center;
-            margin-bottom:10px;
-            color:#222;
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 20px;
+            padding: 8px 16px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
         }
 
-        p{
-            text-align:center;
-            color:#666;
-            margin-bottom:25px;
-            font-size:14px;
-            line-height:1.5;
+        .back-btn:hover {
+            color: var(--primary-accent);
+            transform: translateX(-3px);
+            border-color: var(--primary-light);
         }
 
-        label{
-            display:block;
-            margin-bottom:6px;
-            font-weight:bold;
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 35px 30px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(0, 136, 255, 0.04);
+            text-align: center;
         }
 
-        input{
-            width:100%;
-            padding:12px;
-            border:1px solid #ccc;
-            border-radius:8px;
-            margin-bottom:18px;
-            font-size:15px;
+        .logo-area {
+            background: var(--primary-gradient);
+            color: white;
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 6px 16px rgba(0, 136, 255, 0.25);
         }
 
-        button{
-            width:100%;
-            padding:12px;
-            border:none;
-            border-radius:8px;
-            background:#2196F3;
-            color:#fff;
-            font-size:16px;
-            cursor:pointer;
+        h1 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
         }
 
-        button:hover{
-            background:#1e88e5;
+        p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 13.5px;
+            line-height: 1.6;
         }
 
-        .info{
-            margin-top:18px;
-            font-size:13px;
-            color:#777;
-            text-align:center;
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--text-dark);
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 15px 13px 45px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text-dark);
+            background-color: #fcffff;
+            box-shadow: var(--shadow-input);
+            transition: all 0.2s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 119, 255, 0.1);
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: var(--primary-gradient);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 136, 255, 0.2);
+            transition: all 0.2s ease;
+            margin-top: 25px;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(0, 136, 255, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .info {
+            margin-top: 25px;
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            border-top: 1px dashed #e2e8f0;
+            padding-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -99,11 +216,16 @@
 
 <div class="container">
 
-   <a href="../index.html" class="back-btn">🏠 Home</a>
+   <!-- Menggunakan trik relatif anti-buntut .html -->
+   <a href="../" class="back-btn"><i class="fa-solid fa-house"></i> Beranda Sekolah</a>
 
     <div class="card">
+        
+        <div class="logo-area">
+            <i class="fa-solid fa-user-shield"></i>
+        </div>
 
-        <h1>👨‍🏫 Portal Guru</h1>
+        <h1>Portal Akun Guru</h1>
 
         <p>
             Silakan masuk menggunakan akun yang diberikan oleh administrator
@@ -112,30 +234,40 @@
 
         <form id="loginForm">
 
-            <label>Username</label>
-            <input
-                type="text"
-                id="username"
-                placeholder="Masukkan username"
-                required
-            >
+            <div class="form-group">
+                <label>Username</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-user"></i>
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Masukkan username"
+                        required
+                    >
+                </div>
+            </div>
 
-            <label>Password</label>
-            <input
-                type="password"
-                id="password"
-                placeholder="Masukkan password"
-                required
-            >
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock"></i>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Masukkan password"
+                        required
+                    >
+                </div>
+            </div>
 
             <button type="submit">
-                🔐 Masuk
+                <i class="fa-solid fa-right-to-bracket"></i> Masuk ke Portal
             </button>
 
         </form>
 
         <div class="info">
-            Portal ini hanya untuk guru dan tenaga kependidikan yang berwenang.
+            <i class="fa-solid fa-circle-exclamation" style="color: #3b82f6; margin-right: 2px;"></i> Portal ini dilindungi dan hanya ditujukan bagi Guru & Tenaga Kependidikan SDN Butoh 1 Ngasem yang berwenang.
         </div>
 
     </div>
