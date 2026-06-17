@@ -1,140 +1,318 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nomor Ijazah</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Nomor Ijazah | SDN Butoh 1 Ngasem</title>
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-body{
-    background:#f4f6f9;
-}
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0088ff 0%, #00c6ff 100%);
+            --accent-color: #0077ff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --shadow-card: 0 12px 30px rgba(0, 136, 255, 0.05);
+            --danger-color: #ef4444;
+        }
 
-header{
-    background:#1976d2;
-    color:#fff;
-    text-align:center;
-    padding:18px;
-    font-size:24px;
-    font-weight:bold;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
 
-.container{
-    max-width:800px;
-    margin:30px auto;
-    padding:20px;
-}
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
 
-.back{
-    display:inline-block;
-    margin-bottom:20px;
-    text-decoration:none;
-    color:#1976d2;
-    font-weight:bold;
-}
+        /* HEADER PREMIUM STYLE */
+        header {
+            background: var(--primary-gradient);
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            box-shadow: 0 4px 20px rgba(0, 136, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
 
-.card{
-    background:#fff;
-    border-radius:12px;
-    padding:24px;
-    box-shadow:0 4px 10px rgba(0,0,0,.08);
-}
+        header i {
+            font-size: 28px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+        }
 
-h2{
-    text-align:center;
-    margin-bottom:20px;
-}
+        .container {
+            width: 100%;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
 
-.input-group{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-}
+        /* NAVIGATION BACK BUTTON */
+        .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 25px;
+            transition: all 0.2s ease;
+            padding: 8px 16px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
 
-input{
-    flex:1;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:15px;
-}
+        .back:hover {
+            color: var(--accent-color);
+            border-color: #e6f2ff;
+            transform: translateX(-3px);
+        }
 
-button{
-    padding:12px 20px;
-    border:none;
-    border-radius:8px;
-    background:#1976d2;
-    color:#fff;
-    cursor:pointer;
-    font-size:15px;
-}
+        /* CARD MAIN STYLE */
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 40px 35px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(0, 136, 255, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
 
-button:hover{
-    background:#125ea9;
-}
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: var(--primary-gradient);
+        }
 
-#hasil{
-    margin-top:25px;
-    display:none;
-    background:#eef6ff;
-    border-radius:10px;
-    padding:18px;
-    line-height:1.8;
-}
+        h2 {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
 
-#error{
-    margin-top:20px;
-    color:red;
-    text-align:center;
-    display:none;
-}
-</style>
+        .subtitle-text {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* INPUT SEARCH GROUP */
+        .input-group {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .input-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 16px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 16px 15px 46px;
+            border: 1px solid #cbd5e1;
+            border-radius: 14px;
+            font-size: 15px;
+            color: var(--text-dark);
+            background-color: #f8fafc;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input:focus {
+            border-color: var(--accent-color);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 119, 255, 0.1);
+        }
+
+        button {
+            padding: 15px 26px;
+            border: none;
+            border-radius: 14px;
+            background: var(--primary-gradient);
+            color: #fff;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0, 136, 255, 0.15);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        button:hover {
+            box-shadow: 0 6px 16px rgba(0, 136, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        /* RESULT DISPLAY BOX */
+        #hasil {
+            margin-top: 35px;
+            display: none;
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid #e2e8f0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .result-item {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e2e8f0;
+            font-size: 14.5px;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            padding-bottom: 4px;
+        }
+
+        .result-label {
+            width: 140px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .result-value {
+            flex: 1;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        #nomor {
+            color: var(--accent-color);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ERROR NOTIFICATION */
+        #error {
+            margin-top: 30px;
+            color: var(--danger-color);
+            text-align: center;
+            display: none;
+            font-weight: 600;
+            font-size: 14px;
+            background: #fef2f2;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #fee2e2;
+        }
+
+        @media (max-width: 550px) {
+            .input-group {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+            .result-item {
+                flex-direction: column;
+                gap: 4px;
+            }
+            .result-label {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <script>
+// Validasi Proteksi Akses Guru
 if (localStorage.getItem("guruLogin") !== "true") {
     window.location.href = "index.html";
 }
 </script>
 
 <header>
-    🎓 Data Nomor Ijazah
+    <i class="fa-solid fa-graduation-cap"></i> Data Nomor Ijazah Siswa
 </header>
 
 <div class="container">
 
-    <a href="dashboard.html" class="back">← Kembali ke Dashboard</a>
+    <a href="dashboard.html" class="back">
+        <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+    </a>
 
     <div class="card">
 
-        <h2>Cari Nomor Ijazah</h2>
+        <h2>Cari Arsip Ijazah</h2>
+        <p class="subtitle-text">Masukkan NISN atau Nama lengkap siswa untuk memanggil nomor ijazah resmi dari database.</p>
 
         <div class="input-group">
-            <input
-                type="text"
-                id="keyword"
-                placeholder="Masukkan NISN atau Nama Siswa">
-            <button onclick="cariData()">🔍 Cari</button>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-id-card-clip"></i>
+                <input 
+                    type="text" 
+                    id="keyword" 
+                    placeholder="Masukkan NISN atau Nama Lengkap Siswa...">
+            </div>
+            <button onclick="cariData()">
+                <i class="fa-solid fa-magnifying-glass"></i> Cari
+            </button>
         </div>
 
         <div id="hasil">
-            <strong>Nama:</strong> <span id="nama"></span><br>
-            <strong>NISN:</strong> <span id="nisn"></span><br>
-            <strong>Nomor Ijazah:</strong> <span id="nomor"></span><br>
-            <strong>Tahun Lulus:</strong> <span id="tahun"></span>
+            <div class="result-item">
+                <div class="result-label">Nama Siswa</div>
+                <div class="result-value" id="nama">-</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Nomor NISN</div>
+                <div class="result-value" id="nisn">-</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Nomor Ijazah</div>
+                <div class="result-value" id="nomor">-</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Tahun Lulus</div>
+                <div class="result-value" id="tahun">-</div>
+            </div>
         </div>
 
         <div id="error">
-            Data tidak ditemukan.
+            <i class="fa-solid fa-triangle-exclamation me-1"></i> Data siswa tidak ditemukan. Periksa kembali penulisan NISN atau Nama.
         </div>
 
     </div>
@@ -142,22 +320,22 @@ if (localStorage.getItem("guruLogin") !== "true") {
 </div>
 
 <script>
+// Endpoint API Google Apps Script Anda
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCxHDy6JjF4FMY16lT6hHuTrb-uLRxTscJ7-mRFJTxExDOX1pfuTmVEoq-uONsPbjp/exec";
 
 async function cariData() {
-
     const keyword = document.getElementById("keyword").value.trim();
 
     if (keyword === "") {
-        alert("Masukkan NISN atau Nama Siswa.");
+        alert("Masukkan NISN atau Nama Siswa terlebih dahulu.");
         return;
     }
 
+    // Reset view state
     document.getElementById("hasil").style.display = "none";
     document.getElementById("error").style.display = "none";
 
     try {
-
         const response = await fetch(SCRIPT_URL, {
             method: "POST",
             body: JSON.stringify({
@@ -169,27 +347,21 @@ async function cariData() {
         const result = await response.json();
 
         if (result.success) {
-
+            // Suntik data ke elemen penampung teks
             document.getElementById("nama").textContent = result.nama;
             document.getElementById("nisn").textContent = result.nisn;
             document.getElementById("nomor").textContent = result.nomor;
             document.getElementById("tahun").textContent = result.tahun;
 
             document.getElementById("hasil").style.display = "block";
-
         } else {
-
             document.getElementById("error").style.display = "block";
-
         }
 
     } catch (e) {
-
-        alert("Terjadi kesalahan saat mengambil data.");
+        alert("Terjadi kesalahan koneksi saat mengambil data dari cloud database.");
         console.error(e);
-
     }
-
 }
 </script>
 
