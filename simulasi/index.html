@@ -3,81 +3,388 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBT Ujian Online</title>
+    <title>CBT Ujian Online | SDN Butoh 1 Ngasem</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --primary: #2c3e50;
-            --accent: #3498db;
-            --success: #2ecc71;
+            --primary-gradient: linear-gradient(135deg, #0088ff 0%, #00c6ff 100%);
+            --accent-color: #0077ff;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --shadow-card: 0 12px 30px rgba(0, 136, 255, 0.05);
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f9; margin: 0; padding: 20px; }
-        .cbt-container { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
-        .main-box { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .sidebar { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); height: fit-content; }
-        .header-cbt { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
-        .timer { font-size: 20px; font-weight: bold; color: #e74c3c; background: #fde8e7; padding: 5px 15px; border-radius: 5px; }
-        .question { font-size: 18px; font-weight: 600; margin-bottom: 15px; }
-        .options { display: flex; flex-direction: column; gap: 10px; }
-        .option-btn { padding: 12px; border: 1px solid #ccc; border-radius: 5px; background: #fafafa; text-align: left; cursor: pointer; font-size: 15px; transition: 0.2s; }
-        .option-btn:hover { background: #f0f0f0; }
-        .option-btn.selected { background: var(--accent); color: white; border-color: var(--accent); }
-        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; }
-        .btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .btn-nav { background: var(--primary); color: white; }
-        .btn-submit { background: var(--success); color: white; }
-        .grid-numbers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
-        .num-btn { padding: 10px; border: 1px solid #ccc; background: #f8f9fa; border-radius: 4px; cursor: pointer; text-align: center; font-weight: bold; }
-        .num-btn.answered { background: var(--primary); color: white; }
-        .num-btn.active { border: 2px solid var(--accent); box-shadow: 0 0 5px rgba(52,152,219,0.5); }
-        .hidden { display: none; }
-        .result-box { text-align: center; padding: 40px; background: white; border-radius: 8px; max-width: 500px; margin: 50px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        input[type="text"] { width: 100%; padding: 10px; margin-top: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 30px 15px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* CARD STYLE LOGIN & HASIL */
+        .box-card {
+            background: #ffffff;
+            max-width: 520px;
+            margin: 60px auto;
+            padding: 40px 35px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(0, 136, 255, 0.03);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .box-card::before, .main-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: var(--primary-gradient);
+        }
+
+        .icon-banner {
+            background: var(--primary-gradient);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 6px 16px rgba(0, 136, 255, 0.2);
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .desc-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        /* INPUT CONTROL */
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            outline: none;
+            font-size: 14px;
+            color: var(--text-dark);
+            background-color: #fcffff;
+            transition: all 0.2s;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--accent-color);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 119, 255, 0.1);
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 13px 24px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-submit {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 136, 255, 0.2);
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 6px 18px rgba(0, 136, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-nav {
+            background: #e2e8f0;
+            color: var(--text-dark);
+        }
+
+        .btn-nav:hover {
+            background: #cbd5e1;
+        }
+
+        .btn-finish {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-finish:hover {
+            box-shadow: 0 6px 18px rgba(16, 185, 129, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* CBT INTERFACE LAYOUT */
+        .cbt-container {
+            display: grid;
+            grid-template-columns: 2.2fr 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .main-box {
+            background: white;
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            background: white;
+            padding: 30px 25px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-card);
+            height: fit-content;
+        }
+
+        .header-cbt {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 18px;
+            margin-bottom: 25px;
+        }
+
+        .timer {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--danger-color);
+            background: #fef2f2;
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: 1px solid #fee2e2;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .question {
+            font-size: 16.5px;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+        }
+
+        /* OPTIONS BUTTON SELECTION */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            padding: 15px 18px;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            background: #f8fafc;
+            text-align: left;
+            cursor: pointer;
+            font-size: 14.5px;
+            font-weight: 500;
+            color: #334155;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .option-btn:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .option-btn.selected {
+            background: #e6f2ff;
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 35px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+        }
+
+        /* GRID SIDEBAR NUMBERS */
+        .sidebar h3 {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .sidebar p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .grid-numbers {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .num-btn {
+            padding: 12px 0;
+            background: #f1f5f9;
+            color: #475569;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 700;
+            font-size: 13.5px;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .num-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .num-btn.answered {
+            background: #1e293b;
+            color: white;
+        }
+
+        .num-btn.active {
+            border-color: var(--accent-color);
+            background: #e6f2ff;
+            color: var(--accent-color);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media(max-width: 850px) {
+            .cbt-container {
+                grid-template-columns: 1fr;
+            }
+            body {
+                padding: 15px 5px;
+            }
+        }
     </style>
 </head>
 <body>
 
-<div id="login-page" class="result-box">
-    <h2>Formulir Ujian CBT</h2>
-    <p>Silakan masukkan nama lengkap Anda untuk memulai ujian.</p>
-    <input type="text" id="student-name" placeholder="Nama Lengkap Siswa" required>
-    <button class="btn btn-submit" style="width: 100%;" onclick="startExam()">Mulai Ujian</button>
-</div>
+<div class="container">
 
-<div id="cbt-page" class="cbt-container hidden">
-    <div class="main-box">
-        <div class="header-cbt">
-            <span id="question-title" style="font-weight: bold; color: var(--primary);">Soal Nomor 1</span>
-            <div class="timer">Sisa Waktu: <span id="time-display">30:00</span></div>
+    <div id="login-page" class="box-card">
+        <div class="icon-banner">
+            <i class="fa-solid fa-laptop-code"></i>
         </div>
+        <h2>Formulir Ujian CBT</h2>
+        <p class="desc-text">Silakan masukkan nama lengkap Anda dengan benar untuk membuka lembar pengerjaan soal ujian.</p>
         
-        <div id="quiz-area">
-            <div class="question" id="question-text">Memuat soal...</div>
-            <div class="options" id="options-container"></div>
+        <input type="text" id="student-name" placeholder="Ketik Nama Lengkap Anda..." required>
+        <button class="btn btn-submit" style="width: 100%;" onclick="startExam()">
+            <i class="fa-solid fa-play me-1"></i> Mulai Ujian Sekarang
+        </button>
+    </div>
+
+    <div id="cbt-page" class="cbt-container hidden">
+        <div class="main-box">
+            <div class="header-cbt">
+                <span id="question-title" style="font-weight: 800; color: #1e293b; font-size: 15px;">Soal Nomor 1</span>
+                <div class="timer">
+                    <i class="fa-regular fa-clock"></i> <span id="time-display">30:00</span>
+                </div>
+            </div>
+            
+            <div id="quiz-area">
+                <div class="question" id="question-text">Memuat daftar pertanyaan...</div>
+                <div class="options" id="options-container"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-nav" id="prev-btn" onclick="changeQuestion(-1)">
+                    <i class="fa-solid fa-angle-left"></i> Sebelumnya
+                </button>
+                <button class="btn btn-nav" id="next-btn" onclick="changeQuestion(1)">
+                    Selanjutnya <i class="fa-solid fa-angle-right"></i>
+                </button>
+                <button class="btn btn-finish hidden" id="submit-btn" onclick="finishExam()">
+                    <i class="fa-solid fa-circle-check"></i> Selesai & Kirim Ujian
+                </button>
+            </div>
         </div>
 
-        <div class="nav-buttons">
-            <button class="btn btn-nav" id="prev-btn" onclick="changeQuestion(-1)">Sebelumnya</button>
-            <button class="btn btn-nav" id="next-btn" onclick="changeQuestion(1)">Selanjutnya</button>
-            <button class="btn btn-submit hidden" id="submit-btn" onclick="finishExam()">Selesai Ujian</button>
+        <div class="sidebar">
+            <h3>Navigasi Lembar Soal</h3>
+            <p><i class="fa-solid fa-circle-info me-1"></i> Klik nomor kotak untuk melompat otomatis.</p>
+            <div class="grid-numbers" id="number-nav"></div>
         </div>
     </div>
 
-    <div class="sidebar">
-        <h3>Navigasi Soal</h3>
-        <p>Klik nomor untuk melompat ke soal:</p>
-        <div class="grid-numbers" id="number-nav"></div>
+    <div id="result-page" class="box-card hidden">
+        <div class="icon-banner" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+            <i class="fa-solid fa-square-poll-vertical"></i>
+        </div>
+        <h2>Ujian Selesai!</h2>
+        <p class="desc-text">Terima kasih, seluruh jawaban Anda telah berhasil disimpan masuk ke server.</p>
+        
+        <div style="font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Skor Perolehan Anda</div>
+        <h1 id="score-display" style="color: var(--accent-color); font-size: 64px; font-weight: 800; margin: 10px 0 25px 0; letter-spacing: -1px;">0</h1>
+        
+        <p id="sending-status" style="color: #64748b; font-weight: 600; font-size: 13.5px;">
+            <i class="fa-solid fa-circle-notch fa-spin me-1"></i> Menyimpan nilai ke cloud spreadsheet...
+        </p>
     </div>
-</div>
 
-<div id="result-page" class="result-box hidden">
-    <h2>Ujian Selesai!</h2>
-    <p>Terima kasih telah menyelesaikan ujian.</p>
-    <h1 id="score-display" style="color: var(--accent); font-size: 48px; margin: 20px 0;">0</h1>
-    <p id="sending-status" style="color: #7f8c8d;">Menyimpan nilai ke sistem...</p>
 </div>
 
 <script>
-    // --- KONFIGURASI SOAL (25 Soal Bahasa Indonesia & Umum) ---
+    // --- BANK SOAL ASLI (25 SOAL BAHASA INDONESIA & UMUM) ---
     const questions = [
         { q: "Ide pokok atau gagasan utama dalam sebuah paragraf biasanya terletak di...", o: ["Awal atau akhir paragraf", "Tengah paragraf", "Seluruh paragraf", "Luar paragraf"], a: 0 },
         { q: "Lawan kata (antonim) dari kata 'Progresif' adalah...", o: ["Aktif", "Regresif", "Maju", "Modern"], a: 1 },
@@ -106,12 +413,12 @@
         { q: "Negara terluas di dunia berdasarkan total luas wilayahnya adalah...", o: ["Kanada", "Amerika Serikat", "Rusia", "Cina"], a: 2 }
     ];
 
-    // --- GANTI DENGAN LINK WEB APP GOOGLE SCRIPT ANDA ---
+    // ENDPOINT WEB APP APPS SCRIPT ASLI
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxWr1p3PxDKAjnrx6PlgNsL4OO6kRHyb5l6ib3mV1pjeuhRAVeVeVsBmWZP7Rze-8xd/exec"; 
 
     let currentIdx = 0;
     let answers = new Array(questions.length).fill(null);
-    let timeLeft = 1800; // 30 menit dalam detik (30 x 60)
+    let timeLeft = 1800; 
     let timerInterval;
     let studentName = "";
 
@@ -208,11 +515,10 @@
 
     function finishExam() {
         clearInterval(timerInterval);
-        if(confirm("Apakah Anda yakin ingin mengakhiri ujian?")) {
+        if(confirm("Apakah Anda yakin ingin mengakhiri sesi ujian CBT ini?")) {
             document.getElementById("cbt-page").classList.add("hidden");
             document.getElementById("result-page").classList.remove("hidden");
 
-            // Hitung Nilai
             let correctCount = 0;
             questions.forEach((q, idx) => {
                 if(answers[idx] === q.a) correctCount++;
@@ -220,7 +526,6 @@
             let finalScore = Math.round((correctCount / questions.length) * 100);
             document.getElementById("score-display").innerText = finalScore;
 
-            // Kirim ke Google Sheets
             sendToGoogleSheets(studentName, finalScore);
         } else {
             startTimer();
@@ -228,11 +533,6 @@
     }
 
     function sendToGoogleSheets(name, score) {
-        if(GOOGLE_SCRIPT_URL === "URL_GOOGLE_SCRIPT_ANDA_DI_SINI") {
-            document.getElementById("sending-status").innerText = "Sistem penyimpanan belum dihubungkan.";
-            return;
-        }
-
         const formData = new FormData();
         formData.append("nama", name);
         formData.append("mapel", "Bahasa Indonesia & Umum");
@@ -240,12 +540,12 @@
 
         fetch(GOOGLE_SCRIPT_URL, { method: "POST", body: formData })
         .then(res => {
-            document.getElementById("sending-status").innerText = "Nilai berhasil direkam secara real-time!";
-            document.getElementById("sending-status").style.color = "#2ecc71";
+            document.getElementById("sending-status").innerHTML = "<i class='fa-solid fa-circle-check'></i> Nilai berhasil direkam secara real-time!";
+            document.getElementById("sending-status").style.color = "#10b981";
         })
         .catch(err => {
-            document.getElementById("sending-status").innerText = "Gagal mengirim nilai otomatis.";
-            document.getElementById("sending-status").style.color = "#e74c3c";
+            document.getElementById("sending-status").innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Gagal menyimpan nilai otomatis.";
+            document.getElementById("sending-status").style.color = "#ef4444";
         });
     }
 </script>
