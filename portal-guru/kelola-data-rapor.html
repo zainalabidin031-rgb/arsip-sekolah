@@ -6,7 +6,6 @@
 <title>Portal Guru - Input Nilai Rapor</title>
 <style>
 body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#f3f7fc;color:#1e293b}
-/* TEMA WARNA BIRU MUDA CERAH SDN BUTOH 1 NGASEM */
 header{background:linear-gradient(135deg,#00b0ff,#008bc9);color:#fff;padding:22px;box-shadow:0 2px 10px rgba(0,170,255,0.2)}
 .container{max-width:1200px;margin:24px auto;padding:0 16px}
 .card{background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.08);padding:20px}
@@ -46,8 +45,8 @@ tr:hover{background:#f0faff}
 <select id="filterTahun"><option value="">-- Semua Tahun Ajaran --</option></select>
 <select id="filterSemester">
   <option value="">-- Semua Semester --</option>
-  <option value="ganjil">Ganjil</option>
-  <option value="genap">Genap</option>
+  <option value="Ganjil">Semester Ganjil</option>
+  <option value="Genap">Semester Genap</option>
 </select>
 <input id="q" placeholder="Cari Nama atau NISN siswa">
 </div>
@@ -96,7 +95,7 @@ let rows=[], currentIdx=null;
 const fields = ["nisn","nama","tahunAjaran","semester","peringkat","pai","pkn","bin","mtk","ipas","pjok","seni","big","bj","lidi"];
 
 async function loadData(){
- document.getElementById("tb").innerHTML = "<tr><td colspan='6'>Memuat data rapor...</td></tr>";
+ document.getElementById("tb").innerHTML = "<tr><td colspan='6'>Mengambil data dari E-rapor...</td></tr>";
  try {
    const res = await fetch(SCRIPT+"?action=list");
    const js = await res.json();
@@ -108,7 +107,6 @@ async function loadData(){
  }
 }
 
-// Mengambil list Tahun Ajaran yang ada di Spreadsheet secara otomatis
 function populateFilterTahun(data) {
  const select = document.getElementById("filterTahun");
  const currentSelection = select.value;
@@ -130,7 +128,6 @@ function render(data){
 </tr>`).join("") || "<tr><td colspan='6'>Tidak ada data rapor ditemukan</td></tr>";
 }
 
-// Fungsi Multi-Filter Gabungan (Tahun Ajaran + Semester + Pencarian Nama/NISN)
 function applyFilter() {
  const kataKunci = document.getElementById("q").value.toLowerCase();
  const tahunPilihan = document.getElementById("filterTahun").value;
@@ -138,14 +135,16 @@ function applyFilter() {
  
  return rows.filter(r => {
    const matchTahun = tahunPilihan === "" || String(r["Tahun Ajaran"]) === tahunPilihan;
-   const matchSemester = semesterPilihan === "" || String(r["Semester"]) === semesterPilihan;
+   // PERBAIKAN: Memastikan pembandingan huruf besar-kecil semester diubah ke lowercase agar selalu cocok
+   const dataSemester = String(r["Semester"] || "").toLowerCase();
+   const matchSemester = semesterPilihan === "" || dataSemester === semesterPilihan.toLowerCase();
+   
    const matchCari = (r["Nama"]||"").toLowerCase().includes(kataKunci) || (r["NISN"]||"").toLowerCase().includes(kataKunci);
    
    return matchTahun && matchSemester && matchCari;
  });
 }
 
-// Triger jalannya filter saat input diubah oleh guru
 document.getElementById("q").oninput = () => render(applyFilter());
 document.getElementById("filterTahun").onchange = () => render(applyFilter());
 document.getElementById("filterSemester").onchange = () => render(applyFilter());
@@ -156,7 +155,6 @@ function edit(n, t, s){
 
  fields.forEach(id => document.getElementById(id).value = "");
 
- // Memasukkan data ke dalam kotak modal input nilai guru
  document.getElementById("nisn").value = item["NISN"] || "";
  document.getElementById("nama").value = item["Nama"] || "";
  document.getElementById("tahunAjaran").value = item["Tahun Ajaran"] || "";
