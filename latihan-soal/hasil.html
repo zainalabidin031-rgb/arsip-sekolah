@@ -1,106 +1,230 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Hasil Latihan</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Latihan | Latihan Soal Online</title>
 
-<style>
-body{
-font-family:Arial;
-background:#f3f6fb;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-.card{
-background:white;
-padding:30px;
-border-radius:12px;
-text-align:center;
-box-shadow:0 2px 8px rgba(0,0,0,.1);
-}
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --accent-color: #2563eb;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f4f8fc;
+            --shadow-card: 0 15px 35px rgba(37, 99, 235, 0.1);
+        }
 
-h1{
-color:#2563eb;
-}
-</style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
 
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* PERBAIKAN UKURAN KOTAK (RESPONSIF LAPTOP & HP) */
+        .card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(37, 99, 235, 0.02);
+            width: 100%;
+            max-width: 500px; /* Lebar maksimal di laptop sangat ideal */
+            min-height: 380px; /* Menjaga tinggi boks tetap proporsional */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        h1 {
+            color: #2563eb;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        p#nama {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        /* BADGE SKOR SKALA BESAR */
+        .score-badge {
+            background: #eff6ff;
+            border: 2px dashed #bfdbfe;
+            padding: 20px 40px;
+            border-radius: 20px;
+            margin: 15px 0;
+            display: inline-block;
+        }
+
+        .score-badge span {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        h2#nilai {
+            font-size: 48px;
+            font-weight: 800;
+            color: #2563eb;
+            line-height: 1;
+        }
+
+        /* STATUS PENYIMPANAN KE GOOGLE SHEET */
+        #status {
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            padding: 8px 16px;
+            border-radius: 99px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-loading { background: #fef3c7; color: #d97706; }
+        .status-success { background: #dcfce7; color: #15803d; }
+        .status-error { background: #fee2e2; color: #b91c1c; }
+
+        /* BUTTON BERANDA */
+        button {
+            border: none;
+            background: var(--primary-gradient);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 14px 28px;
+            border-radius: 14px;
+            cursor: pointer;
+            margin-top: 25px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* RESPONSIVE KHUSUS LAYAR HP KECIL */
+        @media (max-width: 480px) {
+            .card {
+                padding: 35px 20px;
+                min-height: auto;
+            }
+            h1 { font-size: 24px; }
+            h2#nilai { font-size: 40px; }
+            p#nama { font-size: 16px; }
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="card">
 
-<h1>🎉 Selamat!</h1>
+    <h1>🎉 Selamat!</h1>
+    
+    <p id="nama">-</p>
 
-<h2 id="nilai"></h2>
+    <div class="score-badge">
+        <span>Skor Perolehan</span>
+        <h2 id="nilai">-</h2>
+    </div>
 
-<p id="nama"></p>
+    <div id="statusContainer"></div>
 
-<button onclick="ulang()">
-Kembali ke Beranda
-</button>
+    <button onclick="ulang()">
+        <i class="fa-solid fa-house"></i> Kembali ke Beranda
+    </button>
 
 </div>
 
 <script>
-document.getElementById("nilai").innerText =
-  "Nilai : " + (localStorage.getItem("nilai") || "-");
+// Tampilkan data nilai dan nama dari penyimpanan lokal browser
+document.getElementById("nilai").innerText = localStorage.getItem("nilai") || "0";
+document.getElementById("nama").innerText = localStorage.getItem("nama") || "Peserta Didik";
 
-document.getElementById("nama").innerText =
-  localStorage.getItem("nama") || "";
-
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbwqhRU2shRUdBbuqdjeUt6tgd3uqbO6B9krfvf9JD0eubNNeoDZDyXBz9Iqw65xCRTjJQ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwqhRU2shRUdBbuqdjeUt6tgd3uqbO6B9krfvf9JD0eubNNeoDZDyXBz9Iqw65xCRTjJQ/exec";
 
 async function simpanHasil() {
+    const container = document.getElementById("statusContainer");
+    
+    // Buat element status dengan style loading awal
+    const status = document.createElement("div");
+    status.id = "status";
+    status.className = "status-loading";
+    status.innerHTML = "<i class='fa-solid fa-circle-notch fa-spin'></i> Menyimpan hasil ke server...";
+    container.appendChild(status);
 
-  const status = document.createElement("p");
-  status.id = "status";
-  status.innerText = "⏳ Menyimpan hasil...";
-  document.querySelector(".card").appendChild(status);
+    try {
+        const form = new URLSearchParams();
+        form.append("nama", localStorage.getItem("nama") || "");
+        form.append("kelas", localStorage.getItem("kelas") || "");
+        form.append("mapel", localStorage.getItem("mapel") || "");
+        form.append("bab", localStorage.getItem("bab") || "");
+        form.append("nilai", localStorage.getItem("nilai") || "0");
 
-  try {
+        const res = await fetch(API_URL, {
+            method: "POST",
+            body: form
+        });
 
-    const form = new URLSearchParams();
+        const text = await res.text();
+        
+        // Update ke style sukses
+        status.className = "status-success";
+        status.innerHTML = "<i class='fa-solid fa-circle-check'></i> Nilai berhasil disimpan!";
+        console.log(text);
 
-    form.append("nama", localStorage.getItem("nama") || "");
-    form.append("kelas", localStorage.getItem("kelas") || "");
-    form.append("mapel", localStorage.getItem("mapel") || "");
-    form.append("bab", localStorage.getItem("bab") || "");
-    form.append("nilai", localStorage.getItem("nilai") || "");
-
-    const res = await fetch(API_URL, {
-      method: "POST",
-      body: form
-    });
-
-    const text = await res.text();
-
-    status.innerText = "✅ Berhasil disimpan";
-
-    console.log(text);
-
-  } catch (err) {
-
-    status.innerText = "❌ Gagal menyimpan";
-
-    console.error(err);
-
-  }
+    } catch (err) {
+        // Update ke style eror/gagal
+        status.className = "status-error";
+        status.innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Gagal menyimpan nilai";
+        console.error(err);
+    }
 }
 
+// Jalankan otomatis fungsi pengiriman data ke spreadsheet
 simpanHasil();
 
 function ulang() {
-  window.location.href = "index.html";
+    window.location.href = "index.html";
 }
 </script>
 
-</script>
-
 </body>
-
 </html>
