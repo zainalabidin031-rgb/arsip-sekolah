@@ -1,84 +1,182 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pilih Kelas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Kelas | Latihan Soal Online</title>
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-}
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-body{
-    background:#f3f6fb;
-}
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --accent-color: #2563eb;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f4f8fc;
+            --shadow-card: 0 10px 25px rgba(37, 99, 235, 0.05);
+        }
 
-header{
-    background:#2563eb;
-    color:white;
-    text-align:center;
-    padding:30px 20px;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
 
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:30px 20px;
-}
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-.info{
-    text-align:center;
-    font-size:20px;
-    margin-bottom:30px;
-}
+        /* HEADER */
+        header {
+            background: var(--primary-gradient);
+            color: white;
+            text-align: center;
+            padding: 45px 20px;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
+        }
 
-.info span{
-    color:#2563eb;
-    font-weight:bold;
-}
+        header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:20px;
-}
+        /* CONTAINER */
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 40px 20px;
+            flex: 1;
+        }
 
-.card{
-    background:white;
-    border-radius:12px;
-    padding:35px;
-    text-align:center;
-    cursor:pointer;
-    transition:.2s;
-    box-shadow:0 2px 8px rgba(0,0,0,.1);
-    font-size:24px;
-    font-weight:bold;
-}
+        /* TOMBOL KEMBALI */
+        .kembali {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 14.5px;
+            margin-bottom: 30px;
+            transition: transform 0.2s ease;
+        }
 
-.card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 8px 18px rgba(0,0,0,.15);
-}
+        .kembali:hover {
+            transform: translateX(-3px);
+        }
 
-.kembali{
-    display:inline-block;
-    margin-bottom:25px;
-    text-decoration:none;
-    color:#2563eb;
-    font-weight:bold;
-}
+        /* INFO MAPEL YANG DIPILIH */
+        .info {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 35px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 14px;
+            box-shadow: var(--shadow-card);
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            position: relative;
+            border: 1px solid rgba(37, 99, 235, 0.08);
+        }
 
-footer{
-    text-align:center;
-    padding:25px;
-    color:#666;
-}
-</style>
+        .info span {
+            color: var(--accent-color);
+            font-weight: 800;
+        }
 
+        /* GRID CARDS: Dikunci Pasti 3 Kolom per Baris (3 Atas, 3 Bawah) */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            width: 100%;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-card);
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-dark);
+            border: 1px solid rgba(37, 99, 235, 0.02);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 4px;
+            background: transparent;
+            transition: background 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.12);
+            background-color: #fafdff;
+            color: var(--accent-color);
+        }
+
+        .card:hover::before {
+            background: var(--primary-gradient);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--text-muted);
+            font-size: 13.5px;
+            font-weight: 500;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+        }
+
+        /* RESPONSIVE LAYOUT UNTUK TABLET & HP */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 Kolom di Tablet/HP Landscape */
+                gap: 16px;
+            }
+        }
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: repeat(1, 1fr); /* 1 Kolom lurus kebawah di HP Tegak */
+                gap: 14px;
+            }
+            .card {
+                padding: 25px;
+                font-size: 20px;
+            }
+            .info {
+                font-size: 15px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -88,22 +186,22 @@ footer{
 
 <div class="container">
 
-    <a href="index.html" class="kembali">← Kembali ke Mata Pelajaran</a>
+    <!-- TOMBOL KEMBALI -->
+    <a href="index.html" class="kembali"><i class="fa-solid fa-arrow-left"></i> Kembali ke Mata Pelajaran</a>
 
+    <!-- BADGE INFO MAPEL -->
     <div class="info">
-        Mata Pelajaran:
-        <span id="namaMapel">-</span>
+        Mata Pelajaran: <span id="namaMapel">-</span>
     </div>
 
+    <!-- GRID MENU KELAS (3 ATAS, 3 BAWAH) -->
     <div class="grid">
-
         <div class="card" onclick="pilihKelas('1')">Kelas 1</div>
         <div class="card" onclick="pilihKelas('2')">Kelas 2</div>
         <div class="card" onclick="pilihKelas('3')">Kelas 3</div>
         <div class="card" onclick="pilihKelas('4')">Kelas 4</div>
         <div class="card" onclick="pilihKelas('5')">Kelas 5</div>
         <div class="card" onclick="pilihKelas('6')">Kelas 6</div>
-
     </div>
 
 </div>
@@ -125,7 +223,7 @@ document.getElementById("namaMapel").textContent = mapel;
 function pilihKelas(kelas){
     localStorage.setItem("kelas", kelas);
 
-    // Lanjut ke halaman pilih bab
+    // Lanjut ke halaman isi identitas siswa
     window.location.href = "identitas.html";
 }
 </script>
