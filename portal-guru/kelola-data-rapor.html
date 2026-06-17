@@ -134,12 +134,17 @@ function applyFilter() {
  const semesterPilihan = document.getElementById("filterSemester").value;
  
  return rows.filter(r => {
-   const matchTahun = tahunPilihan === "" || String(r["Tahun Ajaran"]) === tahunPilihan;
-   // PERBAIKAN: Memastikan pembandingan huruf besar-kecil semester diubah ke lowercase agar selalu cocok
-   const dataSemester = String(r["Semester"] || "").toLowerCase();
+   // 1. Validasi Filter Tahun Ajaran
+   const matchTahun = tahunPilihan === "" || String(r["Tahun Ajaran"] || r["TAHUN AJARAN"]) === tahunPilihan;
+   
+   // 2. Validasi Filter Semester
+   const dataSemester = String(r["Semester"] || r["SEMESTER"] || "").toLowerCase();
    const matchSemester = semesterPilihan === "" || dataSemester === semesterPilihan.toLowerCase();
    
-   const matchCari = (r["Nama"]||"").toLowerCase().includes(kataKunci) || (r["NISN"]||"").toLowerCase().includes(kataKunci);
+   // 3. Validasi Pencarian (Mencari segala variasi penulisan kolom Nama / NISN di spreadsheet)
+   const namaSiswa = String(r["Nama"] || r["NAMA"] || r["nama"] || "").toLowerCase();
+   const nisnSiswa = String(r["NISN"] || r["nisn"] || "").toLowerCase();
+   const matchCari = namaSiswa.includes(kataKunci) || nisnSiswa.includes(kataKunci);
    
    return matchTahun && matchSemester && matchCari;
  });
