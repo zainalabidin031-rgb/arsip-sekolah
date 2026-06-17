@@ -1,49 +1,234 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Latihan Soal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mengerjakan Latihan Soal</title>
 
-<style>
-body{
-    font-family:Arial,sans-serif;
-    background:#f3f6fb;
-    max-width:800px;
-    margin:auto;
-    padding:20px;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-.card{
-    background:#fff;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,.1);
-}
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --accent-color: #2563eb;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f4f8fc;
+            --shadow-card: 0 10px 30px rgba(37, 99, 235, 0.06);
+        }
 
-button{
-    margin-top:20px;
-    padding:10px 20px;
-    cursor:pointer;
-}
-</style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 30px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            margin: auto;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: var(--shadow-card);
+            padding: 35px;
+            border: 1px solid rgba(37, 99, 235, 0.02);
+            position: relative;
+        }
+
+        /* HEADER & PROGRESS */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 18px;
+            margin-bottom: 25px;
+        }
+
+        h2#judul {
+            font-size: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--accent-color);
+            background: #e0f2fe;
+            padding: 6px 14px;
+            border-radius: 99px;
+        }
+
+        .meta-info {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* SOAL TEKS */
+        p#soal {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.6;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+        }
+
+        /* OPSI JAWABAN STYLING */
+        #opsi {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .option-wrapper {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .option-wrapper:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        /* Ketika radio di-check, ubah gaya pembungkusnya */
+        .option-wrapper.selected {
+            background: #eff6ff;
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+        }
+
+        .option-wrapper input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #cbd5e1;
+            border-radius: 50%;
+            margin-right: 14px;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            background: white;
+            flex-shrink: 0;
+        }
+
+        .option-wrapper input[type="radio"]:checked {
+            border-color: var(--accent-color);
+            background: var(--accent-color);
+        }
+
+        .option-wrapper input[type="radio"]:checked::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .option-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: #334155;
+            line-height: 1.4;
+        }
+
+        .option-wrapper.selected .option-text {
+            color: #1e3a8a;
+        }
+
+        /* BUTTON ACTION */
+        .action-container {
+            margin-top: 30px;
+            text-align: right;
+        }
+
+        button {
+            border: none;
+            border-radius: 14px;
+            padding: 14px 28px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+            background: var(--primary-gradient);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
+        }
+
+        button:hover {
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* LOADING & ERROR LAYOUT */
+        .loading-state {
+            text-align: center;
+            padding: 40px 10px;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        @media (max-width: 480px) {
+            .card { padding: 25px 20px; }
+            p#soal { font-size: 16px; }
+            button { width: 100%; justify-content: center; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="card">
+<div class="container">
+    <div class="card" id="quizCard">
+        
+        <div class="quiz-header">
+            <h2 id="judul">Memuat...</h2>
+            <div class="meta-info" id="metaInfo">-</div>
+        </div>
 
-<h2 id="judul"></h2>
+        <p id="soal" class="loading-state">
+            <i class="fa-solid fa-circle-notch fa-spin me-2"></i> Mengunduh lembar dokumen soal kuis...
+        </p>
 
-<p id="soal"></p>
+        <div id="opsi"></div>
 
-<div id="opsi"></div>
+        <div class="action-container">
+            <button onclick="berikutnya()">
+                <span>Soal Berikutnya</span> <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
 
-<button onclick="berikutnya()">Soal Berikutnya</button>
-
+    </div>
 </div>
 
 <script>
-
 const API_URL = "https://script.google.com/macros/s/AKfycbwqhRU2shRUdBbuqdjeUt6tgd3uqbO6B9krfvf9JD0eubNNeoDZDyXBz9Iqw65xCRTjJQ/exec";
 
 let soalData = [];
@@ -51,101 +236,98 @@ let nomor = 0;
 let benar = 0;
 
 async function loadSoal() {
-
     try {
-
         const response = await fetch(API_URL);
         const data = await response.json();
 
         const kelasSiswa = String(localStorage.getItem("kelas")).trim();
         const mapelSiswa = String(localStorage.getItem("mapel")).trim();
 
-soalData = data
-    .filter(item =>
-        String(item.kelas).trim() === kelasSiswa &&
-        String(item.mapel).trim() === mapelSiswa
-    )
-    .map(item => {
+        // Tampilkan info mapel & kelas di pojok kanan atas kuis
+        document.getElementById("metaInfo").innerText = `${mapelSiswa} • Kelas ${kelasSiswa}`;
 
-        const pilihan = [
-            String(item.opsi_a),
-            String(item.opsi_b),
-            String(item.opsi_c),
-            String(item.opsi_d)
-        ];
+        soalData = data
+            .filter(item =>
+                String(item.kelas).trim() === kelasSiswa &&
+                String(item.mapel).trim() === mapelSiswa
+            )
+            .map(item => {
+                const pilihan = [
+                    String(item.opsi_a),
+                    String(item.opsi_b),
+                    String(item.opsi_c),
+                    String(item.opsi_d)
+                ];
 
-        let jawabanBenar = "";
+                let jawabanBenar = "";
+                switch (String(item.jawaban).trim().toUpperCase()) {
+                    case "A": jawabanBenar = pilihan[0]; break;
+                    case "B": jawabanBenar = pilihan[1]; break;
+                    case "C": jawabanBenar = pilihan[2]; break;
+                    case "D": jawabanBenar = pilihan[3]; break;
+                }
 
-        switch (String(item.jawaban).trim().toUpperCase()) {
-            case "A":
-                jawabanBenar = pilihan[0];
-                break;
-            case "B":
-                jawabanBenar = pilihan[1];
-                break;
-            case "C":
-                jawabanBenar = pilihan[2];
-                break;
-            case "D":
-                jawabanBenar = pilihan[3];
-                break;
-        }
+                return {
+                    soal: String(item.soal),
+                    pilihan: pilihan,
+                    jawaban: jawabanBenar
+                };
+            });
 
-        return {
-            soal: String(item.soal),
-            pilihan: pilihan,
-            jawaban: jawabanBenar
-        };
-
-    });
         if (soalData.length === 0) {
-            alert("Tidak ada soal.");
+            document.getElementById("soal").innerHTML = "<span style='color:#ef4444;'><i class='fa-solid fa-triangle-exclamation'></i> Belum ada data soal tersedia untuk jenjang Kelas dan Mapel ini.</span>";
+            document.getElementById("judul").innerText = "Kosong";
             return;
         }
 
         tampil();
 
     } catch (err) {
-
         console.error(err);
-        alert("Gagal mengambil soal.");
-
+        document.getElementById("soal").innerHTML = "<span style='color:#ef4444;'><i class='fa-solid fa-circle-xmark'></i> Gagal memuat sambungan server kuis.</span>";
     }
-
 }
 
 function tampil() {
-
-    document.getElementById("judul").innerText =
-        "Soal " + (nomor + 1) + " dari " + soalData.length;
-
-    document.getElementById("soal").innerText =
-        soalData[nomor].soal;
+    document.getElementById("judul").innerText = `Soal ${nomor + 1} dari ${soalData.length}`;
+    document.getElementById("soal").innerText = soalData[nomor].soal;
 
     let html = "";
-
-    soalData[nomor].pilihan.forEach(function(p) {
-
+    soalData[nomor].pilihan.forEach(function(p, index) {
+        // ID unik gabungan nomor soal dan indeks opsi
+        const optionId = `opt_${nomor}_${index}`;
         html += `
-            <label>
-                <input type="radio" name="jawab" value="${p}">
-                ${p}
-            </label>
-            <br><br>
+            <div class="option-wrapper" onclick="pilihOpsiOtomatis('${optionId}')" id="box_${optionId}">
+                <input type="radio" name="jawab" value="${p}" id="${optionId}" onclick="event.stopPropagation(); handleRadioSelect(this);">
+                <div class="option-text">${p}</div>
+            </div>
         `;
-
     });
 
     document.getElementById("opsi").innerHTML = html;
+}
 
+// Fungsi pembantu agar mengklik boks area juga ikut memilih radio button di dalamnya
+function pilihOpsiOtomatis(id) {
+    const radio = document.getElementById(id);
+    radio.checked = true;
+    handleRadioSelect(radio);
+}
+
+// Mengatur efek visual latar boks terpilih (highlight active class)
+function handleRadioSelect(radioElement) {
+    const allWrappers = document.querySelectorAll('.option-wrapper');
+    allWrappers.forEach(w => w.classList.remove('selected'));
+    
+    // Tambahkan class selected pada boks induk radio yang diklik
+    radioElement.closest('.option-wrapper').classList.add('selected');
 }
 
 function berikutnya() {
-
     const pilih = document.querySelector('input[name="jawab"]:checked');
 
     if (!pilih) {
-        alert("Pilih jawaban terlebih dahulu.");
+        alert("Pilih salah satu jawaban terlebih dahulu sebelum melanjutkan.");
         return;
     }
 
@@ -156,21 +338,18 @@ function berikutnya() {
     nomor++;
 
     if (nomor >= soalData.length) {
-
         const nilai = Math.round((benar / soalData.length) * 100);
-
         localStorage.setItem("nilai", nilai);
-
+        
+        // Pindah otomatis ke halaman skor akhir
         window.location.href = "hasil.html";
         return;
     }
 
     tampil();
-
 }
 
 loadSoal();
-
 </script>
 
 </body>
