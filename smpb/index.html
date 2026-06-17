@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informasi SMPB | SDN Butoh 1 Ngasem</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-light: #e6f2ff;
+            --primary-accent: #0077ff;
+            --primary-gradient: linear-gradient(135deg, #0088ff 0%, #00c6ff 100%);
+            --gold-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --shadow-subtle: 0 4px 15px rgba(0, 140, 255, 0.05);
+            --shadow-card: 0 10px 30px rgba(0, 136, 255, 0.08);
+            --green-accent: #10b981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-body); color: var(--text-dark); padding-bottom: 60px; }
+        
+        header { 
+            background: #ffffff; 
+            padding: 25px 6%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: var(--shadow-subtle); 
+            border-bottom: 1px solid var(--primary-light); 
+        }
+        .header-title { display: flex; align-items: center; gap: 15px; }
+        .logo-icon { 
+            background: var(--gold-gradient); 
+            color: white; width: 46px; height: 46px; 
+            border-radius: 12px; display: flex; 
+            align-items: center; justify-content: center; 
+            font-size: 20px; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2); 
+        }
+        .header-title h1 { font-size: 22px; font-weight: 800; color: #d97706; line-height: 1.2; }
+        .header-title p { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+        
+        .btn-back { 
+            background-color: #fef3c7; 
+            color: #d97706; border: none; 
+            padding: 10px 20px; border-radius: 8px; 
+            font-size: 14px; font-weight: 700; cursor: pointer; 
+            display: flex; align-items: center; gap: 8px; 
+            transition: all 0.2s ease; 
+        }
+        .btn-back:hover { background-color: #d97706; color: white; transform: translateX(-3px); }
+        
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+
+        .banner-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 6px solid #f59e0b;
+            box-shadow: var(--shadow-subtle);
+            margin-bottom: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+        .banner-card h2 { font-size: 20px; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; }
+        .banner-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+        .badge-year { background: #fef3c7; color: #b45309; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-block; margin-bottom: 15px; }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .info-panel {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid #e2e8f0;
+        }
+        .info-panel h3 {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .info-panel h3 i { color: #f59e0b; font-size: 18px; }
+        .info-panel p { font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 15px; }
+
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-gradient);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0, 136, 255, 0.2);
+            transition: all 0.2s;
+        }
+        .btn-link:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0, 136, 255, 0.3); }
+
+        /* KOTAK GRATIS & BANTUAN */
+        .help-box {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            box-shadow: var(--shadow-subtle);
+        }
+        .help-box .icon-circle {
+            background: #10b981;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+        }
+        .help-box h4 { font-size: 16px; font-weight: 800; color: #064e3b; margin-bottom: 6px; }
+        .help-box p { font-size: 14px; color: #065f46; line-height: 1.6; margin-bottom: 12px; }
+        .highlight-free {
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 800;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 15px; text-align: center; }
+            .help-box { flex-direction: column; align-items: center; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-title">
+            <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div>
+                <h1>SD NEGERI BUTOH 1 NGASEM</h1>
+                <p>Panduan Pendaftaran Sekolah Lanjutan (SMPB)</p>
+            </div>
+        </div>
+        <button class="btn-back" onclick="if(document.referrer) { history.back(); } else { window.location.href='../'; }">
+            <i class="fa-solid fa-arrow-left"></i> Kembali
+        </button>
+    </header>
+
+    <div class="container">
+        
+        <div class="banner-card">
+            <span class="badge-year">Tahun Ajaran 2026/2027</span>
+            <h2>Sistem Koordinasi Terpadu Kab. Bojonegoro</h2>
+            <p>Proses seleksi dan pendaftaran Siswa Baru tingkat SMP (SMPB) tahun ini dikoordinir secara terpusat langsung oleh Pemerintah Kabupaten Bojonegoro melalui Dinas Pendidikan demi mewujudkan keterbukaan dan pemerataan akses pendidikan.</p>
+        </div>
+
+        <div class="info-grid">
+            
+            <!-- PANEL MANDIRI -->
+            <div class="info-panel">
+                <h3><i class="fa-solid fa-laptop-code"></i> Pendaftaran Secara Mandiri Online</h3>
+                <p>Orang tua/Wali murid atau siswa dapat melakukan pendaftaran secara mandiri dari rumah melalui situs web resmi yang disediakan Dinas Pendidikan Kabupaten Bojonegoro. Di dalam sistem pengisian nanti, Anda dapat menentukan dan memilih <strong>SDN Butoh I</strong> sebagai salah satu sekolah asal/tujuan verifikasi sesuai jalur yang diikuti.</p>
+                <p>Silakan ikuti instruksi, tahapan, dan pengisian berkas secara teliti sesuai aturan yang tertera pada situs web PPDB dinas tersebut.</p>
+                <br>
+                <a href="https://bojonegoro.siap-ppdb.com/" target="_blank" class="btn-link">
+                    <i class="fa-solid fa-globe"></i> Kunjungi Situs Resmi Dinas <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px"></i>
+                </a>
+            </div>
+
+            <!-- PANEL BANTUAN SEKOLAH -->
+            <div class="help-box">
+                <div class="icon-circle"><i class="fa-solid fa-handshake-angle"></i></div>
+                <div>
+                    <h4>Mengalami Kesulitan atau Bingung?</h4>
+                    <p>Jika Anda merasa alur pengisian online di website dinas terlalu rumit, memiliki kendala perangkat, atau kuota internet, **jangan khawatir!** Bapak/Ibu Wali Murid dipersilakan untuk langsung datang ke <strong>Kantor SD Negeri Butoh I Ngasem</strong>.</p>
+                    <p>Tim operator dan guru kami akan dengan senang hati mendampingi, memandu, dan membantu mendaftarkan anak Anda secara langsung di sekolah sampai prosesnya benar-benar selesai dan sukses.</p>
+                    <span class="highlight-free"><i class="fa-solid fa-circle-check"></i> 100% Gratis Tanpa Biaya</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
