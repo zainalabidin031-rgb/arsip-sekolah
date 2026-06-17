@@ -1,67 +1,183 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pilih Bab</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Bab | Latihan Soal Online</title>
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-body{
-    background:#f3f6fb;
-}
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --accent-color: #2563eb;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f4f8fc;
+            --shadow-card: 0 10px 25px rgba(37, 99, 235, 0.05);
+        }
 
-header{
-    background:#2563eb;
-    color:white;
-    text-align:center;
-    padding:25px;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
 
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:25px;
-}
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-.info{
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    margin-bottom:25px;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-    line-height:1.8;
-}
+        /* HEADER */
+        header {
+            background: var(--primary-gradient);
+            color: white;
+            text-align: center;
+            padding: 45px 20px;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
+        }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
-}
+        header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
 
-.card{
-    background:white;
-    padding:30px;
-    border-radius:12px;
-    text-align:center;
-    cursor:pointer;
-    font-weight:bold;
-    font-size:18px;
-    transition:.2s;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
+        /* CONTAINER */
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 40px 20px;
+            flex: 1;
+            width: 100%;
+        }
 
-.card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 6px 16px rgba(0,0,0,.15);
-}
-</style>
+        /* CARD INDENTITAS SISWA */
+        .info {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 35px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(37, 99, 235, 0.06);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .info-block {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-block .label {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        .info-block .value {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        #nama {
+            color: var(--accent-color);
+        }
+
+        /* GRID CARDS BAB */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            font-weight: 700;
+            font-size: 16.5px;
+            color: var(--text-dark);
+            cursor: pointer;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(37, 99, 235, 0.02);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            background: transparent;
+            transition: background 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(37, 99, 235, 0.1);
+            background-color: #fafdff;
+            color: var(--accent-color);
+        }
+
+        .card:hover::before {
+            background: var(--primary-gradient);
+        }
+
+        .card-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        /* STATUS LOADING / KOSONG */
+        .status-msg {
+            grid-column: span 2;
+            text-align: center;
+            padding: 40px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--text-muted);
+            font-size: 13.5px;
+            font-weight: 500;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 650px) {
+            .info {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 20px;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -73,14 +189,31 @@ header{
 <div class="container">
 
     <div class="info">
-        <strong>Nama:</strong> <span id="nama"></span><br>
-        <strong>Mata Pelajaran:</strong> <span id="mapel"></span><br>
-        <strong>Kelas:</strong> <span id="kelas"></span>
+        <div class="info-block">
+            <span class="label">Nama Peserta Didik</span>
+            <span class="value" id="nama">-</span>
+        </div>
+        <div class="info-block">
+            <span class="label">Mata Pelajaran</span>
+            <span class="value" id="mapel">-</span>
+        </div>
+        <div class="info-block">
+            <span class="label">Tingkat Kelas</span>
+            <span class="value" id="kelas">-</span>
+        </div>
     </div>
 
-    <div class="grid" id="daftarBab"></div>
-
+    <div class="grid" id="daftarBab">
+        <div class="status-msg" style="color: var(--accent-color);">
+            <i class="fa-solid fa-circle-notch fa-spin me-2"></i> Mengambil daftar susunan materi bab pembelajaran...
+        </div>
     </div>
+
+</div>
+
+<footer>
+    © 2026 Latihan Soal Online
+</footer>
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbwqhRU2shRUdBbuqdjeUt6tgd3uqbO6B9krfvf9JD0eubNNeoDZDyXBz9Iqw65xCRTjJQ/exec";
@@ -98,7 +231,7 @@ async function loadBab() {
         const response = await fetch(API_URL);
         const data = await response.json();
 
-        // Ambil bab yang sesuai mapel & kelas
+        // Ambil bab yang sesuai mapel & kelas secara unik (no-duplicate)
         const babSet = new Set();
 
         data.forEach(item => {
@@ -115,15 +248,23 @@ async function loadBab() {
         container.innerHTML = "";
 
         if (daftarBab.length === 0) {
-            container.innerHTML =
-                "<p>Belum ada bab yang tersedia untuk mata pelajaran dan kelas ini.</p>";
+            container.innerHTML = `
+                <div class="status-msg">
+                    <i class="fa-solid fa-folder-open style="font-size:32px; display:block; margin-bottom:10px; color:#cbd5e1;"></i>
+                    Belum ada bab yang tersedia untuk mata pelajaran dan kelas ini.
+                </div>`;
             return;
         }
 
         daftarBab.forEach(bab => {
             const card = document.createElement("div");
             card.className = "card";
-            card.textContent = "📘 " + bab;
+            
+            // Membuat struktur isi kartu yang elegan menggunakan ikon folder/buku bergaya premium
+            card.innerHTML = `
+                <span class="card-icon">📘</span>
+                <span>${bab}</span>
+            `;
 
             card.onclick = () => {
                 localStorage.setItem("bab", bab);
@@ -135,7 +276,10 @@ async function loadBab() {
 
     } catch (err) {
         console.error(err);
-        alert("Gagal memuat daftar bab.");
+        document.getElementById("daftarBab").innerHTML = `
+            <div class="status-msg" style="color: #ef4444;">
+                <i class="fa-solid fa-circle-xmark"></i> Gagal memuat daftar bab. Cek sambungan cloud spreadsheet Anda.
+            </div>`;
     }
 }
 
