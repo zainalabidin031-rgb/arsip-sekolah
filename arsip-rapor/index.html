@@ -3,215 +3,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arsip Nilai Rapor Siswa</title>
+    <title>Arsip Nilai Rapor Siswa | SDN Butoh 1 Ngasem</title>
 
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        body{
-            background:#f4f7fb;
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0088ff 0%, #00c6ff 100%);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --shadow-card: 0 12px 30px rgba(0, 136, 255, 0.05);
         }
 
-        .hero{
-            background:linear-gradient(135deg,#42A5F5,#2196F3);
-            color:white;
-            padding:50px 20px;
-            text-align:center;
+        body {
+            background: var(--bg-body);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-dark);
         }
 
-        .card-custom{
-            border:none;
-            border-radius:18px;
-            box-shadow:0 8px 25px rgba(0,0,0,.08);
+        .hero {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        #hasilArea{
-            display:none;
+        .hero h1 {
+            font-weight: 800;
+            font-size: 28px;
+            letter-spacing: -0.5px;
         }
 
-        .nilai-table td{
-            padding:10px;
+        .hero p {
+            font-weight: 500;
+            opacity: 0.9;
+            font-size: 15px;
         }
 
-        footer{
-            margin-top:50px;
-            color:#777;
-            font-size:14px;
+        .card-custom {
+            border: none;
+            border-radius: 24px;
+            box-shadow: var(--shadow-card);
+            background: #ffffff;
+            border: 1px solid rgba(0, 136, 255, 0.02);
         }
-        .btn-primary{
-    background-color:#2196F3 !important;
-    border-color:#2196F3 !important;
-}
 
-.btn-primary:hover{
-    background-color:#1E88E5 !important;
-    border-color:#1E88E5 !important;
-}
+        .form-label {
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .input-group-text {
+            background-color: #f8fafc;
+            border-color: #cbd5e1;
+            color: #94a3b8;
+        }
+
+        .form-control, .form-select {
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            font-size: 14px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #0077ff;
+            box-shadow: 0 0 0 4px rgba(0, 119, 255, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient) !important;
+            border: none !important;
+            padding: 13px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(0, 136, 255, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 18px rgba(0, 136, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0 !important;
+            border: none !important;
+            color: var(--text-dark) !important;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1 !important;
+        }
+
+        .info-badge-box {
+            background: #f0f7ff;
+            padding: 15px 20px;
+            border-radius: 16px;
+            border-left: 4px solid #0077ff;
+        }
+
+        /* Styling Tabel Nilai Transparan Modern */
+        .nilai-table {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .nilai-table th {
+            background: #f8fafc;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .nilai-table td {
+            padding: 12px 16px;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .nilai-score {
+            font-weight: 800;
+            color: #0077ff;
+            text-align: right;
+            width: 80px;
+        }
+
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 14px;
+            padding: 10px 18px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .home-btn:hover {
+            color: #0077ff;
+            border-color: #e6f2ff;
+            transform: translateX(-3px);
+        }
+
+        footer {
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
 
-<div class="hero">
-    <h1>📄 Arsip Nilai Rapor</h1>
-    <p class="mb-0">
-        SDN Negeri Butoh I Ngasem
-    </p>
+<div class="hero mb-4">
+    <div class="container">
+        <h1><i class="fa-solid fa-box-archive me-2"></i> Arsip Nilai Rapor</h1>
+        <p class="mb-0">SDN Butoh 1 Ngasem</p>
+    </div>
 </div>
-<div class="container py-5">
 
+<div class="container">
     <div class="row justify-content-center">
-
         <div class="col-lg-7">
+            
+            <div class="card card-custom p-4 p-md-5">
+                <h4 class="text-center mb-4 fw-800" style="letter-spacing: -0.5px;">Cari Rekam Jejak Rapor</h4>
+                
+                <div class="mb-3">
+                    <label class="form-label">Masukkan NISN Siswa</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-fingerprint"></i></span>
+                        <input type="text" class="form-control" id="nisnInput" placeholder="Contoh: 0051234567">
+                    </div>
+                </div>
 
-            <div class="card card-custom p-4">
+                <div class="mb-4">
+                    <label class="form-label">Masukkan Tanggal Lahir</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-calendar-day"></i></span>
+                        <input type="date" class="form-control" id="tanggalLahirInput">
+                    </div>
+                </div>
 
-                <h4 class="text-center mb-4">
-                    Cari Arsip Nilai Rapor
-                </h4>
-
-                <label class="form-label">
-                    Masukkan NISN
-                </label>
-
-                <input
-                    type="text"
-                    class="form-control mb-3"
-                    id="nisnInput"
-                    placeholder="Contoh: 0051234567">
-
-                <button
-                    class="btn btn-primary w-100"
-                    id="btnCari">
-
-                    🔍 Cari Data
-
+                <button class="btn btn-primary w-100" id="btnCari">
+                    <i class="fa-solid fa-magnifying-glass me-2"></i> Cari Arsip Data
                 </button>
-<div id="pesanStatus" class="mt-3"></div>
+
+                <div id="pesanStatus" class="mt-3"></div>
+
                 <div id="hasilArea" class="mt-4" style="display:none;">
-
-                    <hr>
-
-                    <div class="mb-3">
-
-                        <strong>Nama :</strong>
-                        <span id="namaSiswa">-</span>
-
-                        <br>
-
-                        <strong>NISN :</strong>
-                        <span id="nisnSiswa">-</span>
-
-                        <br>
-
-                        <strong>Peringkat :</strong>
-                        <span id="peringkatSiswa">-</span>
-
+                    <hr class="text-muted opacity-25 my-4">
+                    
+                    <div class="info-badge-box mb-4">
+                        <div class="row g-2">
+                            <div class="col-4 text-secondary font-13"><strong>Nama</strong></div>
+                            <div class="col-8">: <span id="namaSiswa" class="fw-bold">-</span></div>
+                            
+                            <div class="col-4 text-secondary font-13"><strong>NISN</strong></div>
+                            <div class="col-8">: <span id="nisnSiswa">-</span></div>
+                            
+                            <div class="col-4 text-secondary font-13"><strong>Peringkat</strong></div>
+                            <div class="col-8">: <span id="peringkatSiswa" class="badge bg-success fw-bold">-</span></div>
+                        </div>
                     </div>
 
                     <div class="row">
-
                         <div class="col-md-6 mb-3">
-
-                            <label class="form-label">
-                                Tahun Ajaran
-                            </label>
-
+                            <label class="form-label">Tahun Ajaran</label>
                             <select class="form-select" id="tahunSelect">
-                                <option value="">
-                                    Pilih Tahun
-                                </option>
+                                <option value="">Pilih Tahun</option>
                             </select>
-
                         </div>
 
                         <div class="col-md-6 mb-3">
-
-                            <label class="form-label">
-                                Semester
-                            </label>
-
+                            <label class="form-label">Semester</label>
                             <select class="form-select" id="semesterSelect">
-                                <option value="">
-                                    Pilih Semester
-                                </option>
+                                <option value="">Pilih Semester</option>
                             </select>
-
                         </div>
-
                     </div>
 
-                    <button
-                        class="btn btn-primary w-100 mb-4"
-                        id="btnTampil">
-
-                        📑 Tampilkan Nilai
-
+                    <button class="btn btn-primary w-100 mb-4" id="btnTampil">
+                        <i class="fa-solid fa-file-invoice me-2"></i> Tampilkan Lembar Rapor
                     </button>
 
-                    <table class="table table-bordered nilai-table">
-
+                    <table class="table table-striped table-hover nilai-table">
+                        <thead>
+                            <tr>
+                                <th>Mata Pelajaran</th>
+                                <th class="text-end">Nilai Akhir</th>
+                            </tr>
+                        </thead>
                         <tbody>
-
-                            <tr><td>PAI</td><td id="pai">-</td></tr>
-                            <tr><td>PKN</td><td id="pkn">-</td></tr>
-                            <tr><td>BIN</td><td id="bin">-</td></tr>
-                            <tr><td>MTK</td><td id="mtk">-</td></tr>
-                            <tr><td>IPAS</td><td id="ipas">-</td></tr>
-                            <tr><td>PJOK</td><td id="pjok">-</td></tr>
-                            <tr><td>SENI</td><td id="seni">-</td></tr>
-                            <tr><td>BIG</td><td id="big">-</td></tr>
-                            <tr><td>BJ</td><td id="bj">-</td></tr>
-                            <tr><td>LIDI</td><td id="lidi">-</td></tr>
-
+                            <tr><td>Pendidikan Agama Islam (PAI)</td><td id="pai" class="nilai-score">-</td></tr>
+                            <tr><td>Pendidikan Pancasila (PPKn)</td><td id="pkn" class="nilai-score">-</td></tr>
+                            <tr><td>Bahasa Indonesia (BIN)</td><td id="bin" class="nilai-score">-</td></tr>
+                            <tr><td>Matematika (MTK)</td><td id="mtk" class="nilai-score">-</td></tr>
+                            <tr><td>Ilmu Pengetahuan Alam dan Sosial (IPAS)</td><td id="ipas" class="nilai-score">-</td></tr>
+                            <tr><td>Pendidikan Jasmani, Olahraga & Kesehatan (PJOK)</td><td id="pjok" class="nilai-score">-</td></tr>
+                            <tr><td>Seni dan Budaya (SENI)</td><td id="seni" class="nilai-score">-</td></tr>
+                            <tr><td>Bahasa Inggris (BIG)</td><td id="big" class="nilai-score">-</td></tr>
+                            <tr><td>Bahasa Jawa (BJ)</td><td id="bj" class="nilai-score">-</td></tr>
+                            <tr><td>Literasi Digital (LIDI)</td><td id="lidi" class="nilai-score">-</td></tr>
                         </tbody>
-
                     </table>
-
                 </div>
 
             </div>
-
         </div>
-
     </div>
-<div style="text-align: center; margin: 20px 0;">
-    <a href="https://zainalabidin031-rgb.github.io/arsip-sekolah/"
-       style="
-           display: inline-block;
-           padding: 10px 18px;
-           background-color: #2196F3;
-           color: white;
-           text-decoration: none;
-           border-radius: 8px;
-           font-weight: bold;
-       ">
-        ← Kembali ke Beranda
-    </a>
-</div>
+
+    <div class="text-center mt-4">
+        <a href="https://zainalabidin031-rgb.github.io/arsip-sekolah/" class="home-btn">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
+        </a>
+    </div>
 </div>
                         
-<footer class="text-center pb-4">
-    © 2026 SDN Negeri Butoh I Ngasem
+<footer class="text-center py-4 mt-5 border-top border-light">
+    © 2026 SDN Butoh 1 Ngasem. Seluruh Hak Cipta Dilindungi.
 </footer>
 
 <script>
-/*
-
-</script>
-<script>
+// KONFIGURASI SPREADSHEET (Tetap Terjaga Asli)
 const SPREADSHEET_ID = "1fmjRjhstWd1n_il7mTQXp6uyLxEUNMdJOIesL8B3UKo";
 const SHEET_NAME = "rapor";
 
 let semuaData = [];
 
-// Ambil data dari Google Sheet
+// Tarik data mentah JSON Google Sheet
 async function loadData() {
     const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
-
     const res = await fetch(url);
     const text = await res.text();
-
     const json = JSON.parse(text.substring(47).slice(0, -2));
 
     semuaData = json.table.rows.map(r =>
@@ -219,118 +302,117 @@ async function loadData() {
     );
 }
 
-// Jalankan saat halaman dibuka
+// Handler Inisialisasi Pertama
 window.addEventListener("load", async () => {
     try {
         await loadData();
     } catch (e) {
         document.getElementById("pesanStatus").innerHTML =
-            `<div class="alert alert-danger">
-                Gagal memuat data spreadsheet.
+            `<div class="alert alert-danger d-flex align-items-center" role="alert">
+                <i class="fa-solid fa-circle-exclamation me-2"></i> Gagal menyinkronkan data database arsip.
             </div>`;
     }
 });
 
-// Tombol Cari
+// Pemrosesan Tombol Pencarian dengan Validasi NISN + Tanggal Lahir
 document.getElementById("btnCari").addEventListener("click", () => {
-
     const nisn = document.getElementById("nisnInput").value.trim();
+    const tglLahir = document.getElementById("tanggalLahirInput").value.trim();
 
     if (!nisn) {
-        alert("Masukkan NISN terlebih dahulu.");
+        alert("Silakan masukkan NISN siswa terlebih dahulu.");
+        return;
+    }
+    if (!tglLahir) {
+        alert("Silakan isi komponen Tanggal Lahir untuk kebutuhan verifikasi data.");
         return;
     }
 
-    const hasil = semuaData.filter(row => String(row[0]).trim() === nisn);
+    // MEMVALIDASI DATA GANDA: NISN ada di index 0, Tanggal Lahir diasumsikan berada pada index 15 (Kolom P)
+    const hasil = semuaData.filter(row => 
+        String(row[0]).trim() === nisn && 
+        String(row[15]).trim() === tglLahir
+    );
 
     if (hasil.length === 0) {
-
         document.getElementById("pesanStatus").innerHTML =
-            `<div class="alert alert-danger">
-                Data tidak ditemukan.
+            `<div class="alert alert-danger d-flex align-items-center" role="alert">
+                <i class="fa-solid fa-triangle-exclamation me-2"></i> Berkas tidak ditemukan. Periksa kembali kecocokan NISN & Tanggal Lahir.
             </div>`;
-
         document.getElementById("hasilArea").style.display = "none";
         return;
     }
 
+    // Tampilkan Area Dashboard Pengolahan Rapor
     document.getElementById("pesanStatus").innerHTML = "";
-
     document.getElementById("hasilArea").style.display = "block";
 
     document.getElementById("namaSiswa").textContent = hasil[0][1];
     document.getElementById("nisnSiswa").textContent = hasil[0][0];
-    document.getElementById("peringkatSiswa").textContent = hasil[0][2] || "-";
+    document.getElementById("peringkatSiswa").textContent = "Peringkat " + (hasil[0][2] || "-");
 
-    // Isi dropdown Tahun
+    // Suntik Pilihan Tahun Ajaran Secara Unik
     const tahunSelect = document.getElementById("tahunSelect");
-    tahunSelect.innerHTML = '<option value="">Pilih Tahun</option>';
+    tahunSelect.innerHTML = '<option value="">Pilih Tahun Ajaran</option>';
 
     [...new Set(hasil.map(x => x[3]))].forEach(tahun => {
-        tahunSelect.innerHTML +=
-            `<option value="${tahun}">${tahun}</option>`;
+        tahunSelect.innerHTML += `<option value="${tahun}">${tahun}</option>`;
     });
 
-    // Reset semester
-    document.getElementById("semesterSelect").innerHTML =
-        '<option value="">Pilih Semester</option>';
+    // Kosongkan Opsi Semester Sementara
+    document.getElementById("semesterSelect").innerHTML = '<option value="">Pilih Semester</option>';
 });
 
-// Saat Tahun berubah
+// Update Opsi Semester Berdasarkan Tahun Ajaran yang Dipilih
 document.getElementById("tahunSelect").addEventListener("change", () => {
-
     const nisn = document.getElementById("nisnInput").value.trim();
+    const tglLahir = document.getElementById("tanggalLahirInput").value.trim();
     const tahun = document.getElementById("tahunSelect").value;
-
     const semesterSelect = document.getElementById("semesterSelect");
 
-    semesterSelect.innerHTML =
-        '<option value="">Pilih Semester</option>';
+    semesterSelect.innerHTML = '<option value="">Pilih Semester</option>';
 
     const data = semuaData.filter(r =>
         String(r[0]).trim() === nisn &&
+        String(r[15]).trim() === tglLahir &&
         String(r[3]) === tahun
     );
 
     [...new Set(data.map(x => x[4]))].forEach(semester => {
-
-        semesterSelect.innerHTML +=
-            `<option value="${semester}">
-                ${semester}
-            </option>`;
+        semesterSelect.innerHTML += `<option value="${semester}">${semester}</option>`;
     });
-
 });
 
-// Tombol tampilkan nilai
+// Eksekusi Tampilkan Nilai Mapel Ke Elemen Tabel Dom
 document.getElementById("btnTampil").addEventListener("click", () => {
-
     const nisn = document.getElementById("nisnInput").value.trim();
+    const tglLahir = document.getElementById("tanggalLahirInput").value.trim();
     const tahun = document.getElementById("tahunSelect").value;
     const semester = document.getElementById("semesterSelect").value;
 
     const row = semuaData.find(r =>
         String(r[0]).trim() === nisn &&
+        String(r[15]).trim() === tglLahir &&
         String(r[3]) === tahun &&
         String(r[4]) === semester
     );
 
     if (!row) {
-        alert("Silahkan pilih Tahun Ajaran.");
+        alert("Silakan lengkapi pilihan Tahun Ajaran dan Semester terlebih dahulu.");
         return;
     }
 
-    document.getElementById("pai").textContent = row[5];
-    document.getElementById("pkn").textContent = row[6];
-    document.getElementById("bin").textContent = row[7];
-    document.getElementById("mtk").textContent = row[8];
-    document.getElementById("ipas").textContent = row[9];
-    document.getElementById("pjok").textContent = row[10];
-    document.getElementById("seni").textContent = row[11];
-    document.getElementById("big").textContent = row[12];
-    document.getElementById("bj").textContent = row[13];
-    document.getElementById("lidi").textContent = row[14];
-
+    // Pemetaan indeks nilai rapor (Kolom index ke-5 s.d ke-14)
+    document.getElementById("pai").textContent = row[5] || "0";
+    document.getElementById("pkn").textContent = row[6] || "0";
+    document.getElementById("bin").textContent = row[7] || "0";
+    document.getElementById("mtk").textContent = row[8] || "0";
+    document.getElementById("ipas").textContent = row[9] || "0";
+    document.getElementById("pjok").textContent = row[10] || "0";
+    document.getElementById("seni").textContent = row[11] || "0";
+    document.getElementById("big").textContent = row[12] || "0";
+    document.getElementById("bj").textContent = row[13] || "0";
+    document.getElementById("lidi").textContent = row[14] || "0";
 });
 </script>
 </body>
