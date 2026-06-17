@@ -10,7 +10,7 @@ header{background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;padding:22p
 .container{max-width:1200px;margin:24px auto;padding:0 16px}
 .card{background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.08);padding:20px}
 .toolbar{display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;align-items:center}
-input{padding:10px 12px;border:1px solid #dbeafe;border-radius:10px;min-width:260px}
+input{padding:10px 12px;border:1px solid #dbeafe;border-radius:10px;min-width:260px;font-family:inherit;box-sizing:border-box;width:100%;}
 button{border:none;border-radius:10px;padding:10px 16px;cursor:pointer}
 .primary{background:#2563eb;color:#fff}
 .secondary{background:#64748b;color:#fff}
@@ -18,10 +18,13 @@ table{width:100%;border-collapse:collapse;margin-top:16px}
 th,td{padding:12px;border-bottom:1px solid #e5e7eb;text-align:left}
 th{background:#2563eb;color:#fff}
 tr:hover{background:#f8fbff}
-#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center}
-.modal-box{background:#fff;border-radius:14px;padding:20px;max-width:700px;width:95%}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:700px){.grid{grid-template-columns:1fr}}
+#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:999}
+.modal-box{background:#fff;border-radius:14px;padding:25px;max-width:800px;width:95%;max-height:90vh;overflow-y:auto}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group label{font-size:12px;font-weight:600;color:#64748b}
+.full-width{grid-column: span 2;}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.full-width{grid-column: span 1;}}
 </style>
 </head>
 <body>
@@ -42,72 +45,95 @@ tr:hover{background:#f8fbff}
 </div>
 
 <div id="modal"><div class="modal-box">
-<h3>Edit Data Lengkap</h3>
+<h3 style="margin-top:0; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">Edit Data Siswa (Lengkap)</h3>
 <div class="grid">
-<input id="nisn" placeholder="NISN" readonly style="background:#f1f5f9; cursor:not-allowed;">
-<input id="nis" placeholder="NIS">
-<input id="nama" placeholder="Nama">
-<input id="kelas" placeholder="Kelas">
-<input id="status" placeholder="Status">
-<input id="waliKelas" placeholder="Wali Kelas">
-
-<input id="alamat" placeholder="Alamat">
-<input id="noHp" placeholder="No HP">
+<div class="form-group"><label>NISN</label><input id="nisn" readonly style="background:#f1f5f9; cursor:not-allowed;"></div>
+<div class="form-group"><label>NIS</label><input id="nis"></div>
+<div class="form-group"><label>Nama</label><input id="nama"></div>
+<div class="form-group"><label>Kelas</label><input id="kelas"></div>
+<div class="form-group"><label>Status</label><input id="status"></div>
+<div class="form-group"><label>Wali Kelas</label><input id="waliKelas"></div>
+<div class="form-group"><label>Nama Ayah</label><input id="namaAyah"></div>
+<div class="form-group"><label>Nama Ibu</label><input id="namaIbu"></div>
+<div class="form-group"><label>Tanggal Lahir</label><input id="tanggalLahir" placeholder="YYYY-MM-DD"></div>
+<div class="form-group"><label>Jenis Kelamin</label><input id="jenisKelamin"></div>
+<div class="form-group"><label>Tempat Lahir</label><input id="tempatLahir"></div>
+<div class="form-group"><label>Tahun Masuk</label><input id="tahunMasuk"></div>
+<div class="form-group"><label>Tahun Lulus</label><input id="tahunLulus"></div>
+<div class="form-group"><label>No HP Orang Tua</label><input id="noHp"></div>
+<div class="form-group full-width"><label>Alamat</label><input id="alamat"></div>
+<div class="form-group full-width"><label>Terakhir Update</label><input id="terakhirUpdate" readonly style="background:#f1f5f9; cursor:not-allowed;"></div>
 </div>
-<div style="margin-top:16px">
-<button class="primary" onclick="save()">Simpan</button>
+<div style="margin-top:20px; text-align:right; border-top: 1px solid #e5e7eb; padding-top: 15px;">
 <button class="secondary" onclick="closeModal()">Batal</button>
+<button class="primary" onclick="save()">Simpan Perubahan</button>
 </div>
 </div></div>
 
 <script>
-// GANTI dengan URL Web App Apps Script terbarumu jika kamu membuat deployment baru
 const SCRIPT="https://script.google.com/macros/s/AKfycbyGXsz7p4zTIlQ8A9JDCMPnwPJ63pXKYtBBFHFzEryirz1s1hcW31oHCPlRZ0d2V3-l/exec";
 let rows=[],current=null;
 
+// ID element HTML untuk mempermudah proses reset form
+const fields = ["nisn","nis","nama","kelas","status","waliKelas","namaAyah","namaIbu","tanggalLahir","jenisKelamin","tempatLahir","tahunMasuk","tahunLulus","alamat","noHp","terakhirUpdate"];
+
 async function loadData(){
- const res=await fetch(SCRIPT+"?action=list");
- const js=await res.json();
- rows=js.data||[];
+ document.getElementById("tb").innerHTML = "<tr><td colspan='6'>Memuat...</td></tr>";
+ const res = await fetch(SCRIPT+"?action=list");
+ const js = await res.json();
+ rows = js.data||[];
  render(rows);
 }
 
 function render(data){
- const tb=document.getElementById("tb");
- tb.innerHTML=data.map(r=>`<tr>
-<td>${r.NISN||""}</td><td>${r.NIS||""}</td><td>${r.Nama||""}</td>
-<td>${r.Kelas||""}</td><td>${r.Status||""}</td>
-<td><button class='primary' onclick='edit("${r.NISN}")'>Edit</button></td>
+ const tb = document.getElementById("tb");
+ tb.innerHTML = data.map(r=>`<tr>
+<td>${r["NISN"]||""}</td><td>${r["NIS"]||""}</td><td>${r["Nama"]||""}</td>
+<td>${r["Kelas"]||""}</td><td>${r["Status"]||""}</td>
+<td><button class='primary' onclick='edit("${r["NISN"]}")'>Edit</button></td>
 </tr>`).join("")||"<tr><td colspan='6'>Tidak ada data</td></tr>";
 }
 
 document.getElementById("q").oninput=e=>{
- const s=e.target.value.toLowerCase();
- render(rows.filter(r=>(r.Nama||"").toLowerCase().includes(s)||(r.NISN||"").toLowerCase().includes(s)));
+ const s = e.target.value.toLowerCase();
+ render(rows.filter(r=>(r["Nama"]||"").toLowerCase().includes(s)||(r["NISN"]||"").toLowerCase().includes(s)));
 }
 
 function edit(n){
- current = rows.find(r => String(r.NISN) === String(n));
+ current = rows.find(r => String(r["NISN"]) === String(n));
  if(!current) return alert("Data tidak ditemukan!");
 
- // Kosongkan semua field modal saat dibuka
- ["nisn","nis","nama","kelas","status","waliKelas","alamat","noHp"].forEach(id => {
-   document.getElementById(id).value = "";
- });
+ // Bersihkan semua kotak input sebelum diisi data baru
+ fields.forEach(id => document.getElementById(id).value = "");
 
- // Isi data dasar
- document.getElementById("nisn").value = current.NISN || "";
- document.getElementById("nis").value = current.NIS || "";
- document.getElementById("nama").value = current.Nama || "";
- document.getElementById("kelas").value = current.Kelas || "";
- document.getElementById("status").value = current.Status || "";
- 
- // ISI DATA KOLOM LAINNYA (Pastikan teks di dalam tanda kurung siku [] sama persis dengan judul kolom di Spreadsheet)
+ // MEMETAKAN DATA DARI SPREADSHEET (MENYESUAIKAN HURUF BESAR KECIL & SPASI HEADER)
+ document.getElementById("nisn").value = current["NISN"] || "";
+ document.getElementById("nis").value = current["NIS"] || "";
+ document.getElementById("nama").value = current["Nama"] || "";
+ document.getElementById("kelas").value = current["Kelas"] || "";
+ document.getElementById("status").value = current["Status"] || "";
  document.getElementById("waliKelas").value = current["Wali Kelas"] || "";
+ document.getElementById("namaAyah").value = current["Nama Ayah"] || "";
+ document.getElementById("namaIbu").value = current["Nama Ibu"] || "";
+ document.getElementById("jenisKelamin").value = current["Jenis Kelamin"] || "";
+ document.getElementById("tempatLahir").value = current["Tempat Lahir"] || "";
+ document.getElementById("tahunMasuk").value = current["Tahun Masuk"] || "";
+ document.getElementById("tahunLulus").value = current["Tahun Lulus"] || "";
  document.getElementById("alamat").value = current["Alamat"] || "";
- document.getElementById("noHp").value = current["No HP"] || "";
+ document.getElementById("noHp").value = current["No HP Orang Tua"] || "";
+ document.getElementById("terakhirUpdate").value = current["Terakhir Update"] ? new Date(current["Terakhir Update"]).toLocaleString("id-ID") : "-";
 
- // Munculkan Modal
+ // Khusus penanganan format tanggal lahir agar rapi
+ if(current["Tanggal Lahir"]) {
+   const tgl = new Date(current["Tanggal Lahir"]);
+   if(!isNaN(tgl)) {
+     document.getElementById("tanggalLahir").value = tgl.toISOString().split('T')[0];
+   } else {
+     document.getElementById("tanggalLahir").value = current["Tanggal Lahir"];
+   }
+ }
+
+ // Buka pop-up modal
  document.getElementById("modal").style.display = "flex";
 }
 
@@ -124,8 +150,15 @@ async function save(){
    kelas: document.getElementById("kelas").value,
    status: document.getElementById("status").value,
    waliKelas: document.getElementById("waliKelas").value,
-   alamat: document.getElementById("alamat").value,
-   noHp: document.getElementById("noHp").value
+   namaAyah: document.getElementById("namaAyah").value,
+   namaIbu: document.getElementById("namaIbu").value,
+   tanggalLahir: document.getElementById("tanggalLahir").value,
+   jenisKelamin: document.getElementById("jenisKelamin").value,
+   tempatLahir: document.getElementById("tempatLahir").value,
+   tahunMasuk: document.getElementById("tahunMasuk").value,
+   tahunLulus: document.getElementById("tahunLulus").value,
+   noHp: document.getElementById("noHp").value,
+   alamat: document.getElementById("alamat").value
  });
  
  const res = await fetch(SCRIPT + "?" + p.toString());
