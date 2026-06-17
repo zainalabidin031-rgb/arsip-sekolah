@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOP Mutasi Siswa | SDN Butoh 1 Ngasem</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-light: #e6f2ff;
+            --primary-accent: #0077ff;
+            --primary-gradient: linear-gradient(135deg, #0088ff 0%, #00c6ff 100%);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --shadow-subtle: 0 4px 15px rgba(0, 140, 255, 0.05);
+            --shadow-card: 0 10px 30px rgba(0, 136, 255, 0.08);
+            --pink-accent: #ff4081;
+            --pink-light: #ffe4e6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-body); color: var(--text-dark); padding-bottom: 60px; }
+        
+        header { 
+            background: #ffffff; 
+            padding: 25px 6%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: var(--shadow-subtle); 
+            border-bottom: 1px solid var(--primary-light); 
+        }
+        .header-title { display: flex; align-items: center; gap: 15px; }
+        .logo-icon { 
+            background: var(--primary-gradient); 
+            color: white; width: 46px; height: 46px; 
+            border-radius: 12px; display: flex; 
+            align-items: center; justify-content: center; 
+            font-size: 20px; box-shadow: 0 4px 12px rgba(0, 136, 255, 0.2); 
+        }
+        .header-title h1 { font-size: 22px; font-weight: 800; color: var(--primary-accent); line-height: 1.2; }
+        .header-title p { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+        
+        .btn-back { 
+            background-color: var(--primary-light); 
+            color: var(--primary-accent); border: none; 
+            padding: 10px 20px; border-radius: 8px; 
+            font-size: 14px; font-weight: 700; cursor: pointer; 
+            display: flex; align-items: center; gap: 8px; 
+            transition: all 0.2s ease; 
+        }
+        .btn-back:hover { background-color: var(--primary-accent); color: white; transform: translateX(-3px); }
+        
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+
+        /* TAB KONTROL */
+        .tab-container {
+            display: flex;
+            background: #e2e8f0;
+            padding: 6px;
+            border-radius: 14px;
+            margin-bottom: 35px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            background: transparent;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+        .tab-btn.active {
+            background: white;
+            color: var(--primary-accent);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* KONTEN ALUR TIMELINE */
+        .mutation-content { display: none; }
+        .mutation-content.active { display: block; animation: fadeIn 0.4s ease; }
+
+        .intro-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            border-left: 5px solid var(--primary-accent);
+            box-shadow: var(--shadow-subtle);
+            margin-bottom: 30px;
+        }
+        .intro-card.keluar { border-left-color: var(--pink-accent); }
+        .intro-card h2 { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+        .intro-card p { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px; top: 10px;
+            width: 3px; height: calc(100% - 20px);
+            background: #cbd5e1;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        
+        .timeline-badge {
+            position: absolute;
+            left: -30px; top: 2px;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            border: 4px solid var(--bg-body);
+            transition: all 0.3s;
+        }
+        .active-keluar .timeline-badge { background: var(--pink-accent); }
+        .active-masuk .timeline-badge { background: var(--primary-accent); }
+
+        .timeline-panel {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid #e2e8f0;
+        }
+        .timeline-panel h3 {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .active-keluar .timeline-panel h3 { color: var(--pink-accent); }
+        .active-masuk .timeline-panel h3 { color: var(--primary-accent); }
+        
+        .timeline-panel p {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        /* HIGHLIGHT WARNING BOX */
+        .note-box {
+            background: #fffbeb;
+            border: 1px solid #fef08a;
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        .note-box i { font-size: 20px; color: #ca8a04; margin-top: 2px; }
+        .note-box div h4 { font-size: 14px; font-weight: 700; color: #854d0e; margin-bottom: 5px; }
+        .note-box div p { font-size: 13px; color: #713f12; line-height: 1.5; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 15px; text-align: center; }
+            .tab-container { flex-direction: column; gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-title">
+            <div class="logo-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+            <div>
+                <h1>SD NEGERI BUTOH 1 NGASEM</h1>
+                <p>Informasi Standar Operasional Prosedur (SOP)</p>
+            </div>
+        </div>
+        <button class="btn-back" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
+    </header>
+
+    <div class="container">
+        
+        <!-- SWITCHER MENU TAB -->
+        <div class="tab-container">
+            <button class="tab-btn active" onclick="switchTab('keluar', this)">
+                <i class="fa-solid fa-box-arrow-up"></i> Mutasi Keluar (Pindah Sekolah)
+            </button>
+            <button class="tab-btn" onclick="switchTab('masuk', this)">
+                <i class="fa-solid fa-box-arrow-in-down"></i> Mutasi Masuk (Siswa Baru)
+            </button>
+        </div>
+
+        <!-- ================= KONTEN MUTASI KELUAR ================= -->
+        <div id="konten-keluar" class="mutation-content active active-keluar">
+            <div class="intro-card keluar">
+                <h2>Alur Mutasi Keluar</h2>
+                <p>Prosedur bagi siswa SDN Butoh 1 Ngasem yang berencana pindah atau melanjutkan pendidikan ke sekolah lain (luar sekolah/luar daerah).</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-badge"></div>
+                    <div class="timeline-panel">
+                        <h3><i class="fa-solid fa-school-circle-check"></i> Langkah 1: Cek Pagu Sekolah Tujuan</h3>
+                        <p>Orang tua/Wali murid terlebih dahulu menghubungi pihak <strong>Sekolah Tujuan</strong> untuk menanyakan ketersediaan kuota bangku kosong (Pagu). Jika kuota tersedia dan calon siswa dinyatakan bisa diterima, lanjut ke langkah berikutnya.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-badge"></div>
+                    <div class="timeline-panel">
+                        <h3><i class="fa-solid fa-file-invoice"></i> Langkah 2: Penerbitan Surat Kesiapan Menerima</h3>
+                        <p>Pihak Sekolah Tujuan akan menerbitkan <strong>Surat Keterangan Bersedia Menerima</strong>. Surat ini sangat krusial sebagai jaminan otentik bahwa siswa tersebut tidak akan telantar setelah dilepas dari sekolah asal.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-badge"></div>
+                    <div class="timeline-panel">
+                        <h3><i class="fa-solid fa-file-export"></i> Langkah 3: Pengurusan di SDN Butoh 1 Ngasem</h3>
+                        <p>Bawa Surat Keterangan Bersedia Menerima tersebut ke ruang tata usaha SDN Butoh 1 Ngasem. Berdasarkan surat tersebut, sekolah akan resmi menerbitkan <strong>Surat Keterangan Pindah Sekolah</strong> beserta dokumen pendukung kelengkapan Dapodik.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-badge"></div>
+                    <div class="timeline-panel">
+                        <h3><i class="fa-solid fa-route"></i> Langkah 4: Validasi Wilayah Sekolah Tujuan</h3>
+                        <p>Proses finalisasi dokumen mutasi bergantung sepenuhnya pada letak geografis wilayah sekolah tujuan Anda:</p>
+                        <br>
+                        <div class="note-box">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <div>
+                                <h4>Jika Masih Dalam 1 Kabupaten (Bojonegoro):</h4>
+                                <p>Cukup membawa berkas Surat Pindah asli dari SDN Butoh 1 Ngasem langsung ke sekolah tujuan untuk segera diregistrasikan.</p>
+                                <br>
+                                <h4>Jika Berada di Luar Kabupaten Bojonegoro:</h4>
+                                <p>Orang tua wajib membawa berkas dari sekolah ke <strong>Kantor Dinas Pendidikan Kabupaten Bojonegoro</strong> terlebih dahulu untuk meminta <strong>Surat Rekomendasi Pindah Sekolah</strong> sebelum menuju instansi tujuan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= KONTEN MUTASI MASUK ================= -->
+        <div id="konten-masuk" class="mutation-content active-masuk">
+            <div class="intro-card">
+                <h2>Alur Mutasi Masuk</h2>
+                <p>Prosedur bagi siswa dari sekolah lain yang bermaksud mengajukan perpindahan masuk menjadi murid baru di SDN Butoh 1 Ngasem.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-badge"></div>
+                    <div class="timeline-panel">
+                        <h3><i class="fa-solid fa-comments"></i> Langkah 1: Hubungi Kepala SDN Butoh 1 Ngasem</h3>
+                        <p>Orang tua/Wali murid datang ke sekolah untuk berkonsultasi langsung dengan Kepala Sekolah SDN Butoh 1 Ngasem guna memastikan ketersediaan sisa pagu rombongan belajar (rombel) di jenjang kelas yang dituju.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-badge"></div>
+                    <div class="timeline-panel">
+                        <h3><i class="fa-solid fa-file-signature"></i> Langkah 2: Penerbitan Surat Sanggup Menerima</h3>
+                        <p>Setelah dinyatakan sisa pagu kelas masih mencukupi, SDN Butoh 1 Ngasem akan menerbitkan berkas resmi berupa <strong>Surat Keterangan Sanggup Menerima Siswa Mutasi</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-badge"></div>
+                    <div class="timeline-panel">
+                        <h3><i class="fa-solid fa-paper-plane"></i> Langkah 3: Ambil Surat Pindah dari Sekolah Asal</h3>
+                        <p>Serahkan Surat Keterangan Sanggup Menerima tersebut kepada operator/tata usaha di <strong>Sekolah Asal</strong> anak. Sekolah asal kemudian akan memproses pengeluaran data dan menerbitkan berkas <strong>Surat Keterangan Keluar/Pindah</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-badge"></div>
+                    <div class="timeline-panel">
+                        <h3><i class="fa-solid fa-building-columns"></i> Langkah 4: Ketentuan Lintas Kabupaten</h3>
+                        <p>Perhatikan daerah asal sekolah anak Anda sebelum melakukan pendaftaran final di sistem kami:</p>
+                        <br>
+                        <div class="note-box" style="background: #eff6ff; border-color: #bfdbfe;">
+                            <i class="fa-solid fa-circle-info" style="color: #2563eb;"></i>
+                            <div>
+                                <h4>Jika Berasal dari Luar Kabupaten Bojonegoro:</h4>
+                                <p>Orang tua siswa yang bersangkutan **wajib** mengurus berkas kelulusan internal ke <strong>Dinas Pendidikan Kabupaten/Kota Asal</strong> terlebih dahulu untuk mendapatkan lembar **Surat Rekomendasi Pindah Sekolah Keluar Kabupaten**.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-badge"></div>
+                    <div class="timeline-panel">
+                        <h3><i class="fa-solid fa-user-check"></i> Langkah 5: Penyerahan Berkas & Registrasi Dapodik</h3>
+                        <p>Bawa seluruh kumpulan berkas fisik lengkap (Surat Pindah Asal, Surat Rekomendasi Dinas, KK, Akta, dan Isian Raport lama) ke SDN Butoh 1 Ngasem. Operator sekolah akan langsung memasukkan data anak ke dalam sistem Dapodik lokal.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function switchTab(type, element) {
+            // Sembunyikan semua konten tab
+            const contents = document.querySelectorAll('.mutation-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Matikan status aktif semua tombol
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Aktifkan konten & tombol pilihan
+            document.getElementById('konten-' + type).classList.add('active');
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>
