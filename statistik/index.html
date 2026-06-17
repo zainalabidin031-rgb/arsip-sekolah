@@ -138,7 +138,7 @@
     let myChart = null;
 
     async function fetchStatistik() {
-        document.getElementById("tableBody").innerHTML = "<tr><td colspan='4' style='text-align:center; padding:30px;'>Menghubungkan ke database...</td></tr>";
+        document.getElementById("tableBody").innerHTML = "<tr><td colspan='4' style='text-align:center; padding:30px;'>Menghubungkan ke DAPODIK...</td></tr>";
         try {
             const response = await fetch(SCRIPT_URL);
             const json = await response.json();
