@@ -432,19 +432,26 @@
         daftarTahun.forEach(t => { select.innerHTML += `<option value="${t}">${t}</option>`; });
     }
 
-    function calculateAndRender() {
+   function calculateAndRender() {
         const taPilihan = document.getElementById("filterTahun").value;
         const semPilihan = document.getElementById("filterSemester").value.toLowerCase();
         
+        // 1. Proses memotong dan menyaring data berdasarkan filter Tahun & Semester
         const filteredData = allSiswaData.filter(s => {
-            const sTA = String(s["Tahun Ajaran"] || s["TAHUN AJARAN"] || s["TA"] || "");
-            const sSem = String(s["Semester"] || s["SEMESTER"] || "").toLowerCase();
+            // Cari kolom Tahun Ajaran dengan toleransi nama apa saja
+            const keyTA = Object.keys(s).find(k => k.toLowerCase().replace(/\s/g, '').includes("tahun") || k.toLowerCase().replace(/\s/g, '') === "ta") || "";
+            const sTA = String(s[keyTA] || "");
+            
+            // Cari kolom Semester dengan toleransi nama apa saja
+            const keySem = Object.keys(s).find(k => k.toLowerCase().includes("semester") || k.toLowerCase() === "sem") || "";
+            const sSem = String(s[keySem] || "").toLowerCase();
             
             const matchTA = taPilihan === "" || sTA === taPilihan;
             const matchSem = semPilihan === "" || sSem === semPilihan;
             return matchTA && matchSem;
         });
 
+        // 2. Siapkan wadah hitungan Kelas 1 sampai 6
         let stats = {
             1: { L: 0, P: 0 }, 2: { L: 0, P: 0 }, 3: { L: 0, P: 0 },
             4: { L: 0, P: 0 }, 5: { L: 0, P: 0 }, 6: { L: 0, P: 0 }
@@ -453,25 +460,51 @@
         let grandTotalL = 0;
         let grandTotalP = 0;
 
-        filteredData.forEach(s => {
-            const rawKelas = String(s["Kelas"] || s["KELAS"] || "");
-            const matchKelas = rawKelas.match(/[1-6]/);
-            const kelasNum = matchKelas ? parseInt(matchKelas[0]) : null;
-            
-            let gender = String(s["L/P"] || s["GENDER"] || s["Jenis Kelamin"] || "").toUpperCase().trim();
-            if(gender.startsWith("LAK")) gender = "L";
-            if(gender.startsWith("PER")) gender = "P";
+        // Kamus bantuan jika di sheet ternyata tertulis angka Romawi
+        const romawiMap = { "i": 1, "ii": 2, "iii": 3, "iv": 4, "v": 5, "vi": 6 };
 
+        // 3. Mulai menghitung siswa
+        filteredData.forEach(s => {
+            // CARI KOLOM KELAS SECARA OTOMATIS (Abaikan huruf besar/kecil/spasi)
+            const keyKelas = Object.keys(s).find(k => k.toLowerCase().trim().includes("kelas")) || "Kelas";
+            const valKelas = String(s[keyKelas] || "").toLowerCase().trim();
+            
+            let kelasNum = null;
+            
+            // Deteksi jika isinya angka desimal (1-6)
+            const matchAngka = valKelas.match(/[1-6]/);
+            if (matchAngka) {
+                kelasNum = parseInt(matchAngka[0]);
+            } else {
+                // Jika tidak ada angka, cek apakah berupa romawi (i, ii, iii, iv, v, vi)
+                for (let romawi in romawiMap) {
+                    if (valKelas.includes(romawi)) {
+                        kelasNum = romawiMap[romawi];
+                        break;
+                    }
+                }
+            }
+            
+            // CARI KOLOM GENDER/LP SECARA OTOMATIS
+            const keyGender = Object.keys(s).find(k => k.toLowerCase().includes("l/p") || k.toLowerCase().includes("gender") || k.toLowerCase().includes("kelamin") || k.toLowerCase() === "lp") || "L/P";
+            let gender = String(s[keyGender] || "").toUpperCase().trim();
+            
+            if (gender.startsWith("LAK") || gender === "L") gender = "L";
+            if (gender.startsWith("PER") || gender === "P") gender = "P";
+
+            // Masukkan ke dalam kalkulasi jika kelas dan gender valid
             if (kelasNum && stats[kelasNum]) {
                 if (gender === "L") { stats[kelasNum].L++; grandTotalL++; }
                 if (gender === "P") { stats[kelasNum].P++; grandTotalP++; }
             }
         });
 
+        // 4. Update Angka Ringkasan di Atas Card
         document.getElementById("popTotal").innerText = grandTotalL + grandTotalP;
         document.getElementById("popL").innerText = grandTotalL;
         document.getElementById("popP").innerText = grandTotalP;
 
+        // 5. Render data ke dalam Baris-Baris Tabel
         let tableHTML = "";
         let chartDataL = [];
         let chartDataP = [];
@@ -497,6 +530,8 @@
         </tr>`;
         
         document.getElementById("tableBody").innerHTML = tableHTML;
+        
+        // 6. Gambar ulang Grafik
         renderChart(chartDataL, chartDataP);
     }
 
