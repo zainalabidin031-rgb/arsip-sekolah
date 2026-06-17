@@ -3,52 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Anak</title>
+    <title>Data Anak | SDN Butoh 1 Ngasem</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        :root {
+            --primary-light: #e6f2ff;
+            --primary-accent: #0077ff;
+            --primary-gradient: linear-gradient(135deg, #0088ff 0%, #00c6ff 100%);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --shadow-subtle: 0 4px 15px rgba(0, 140, 255, 0.03);
+            --shadow-card: 0 12px 30px rgba(0, 136, 255, 0.06);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
-            background: #f4f6f9;
-            padding: 20px;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .container {
-            max-width: 700px;
+            max-width: 650px;
+            width: 100%;
             margin: auto;
+            animation: fadeIn 0.5s ease;
         }
 
         .back-btn {
-            display: inline-block;
-            background: #2196F3;
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 25px;
             padding: 10px 18px;
-            border-radius: 8px;
-            font-weight: bold;
-            margin-bottom: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
         }
 
         .back-btn:hover {
-            background: #1d4ed8;
+            color: var(--primary-accent);
+            border-color: var(--primary-light);
+            transform: translateX(-3px);
         }
 
-        h1 {
+        .header-section {
             text-align: center;
-            color: #1e3a8a;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        .header-section h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .header-section h1 i {
+            color: var(--primary-accent);
         }
 
         .card {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,.08);
-            padding: 25px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(0, 136, 255, 0.02);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Aksen dekorasi kartu */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: var(--primary-gradient);
         }
 
         table {
@@ -56,39 +112,70 @@
             border-collapse: collapse;
         }
 
+        tr {
+            transition: background-color 0.2s;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
         td {
-            padding: 12px 8px;
-            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+            vertical-align: middle;
         }
 
         td:first-child {
-            width: 35%;
-            font-weight: bold;
-            color: #374151;
+            width: 40%;
+            font-weight: 700;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        td:first-child i {
+            color: var(--primary-accent);
+            width: 20px;
+            text-align: center;
+            font-size: 14px;
         }
 
         td:last-child {
-            color: #111827;
+            color: var(--text-dark);
+            font-weight: 600;
         }
 
-        @media (max-width: 600px) {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 550px) {
+            body { padding: 20px 15px; }
+            
             td {
                 display: block;
                 width: 100%;
-                border: none;
-                padding: 6px 0;
-            }
-
-            tr {
-                display: block;
-                margin-bottom: 15px;
-                border-bottom: 1px solid #e5e7eb;
-                padding-bottom: 10px;
+                padding: 8px 10px;
             }
 
             td:first-child {
-                font-weight: bold;
-                color: #1e3a8a;
+                border-bottom: none;
+                padding-top: 15px;
+            }
+
+            td:last-child {
+                border-bottom: 1px solid #f1f5f9;
+                padding-bottom: 15px;
+                padding-left: 42px; /* Menyelaraskan teks dengan ikon di atasnya */
+                font-size: 15px;
+            }
+
+            tr:last-child td:last-child {
+                border-bottom: none;
             }
         }
     </style>
@@ -97,36 +184,39 @@
 
 <div class="container">
 
+    <!-- Kembali ke menu portal orang tua tanpa buntut .html -->
     <a href="index.html" class="back-btn">
-        ← 🏠Home
+        <i class="fa-solid fa-arrow-left"></i> Kembali
     </a>
 
-    <h1>👤 Data Anak</h1>
+    <div class="header-section">
+        <h1><i class="fa-solid fa-address-card"></i> Identitas Peserta Didik</h1>
+    </div>
 
     <div class="card">
         <table>
             <tr>
-                <td>Nama Lengkap</td>
+                <td><i class="fa-solid fa-user"></i> Nama Lengkap</td>
                 <td id="nama">-</td>
             </tr>
 
             <tr>
-                <td>Nomor Induk (NIS)</td>
+                <td><i class="fa-solid fa-id-badge"></i> Nomor Induk (NIS)</td>
                 <td id="nis">-</td>
             </tr>
 
             <tr>
-                <td>NISN</td>
+                <td><i class="fa-solid fa-fingerprint"></i> NISN</td>
                 <td id="nisn">-</td>
             </tr>
 
             <tr>
-                <td>Nama Ayah</td>
+                <td><i class="fa-solid fa-user-tie"></i> Nama Ayah</td>
                 <td id="ayah">-</td>
             </tr>
 
             <tr>
-                <td>Nama Ibu</td>
+                <td><i class="fa-solid fa-person-breastfeeding"></i> Nama Ibu</td>
                 <td id="ibu">-</td>
             </tr>
         </table>
