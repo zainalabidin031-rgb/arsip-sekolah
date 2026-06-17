@@ -3,39 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Kelola Peserta Didik</title>
+<title>Kelola Peserta Didik - SDN Butoh 1 Ngasem</title>
 <style>
 body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#f3f7fc;color:#1e293b}
-header{background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;padding:22px}
+/* GRADASI WARNA BARU: Menggunakan Biru Muda Cerah */
+header{background:linear-gradient(135deg,#00b0ff,#008bc9);color:#fff;padding:22px;box-shadow:0 2px 10px rgba(0,170,255,0.2)}
 .container{max-width:1200px;margin:24px auto;padding:0 16px}
 .card{background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.08);padding:20px}
 .toolbar{display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;align-items:center}
-input{padding:10px 12px;border:1px solid #dbeafe;border-radius:10px;min-width:260px;font-family:inherit;box-sizing:border-box;width:100%;}
-button{border:none;border-radius:10px;padding:10px 16px;cursor:pointer}
-.primary{background:#2563eb;color:#fff}
+input, select{padding:10px 12px;border:1px solid #b3e5fc;border-radius:10px;min-width:200px;font-family:inherit;box-sizing:border-box;}
+input:focus, select:focus{outline:none;border-color:#00b0ff;box-shadow:0 0 0 3px rgba(0,176,255,0.2)}
+button{border:none;border-radius:10px;padding:10px 16px;cursor:pointer;font-weight:600;transition:all 0.2s ease}
+/* TOMBOL UTAMA BIRU MUDA */
+.primary{background:#00b0ff;color:#fff}
+.primary:hover{background:#0091ea;box-shadow:0 4px 12px rgba(0,145,234,0.3)}
 .secondary{background:#64748b;color:#fff}
-table{width:100%;border-collapse:collapse;margin-top:16px}
-th,td{padding:12px;border-bottom:1px solid #e5e7eb;text-align:left}
-th{background:#2563eb;color:#fff}
-tr:hover{background:#f8fbff}
+.secondary:hover{background:#475569}
+table{width:100%;border-collapse:collapse;margin-top:16px;border-radius:10px;overflow:hidden}
+th,td{padding:12px;border-bottom:1px solid #e1f5fe;text-align:left}
+/* KEPALA TABEL BIRU MUDA */
+th{background:#00b0ff;color:#fff}
+tr:hover{background:#f0faff}
 #modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:999}
 .modal-box{background:#fff;border-radius:14px;padding:25px;max-width:800px;width:95%;max-height:90vh;overflow-y:auto}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
 .form-group{display:flex;flex-direction:column;gap:4px}
-.form-group label{font-size:12px;font-weight:600;color:#64748b}
+.form-group label{font-size:12px;font-weight:600;color:#0091ea}
 .full-width{grid-column: span 2;}
+.filter-wrapper{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
 @media(max-width:700px){.grid{grid-template-columns:1fr}.full-width{grid-column: span 1;}}
 </style>
 </head>
 <body>
-<header><h2>Kelola Peserta Didik</h2></header>
+<header><h2>Kelola Peserta Didik - SDN Butoh 1 Ngasem</h2></header>
 <div class="container">
 <div class="card">
 <div class="toolbar">
 <div>
 <button class="secondary" onclick="history.back()">🏠 Kembali ke Dashboard</button>
 </div>
+<div class="filter-wrapper">
+<select id="filterKelas"><option value="">-- Semua Kelas --</option></select>
 <input id="q" placeholder="Cari Nama atau NISN">
+</div>
 </div>
 <table>
 <thead><tr><th>NISN</th><th>NIS</th><th>Nama</th><th>Kelas</th><th>Status</th><th>Aksi</th></tr></thead>
@@ -45,7 +55,7 @@ tr:hover{background:#f8fbff}
 </div>
 
 <div id="modal"><div class="modal-box">
-<h3 style="margin-top:0; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">Edit Data Siswa (Lengkap)</h3>
+<h3 style="margin-top:0; border-bottom: 2px solid #00b0ff; padding-bottom: 10px; color:#0091ea;">Edit Data Siswa (Lengkap)</h3>
 <div class="grid">
 <div class="form-group"><label>NISN</label><input id="nisn" readonly style="background:#f1f5f9; cursor:not-allowed;"></div>
 <div class="form-group"><label>NIS</label><input id="nis"></div>
@@ -64,7 +74,7 @@ tr:hover{background:#f8fbff}
 <div class="form-group full-width"><label>Alamat</label><input id="alamat"></div>
 <div class="form-group full-width"><label>Terakhir Update</label><input id="terakhirUpdate" readonly style="background:#f1f5f9; cursor:not-allowed;"></div>
 </div>
-<div style="margin-top:20px; text-align:right; border-top: 1px solid #e5e7eb; padding-top: 15px;">
+<div style="margin-top:20px; text-align:right; border-top: 1px solid #e1f5fe; padding-top: 15px;">
 <button class="secondary" onclick="closeModal()">Batal</button>
 <button class="primary" onclick="save()">Simpan Perubahan</button>
 </div>
@@ -74,7 +84,6 @@ tr:hover{background:#f8fbff}
 const SCRIPT="https://script.google.com/macros/s/AKfycbyGXsz7p4zTIlQ8A9JDCMPnwPJ63pXKYtBBFHFzEryirz1s1hcW31oHCPlRZ0d2V3-l/exec";
 let rows=[],current=null;
 
-// ID element HTML untuk mempermudah proses reset form
 const fields = ["nisn","nis","nama","kelas","status","waliKelas","namaAyah","namaIbu","tanggalLahir","jenisKelamin","tempatLahir","tahunMasuk","tahunLulus","alamat","noHp","terakhirUpdate"];
 
 async function loadData(){
@@ -82,7 +91,21 @@ async function loadData(){
  const res = await fetch(SCRIPT+"?action=list");
  const js = await res.json();
  rows = js.data||[];
- render(rows);
+ 
+ populateFilterKelas(rows);
+ render(applyFilter());
+}
+
+function populateFilterKelas(data) {
+ const select = document.getElementById("filterKelas");
+ const currentSelection = select.value;
+ const daftarKelas = [...new Set(data.map(r => r["Kelas"]).filter(k => k && k !== "-"))].sort();
+ 
+ select.innerHTML = '<option value="">-- Semua Kelas --</option>';
+ daftarKelas.forEach(kelas => {
+   select.innerHTML += `<option value="${kelas}">${kelas}</option>`;
+ });
+ select.value = currentSelection;
 }
 
 function render(data){
@@ -91,22 +114,29 @@ function render(data){
 <td>${r["NISN"]||""}</td><td>${r["NIS"]||""}</td><td>${r["Nama"]||""}</td>
 <td>${r["Kelas"]||""}</td><td>${r["Status"]||""}</td>
 <td><button class='primary' onclick='edit("${r["NISN"]}")'>Edit</button></td>
-</tr>`).join("")||"<tr><td colspan='6'>Tidak ada data</td></tr>";
+</tr>`).join("")||"<tr><td colspan='6'>Tidak ada data siswa ditemukan</td></tr>";
 }
 
-document.getElementById("q").oninput=e=>{
- const s = e.target.value.toLowerCase();
- render(rows.filter(r=>(r["Nama"]||"").toLowerCase().includes(s)||(r["NISN"]||"").toLowerCase().includes(s)));
+function applyFilter() {
+ const kataKunci = document.getElementById("q").value.toLowerCase();
+ const kelasPilihan = document.getElementById("filterKelas").value;
+ 
+ return rows.filter(r => {
+   const matchKelas = kelasPilihan === "" || String(r["Kelas"]) === kelasPilihan;
+   const matchCari = (r["Nama"]||"").toLowerCase().includes(kataKunci) || (r["NISN"]||"").toLowerCase().includes(kataKunci);
+   return matchKelas && matchCari;
+ });
 }
+
+document.getElementById("q").oninput = () => render(applyFilter());
+document.getElementById("filterKelas").onchange = () => render(applyFilter());
 
 function edit(n){
  current = rows.find(r => String(r["NISN"]) === String(n));
  if(!current) return alert("Data tidak ditemukan!");
 
- // Bersihkan semua kotak input sebelum diisi data baru
  fields.forEach(id => document.getElementById(id).value = "");
 
- // MEMETAKAN DATA DARI SPREADSHEET (MENYESUAIKAN HURUF BESAR KECIL & SPASI HEADER)
  document.getElementById("nisn").value = current["NISN"] || "";
  document.getElementById("nis").value = current["NIS"] || "";
  document.getElementById("nama").value = current["Nama"] || "";
@@ -123,7 +153,6 @@ function edit(n){
  document.getElementById("noHp").value = current["No HP Orang Tua"] || "";
  document.getElementById("terakhirUpdate").value = current["Terakhir Update"] ? new Date(current["Terakhir Update"]).toLocaleString("id-ID") : "-";
 
- // Khusus penanganan format tanggal lahir agar rapi
  if(current["Tanggal Lahir"]) {
    const tgl = new Date(current["Tanggal Lahir"]);
    if(!isNaN(tgl)) {
@@ -133,7 +162,6 @@ function edit(n){
    }
  }
 
- // Buka pop-up modal
  document.getElementById("modal").style.display = "flex";
 }
 
