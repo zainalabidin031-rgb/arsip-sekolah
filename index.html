@@ -327,8 +327,71 @@
                 gap: 15px;
             }
         }
+
+        /* Mengatur posisi li dropdown agar relatif */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Mengatur kotak menu yang tersembunyi */
+.dropdown-content {
+    display: none; /* Sembunyi secara default */
+    position: absolute;
+    right: 0; /* Rata kanan agar tidak keluar layar navbar */
+    background-color: #ffffff;
+    min-width: 180px;
+    box-shadow: 0px 8px 24px rgba(0, 140, 255, 0.15);
+    border-radius: 8px;
+    padding: 6px 0;
+    margin-top: 8px;
+    z-index: 999;
+    border: 1px solid #e6f2ff;
+}
+
+/* Mengatur style link di dalam sub-menu */
+.dropdown-content a {
+    color: #4a5568 !important;
+    padding: 10px 16px !important;
+    text-decoration: none;
+    display: block;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    text-align: left;
+    border-radius: 0 !important;
+    background: none !important;
+    transition: background 0.2s;
+}
+
+/* Efek saat sub-menu di-hover */
+.dropdown-content a:hover {
+    background-color: #e6f2ff !important;
+    color: #0077ff !important;
+}
+
+/* Kelas bantuan untuk memunculkan dropdown via JS */
+.show-dropdown {
+    display: block !important;
+}
     </style>
 </head>
+
+    <script>
+function toggleDropdown(event) {
+    // Mencegah link me-refresh halaman
+    event.stopPropagation();
+    // Memunculkan / menyembunyikan sub menu
+    document.getElementById("moreDropdown").classList.toggle("show-dropdown");
+}
+
+// Menutup sub-menu secara otomatis jika user klik di luar menu More
+window.onclick = function(event) {
+    var dropdown = document.getElementById("moreDropdown");
+    if (dropdown && dropdown.classList.contains('show-dropdown')) {
+        dropdown.classList.remove('show-dropdown');
+    }
+}
+</script>
 <body>
 
     <nav class="navbar">
@@ -339,11 +402,20 @@
             <h1>SD NEGERI BUTOH 1 NGASEM</h1>
         </div>
         <ul class="nav-links">
-            <li><a href="#" class="active">Home</a></li>
-            <li><a href="portal-guru/">Teachers</a></li>
-            <li><a href="portal-orangtua/">Parents</a></li>
-            <li><a href="portal-orangtua/">More</a></li>
-        </ul>
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="portal-guru/">Teachers</a></li>
+    <li><a href="portal-orangtua/">Parents</a></li>
+    
+    <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown(event)">More ▼</a>
+        <div class="dropdown-content" id="moreDropdown">
+            <a href="smpb/">🎓 SMPB</a>
+            <a href="pindah-sekolah/">✈️ Pindah Sekolah</a>
+            <a href="statistik/">📊 Statistik</a>
+            <a href="hubungi-kami/">📞 Hubungi Kami</a>
+        </div>
+    </li>
+</ul>
     </nav>
 
     <div class="split-container">
