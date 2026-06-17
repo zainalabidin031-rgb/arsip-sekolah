@@ -3,97 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Orang Tua / Wali</title>
+    <title>Portal Orang Tua / Wali | SDN Butoh 1 Ngasem</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        :root {
+            --primary-light: #e6f2ff;
+            --primary-accent: #0077ff;
+            --primary-gradient: linear-gradient(135deg, #0088ff 0%, #00c6ff 100%);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --shadow-subtle: 0 4px 15px rgba(0, 140, 255, 0.03);
+            --shadow-card: 0 12px 30px rgba(0, 136, 255, 0.06);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
-            background: #f4f6f9;
-            padding: 20px;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .container {
-            max-width: 900px;
-            margin: auto;
+            max-width: 950px;
+            margin: 0 auto;
+            width: 100%;
+            animation: fadeIn 0.5s ease;
         }
 
         .back-btn {
-            display: inline-block;
-            margin-bottom: 20px;
-            padding: 10px 18px;
-            background: #3B82F6;
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 30px;
+            padding: 10px 18px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
         }
 
         .back-btn:hover {
-            background: #1d4ed8;
+            color: var(--primary-accent);
+            border-color: var(--primary-light);
+            transform: translateX(-3px);
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .portal-badge {
+            background: var(--primary-gradient);
+            color: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 6px 16px rgba(0, 136, 255, 0.2);
         }
 
         h1 {
-            text-align: center;
-            color: #3B82F6;
-            margin-bottom: 10px;
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
         }
 
         .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 35px;
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 24px;
         }
 
         .card {
             background: white;
-            border-radius: 12px;
-            padding: 28px 20px;
+            border-radius: 20px;
+            padding: 35px 25px;
             text-align: center;
             text-decoration: none;
-            color: #222;
-            box-shadow: 0 2px 8px rgba(0,0,0,.08);
-            transition: 0.2s;
+            color: var(--text-dark);
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(0, 136, 255, 0.02);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px);
+            border-color: var(--primary-light);
+            box-shadow: 0 20px 35px rgba(0, 136, 255, 0.1);
         }
 
-        .icon {
-            font-size: 42px;
-            margin-bottom: 12px;
+        .icon-box {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+            transition: all 0.25s ease;
+        }
+
+        .card:hover .icon-box {
+            background: var(--primary-gradient);
+            color: white;
+            transform: scale(1.05);
         }
 
         .title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #3B82F6;
-            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        
+        .card:hover .title {
+            color: var(--primary-accent);
         }
 
         .desc {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.5;
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.6;
         }
 
         footer {
-            margin-top: 40px;
+            margin-top: 60px;
             text-align: center;
-            color: #888;
-            font-size: 13px;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 500;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 25px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 500px) {
+            body { padding: 20px 15px; }
+            .grid { grid-template-columns: 1fr; }
+            h1 { font-size: 22px; }
         }
     </style>
 </head>
@@ -101,53 +192,55 @@
 
 <div class="container">
 
-    <!-- Ganti href sesuai halaman utama websitemu -->
-    <a href="../index.html" class="back-btn">🏠 Home</a>
+    <!-- Menggunakan trik relatif aman bebas buntut .html -->
+    <a href="../" class="back-btn"><i class="fa-solid fa-house"></i> Beranda Utama</a>
 
-    <h1>👨‍👩‍👧 Portal Orang Tua / Wali</h1>
-
-    <p class="subtitle">
-        Silakan pilih layanan yang ingin diakses.
-    </p>
+    <div class="header-section">
+        <div class="portal-badge">
+            <i class="fa-solid fa-users-rectangle"></i>
+        </div>
+        <h1>Portal Orang Tua / Wali Siswa</h1>
+        <p class="subtitle">Silakan pilih layanan informasi digital yang ingin Bapak/Ibu akses.</p>
+    </div>
 
     <div class="grid">
 
         <a href="profil-siswa.html" class="card">
-            <div class="icon">👤</div>
+            <div class="icon-box"><i class="fa-solid fa-id-card-user"></i></div>
             <div class="title">Data Anak</div>
             <div class="desc">
-                Lihat identitas dan informasi dasar siswa.
+                Lihat identitas resmi dan informasi data dasar siswa.
             </div>
         </a>
 
         <a href="portal-nilai.html" class="card">
-            <div class="icon">📊</div>
+            <div class="icon-box"><i class="fa-solid fa-chart-simple"></i></div>
             <div class="title">Portal Nilai</div>
             <div class="desc">
-                Lihat nilai ulangan harian, PTS, UAS CBT, dan ijazah.
+                Pantau nilai ulangan harian, PTS, PAS, UAS CBT, dan ijazah.
             </div>
         </a>
 
         <a href="../arsip-rapor/" class="card">
-            <div class="icon">📚</div>
+            <div class="icon-box"><i class="fa-solid fa-book-bookmark"></i></div>
             <div class="title">Arsip Rapor</div>
             <div class="desc">
-                Melihat arsip rapor siswa.
+                Melihat rincian dokumen riwayat arsip rapor digital siswa.
             </div>
         </a>
 
         <a href="../portal-guru/nomor-ijazah.html" class="card">
-            <div class="icon">🎓</div>
+            <div class="icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
             <div class="title">Arsip Ijazah</div>
             <div class="desc">
-                Melihat nomor dan arsip ijazah siswa.
+                Melihat nomor registrasi dan berkas arsip ijazah kelulusan.
             </div>
         </a>
 
     </div>
 
     <footer>
-        Portal Orang Tua / Wali SDN Butoh I Ngasem
+        &copy; 2026 Portal Layanan Orang Tua / Wali — SD Negeri Butoh 1 Ngasem
     </footer>
 
 </div>
