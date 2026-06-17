@@ -195,23 +195,83 @@
                 <p>Informasi Standar Operasional Prosedur (SOP)</p>
             </div>
         </div>
-        <button class="btn-back" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
+        <button class="btn-back" onclick="if(document.referrer) { history.back(); } else { window.location.href='../'; }">
+            <i class="fa-solid fa-arrow-left"></i> Kembali
+        </button>
     </header>
 
     <div class="container">
         
-        <!-- SWITCHER MENU TAB -->
+        <!-- SWITCHER MENU TAB (MUTASI MASUK AKTIF DULUAN) -->
         <div class="tab-container">
-            <button class="tab-btn active" onclick="switchTab('keluar', this)">
-                <i class="fa-solid fa-box-arrow-up"></i> Mutasi Keluar (Pindah Sekolah)
-            </button>
-            <button class="tab-btn" onclick="switchTab('masuk', this)">
+            <button class="tab-btn active" onclick="switchTab('masuk', this)">
                 <i class="fa-solid fa-box-arrow-in-down"></i> Mutasi Masuk (Siswa Baru)
+            </button>
+            <button class="tab-btn" onclick="switchTab('keluar', this)">
+                <i class="fa-solid fa-box-arrow-up"></i> Mutasi Keluar (Pindah Sekolah)
             </button>
         </div>
 
-        <!-- ================= KONTEN MUTASI KELUAR ================= -->
-        <div id="konten-keluar" class="mutation-content active active-keluar">
+        <!-- ================= KONTEN MUTASI MASUK (TAMPIL UTAMA) ================= -->
+        <div id="konten-masuk" class="mutation-content active active-masuk">
+            <div class="intro-card">
+                <h2>Alur Mutasi Masuk</h2>
+                <p>Prosedur bagi siswa dari sekolah lain yang bermaksud mengajukan perpindahan masuk menjadi murid baru di SDN Butoh 1 Ngasem.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-badge"></div>
+                    <div class="timeline-panel">
+                        <h3><i class="fa-solid fa-comments"></i> Langkah 1: Hubungi Kepala SDN Butoh 1 Ngasem</h3>
+                        <p>Orang tua/Wali murid datang ke sekolah untuk berkonsultasi langsung dengan Kepala Sekolah SDN Butoh 1 Ngasem guna memastikan ketersediaan sisa pagu rombongan belajar (rombel) di jenjang kelas yang dituju.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-badge"></div>
+                    <div class="timeline-panel">
+                        <h3><i class="fa-solid fa-file-signature"></i> Langkah 2: Penerbitan Surat Sanggup Menerima</h3>
+                        <p>Setelah dinyatakan sisa pagu kelas masih mencukupi, SDN Butoh 1 Ngasem akan menerbitkan berkas resmi berupa <strong>Surat Keterangan Sanggup Menerima Siswa Mutasi</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-badge"></div>
+                    <div class="timeline-panel">
+                        <h3><i class="fa-solid fa-paper-plane"></i> Langkah 3: Ambil Surat Pindah dari Sekolah Asal</h3>
+                        <p>Serahkan Surat Keterangan Sanggup Menerima tersebut kepada operator/tata usaha di <strong>Sekolah Asal</strong> anak. Sekolah asal kemudian akan memproses pengeluaran data dan menerbitkan berkas <strong>Surat Keterangan Keluar/Pindah</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-badge"></div>
+                    <div class="timeline-panel">
+                        <h3><i class="fa-solid fa-building-columns"></i> Langkah 4: Ketentuan Lintas Kabupaten</h3>
+                        <p>Perhatikan daerah asal sekolah anak Anda sebelum melakukan pendaftaran final di sistem kami:</p>
+                        <br>
+                        <div class="note-box" style="background: #eff6ff; border-color: #bfdbfe;">
+                            <i class="fa-solid fa-circle-info" style="color: #2563eb;"></i>
+                            <div>
+                                <h4>Jika Berasal dari Luar Kabupaten Bojonegoro:</h4>
+                                <p>Orang tua siswa yang bersangkutan **wajib** mengurus berkas kelulusan internal ke <strong>Dinas Pendidikan Kabupaten/Kota Asal</strong> terlebih dahulu untuk mendapatkan lembar **Surat Rekomendasi Pindah Sekolah Keluar Kabupaten**.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-badge"></div>
+                    <div class="timeline-panel">
+                        <h3><i class="fa-solid fa-user-check"></i> Langkah 5: Penyerahan Berkas & Registrasi Dapodik</h3>
+                        <p>Bawa seluruh kumpulan berkas fisik lengkap (Surat Pindah Asal, Surat Rekomendasi Dinas, KK, Akta, dan Isian Raport lama) ke SDN Butoh 1 Ngasem. Operator sekolah akan langsung memasukkan data anak ke dalam sistem Dapodik lokal.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= KONTEN MUTASI KELUAR (TERSEMBUNYI) ================= -->
+        <div id="konten-keluar" class="mutation-content active-keluar">
             <div class="intro-card keluar">
                 <h2>Alur Mutasi Keluar</h2>
                 <p>Prosedur bagi siswa SDN Butoh 1 Ngasem yang berencana pindah atau melanjutkan pendidikan ke sekolah lain (luar sekolah/luar daerah).</p>
@@ -263,77 +323,16 @@
             </div>
         </div>
 
-        <!-- ================= KONTEN MUTASI MASUK ================= -->
-        <div id="konten-masuk" class="mutation-content active-masuk">
-            <div class="intro-card">
-                <h2>Alur Mutasi Masuk</h2>
-                <p>Prosedur bagi siswa dari sekolah lain yang bermaksud mengajukan perpindahan masuk menjadi murid baru di SDN Butoh 1 Ngasem.</p>
-            </div>
-
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-badge"></div>
-                    <div class="timeline-panel">
-                        <h3><i class="fa-solid fa-comments"></i> Langkah 1: Hubungi Kepala SDN Butoh 1 Ngasem</h3>
-                        <p>Orang tua/Wali murid datang ke sekolah untuk berkonsultasi langsung dengan Kepala Sekolah SDN Butoh 1 Ngasem guna memastikan ketersediaan sisa pagu rombongan belajar (rombel) di jenjang kelas yang dituju.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-badge"></div>
-                    <div class="timeline-panel">
-                        <h3><i class="fa-solid fa-file-signature"></i> Langkah 2: Penerbitan Surat Sanggup Menerima</h3>
-                        <p>Setelah dinyatakan sisa pagu kelas masih mencukupi, SDN Butoh 1 Ngasem akan menerbitkan berkas resmi berupa <strong>Surat Keterangan Sanggup Menerima Siswa Mutasi</strong>.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-badge"></div>
-                    <div class="timeline-panel">
-                        <h3><i class="fa-solid fa-paper-plane"></i> Langkah 3: Ambil Surat Pindah dari Sekolah Asal</h3>
-                        <p>Serahkan Surat Keterangan Sanggup Menerima tersebut kepada operator/tata usaha di <strong>Sekolah Asal</strong> anak. Sekolah asal kemudian akan memproses pengeluaran data dan menerbitkan berkas <strong>Surat Keterangan Keluar/Pindah</strong>.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-badge"></div>
-                    <div class="timeline-panel">
-                        <h3><i class="fa-solid fa-building-columns"></i> Langkah 4: Ketentuan Lintas Kabupaten</h3>
-                        <p>Perhatikan daerah asal sekolah anak Anda sebelum melakukan pendaftaran final di sistem kami:</p>
-                        <br>
-                        <div class="note-box" style="background: #eff6ff; border-color: #bfdbfe;">
-                            <i class="fa-solid fa-circle-info" style="color: #2563eb;"></i>
-                            <div>
-                                <h4>Jika Berasal dari Luar Kabupaten Bojonegoro:</h4>
-                                <p>Orang tua siswa yang bersangkutan **wajib** mengurus berkas kelulusan internal ke <strong>Dinas Pendidikan Kabupaten/Kota Asal</strong> terlebih dahulu untuk mendapatkan lembar **Surat Rekomendasi Pindah Sekolah Keluar Kabupaten**.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-badge"></div>
-                    <div class="timeline-panel">
-                        <h3><i class="fa-solid fa-user-check"></i> Langkah 5: Penyerahan Berkas & Registrasi Dapodik</h3>
-                        <p>Bawa seluruh kumpulan berkas fisik lengkap (Surat Pindah dari Sekolah Asal, Surat Rekomendasi Dinas, KK, Akta, dan Isian Raport lama) ke SDN Butoh 1 Ngasem. Operator sekolah akan langsung memasukkan data anak ke dalam sistem Dapodik lokal.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <script>
         function switchTab(type, element) {
-            // Sembunyikan semua konten tab
             const contents = document.querySelectorAll('.mutation-content');
             contents.forEach(content => content.classList.remove('active'));
             
-            // Matikan status aktif semua tombol
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             
-            // Aktifkan konten & tombol pilihan
             document.getElementById('konten-' + type).classList.add('active');
             element.classList.add('active');
         }
