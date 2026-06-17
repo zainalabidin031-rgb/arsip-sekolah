@@ -1,188 +1,289 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Latihan Soal Online</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Soal Online | SDN Butoh 1 Ngasem</title>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, Helvetica, sans-serif;
-    }
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    body{
-      background:#f3f6fb;
-    }
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #2196F3 0%, #00bcd4 100%);
+            --accent-color: #2196F3;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f4f8fc;
+            --shadow-card: 0 10px 25px rgba(33, 150, 243, 0.05);
+        }
 
-    header{
-      background:#2196F3;
-      color:white;
-      padding:30px 20px;
-      text-align:center;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
 
-    header h1{
-      margin-bottom:10px;
-    }
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-    header p{
-      opacity:0.95;
-    }
+        /* HEADER */
+        header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 45px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(33, 150, 243, 0.15);
+        }
 
-    .container{
-      max-width:1100px;
-      margin:auto;
-      padding:30px 20px;
-    }
+        header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
 
-    h2{
-      text-align:center;
-      margin-bottom:25px;
-      color:#222;
-    }
+        header p {
+            font-size: 15px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:20px;
-    }
+        /* MAIN CONTENT */
+        .container {
+            max-width: 1140px;
+            margin: auto;
+            padding: 40px 20px;
+            flex: 1;
+        }
 
-    .card{
-      background:white;
-      border-radius:12px;
-      padding:30px 20px;
-      text-align:center;
-      cursor:pointer;
-      transition:.2s;
-      box-shadow:0 2px 8px rgba(0,0,0,.08);
-    }
+        h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            color: var(--text-dark);
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
 
-    .card:hover{
-      transform:translateY(-5px);
-      box-shadow:0 8px 18px rgba(0,0,0,.15);
-    }
+        /* GRID CARDS: Dikunci Pasti 4 Kolom per Baris di Desktop */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
 
-    .icon{
-      font-size:42px;
-      margin-bottom:15px;
-    }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(33, 150, 243, 0.02);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .title{
-      font-size:20px;
-      font-weight:bold;
-      color:#222;
-    }
+        .card::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 4px;
+            background: transparent;
+            transition: background 0.2s;
+        }
 
-    footer{
-      text-align:center;
-      padding:25px;
-      color:#666;
-      font-size:14px;
-    }
-    .back-btn{
-    display:inline-block;
-    padding:10px 18px;
-    background:#2196F3;
-    color:white;
-    text-decoration:none;
-    border-radius:10px;
-    font-weight:bold;
-    box-shadow:0 2px 6px rgba(0,0,0,0.15);
-    transition:0.2s;
-}
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(33, 150, 243, 0.12);
+            background-color: #fafdff;
+        }
 
-.back-btn:hover{
-    background:#1E88E5;
-}
-  </style>
+        .card:hover::before {
+            background: var(--primary-gradient);
+        }
+
+        .icon {
+            font-size: 46px;
+            margin-bottom: 15px;
+            transition: transform 0.25s ease;
+        }
+
+        .card:hover .icon {
+            transform: scale(1.15);
+        }
+
+        .title {
+            font-size: 16.5px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.4;
+            letter-spacing: -0.3px;
+        }
+
+        /* ACTION NAVIGATION BUTTON */
+        .nav-actions {
+            text-align: center;
+            margin: 40px 0 20px 0;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: white;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 14.5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: #f1f5f9;
+            color: var(--text-dark);
+            transform: translateY(-1px);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--text-muted);
+            font-size: 13.5px;
+            font-weight: 500;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* RESPONSIVE LAYOUT UNTUK TABLET & HP */
+        @media (max-width: 992px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr); /* 3 Kolom di Tablet Gede */
+            }
+        }
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 Kolom di HP Lanskap / Tablet Mini */
+                gap: 16px;
+            }
+        }
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: repeat(1, 1fr); /* 1 Kolom lurus ke bawah di HP Tegak */
+                gap: 14px;
+            }
+            header h1 { font-size: 24px; }
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
-  <h1>📚 Latihan Soal Online</h1>
-  <p>Silakan pilih mata pelajaran yang ingin dipelajari.</p>
+    <h1>📚 Latihan Soal Online</h1>
+    <p>Silakan pilih mata pelajaran yang ingin dipelajari.</p>
 </header>
-  
 
 <div class="container">
 
-  <h2>Pilih Mata Pelajaran</h2>
+    <h2>Pilih Mata Pelajaran</h2>
 
- <div class="grid">
+    <div class="grid">
 
-  <div class="card" onclick="pilihMapel('Pendidikan Agama Islam')">
-    <div class="icon">🕌</div>
-    <div class="title">Pendidikan Agama Islam</div>
-  </div>
+        <!-- MAPEL BARIS 1 -->
+        <div class="card" onclick="pilihMapel('Pendidikan Agama Islam')">
+            <div class="icon">🕌</div>
+            <div class="title">Pendidikan Agama Islam</div>
+        </div>
 
-  <div class="card" onclick="pilihMapel('Pendidikan Pancasila')">
-    <div class="icon">🇮🇩</div>
-    <div class="title">Pendidikan Pancasila</div>
-  </div>
+        <div class="card" onclick="pilihMapel('Pendidikan Pancasila')">
+            <div class="icon">🇮🇩</div>
+            <div class="title">Pendidikan Pancasila</div>
+        </div>
 
-  <div class="card" onclick="pilihMapel('Bahasa Indonesia')">
-    <div class="icon">📖</div>
-    <div class="title">Bahasa Indonesia</div>
-  </div>
+        <div class="card" onclick="pilihMapel('Bahasa Indonesia')">
+            <div class="icon">📖</div>
+            <div class="title">Bahasa Indonesia</div>
+        </div>
 
-  <div class="card" onclick="pilihMapel('Matematika')">
-    <div class="icon">➗</div>
-    <div class="title">Matematika</div>
-  </div>
+        <div class="card" onclick="pilihMapel('Matematika')">
+            <div class="icon">➗</div>
+            <div class="title">Matematika</div>
+        </div>
 
-  <div class="card" onclick="pilihMapel('IPAS')">
-    <div class="icon">🔬</div>
-    <div class="title">IPAS</div>
-  </div>
+        <!-- MAPEL BARIS 2 -->
+        <div class="card" onclick="pilihMapel('IPAS')">
+            <div class="icon">🔬</div>
+            <div class="title">IPAS</div>
+        </div>
 
-  <div class="card" onclick="pilihMapel('PJOK')">
-    <div class="icon">⚽</div>
-    <div class="title">PJOK</div>
-  </div>
+        <div class="card" onclick="pilihMapel('PJOK')">
+            <div class="icon">⚽</div>
+            <div class="title">PJOK</div>
+        </div>
 
-  <div class="card" onclick="pilihMapel('Seni Budaya')">
-    <div class="icon">🎨</div>
-    <div class="title">Seni Budaya</div>
-  </div>
+        <div class="card" onclick="pilihMapel('Seni Budaya')">
+            <div class="icon">🎨</div>
+            <div class="title">Seni Budaya</div>
+        </div>
 
-  <div class="card" onclick="pilihMapel('Bahasa Inggris')">
-    <div class="icon">🔤</div>
-    <div class="title">Bahasa Inggris</div>
-  </div>
+        <div class="card" onclick="pilihMapel('Bahasa Inggris')">
+            <div class="icon">🔤</div>
+            <div class="title">Bahasa Inggris</div>
+        </div>
 
-  <div class="card" onclick="pilihMapel('Bahasa Jawa')">
-    <div class="icon">📝</div>
-    <div class="title">Bahasa Jawa</div>
-  </div>
+        <!-- MAPEL BARIS 3 -->
+        <div class="card" onclick="pilihMapel('Bahasa Jawa')">
+            <div class="icon">📝</div>
+            <div class="title">Bahasa Jawa</div>
+        </div>
 
-  <div class="card" onclick="pilihMapel('Literasi Digital')">
-    <div class="icon">💻</div>
-    <div class="title">Literasi Digital</div>
-  </div>
-   
-   <div class="card" onclick="window.location.href='../../cbt/'">
-    <div class="icon">📚</div>
-    <div class="title">CBT TEST</div>
+        <div class="card" onclick="pilihMapel('Literasi Digital')">
+            <div class="icon">💻</div>
+            <div class="title">Literasi Digital</div>
+        </div>
+        
+        <div class="card" onclick="window.location.href='../../cbt/'">
+            <div class="icon">📚</div>
+            <div class="title">CBT TEST</div>
+        </div>
+        
+        <div class="card" onclick="window.location.href='../latihan-soal/orangtua.html'">
+            <div class="icon">🔍</div>
+            <div class="title">Lihat Nilai</div>
+        </div>
+
+    </div>
+
+    <!-- TOMBOL HOME -->
+    <div class="nav-actions">
+        <a href="../index.html" class="back-btn">🏠 Home</a>
+    </div>
+
 </div>
-   
-   <div class="card" onclick="window.location.href='../latihan-soal/orangtua.html'">
-    <div class="icon">🔍</div>
-    <div class="title">Lihat Nilai</div>
-  </div>
 
-</div>
-
-  </div>
-
-<div style="text-align: center; margin: 30px 0;">
-    <a href="../index.html" class="back-btn">🏠 Home</a>
-</div>
 <footer>
-  © 2026 Latihan Soal Online
+    © 2026 Latihan Soal Online
 </footer>
 
 <script>
