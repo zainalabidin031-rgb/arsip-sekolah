@@ -40,30 +40,38 @@ tr:hover{background:#f8fbff}
 </table>
 </div>
 </div>
+
 <div id="modal"><div class="modal-box">
-<h3>Edit Data</h3>
+<h3>Edit Data Lengkap</h3>
 <div class="grid">
-<input id="nisn" placeholder="NISN">
+<input id="nisn" placeholder="NISN" readonly style="background:#f1f5f9; cursor:not-allowed;">
 <input id="nis" placeholder="NIS">
 <input id="nama" placeholder="Nama">
 <input id="kelas" placeholder="Kelas">
 <input id="status" placeholder="Status">
 <input id="waliKelas" placeholder="Wali Kelas">
+
+<input id="alamat" placeholder="Alamat">
+<input id="noHp" placeholder="No HP">
 </div>
 <div style="margin-top:16px">
 <button class="primary" onclick="save()">Simpan</button>
 <button class="secondary" onclick="closeModal()">Batal</button>
 </div>
 </div></div>
+
 <script>
+// GANTI dengan URL Web App Apps Script terbarumu jika kamu membuat deployment baru
 const SCRIPT="https://script.google.com/macros/s/AKfycbyGXsz7p4zTIlQ8A9JDCMPnwPJ63pXKYtBBFHFzEryirz1s1hcW31oHCPlRZ0d2V3-l/exec";
 let rows=[],current=null;
+
 async function loadData(){
  const res=await fetch(SCRIPT+"?action=list");
  const js=await res.json();
  rows=js.data||[];
  render(rows);
 }
+
 function render(data){
  const tb=document.getElementById("tb");
  tb.innerHTML=data.map(r=>`<tr>
@@ -72,34 +80,62 @@ function render(data){
 <td><button class='primary' onclick='edit("${r.NISN}")'>Edit</button></td>
 </tr>`).join("")||"<tr><td colspan='6'>Tidak ada data</td></tr>";
 }
+
 document.getElementById("q").oninput=e=>{
  const s=e.target.value.toLowerCase();
  render(rows.filter(r=>(r.Nama||"").toLowerCase().includes(s)||(r.NISN||"").toLowerCase().includes(s)));
 }
+
 function edit(n){
- current=rows.find(r=>String(r.NISN)===String(n));
- ["nisn","nis","nama","kelas","status","waliKelas"].forEach(id=>document.getElementById(id).value="");
- 
- // Sekarang baris di bawah ini sudah aman dijalankan karena id-nya match
- nisn.value=current.NISN||"";
- nis.value=current.NIS||"";
- nama.value=current.Nama||"";
- kelas.value=current.Kelas||"";
- status.value=current.Status||"";
- waliKelas.value=current["Wali Kelas"]||"";
- modal.style.display="flex";
-}
-function closeModal(){modal.style.display="none";}
-async function save(){
- const p=new URLSearchParams({
- action:"update",nisn:nisn.value,nis:nis.value,nama:nama.value,kelas:kelas.value,status:status.value,waliKelas:waliKelas.value
+ current = rows.find(r => String(r.NISN) === String(n));
+ if(!current) return alert("Data tidak ditemukan!");
+
+ // Kosongkan semua field modal saat dibuka
+ ["nisn","nis","nama","kelas","status","waliKelas","alamat","noHp"].forEach(id => {
+   document.getElementById(id).value = "";
  });
- const res=await fetch(SCRIPT+"?"+p.toString());
- const js=await res.json();
- alert(js.message||"Selesai");
+
+ // Isi data dasar
+ document.getElementById("nisn").value = current.NISN || "";
+ document.getElementById("nis").value = current.NIS || "";
+ document.getElementById("nama").value = current.Nama || "";
+ document.getElementById("kelas").value = current.Kelas || "";
+ document.getElementById("status").value = current.Status || "";
+ 
+ // ISI DATA KOLOM LAINNYA (Pastikan teks di dalam tanda kurung siku [] sama persis dengan judul kolom di Spreadsheet)
+ document.getElementById("waliKelas").value = current["Wali Kelas"] || "";
+ document.getElementById("alamat").value = current["Alamat"] || "";
+ document.getElementById("noHp").value = current["No HP"] || "";
+
+ // Munculkan Modal
+ document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal(){
+ document.getElementById("modal").style.display = "none";
+}
+
+async function save(){
+ const p = new URLSearchParams({
+   action: "update",
+   nisn: document.getElementById("nisn").value,
+   nis: document.getElementById("nis").value,
+   nama: document.getElementById("nama").value,
+   kelas: document.getElementById("kelas").value,
+   status: document.getElementById("status").value,
+   waliKelas: document.getElementById("waliKelas").value,
+   alamat: document.getElementById("alamat").value,
+   noHp: document.getElementById("noHp").value
+ });
+ 
+ const res = await fetch(SCRIPT + "?" + p.toString());
+ const js = await res.json();
+ alert(js.message || "Selesai");
  closeModal();
  loadData();
 }
+
 loadData();
 </script>
-</body></html>
+</body>
+</html>
