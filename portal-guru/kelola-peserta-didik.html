@@ -85,13 +85,7 @@ function edit(n){
 function closeModal(){modal.style.display="none";}
 async function save(){
  const p=new URLSearchParams({
- action:"update",
- nisn:nisn.value,
- nis:nis.value,
- nama:nama.value,
- kelas:kelas.value,
- status:status.value,
- waliKelas:waliKelas.value
+ action:"update",nisn:nisn.value,nis:nis.value,nama:nama.value,kelas:kelas.value,status:status.value,waliKelas:waliKelas.value
  });
  const res=await fetch(SCRIPT+"?"+p.toString());
  const js=await res.json();
@@ -99,5 +93,6 @@ async function save(){
  closeModal();
  loadData();
 }
+loadData();
 </script>
 </body></html>
