@@ -84,15 +84,29 @@ function edit(n){
 }
 function closeModal(){modal.style.display="none";}
 async function save(){
+
+ const statusValue =
+   document.getElementById("status").value;
+
+ alert("Status yang dikirim: " + statusValue);
+
  const p=new URLSearchParams({
- action:"update",nisn:nisn.value,nis:nis.value,nama:nama.value,kelas:kelas.value,status:status.value,waliKelas:waliKelas.value
+  action:"update",
+  nisn:nisn.value,
+  nis:nis.value,
+  nama:nama.value,
+  kelas:kelas.value,
+  status:statusValue,
+  waliKelas:waliKelas.value
  });
+
  const res=await fetch(SCRIPT+"?"+p.toString());
  const js=await res.json();
+
  alert(js.message||"Selesai");
+
  closeModal();
  loadData();
 }
-loadData();
 </script>
 </body></html>
