@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portal Guru - Input Nilai Rapor</title>
+<style>
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#f3f7fc;color:#1e293b}
+/* TEMA WARNA BIRU MUDA CERAH SDN BUTOH 1 NGASEM */
+header{background:linear-gradient(135deg,#00b0ff,#008bc9);color:#fff;padding:22px;box-shadow:0 2px 10px rgba(0,170,255,0.2)}
+.container{max-width:1200px;margin:24px auto;padding:0 16px}
+.card{background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.08);padding:20px}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+input, select{padding:10px 12px;border:1px solid #b3e5fc;border-radius:10px;min-width:160px;font-family:inherit;box-sizing:border-box;}
+input:focus, select:focus{outline:none;border-color:#00b0ff;box-shadow:0 0 0 3px rgba(0,176,255,0.2)}
+button{border:none;border-radius:10px;padding:10px 16px;cursor:pointer;font-weight:600;transition:all 0.2s ease}
+.primary{background:#00b0ff;color:#fff}
+.primary:hover{background:#0091ea;box-shadow:0 4px 12px rgba(0,145,234,0.3)}
+.secondary{background:#64748b;color:#fff}
+.secondary:hover{background:#475569}
+table{width:100%;border-collapse:collapse;margin-top:16px;border-radius:10px;overflow:hidden}
+th,td{padding:12px;border-bottom:1px solid #e1f5fe;text-align:left}
+th{background:#00b0ff;color:#fff}
+tr:hover{background:#f0faff}
+#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:999}
+.modal-box{background:#fff;border-radius:14px;padding:25px;max-width:800px;width:95%;max-height:90vh;overflow-y:auto}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group label{font-size:12px;font-weight:600;color:#0091ea}
+.full-width{grid-column: span 2;}
+.filter-wrapper{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.nilai-section {grid-column: span 2; display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; border-top: 2px dashed #00b0ff; padding-top: 15px; margin-top: 10px;}
+.nilai-section h4 {grid-column: 1/-1; margin: 0 0 5px 0; color:#008bc9;}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.full-width{grid-column: span 1;}}
+</style>
+</head>
+<body>
+<header><h2>Portal Guru: Kelola Nilai Rapor Siswa</h2></header>
+<div class="container">
+<div class="card">
+<div class="toolbar">
+<div>
+<button class="secondary" onclick="history.back()">🏠 Dashboard Utama</button>
+</div>
+<div class="filter-wrapper">
+<select id="filterTahun"><option value="">-- Semua Tahun Ajaran --</option></select>
+<select id="filterSemester">
+  <option value="">-- Semua Semester --</option>
+  <option value="1">Semester 1</option>
+  <option value="2">Semester 2</option>
+</select>
+<input id="q" placeholder="Cari Nama atau NISN siswa">
+</div>
+</div>
+<table>
+<thead><tr><th>NISN</th><th>Nama</th><th>Tahun Ajaran</th><th>Semester</th><th>Peringkat</th><th>Aksi</th></tr></thead>
+<tbody id="tb"><tr><td colspan="6">Memuat data rapor...</td></tr></tbody>
+</table>
+</div>
+</div>
+
+<div id="modal"><div class="modal-box">
+<h3 style="margin-top:0; border-bottom: 2px solid #00b0ff; padding-bottom: 10px; color:#0091ea;">Form Input & Edit Nilai Rapor</h3>
+<div class="grid">
+<div class="form-group"><label>NISN</label><input id="nisn" readonly style="background:#f1f5f9; cursor:not-allowed;"></div>
+<div class="form-group"><label>Nama Siswa</label><input id="nama"></div>
+<div class="form-group"><label>Tahun Ajaran</label><input id="tahunAjaran" readonly style="background:#f1f5f9; cursor:not-allowed;"></div>
+<div class="form-group"><label>Semester</label><input id="semester" readonly style="background:#f1f5f9; cursor:not-allowed;"></div>
+<div class="form-group full-width"><label>Peringkat</label><input id="peringkat"></div>
+
+<div class="nilai-section">
+<h4>Nilai Mata Pelajaran</h4>
+<div class="form-group"><label>PAI</label><input id="pai" type="number"></div>
+<div class="form-group"><label>PKN</label><input id="pkn" type="number"></div>
+<div class="form-group"><label>BIN</label><input id="bin" type="number"></div>
+<div class="form-group"><label>MTK</label><input id="mtk" type="number"></div>
+<div class="form-group"><label>IPAS</label><input id="ipas" type="number"></div>
+<div class="form-group"><label>PJOK</label><input id="pjok" type="number"></div>
+<div class="form-group"><label>SENI</label><input id="seni" type="number"></div>
+<div class="form-group"><label>BIG</label><input id="big" type="number"></div>
+<div class="form-group"><label>BJ</label><input id="bj" type="number"></div>
+<div class="form-group"><label>LIDI</label><input id="lidi" type="number"></div>
+</div>
+</div>
+<div style="margin-top:20px; text-align:right; border-top: 1px solid #e1f5fe; padding-top: 15px;">
+<button class="secondary" onclick="closeModal()">Batal</button>
+<button class="primary" onclick="save()">Simpan Nilai</button>
+</div>
+</div></div>
+
+<script>
+// Tempelkan URL Web App dari Apps Script 'beckend-rapor-portal-guru' di bawah ini
+const SCRIPT="https://script.google.com/macros/s/AKfycbxpoPxETe-mn692DZ890BTLaqrNrQ5hqI0hCplcMWOjOKOE2OsTjurYSO4qG3nwMinSkw/exec";
+let rows=[], currentIdx=null;
+
+const fields = ["nisn","nama","tahunAjaran","semester","peringkat","pai","pkn","bin","mtk","ipas","pjok","seni","big","bj","lidi"];
+
+async function loadData(){
+ document.getElementById("tb").innerHTML = "<tr><td colspan='6'>Memuat data rapor...</td></tr>";
+ try {
+   const res = await fetch(SCRIPT+"?action=list");
+   const js = await res.json();
+   rows = js.data||[];
+   populateFilterTahun(rows);
+   render(applyFilter());
+ } catch(e) {
+   document.getElementById("tb").innerHTML = "<tr><td colspan='6'>Gagal memuat data. Periksa URL script backend Anda.</td></tr>";
+ }
+}
+
+// Mengambil list Tahun Ajaran yang ada di Spreadsheet secara otomatis
+function populateFilterTahun(data) {
+ const select = document.getElementById("filterTahun");
+ const currentSelection = select.value;
+ const daftarTahun = [...new Set(data.map(r => r["Tahun Ajaran"]).filter(t => t && t !== "-"))].sort();
+ 
+ select.innerHTML = '<option value="">-- Semua Tahun Ajaran --</option>';
+ daftarTahun.forEach(t => {
+   select.innerHTML += `<option value="${t}">${t}</option>`;
+ });
+ select.value = currentSelection;
+}
+
+function render(data){
+ const tb = document.getElementById("tb");
+ tb.innerHTML = data.map((r, index)=>`<tr>
+<td>${r["NISN"]||""}</td><td>${r["Nama"]||""}</td><td>${r["Tahun Ajaran"]||""}</td>
+<td>${r["Semester"]||""}</td><td>${r["Peringkat"]||""}</td>
+<td><button class='primary' onclick='edit("${r["NISN"]}", "${r["Tahun Ajaran"]}", "${r["Semester"]}")'>Edit Nilai</button></td>
+</tr>`).join("") || "<tr><td colspan='6'>Tidak ada data rapor ditemukan</td></tr>";
+}
+
+// Fungsi Multi-Filter Gabungan (Tahun Ajaran + Semester + Pencarian Nama/NISN)
+function applyFilter() {
+ const kataKunci = document.getElementById("q").value.toLowerCase();
+ const tahunPilihan = document.getElementById("filterTahun").value;
+ const semesterPilihan = document.getElementById("filterSemester").value;
+ 
+ return rows.filter(r => {
+   const matchTahun = tahunPilihan === "" || String(r["Tahun Ajaran"]) === tahunPilihan;
+   const matchSemester = semesterPilihan === "" || String(r["Semester"]) === semesterPilihan;
+   const matchCari = (r["Nama"]||"").toLowerCase().includes(kataKunci) || (r["NISN"]||"").toLowerCase().includes(kataKunci);
+   
+   return matchTahun && matchSemester && matchCari;
+ });
+}
+
+// Triger jalannya filter saat input diubah oleh guru
+document.getElementById("q").oninput = () => render(applyFilter());
+document.getElementById("filterTahun").onchange = () => render(applyFilter());
+document.getElementById("filterSemester").onchange = () => render(applyFilter());
+
+function edit(n, t, s){
+ const item = rows.find(r => String(r["NISN"]) === String(n) && String(r["Tahun Ajaran"]) === String(t) && String(r["Semester"]) === String(s));
+ if(!item) return alert("Data rapor tidak ditemukan!");
+
+ fields.forEach(id => document.getElementById(id).value = "");
+
+ // Memasukkan data ke dalam kotak modal input nilai guru
+ document.getElementById("nisn").value = item["NISN"] || "";
+ document.getElementById("nama").value = item["Nama"] || "";
+ document.getElementById("tahunAjaran").value = item["Tahun Ajaran"] || "";
+ document.getElementById("semester").value = item["Semester"] || "";
+ document.getElementById("peringkat").value = item["Peringkat"] || "";
+ document.getElementById("pai").value = item["PAI"] || "";
+ document.getElementById("pkn").value = item["PKN"] || "";
+ document.getElementById("bin").value = item["BIN"] || "";
+ document.getElementById("mtk").value = item["MTK"] || "";
+ document.getElementById("ipas").value = item["IPAS"] || "";
+ document.getElementById("pjok").value = item["PJOK"] || "";
+ document.getElementById("seni").value = item["SENI"] || "";
+ document.getElementById("big").value = item["BIG"] || "";
+ document.getElementById("bj").value = item["BJ"] || "";
+ document.getElementById("lidi").value = item["LIDI"] || "";
+
+ document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal(){
+ document.getElementById("modal").style.display = "none";
+}
+
+async function save(){
+ const p = new URLSearchParams({
+   action: "update",
+   nisn: document.getElementById("nisn").value,
+   nama: document.getElementById("nama").value,
+   tahunAjaran: document.getElementById("tahunAjaran").value,
+   semester: document.getElementById("semester").value,
+   peringkat: document.getElementById("peringkat").value,
+   pai: document.getElementById("pai").value,
+   pkn: document.getElementById("pkn").value,
+   bin: document.getElementById("bin").value,
+   mtk: document.getElementById("mtk").value,
+   ipas: document.getElementById("ipas").value,
+   pjok: document.getElementById("pjok").value,
+   seni: document.getElementById("seni").value,
+   big: document.getElementById("big").value,
+   bj: document.getElementById("bj").value,
+   lidi: document.getElementById("lidi").value
+ });
+ 
+ const res = await fetch(SCRIPT + "?" + p.toString());
+ const js = await res.json();
+ alert(js.message || "Selesai");
+ closeModal();
+ loadData();
+}
+
+loadData();
+</script>
+</body>
+</html>
