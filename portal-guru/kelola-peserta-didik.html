@@ -10,7 +10,7 @@ header{background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;padding:22p
 .container{max-width:1200px;margin:24px auto;padding:0 16px}
 .card{background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.08);padding:20px}
 .toolbar{display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;align-items:center}
-input{padding:10px 12px;border:1px solid #dbeafe;border-radius:10px;min-width:260px}
+input, select{padding:10px 12px;border:1px solid #dbeafe;border-radius:10px;min-width:260px;box-sizing:border-box}
 button{border:none;border-radius:10px;padding:10px 16px;cursor:pointer}
 .primary{background:#2563eb;color:#fff}
 .secondary{background:#64748b;color:#fff}
@@ -18,14 +18,18 @@ table{width:100%;border-collapse:collapse;margin-top:16px}
 th,td{padding:12px;border-bottom:1px solid #e5e7eb;text-align:left}
 th{background:#2563eb;color:#fff}
 tr:hover{background:#f8fbff}
-#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center}
-.modal-box{background:#fff;border-radius:14px;padding:20px;max-width:700px;width:95%}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:1000}
+.modal-box{background:#fff;border-radius:14px;padding:20px;max-width:700px;width:95%;max-height:90vh;overflow-y:auto}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.grid label{display:flex;flex-direction:column;font-size:13px;font-weight:600;color:#475569}
+.grid label input, .grid label select{margin-top:4px;min-width:100%}
 @media(max-width:700px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+
 <header><h2>Kelola Peserta Didik</h2></header>
+
 <div class="container">
 <div class="card">
 <div class="toolbar">
@@ -40,35 +44,43 @@ tr:hover{background:#f8fbff}
 </table>
 </div>
 </div>
+
 <div id="modal"><div class="modal-box">
-<h3>Edit Data</h3>
+<h3>Edit Data Lengkap Siswa</h3>
 <div class="grid">
-<input id="nisn" placeholder="NISN">
-<input id="nis" placeholder="NIS">
-<input id="nama" placeholder="Nama">
-<input id="kelas" placeholder="Kelas">
-<input id="status" placeholder="Status">
-<input id="walikelas" placeholder="Wali Kelas">
-<input id="namaayah" placeholder="Nama Ayah">
-<input id="namaibu" placeholder="Nama Ibu">
-<input id="tanggallahir" placeholder="Tanggal Lahir">
-<input id="jeniskelamin" placeholder="Jenis Kelamin">
-<input id="tempatlahir" placeholder="Tempat Lahir">
-<input id="tahunmasuk" placeholder="Tahun Masuk">
-<input id="tahunlulus" placeholder="Tahun Lulus">
-<input id="nohporangtua" placeholder="No HP Orang Tua">
- 
+  <label>NISN (Kunci Utama)<input id="nisn" disabled></label>
+  <label>NIS<input id="nis" placeholder="NIS"></label>
+  <label>Nama Lengkap<input id="nama" placeholder="Nama Lengkap"></label>
+  <label>Kelas<input id="kelas" placeholder="Kelas"></label>
+  <label>Status<input id="status" placeholder="Status"></label>
+  <label>Wali Kelas<input id="waliKelas" placeholder="Nama Wali Kelas"></label>
+  
+  <label>Nama Ayah<input id="namaAyah" placeholder="Nama Ayah"></label>
+  <label>Nama Ibu<input id="namaIbu" placeholder="Nama Ibu"></label>
+  <label>Tanggal Lahir<input id="tglLahir" type="date"></label>
+  <label>Jenis Kelamin
+    <select id="jk">
+      <option value="">-- Pilih --</option>
+      <option value="L">Laki-laki</option>
+      <option value="P">Perempuan</option>
+    </select>
+  </label>
+  <label>Tempat Lahir<input id="tempatLahir" placeholder="Tempat Lahir"></label>
+  <label>Tahun Masuk<input id="thnMasuk" placeholder="Contoh: 2023"></label>
+  <label>Tahun Lulus<input id="thnLulus" placeholder="Contoh: 2026"></label>
+  <label>Alamat Rumah<input id="alamat" placeholder="Alamat lengkap"></label>
+  <label>No HP Orang Tua<input id="noHpOrangTua" placeholder="No HP Aktif"></label>
 </div>
-<div style="margin-top:16px">
-<button class="primary" onclick="save()">Simpan</button>
+<div style="margin-top:20px; text-align:right;">
 <button class="secondary" onclick="closeModal()">Batal</button>
+<button class="primary" onclick="save()">Simpan Perubahan</button>
 </div>
 </div></div>
-<script>
-const SCRIPT="https://script.google.com/macros/s/AKfycbyGXsz7p4zTIlQ8A9JDCMPnwPJ63pXKYtBBFHFzEryirz1s1hcW31oHCPlRZ0d2V3-l/exec";
-let rows=[],current=null;
 
-// Ambil referensi modal sekali saja di luar
+<script>
+// SILAKAN GANTI DENGAN URL SCRIPT WEB APP BARU KAMU JIKA BERUBAH
+const SCRIPT="https://script.google.com/macros/s/AKfycbyGXsz7p4zTIlQ8A9JDCMPnwPJ63pXKYtBBFHFzEryirz1s1hcW31oHCPlRZ0d2V3-l/exec";
+let rows=[], current=null;
 const modal = document.getElementById("modal");
 
 async function loadData(){
@@ -83,7 +95,7 @@ function render(data){
  tb.innerHTML=data.map(r=>`<tr>
 <td>${r.NISN||""}</td><td>${r.NIS||""}</td><td>${r.Nama||""}</td>
 <td>${r.Kelas||""}</td><td>${r.Status||""}</td>
-<td><button class='primary' onclick='edit("${r.NISN}")'>Edit</button></td>
+<td><button class='primary' onclick='edit("${r.NISN}")'>Edit Lengkap</button></td>
 </tr>`).join("")||"<tr><td colspan='6'>Tidak ada data</td></tr>";
 }
 
@@ -95,16 +107,31 @@ document.getElementById("q").oninput=e=>{
 function edit(n){
  current=rows.find(r=>String(r.NISN)===String(n));
  
- // Reset form dengan mengambil elemen secara eksplisit
- ["nisn","nis","nama","kelas","status","waliKelas"].forEach(id=>document.getElementById(id).value="");
+ // Reset Semua Input Form
+ ["nisn","nis","nama","kelas","status","waliKelas","namaAyah","namaIbu","tglLahir","jk","tempatLahir","thnMasuk","thnLulus","alamat","noHpOrangTua"].forEach(id=>document.getElementById(id).value="");
  
- // Mengisi data ke form menggunakan document.getElementById agar aman dari konflik nama
+ // Mengisi Form berdasarkan Header Kolom di Google Sheets secara presisi
  document.getElementById("nisn").value=current.NISN||"";
  document.getElementById("nis").value=current.NIS||"";
  document.getElementById("nama").value=current.Nama||"";
  document.getElementById("kelas").value=current.Kelas||"";
  document.getElementById("status").value=current.Status||"";
  document.getElementById("waliKelas").value=current["Wali Kelas"]||"";
+ document.getElementById("namaAyah").value=current["Nama Ayah"]||"";
+ document.getElementById("namaIbu").value=current["Nama Ibu"]||"";
+ 
+ // Penanganan Format Tanggal Lahir agar masuk ke input HTML type="date"
+ if(current["Tanggal Lahir"]) {
+   const d = new Date(current["Tanggal Lahir"]);
+   if(!isNaN(d)) document.getElementById("tglLahir").value = d.toISOString().split('T')[0];
+ }
+ 
+ document.getElementById("jk").value=current["Jenis Kelamin"]||"";
+ document.getElementById("tempatLahir").value=current["Tempat Lahir"]||"";
+ document.getElementById("thnMasuk").value=current["Tahun Masuk"]||"";
+ document.getElementById("thnLulus").value=current["Tahun Lulus"]||"";
+ document.getElementById("alamat").value=current["Alamat"]||"";
+ document.getElementById("noHpOrangTua").value=current["No HP Orang Tua"]||"";
  
  modal.style.display="flex";
 }
@@ -112,15 +139,23 @@ function edit(n){
 function closeModal(){modal.style.display="none";}
 
 async function save(){
- // Mengambil value secara eksplisit menggunakan document.getElementById
  const p=new URLSearchParams({
  action:"update",
  nisn: document.getElementById("nisn").value,
  nis: document.getElementById("nis").value,
  nama: document.getElementById("nama").value,
  kelas: document.getElementById("kelas").value,
- status: document.getElementById("Status").value,
- waliKelas: document.getElementById("waliKelas").value
+ Status: document.getElementById("status").value, // S Besar sesuai perbaikan utama kita
+ waliKelas: document.getElementById("waliKelas").value,
+ namaAyah: document.getElementById("namaAyah").value,
+ namaIbu: document.getElementById("namaIbu").value,
+ tglLahir: document.getElementById("tglLahir").value,
+ jk: document.getElementById("jk").value,
+ tempatLahir: document.getElementById("tempatLahir").value,
+ thnMasuk: document.getElementById("thnMasuk").value,
+ thnLulus: document.getElementById("thnLulus").value,
+ alamat: document.getElementById("alamat").value,
+ noHpOrangTua: document.getElementById("noHpOrangTua").value
  });
  
  const res=await fetch(SCRIPT+"?"+p.toString());
@@ -129,6 +164,7 @@ async function save(){
  closeModal();
  loadData();
 }
+
 loadData();
 </script>
 </body></html>
