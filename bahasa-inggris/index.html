@@ -22,11 +22,11 @@
     h2 { font-family: 'Montserrat', sans-serif; color: var(--dark); margin-bottom: 15px; text-align: center; }
     label { font-weight: 600; display: block; margin: 10px 0 5px; }
     input, select { width: 100%; padding: 12px; border: 2px solid #cbd5e1; border-radius: 8px; margin-bottom: 15px; outline: none; font-size: 14px; background-color: white; }
+    select:disabled { background-color: #f1f5f9; cursor: not-allowed; }
     
     .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; }
     .btn:hover { background: var(--dark); }
     
-    /* CBT Tampilan Satu Per Satu */
     .cbt-box { display: none; }
     .question-number { font-weight: bold; color: var(--primary); margin-bottom: 10px; font-size: 14px; }
     .question-text { font-size: 18px; font-weight: bold; margin-bottom: 20px; }
@@ -39,7 +39,6 @@
     .nav-quiz { display: flex; justify-content: space-between; gap: 15px; }
     .btn-nav { background: #64748b; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
     
-    /* Table Histori */
     .table-responsive { width: 100%; overflow-x: auto; margin-top: 15px; }
     table { width: 100%; border-collapse: collapse; text-align: left; }
     th, td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
@@ -60,33 +59,32 @@
     <div id="tabUjian" class="tab-content">
       <div class="card" id="formSiswa">
         <h2><i class="fa-solid fa-laptop-code"></i> CBT Bahasa Inggris</h2>
+        
+        <div id="loadFilterInit" style="text-align:center; color:var(--primary); margin: 10px 0;">
+          <i class="fa-solid fa-sync fa-spin"></i> Sinkronisasi database kuis...
+        </div>
+
         <label>NISN Siswa</label>
         <input type="number" id="nisn" placeholder="Masukkan NISN">
         <label>Nama Lengkap</label>
         <input type="text" id="nama" placeholder="Nama Lengkap">
         
         <label>Kelas</label>
-        <select id="kelas">
-          <option value="4">Kelas 4</option>
-          <option value="5">Kelas 5</option>
-          <option value="6">Kelas 6</option>
+        <select id="kelas" onchange="updateDropdownBab()" disabled>
+          <option value="" selected disabled>Memuat kelas...</option>
         </select>
         
         <label>Materi / Bab</label>
-        <select id="bab">
-          <option value="Bab 1: Greetings">Bab 1: Greetings</option>
-          <option value="Bab 2: My Family">Bab 2: My Family</option>
-          <option value="Bab 3: Animals">Bab 3: Animals</option>
+        <select id="bab" onchange="updateDropdownSubBab()" disabled>
+          <option value="" selected disabled>Pilih kelas dulu</option>
         </select>
 
         <label>Sub-Bab</label>
-        <select id="sub_bab">
-          <option value="Part A">Part A</option>
-          <option value="Part B">Part B</option>
-          <option value="Part C">Part C</option>
+        <select id="sub_bab" disabled>
+          <option value="" selected disabled>Pilih bab dulu</option>
         </select>
 
-        <button class="btn" onclick="requestSoal()"><i class="fa-solid fa-right-to-bracket"></i> Masuk Ruang Ujian</button>
+        <button class="btn" id="btnMasukUjian" onclick="requestSoal()" disabled><i class="fa-solid fa-right-to-bracket"></i> Masuk Ruang Ujian</button>
         <div id="loadUjian" class="loader"><i class="fa-solid fa-spinner fa-spin fa-xl"></i> Memuat soal...</div>
       </div>
 
@@ -129,13 +127,69 @@
 
   <script>
     // =========================================================================
-    // WAJIB GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
+    // WAJIB GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA YANG BARU
     // =========================================================================
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby1MO3zM8-YVt7pc1OIQBjbzALt4G6hYHh3R4-zbmoea2hswWeE2BBgJNLKP4xVgsFqoQ/exec";
 
+    let databaseMasterFilter = {};
     let listSoalCBT = [];
     let jawabanSiswa = {}; 
     let indexAktif = 0;
+
+    // OTOMATIS AMBIL DATA FILTER SAAT WEB PERTAMA KALI DIBUKA
+    window.onload = function() {
+      fetch(`${WEB_APP_URL}?getFilter=true`)
+        .then(res => res.json())
+        .then(data => {
+          databaseMasterFilter = data;
+          document.getElementById("loadFilterInit").style.display = "none";
+          
+          const selectKelas = document.getElementById("kelas");
+          selectKelas.innerHTML = '<option value="" selected disabled>-- Pilih Kelas --</option>';
+          
+          // Memasukkan list kelas yang terdeteksi di Spreadsheet
+          Object.keys(databaseMasterFilter).sort().forEach(kelas => {
+            selectKelas.innerHTML += `<option value="${kelas}">Kelas ${kelas}</option>`;
+          });
+          
+          selectKelas.disabled = false;
+          document.getElementById("btnMasukUjian").disabled = false;
+        }).catch(err => {
+          document.getElementById("loadFilterInit").innerHTML = "<span style='color:red;'>Gagal sinkronisasi data filter.</span>";
+        });
+    };
+
+    function updateDropdownBab() {
+      const kelasTerpilih = document.getElementById("kelas").value;
+      const selectBab = document.getElementById("bab");
+      const selectSub = document.getElementById("sub_bab");
+      
+      selectBab.innerHTML = '<option value="" selected disabled>-- Pilih Bab --</option>';
+      selectSub.innerHTML = '<option value="" selected disabled>Pilih bab dulu</option>';
+      selectSub.disabled = true;
+
+      if(databaseMasterFilter[kelasTerpilih]) {
+        Object.keys(databaseMasterFilter[kelasTerpilih]).sort().forEach(bab => {
+          selectBab.innerHTML += `<option value="${bab}">${bab}</option>`;
+        });
+        selectBab.disabled = false;
+      }
+    }
+
+    function updateDropdownSubBab() {
+      const kelasTerpilih = document.getElementById("kelas").value;
+      const babTerpilih = document.getElementById("bab").value;
+      const selectSub = document.getElementById("sub_bab");
+      
+      selectSub.innerHTML = '<option value="" selected disabled>-- Pilih Sub-Bab --</option>';
+      
+      if(databaseMasterFilter[kelasTerpilih] && databaseMasterFilter[kelasTerpilih][babTerpilih]) {
+        databaseMasterFilter[kelasTerpilih][babTerpilih].sort().forEach(sub => {
+          selectSub.innerHTML += `<option value="${sub}">${sub}</option>`;
+        });
+        selectSub.disabled = false;
+      }
+    }
 
     function bukaTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
@@ -151,7 +205,7 @@
       const bab = document.getElementById("bab").value;
       const subBab = document.getElementById("sub_bab").value;
       
-      if(!nisn || !nama) return alert("NISN dan Nama wajib diisi!");
+      if(!nisn || !nama || !kelas || !bab || !subBab) return alert("Semua kolom identitas dan materi wajib dipilih!");
       
       document.getElementById("loadUjian").style.display = "block";
       
@@ -159,7 +213,7 @@
         .then(res => res.json())
         .then(data => {
           document.getElementById("loadUjian").style.display = "none";
-          if(!data || data.length === 0) return alert("Soal belum tersedia untuk filter Kelas, Bab, dan Sub-Bab ini!");
+          if(!data || data.length === 0) return alert("Soal tidak ditemukan.");
           
           listSoalCBT = data;
           jawabanSiswa = {};
@@ -184,7 +238,6 @@
       document.getElementById("lblC").innerText = s.c;
       document.getElementById("lblD").innerText = s.d;
       
-      // LOGIKA RENDERING GAMBAR OTOMATIS
       const gambarLama = document.getElementById("imgSoal");
       if(gambarLama) gambarLama.remove();
 
@@ -201,12 +254,10 @@
         document.getElementById("txtSoal").after(img);
       }
       
-      // Sinkronisasi pilihan radio button yang sudah dipilih sebelumnya
       document.querySelectorAll('input[name="jawabanUser"]').forEach(radio => {
         radio.checked = (jawabanSiswa[indexAktif] === radio.value);
       });
 
-      // Atur visibilitas tombol kembali
       document.getElementById("btnPrev").style.visibility = (indexAktif === 0) ? "hidden" : "visible";
       if (indexAktif === listSoalCBT.length - 1) {
         document.getElementById("btnNext").innerHTML = `<i class="fa-solid fa-paper-plane"></i> Kirim Jawaban`;
@@ -245,7 +296,6 @@
       
       const skorAkhir = Math.round((jumlahBenar / listSoalCBT.length) * 100);
       
-      // Ambil data identitas sebelum element form dihapus
       const nisn = document.getElementById("nisn").value;
       const nama = document.getElementById("nama").value;
       const kelas = document.getElementById("kelas").value;
@@ -261,7 +311,6 @@
           <button class="btn" onclick="location.reload()">Keluar Ruangan</button>
         </div>`;
         
-      // Kirim hasil akhir ujian ke server Spreadsheet secara real-time
       fetch(`${WEB_APP_URL}?action=simpan&nisn=${encodeURIComponent(nisn)}&nama=${encodeURIComponent(nama)}&kelas=${encodeURIComponent(kelas)}&bab=${encodeURIComponent(bab)}&subBab=${encodeURIComponent(subBab)}&nilai=${skorAkhir}`, {method: 'POST'});
     }
 
