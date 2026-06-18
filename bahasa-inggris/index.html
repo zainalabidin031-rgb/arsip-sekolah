@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBT English - SDN Butoh 1 Ngasem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root { --primary: #0288d1; --dark: #01579b; --bg: #f0f4f8; --white: #ffffff; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; }
+    body { background: var(--bg); color: #333; }
+    
+    .nav-tabs { display: flex; background: var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .tab-btn { flex: 1; padding: 15px; border: none; background: none; font-size: 15px; font-weight: bold; color: #7f8c8d; cursor: pointer; border-bottom: 3px solid transparent; }
+    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    .container { max-width: 700px; margin: 30px auto; padding: 0 15px; }
+    .card { background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
+    
+    h2 { font-family: 'Montserrat', sans-serif; color: var(--dark); margin-bottom: 15px; text-align: center; }
+    label { font-weight: 600; display: block; margin: 10px 0 5px; }
+    input, select { width: 100%; padding: 12px; border: 2px solid #cbd5e1; border-radius: 8px; margin-bottom: 15px; outline: none; font-size: 14px; background-color: white; }
+    
+    .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; }
+    .btn:hover { background: var(--dark); }
+    
+    /* CBT Tampilan Satu Per Satu */
+    .cbt-box { display: none; }
+    .question-number { font-weight: bold; color: var(--primary); margin-bottom: 10px; font-size: 14px; }
+    .question-text { font-size: 18px; font-weight: bold; margin-bottom: 20px; }
+    .option-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 25px; }
+    
+    .option-label { display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+    .option-label:hover { background: #f8fafc; }
+    .option-label input { width: auto; margin-right: 12px; margin-bottom: 0; transform: scale(1.2); }
+    
+    .nav-quiz { display: flex; justify-content: space-between; gap: 15px; }
+    .btn-nav { background: #64748b; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+    
+    /* Table Histori */
+    .table-responsive { width: 100%; overflow-x: auto; margin-top: 15px; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th, td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+    th { background: #f1f5f9; color: var(--dark); }
+    
+    .loader { display: none; text-align: center; color: var(--primary); margin: 15px 0; }
+  </style>
+</head>
+<body>
+
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="bukaTab('tabUjian')"><i class="fa-solid fa-pen-to-square"></i> Mulai Ulangan</button>
+    <button class="tab-btn" onclick="bukaTab('tabNilai')"><i class="fa-solid fa-square-poll-vertical"></i> Histori Nilai Orang Tua</button>
+  </div>
+
+  <div class="container">
+    
+    <div id="tabUjian" class="tab-content">
+      <div class="card" id="formSiswa">
+        <h2><i class="fa-solid fa-laptop-code"></i> CBT Bahasa Inggris</h2>
+        <label>NISN Siswa</label>
+        <input type="number" id="nisn" placeholder="Masukkan NISN">
+        <label>Nama Lengkap</label>
+        <input type="text" id="nama" placeholder="Nama Lengkap">
+        
+        <label>Kelas</label>
+        <select id="kelas">
+          <option value="4">Kelas 4</option>
+          <option value="5">Kelas 5</option>
+          <option value="6">Kelas 6</option>
+        </select>
+        
+        <label>Materi / Bab</label>
+        <select id="bab">
+          <option value="Bab 1: Greetings">Bab 1: Greetings</option>
+          <option value="Bab 2: My Family">Bab 2: My Family</option>
+          <option value="Bab 3: Animals">Bab 3: Animals</option>
+        </select>
+
+        <label>Sub-Bab</label>
+        <select id="sub_bab">
+          <option value="Part A">Part A</option>
+          <option value="Part B">Part B</option>
+          <option value="Part C">Part C</option>
+        </select>
+
+        <button class="btn" onclick="requestSoal()"><i class="fa-solid fa-right-to-bracket"></i> Masuk Ruang Ujian</button>
+        <div id="loadUjian" class="loader"><i class="fa-solid fa-spinner fa-spin fa-xl"></i> Memuat soal...</div>
+      </div>
+
+      <div class="card cbt-box" id="boxUjian">
+        <div class="question-number" id="noSoal">Question 1 of 10</div>
+        <div class="question-text" id="txtSoal">Loading question...</div>
+        
+        <div class="option-container">
+          <label class="option-label"><input type="radio" name="jawabanUser" value="A"> <span id="lblA">Opsi A</span></label>
+          <label class="option-label"><input type="radio" name="jawabanUser" value="B"> <span id="lblB">Opsi B</span></label>
+          <label class="option-label"><input type="radio" name="jawabanUser" value="C"> <span id="lblC">Opsi C</span></label>
+          <label class="option-label"><input type="radio" name="jawabanUser" value="D"> <span id="lblD">Opsi D</span></label>
+        </div>
+
+        <div class="nav-quiz">
+          <button class="btn-nav" id="btnPrev" onclick="soalSebelumnya()"><i class="fa-solid fa-chevron-left"></i> Kembali</button>
+          <button class="btn-nav" id="btnNext" style="background:var(--primary)" onclick="soalSelanjutnya()">Selanjutnya <i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div id="tabNilai" class="tab-content" style="display:none;">
+      <div class="card">
+        <h2><i class="fa-solid fa-magnifying-glass"></i> Cek Hasil Ulangan</h2>
+        <p style="color:#7f8c8d; font-size:13px; text-align:center; margin-bottom:15px;">Masukkan NISN putra/putri Anda untuk memantau nilai ulangan.</p>
+        <input type="number" id="cariNisn" placeholder="Masukkan NISN Anak">
+        <button class="btn" onclick="lakukanPencarianNilai()"><i class="fa-solid fa-search"></i> Cari Data Nilai</button>
+        <div id="loadCari" class="loader"><i class="fa-solid fa-spinner fa-spin fa-xl"></i> Mencari...</div>
+        
+        <div class="table-responsive" id="areaTabel" style="display:none;">
+          <table>
+            <thead><tr><th>Tanggal</th><th>Nama</th><th>Materi/Bab (Sub)</th><th>Nilai</th></tr></thead>
+            <tbody id="isiTabel"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // =========================================================================
+    // WAJIB GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
+    // =========================================================================
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby1MO3zM8-YVt7pc1OIQBjbzALt4G6hYHh3R4-zbmoea2hswWeE2BBgJNLKP4xVgsFqoQ/exec";
+
+    let listSoalCBT = [];
+    let jawabanSiswa = {}; 
+    let indexAktif = 0;
+
+    function bukaTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabId).style.display = 'block';
+      event.currentTarget.classList.add('active');
+    }
+
+    function requestSoal() {
+      const nisn = document.getElementById("nisn").value;
+      const nama = document.getElementById("nama").value;
+      const kelas = document.getElementById("kelas").value;
+      const bab = document.getElementById("bab").value;
+      const subBab = document.getElementById("sub_bab").value;
+      
+      if(!nisn || !nama) return alert("NISN dan Nama wajib diisi!");
+      
+      document.getElementById("loadUjian").style.display = "block";
+      
+      fetch(`${WEB_APP_URL}?kelas=${encodeURIComponent(kelas)}&bab=${encodeURIComponent(bab)}&subBab=${encodeURIComponent(subBab)}`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("loadUjian").style.display = "none";
+          if(!data || data.length === 0) return alert("Soal belum tersedia untuk filter Kelas, Bab, dan Sub-Bab ini!");
+          
+          listSoalCBT = data;
+          jawabanSiswa = {};
+          indexAktif = 0;
+          
+          document.getElementById("formSiswa").style.display = "none";
+          document.getElementById("boxUjian").style.display = "block";
+          renderSoal();
+        }).catch(err => {
+          document.getElementById("loadUjian").style.display = "none";
+          alert("Gagal terhubung dengan server database.");
+        });
+    }
+
+    function renderSoal() {
+      const s = listSoalCBT[indexAktif];
+      
+      document.getElementById("noSoal").innerText = `Question ${indexAktif + 1} of ${listSoalCBT.length}`;
+      document.getElementById("txtSoal").innerText = s.pertanyaan;
+      document.getElementById("lblA").innerText = s.a;
+      document.getElementById("lblB").innerText = s.b;
+      document.getElementById("lblC").innerText = s.c;
+      document.getElementById("lblD").innerText = s.d;
+      
+      // LOGIKA RENDERING GAMBAR OTOMATIS
+      const gambarLama = document.getElementById("imgSoal");
+      if(gambarLama) gambarLama.remove();
+
+      if(s.gambar && s.gambar !== "") {
+        const img = document.createElement("img");
+        img.id = "imgSoal";
+        img.src = s.gambar;
+        img.style.maxWidth = "100%";
+        img.style.maxHeight = "230px";
+        img.style.display = "block";
+        img.style.margin = "15px auto";
+        img.style.borderRadius = "8px";
+        img.style.boxShadow = "0 2px 8px rgba(0,0,0,0.1)";
+        document.getElementById("txtSoal").after(img);
+      }
+      
+      // Sinkronisasi pilihan radio button yang sudah dipilih sebelumnya
+      document.querySelectorAll('input[name="jawabanUser"]').forEach(radio => {
+        radio.checked = (jawabanSiswa[indexAktif] === radio.value);
+      });
+
+      // Atur visibilitas tombol kembali
+      document.getElementById("btnPrev").style.visibility = (indexAktif === 0) ? "hidden" : "visible";
+      if (indexAktif === listSoalCBT.length - 1) {
+        document.getElementById("btnNext").innerHTML = `<i class="fa-solid fa-paper-plane"></i> Kirim Jawaban`;
+        document.getElementById("btnNext").style.background = "#2e7d32";
+      } else {
+        document.getElementById("btnNext").innerHTML = `Selanjutnya <i class="fa-solid fa-chevron-right"></i>`;
+        document.getElementById("btnNext").style.background = "var(--primary)";
+      }
+    }
+
+    function soalSebelumnya() {
+      simpanJawabanSementara();
+      if(indexAktif > 0) { indexAktif--; renderSoal(); }
+    }
+
+    function soalSelanjutnya() {
+      simpanJawabanSementara();
+      if(indexAktif < listSoalCBT.length - 1) {
+        indexAktif++;
+        renderSoal();
+      } else {
+        if(confirm("Apakah Anda yakin ingin menyelesaikan ulangan ini dan mengirim nilai?")) kalkulasiDanKirimNilai();
+      }
+    }
+
+    function simpanJawabanSementara() {
+      const terpilih = document.querySelector('input[name="jawabanUser"]:checked');
+      if(terpilih) jawabanSiswa[indexAktif] = terpilih.value;
+    }
+
+    function kalkulasiDanKirimNilai() {
+      let jumlahBenar = 0;
+      listSoalCBT.forEach((soal, i) => {
+        if(jawabanSiswa[i] === soal.jawaban) jumlahBenar++;
+      });
+      
+      const skorAkhir = Math.round((jumlahBenar / listSoalCBT.length) * 100);
+      
+      // Ambil data identitas sebelum element form dihapus
+      const nisn = document.getElementById("nisn").value;
+      const nama = document.getElementById("nama").value;
+      const kelas = document.getElementById("kelas").value;
+      const bab = document.getElementById("bab").value;
+      const subBab = document.getElementById("sub_bab").value;
+
+      document.getElementById("boxUjian").innerHTML = `
+        <div style="text-align:center; padding:30px 0;">
+          <i class="fa-solid fa-circle-check" style="color:#2e7d32; font-size:60px; margin-bottom:15px;"></i>
+          <h2>Ulangan Selesai!</h2>
+          <p style="font-size:16px; margin:10px 0;">Nilai kamu berhasil dikirim ke database guru.</p>
+          <div style="font-size:45px; font-weight:bold; color:var(--primary); margin:20px 0;">${skorAkhir}</div>
+          <button class="btn" onclick="location.reload()">Keluar Ruangan</button>
+        </div>`;
+        
+      // Kirim hasil akhir ujian ke server Spreadsheet secara real-time
+      fetch(`${WEB_APP_URL}?action=simpan&nisn=${encodeURIComponent(nisn)}&nama=${encodeURIComponent(nama)}&kelas=${encodeURIComponent(kelas)}&bab=${encodeURIComponent(bab)}&subBab=${encodeURIComponent(subBab)}&nilai=${skorAkhir}`, {method: 'POST'});
+    }
+
+    function lakukanPencarianNilai() {
+      const nisn = document.getElementById("cariNisn").value;
+      if(!nisn) return alert("Ketik NISN terlebih dahulu!");
+      
+      document.getElementById("loadCari").style.display = "block";
+      document.getElementById("areaTabel").style.display = "none";
+      
+      fetch(`${WEB_APP_URL}?cariNisn=${nisn}`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("loadCari").style.display = "none";
+          const tbody = document.getElementById("isiTabel");
+          tbody.innerHTML = "";
+          
+          if(!data || data.length === 0) return alert("Data nilai tidak ditemukan untuk NISN tersebut.");
+          
+          data.forEach(n => {
+            tbody.innerHTML += `<tr><td>${n.tanggal}</td><td>${n.nama}</td><td>${n.bab}</td><td style="font-weight:bold;color:var(--primary)">${n.nilai}</td></tr>`;
+          });
+          document.getElementById("areaTabel").style.display = "block";
+        }).catch(err => {
+          document.getElementById("loadCari").style.display = "none";
+          alert("Gagal mengambil histori nilai.");
+        });
+    }
+  </script>
+</body>
+</html>
