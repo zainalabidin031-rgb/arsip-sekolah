@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Wali Murid | Verifikasi Ijazah Digital</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            --accent-color: #0284c7;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --bg-body: #f0f4f8;
+            --shadow-card: 0 15px 35px rgba(2, 132, 199, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px; /* Ukuran kotak sangat ideal & pas di laptop/HP */
+            margin: auto;
+        }
+
+        /* CARD UTAMA */
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: var(--shadow-card);
+            padding: 35px;
+            border: 1px solid rgba(2, 132, 199, 0.03);
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .card-header .icon-logo {
+            font-size: 44px;
+            color: var(--accent-color);
+            margin-bottom: 12px;
+        }
+
+        .card-header h1 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .card-header p {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        /* FORM INPUT */
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 16px 14px 46px;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            outline: none;
+            transition: all 0.2s ease;
+            background: #f8fafc;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--accent-color);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.1);
+        }
+
+        /* TOMBOL CARI */
+        button {
+            width: 100%;
+            border: none;
+            background: var(--primary-gradient);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 14px;
+            border-radius: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* HASIL PENCARIAN */
+        .result-box {
+            margin-top: 25px;
+            border-top: 2px dashed #e2e8f0;
+            padding-top: 20px;
+            display: none; /* Tersembunyi di awal */
+        }
+
+        .result-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--accent-color);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14.5px;
+        }
+
+        .info-row:last-child { border-bottom: none; }
+
+        .info-label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: var(--text-dark);
+            font-weight: 700;
+            text-align: right;
+        }
+
+        /* STATUS / NOTIFIKASI */
+        .status-msg {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 15px;
+            display: none;
+        }
+        .status-loading { background: #e0f2fe; color: #0369a1; }
+        .status-error { background: #fee2e2; color: #b91c1c; }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 480px) {
+            .card { padding: 25px 20px; }
+            .card-header h1 { font-size: 19px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        
+        <div class="card-header">
+            <div class="icon-logo"><i class="fa-solid fa-id-card-clip"></i></div>
+            <h1>Portal Wali Murid</h1>
+            <p>Sistem Validasi dan Informasi Kelulusan Siswa</p>
+        </div>
+
+        <div class="form-group">
+            <label for="noIjazah">Masukkan Nomor Ijazah</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-scroll"></i>
+                <input type="text" id="noIjazah" placeholder="Contoh: DN-01/M-SD/24/0000001" autocomplete="off">
+            </div>
+        </div>
+
+        <button onclick="cariIjazah()">
+            <i class="fa-solid fa-magnifying-glass"></i> Cari Data Kelulusan
+        </button>
+
+        <div id="status" class="status-msg"></div>
+
+        <div id="resultBox" class="result-box">
+            <div class="result-title"><i class="fa-solid fa-circle-check"></i> Data Ditemukan</div>
+            
+            <div class="info-row">
+                <div class="info-label">Nama Siswa</div>
+                <div class="info-value" id="resNama">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">NISN</div>
+                <div class="info-value" id="resNisn">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Nomor Ijazah</div>
+                <div class="info-value" id="resIjazah">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Tahun Lulus</div>
+                <div class="info-value" id="resTahun">-</div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        SDN Butoh 1 Ngasem • Layanan Mandiri Wali Murid © 2026
+    </footer>
+</div>
+
+<script>
+// IMPORTANT: GANTI dengan tautan Web App API khusus wali murid yang Mimin salin dari langkah 1 tadi!
+const API_URL = "https://script.google.com/macros/s/AKfycbwAPZtoa7kReZijZ2C-j1SoXvWjeCVggYMUqkwUFYgXScR1VKQIFDDthFE-pdXXJr8j/exec";
+
+async function cariIjazah() {
+    const inputVal = document.getElementById("noIjazah").value.trim();
+    const statusBox = document.getElementById("status");
+    const resultBox = document.getElementById("resultBox");
+
+    // Sembunyikan hasil lama saat pencarian baru dimulai
+    resultBox.style.display = "none";
+    statusBox.style.display = "none";
+
+    if (inputVal === "") {
+        statusBox.className = "status-msg status-error";
+        statusBox.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Mohon ketik nomor ijazah terlebih dahulu.";
+        statusBox.style.display = "block";
+        return;
+    }
+
+    // Aktifkan animasi memuat data
+    statusBox.className = "status-msg status-loading";
+    statusBox.innerHTML = "<i class='fa-solid fa-circle-notch fa-spin'></i> Membuka arsip data kelulusan...";
+    statusBox.style.display = "block";
+
+    try {
+        // Mengirimkan permintaan pencarian mutlak hanya lewat parameter nomor_ijazah
+        const response = await fetch(`${API_URL}?nomor_ijazah=${encodeURIComponent(inputVal)}`);
+        const resData = await response.json();
+
+        if (resData.length === 0) {
+            statusBox.className = "status-msg status-error";
+            statusBox.innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Data tidak ditemukan. Pastikan karakter huruf dan nomor ijazah sudah benar.";
+        } else {
+            // Sembunyikan status loading, langsung tampilkan rincian datanya
+            statusBox.style.display = "none";
+            
+            const siswa = resData[0];
+            document.getElementById("resNama").innerText = siswa.nama;
+            document.getElementById("resNisn").innerText = siswa.nisn;
+            document.getElementById("resIjazah").innerText = siswa.nomor_ijazah;
+            document.getElementById("resTahun").innerText = siswa.tahun_lulus;
+
+            resultBox.style.display = "block";
+        }
+
+    } catch (err) {
+        console.error(err);
+        statusBox.className = "status-msg status-error";
+        statusBox.innerHTML = "<i class='fa-solid fa-cloud-bolt'></i> Terjadi gangguan koneksi ke server awan Google.";
+    }
+}
+</script>
+
+</body>
+</html>
