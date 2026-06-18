@@ -4,137 +4,163 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>English Portal - SDN Butoh 1 Ngasem</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     :root {
-      --bg: #f0f7ff;
-      --text: #2c3e50;
-      --primary: #0288d1;
-      --dark: #01579b;
+      --primary: #0066cc;       /* Biru Cerah Utama */
+      --primary-dark: #004994;  /* Biru Tua */
+      --secondary: #0a2540;    /* Navy Elegan Web Sekolah */
+      --accent: #ffb300;       /* Kuning Emas Aksen */
+      --bg-light: #f8fafc;     /* Latar Belakang Bersih */
+      --text-main: #2d3748;    /* Warna Teks Utama */
+      --text-muted: #718096;   /* Warna Teks Redup */
       --white: #ffffff;
-      --accent: #ff7675;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; }
-    body { background: var(--bg); color: var(--text); padding-bottom: 50px; }
 
-    /* HEADER */
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: var(--bg-light); color: var(--text-main); padding-bottom: 60px; }
+
+    /* HEADER & BANNER ELEGAN */
     .hero {
-      background: linear-gradient(135deg, #0288d1, #01579b);
-      color: white;
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-dark) 50%, var(--primary) 100%);
+      color: var(--white);
       text-align: center;
-      padding: 50px 20px;
-      border-bottom-left-radius: 30px;
-      border-bottom-right-radius: 30px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 65px 20px;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+      box-shadow: 0 10px 30px rgba(0, 102, 204, 0.15);
+      position: relative;
+      overflow: hidden;
     }
-    .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 32px; margin-bottom: 10px; }
-    .hero p { font-size: 16px; opacity: 0.9; }
+    .hero::before {
+      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero h1 { font-size: 34px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
+    .hero p { font-size: 16px; opacity: 0.85; font-weight: 400; }
 
-    /* GRID KELAS */
-    .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-    .welcome-text { text-align: center; margin-bottom: 30px; font-family: 'Montserrat', sans-serif; font-size: 22px; color: var(--dark); }
+    /* CONTAINER UTAMA */
+    .container { max-width: 1100px; margin: 45px auto; padding: 0 24px; }
+    .welcome-text { text-align: center; margin-bottom: 35px; font-size: 24px; font-weight: 700; color: var(--secondary); }
     
+    /* GRID KELAS */
     .grid-kelas {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
     }
 
-    /* KARTU KELAS */
+    /* KARTU KELAS PREMIUM */
     .card-kelas {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
+      background: var(--white);
+      border-radius: 24px;
+      padding: 35px 25px;
       text-align: center;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.04);
-      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 20px rgba(10, 37, 64, 0.04);
+      border: 1px solid rgba(0, 102, 204, 0.08);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
-      border-bottom: 8px solid #ccc;
+      position: relative;
+    }
+    .card-kelas::after {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 0; height: 5px; background: var(--primary); border-radius: 0 0 4px 4px;
+      transition: width 0.3s ease;
     }
     .card-kelas:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px rgba(10, 37, 64, 0.08);
+      border-color: rgba(0, 102, 204, 0.2);
     }
-    .card-kelas i { font-size: 50px; margin-bottom: 15px; display: block; }
-    .card-kelas h3 { font-family: 'Montserrat', sans-serif; font-size: 24px; margin-bottom: 8px; }
-    .card-kelas p { color: #7f8c8d; font-size: 14px; }
+    .card-kelas:hover::after { width: 40%; }
+    
+    /* IKON & TEKS DI DALAM KARTU */
+    .icon-wrapper {
+      width: 80px; height: 80px; background: rgba(0, 102, 204, 0.06);
+      border-radius: 20px; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; transition: background 0.3s;
+    }
+    .card-kelas:hover .icon-wrapper { background: rgba(0, 102, 204, 0.12); }
+    .card-kelas i { font-size: 36px; color: var(--primary); }
+    .card-kelas h3 { font-size: 22px; font-weight: 700; color: var(--secondary); margin-bottom: 8px; }
+    .card-kelas p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
 
-    .g1 { border-color: #ff7675; } .g1 i { color: #ff7675; }
-    .g2 { border-color: #74b9ff; } .g2 i { color: #74b9ff; }
-    .g3 { border-color: #55efc4; } .g3 i { color: #55efc4; }
-    .g4 { border-color: #fdcb6e; } .g4 i { color: #fdcb6e; }
-    .g5 { border-color: #a29bfe; } .g5 i { color: #a29bfe; }
-    .g6 { border-color: #fd79a8; } .g6 i { color: #fd79a8; }
-
-    /* POP-UP MODAL PANEL */
+    /* POP-UP MODAL PANEL ELEGAN */
     .modal {
       display: none; position: fixed; z-index: 100; left: 0; top: 0;
-      width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);
-      align-items: center; justify-content: center; padding: 20px;
+      width: 100%; height: 100%; background-color: rgba(10, 35, 64, 0.6);
+      backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 20px;
     }
     .modal-content {
-      background-color: white; padding: 25px; border-radius: 16px;
-      max-width: 750px; width: 100%; max-height: 90vh; overflow-y: auto;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.2); animation: pop 0.3s ease;
+      background-color: var(--white); padding: 35px; border-radius: 24px;
+      max-width: 800px; width: 100%; max-height: 85vh; overflow-y: auto;
+      box-shadow: 0 25px 50px rgba(10, 37, 64, 0.25); animation: popUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes popUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 2px solid #f0f4f8; padding-bottom: 10px; }
-    .modal-header h2 { font-family: 'Montserrat', sans-serif; color: var(--dark); font-size: 22px; }
-    .close-btn { background: none; border: none; font-size: 24px; color: #94a3b8; cursor: pointer; }
-    .close-btn:hover { color: #ff7675; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #edf2f7; padding-bottom: 15px; }
+    .modal-header h2 { color: var(--secondary); font-size: 24px; font-weight: 700; }
+    .close-btn { background: none; border: none; font-size: 28px; color: var(--text-muted); cursor: pointer; transition: color 0.2s; }
+    .close-btn:hover { color: #e53e3e; }
 
-    .semester-group { display: flex; gap: 10px; margin-bottom: 15px; }
-    .sem-btn { flex: 1; padding: 10px; border: 2px solid #cbd5e1; background: white; border-radius: 8px; font-weight: bold; cursor: pointer; color: #64748b; }
-    .sem-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+    /* TABS SEMESTER */
+    .semester-group { display: flex; gap: 12px; margin-bottom: 25px; background: #edf2f7; padding: 6px; border-radius: 12px; }
+    .sem-btn { flex: 1; padding: 12px; border: none; background: transparent; border-radius: 8px; font-weight: 600; cursor: pointer; color: var(--text-muted); transition: all 0.3s; font-size: 15px; }
+    .sem-btn.active { background: var(--white); color: var(--primary); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
 
-    /* AKORDION UNIT */
-    .unit-box { border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
-    .unit-header { background: #f8fafc; padding: 12px 15px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 15px; }
-    .unit-header:hover { background: #f1f5f9; }
-    .unit-content { display: none; padding: 15px; background: white; border-top: 1px solid #e2e8f0; }
+    /* ACCORDION DESIGN */
+    .unit-box { border: 1px solid #e2e8f0; border-radius: 14px; margin-bottom: 12px; overflow: hidden; background: var(--white); transition: border-color 0.3s; }
+    .unit-box:hover { border-color: rgba(0, 102, 204, 0.3); }
+    .unit-header { background: #fafbfc; padding: 16px 20px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 16px; color: var(--secondary); }
+    .unit-header:hover { background: #f4f7f9; }
+    .unit-content { display: none; padding: 20px; background: var(--white); border-top: 1px solid #e2e8f0; }
     
-    /* SUB BAB TABS DI DALAM AKORDION */
-    .sub-tabs-container { display: flex; flex-direction: column; gap: 10px; }
-    .sub-row { border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; background: #f8fafc; }
-    .sub-title-bar { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 14px; cursor: pointer; }
+    /* SUB-BAB LIST & VOCAB BOX */
+    .sub-tabs-container { display: flex; flex-direction: column; gap: 12px; }
+    .sub-row { border: 1px solid #edf2f7; border-radius: 10px; padding: 14px; background: #fdfefe; }
+    .sub-title-bar { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 15px; cursor: pointer; color: var(--text-main); }
     
-    /* AREA BOX MATERI VOCABULARY */
-    .vocab-box { display: none; margin-top: 12px; background: #fffcf0; border: 2px dashed #f1c40f; border-radius: 8px; padding: 15px; }
-    .vocab-box h4 { font-family: 'Montserrat', sans-serif; color: #b7791f; font-size: 14px; margin-bottom: 8px; border-bottom: 1px solid #fef3c7; padding-bottom: 4px; }
+    .vocab-box { display: none; margin-top: 16px; background: #f8fafc; border-left: 4px solid var(--primary); border-radius: 0 10px 10px 0; padding: 20px; }
+    .vocab-box h4 { color: var(--secondary); font-size: 15px; font-weight: 700; margin-bottom: 12px; }
     
-    .table-vocab { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 13px; text-align: left; background: white; }
-    .table-vocab th, .table-vocab td { padding: 8px; border: 1px solid #fef3c7; }
-    .table-vocab th { background: #fef9c3; color: #854d0e; }
-    .cara-baca { color: #e67e22; font-style: italic; font-weight: 600; }
+    /* TABEL MATERI VOCAB */
+    .table-vocab { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+    .table-vocab th, .table-vocab td { padding: 12px 16px; border: 1px solid #e2e8f0; }
+    .table-vocab th { background: rgba(0, 102, 204, 0.05); color: var(--primary-dark); font-weight: 600; text-align: left; }
+    .cara-baca { color: #dd6b20; font-style: italic; font-weight: 600; background: #fffaf0; padding: 2px 6px; border-radius: 4px; display: inline-block; }
 
-    .btn-cbt { display: block; text-align: center; background: #2e7d32; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: bold; text-decoration: none; margin-top: 10px; }
-    .btn-cbt:hover { background: #1b5e20; }
+    /* TOMBOL CBT PREMIUM ACCENT */
+    .btn-cbt { display: block; text-align: center; background: var(--primary); color: var(--white); border: none; padding: 14px; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.2s; box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2); }
+    .btn-cbt:hover { background: var(--primary-dark); transform: translateY(-1px); }
     
-    .no-materi { text-align: center; color: #94a3b8; padding: 20px 0; font-style: italic; }
+    .no-materi { text-align: center; color: var(--text-muted); padding: 25px 0; font-style: italic; }
   </style>
 </head>
 <body>
 
+  <!-- BANNER PORTAL MATCHING WEBSITE UTAMA -->
   <div class="hero">
-    <h1><i class="fa-solid fa-graduation-cap"></i> English Learning Zone</h1>
-    <p>SDN Butoh 1 Ngasem — Fun, Active, and Creative!</p>
+    <h1><i class="fa-solid fa-graduation-cap" style="margin-right: 8px;"></i> English Learning Zone</h1>
+    <p>Portal Pembelajaran Digital Efektif — SDN Butoh 1 Ngasem</p>
   </div>
 
+  <!-- CONTAINER DASHBOARD -->
   <div class="container">
     <h2 class="welcome-text">Hi Students! Choose Your Class Below 👇</h2>
     <div class="grid-kelas">
-      <div class="card-kelas g1" onclick="bukaModalKelas(1)"><i class="fa-solid fa-child-reaching"></i><h3>Grade 1</h3><p>Alphabet & Greetings</p></div>
-      <div class="card-kelas g2" onclick="bukaModalKelas(2)"><i class="fa-solid fa-icons"></i><h3>Grade 2</h3><p>Animals & Colors</p></div>
-      <div class="card-kelas g3" onclick="bukaModalKelas(3)"><i class="fa-solid fa-apple-whole"></i><h3>Grade 3</h3><p>Fruits & My House</p></div>
-      <div class="card-kelas g4" onclick="bukaModalKelas(4)"><i class="fa-solid fa-bicycle"></i><h3>Grade 4</h3><p>Hobbies & Activities</p></div>
-      <div class="card-kelas g5" onclick="bukaModalKelas(5)"><i class="fa-solid fa-cloud-sun-rain"></i><h3>Grade 5</h3><p>Food, Prices, and Clothes</p></div>
-      <div class="card-kelas g6" onclick="bukaModalKelas(6)"><i class="fa-solid fa-rocket"></i><h3>Grade 6</h3><p>Directions & Holidays</p></div>
+      <div class="card-kelas" onclick="bukaModalKelas(1)"><div class="icon-wrapper"><i class="fa-solid fa-child-reaching"></i></div><h3>Grade 1</h3><p>Alphabet & Greetings</p></div>
+      <div class="card-kelas" onclick="bukaModalKelas(2)"><div class="icon-wrapper"><i class="fa-solid fa-icons"></i></div><h3>Grade 2</h3><p>Animals & Colors</p></div>
+      <div class="card-kelas" onclick="bukaModalKelas(3)"><div class="icon-wrapper"><i class="fa-solid fa-apple-whole"></i></div><h3>Grade 3</h3><p>Fruits & My House</p></div>
+      <div class="card-kelas" onclick="bukaModalKelas(4)"><div class="icon-wrapper"><i class="fa-solid fa-bicycle"></i></div><h3>Grade 4</h3><p>Hobbies & Activities</p></div>
+      <div class="card-kelas" onclick="bukaModalKelas(5)"><div class="icon-wrapper"><i class="fa-solid fa-cloud-sun-rain"></i></div><h3>Grade 5</h3><p>Food, Prices, and Clothes</p></div>
+      <div class="card-kelas" onclick="bukaModalKelas(6)"><div class="icon-wrapper"><i class="fa-solid fa-rocket"></i></div><h3>Grade 6</h3><p>Directions & Holidays</p></div>
     </div>
   </div>
 
+  <!-- POP-UP MODAL MATERI & VOCABULARY -->
   <div class="modal" id="modalMateri">
     <div class="modal-content">
       <div class="modal-header">
@@ -150,10 +176,7 @@
   </div>
 
   <script>
-    // =========================================================================
-    // ISI JALUR RELATIF FILE CBT ANDA DI REPO GITHUB (MISAL: "cbt.html")
-    // =========================================================================
-    const LINK_WEB_APP_CBT = "ulangan/";
+    const LINK_WEB_APP_CBT = "ulangan/"; // Jalur relatif file CBT Anda di repositori
 
     let kelasAktif = 5;
     let semesterAktif = 1;
@@ -277,7 +300,7 @@
                 nama: "Shopping Conversations",
                 vocab: [
                   {w: "Belanja", m: "Shopping", p: "so-ping"}, {w: "Beli", m: "Buy", p: "bai"},
-                  {w: "Kembalian", m: "Change", p: "ceindj"}, {w: "Kantong plasti", m: "Plastic bag", p: "ples-tik beg"}
+                  {w: "Kembalian", m: "Change", p: "ceindj"}, {w: "Kantong plastik", m: "Plastic bag", p: "ples-tik beg"}
                 ]
               },
               {
@@ -400,7 +423,6 @@
         ],
         2: []
       },
-      // Kerangka Smt 1 Kelas Lain
       1: { 1: [{ bab: "Unit 1: Alphabet & Greetings", sub: [{nama:"The Alphabet", vocab:[{w:"A", m:"A", p:"ei"}]}] }], 2: [] },
       2: { 1: [{ bab: "Unit 1: Colors around Us", sub: [{nama:"Primary Colors", vocab:[{w:"Merah", m:"Red", p:"red"}]}] }], 2: [] },
       3: { 1: [{ bab: "Unit 1: My Fruits", sub: [{nama:"Sweet Fruits", vocab:[{w:"Apel", m:"Apple", p:"e-pel"}]}] }], 2: [] },
@@ -430,7 +452,7 @@
       const listBab = databaseMateri[kelasAktif] && databaseMateri[kelasAktif][semesterAktif];
 
       if (!listBab || listBab.length === 0) {
-        areaMateri.innerHTML = `<div class="no-materi">Belum ada data materi/semester untuk bagian ini. 📑</div>`;
+        areaMateri.innerHTML = `<div class="no-materi">Belum ada rincian materi untuk semester ini. 📑</div>`;
         return;
       }
 
@@ -441,22 +463,22 @@
           
           let tableRows = "";
           subItem.vocab.forEach(v => {
-            tableRows += `<tr><td><b>${v.w}</b></td><td>${v.m}</td><td class="cara-baca">"${v.p}"</td></tr>`;
+            tableRows += `<tr><td><b>${v.w}</b></td><td>${v.m}</td><td><span class="cara-baca">"${v.p}"</span></td></tr>`;
           });
 
           subRowsHtml += `
             <div class="sub-row">
               <div class="sub-title-bar" onclick="toggleMateriBox(${bIdx}, ${sIdx})">
-                <span>📌 Sub-Bab: ${subItem.nama}</span>
-                <i class="fa-solid fa-book-open" style="color:var(--primary);"></i>
+                <span><i class="fa-solid fa-book-open" style="color:var(--primary); margin-right:8px;"></i> ${subItem.nama}</span>
+                <i class="fa-solid fa-chevron-down" style="font-size:12px; color:var(--text-muted);"></i>
               </div>
               <div class="vocab-box" id="vocab-${bIdx}-${sIdx}">
-                <h4>📚 Vocabulary & Pronunciation:</h4>
+                <h4>📚 Kosakata penting (Vocabulary):</h4>
                 <table class="table-vocab">
-                  <thead><tr><th>Arti Indo</th><th>Bahasa Inggris</th><th>Cara Baca</th></tr></thead>
+                  <thead><tr><th>Arti Indo</th><th>Bahasa Inggris</th><th>Cara Pelafalan</th></tr></thead>
                   <tbody>${tableRows}</tbody>
                 </table>
-                <a href="${linkUjian}" target="_blank" class="btn-cbt"><i class="fa-solid fa-graduation-cap"></i> Saya Sudah Paham, Mulai Ujian CBT!</a>
+                <a href="${linkUjian}" target="_blank" class="btn-cbt"><i class="fa-solid fa-graduation-cap"></i> Selesai Belajar, Mulai Ujian CBT Sekarang 🚀</a>
               </div>
             </div>`;
         });
