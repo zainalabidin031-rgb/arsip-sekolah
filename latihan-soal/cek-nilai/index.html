@@ -3,110 +3,326 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cek Nilai Latihan Siswa - SDN Butoh 1 Ngasem</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Cek Nilai Latihan - SDN Butoh 1 Ngasem</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
+    /* --- PALET WARNA: Biru Cerah Elegan --- */
     :root {
-      --primary-color: #1b5e20;
-      --secondary-color: #2e7d32;
-      --accent-color: #81c784;
-      --background-color: #f4f7f5;
-      --text-color: #333333;
+      --primary-bg: #e3f2fd;    /* Biru Super Cerah untuk Background */
+      --card-bg: #ffffff;       /* Putih Bersih untuk Area Konten */
+      --text-main: #263238;     /* Abu-abu Sangat Tua untuk Teks Utama */
+      --text-muted: #546e7a;    /* Abu-abu Kebiruan untuk Teks Sekunder */
+      
+      --accent-bright: #0091ea; /* Biru Cerah Utama (Tombol, Header) */
+      --accent-hover: #00b0ff;  /* Biru Lebih Cerah saat Hover */
+      --accent-dark: #0069c0;   /* Biru Tua untuk Aksen Kuat */
+      
+      --shadow-soft: 0 8px 30px rgba(0,0,0,0.05);
+      --transition: all 0.3s ease;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Poppins', sans-serif; background-color: var(--background-color); color: var(--text-color); line-height: 1.6; padding: 20px; }
-    .container { max-width: 800px; margin: 30px auto; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-    .header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid var(--primary-color); padding-bottom: 15px; }
-    .header h2 { color: var(--primary-color); font-weight: 600; font-size: 24px; }
-    .header p { color: #666; font-size: 14px; }
-    .search-box { margin-bottom: 25px; }
-    .form-group { display: flex; gap: 10px; }
-    input[type="text"] { flex: 1; padding: 12px 15px; border: 2px solid #ddd; border-radius: 6px; font-size: 15px; font-family: inherit; }
-    input[type="text"]:focus { border-color: var(--primary-color); outline: none; }
-    button { background-color: var(--primary-color); color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-size: 15px; font-weight: 600; }
-    button:hover { background-color: var(--secondary-color); }
-    button:disabled { background-color: #cccccc; cursor: not-allowed; }
-    .loader { display: none; text-align: center; margin: 20px 0; color: var(--primary-color); }
-    .message { padding: 12px; border-radius: 6px; margin-bottom: 20px; display: none; font-size: 14px; }
-    .message.error { background-color: #ffebee; color: #c62828; border-left: 5px solid #c62828; }
-    .result-container { margin-top: 20px; overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
-    th { background-color: var(--primary-color); color: white; text-align: left; padding: 12px; font-weight: 600; }
-    td { padding: 12px; border-bottom: 1px solid #ddd; }
-    tr:nth-child(even) { background-color: #f9f9f9; }
-    .badge-nilai { background-color: var(--secondary-color); color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold; }
-    @media (max-width: 600px) { .form-group { flex-direction: column; } button { width: 100%; } th, td { padding: 8px; font-size: 13px; } }
+    
+    body { 
+      font-family: 'Open Sans', sans-serif; 
+      background-color: var(--primary-bg); 
+      color: var(--text-main); 
+      line-height: 1.6; 
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, .btn { font-family: 'Montserrat', sans-serif; }
+
+    /* --- Tombol Beranda / Back --- */
+    .nav-header {
+      background: var(--card-bg);
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .btn-home {
+      text-decoration: none;
+      color: var(--accent-bright);
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .btn-home:hover { color: var(--accent-dark); transform: translateX(-3px); }
+
+    .school-logo-mini { font-weight: 700; color: var(--text-main); font-size: 16px; }
+    .school-logo-mini span { color: var(--accent-bright); }
+
+    /* --- Container Utama --- */
+    .main-container { 
+      max-width: 900px; 
+      margin: 40px auto; 
+      padding: 0 20px 40px 20px; 
+    }
+
+    .card { 
+      background: var(--card-bg); 
+      padding: 40px; 
+      border-radius: 16px; 
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(0,145,234,0.1); /* Border Biru Tipis */
+    }
+
+    .header-panel { text-align: center; margin-bottom: 35px; }
+    .header-panel h1 { 
+      color: var(--accent-dark); 
+      font-weight: 700; 
+      font-size: 28px; 
+      letter-spacing: -0.5px;
+      margin-bottom: 5px;
+    }
+    .header-panel p { color: var(--text-muted); font-size: 15px; font-weight: 400; }
+
+    /* --- Area Pencarian & Filter --- */
+    .search-filter-panel { 
+      display: flex; 
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #fbfdff;
+      border-radius: 12px;
+      border: 1px solid #e1f5fe;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+    }
+
+    input[type="text"], select { 
+      flex: 1; 
+      padding: 14px 18px; 
+      border: 2px solid #e0e0e0; 
+      border-radius: 8px; 
+      font-size: 15px; 
+      font-family: inherit; 
+      transition: var(--transition);
+      background-color: white;
+    }
+
+    input[type="text"]:focus, select:focus { 
+      border-color: var(--accent-hover); 
+      outline: none; 
+      box-shadow: 0 0 0 4px rgba(0,176,255,0.1);
+    }
+
+    /* Styling khusus Dropdown Kelas */
+    select {
+      flex: 0 0 150px; /* Lebar tetap untuk dropdown */
+      color: var(--text-muted);
+      cursor: pointer;
+      appearance: none; /* Hapus panah default */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23546e7a'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 20px;
+    }
+    select:not(:placeholder-shown) { color: var(--text-main); }
+
+    .btn-search { 
+      background-color: var(--accent-bright); 
+      color: white; 
+      border: none; 
+      padding: 14px 30px; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      font-size: 15px; 
+      font-weight: 600; 
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .btn-search:hover { background-color: var(--accent-dark); transform: translateY(-2px); }
+    .btn-search:disabled { background-color: #b0bec5; cursor: not-allowed; transform: none; }
+
+    /* --- Status Messages --- */
+    .loader { display: none; text-align: center; margin: 30px 0; color: var(--accent-bright); }
+    .message { padding: 15px; border-radius: 8px; margin-bottom: 25px; display: none; font-size: 14px; font-weight: 600; text-align: center;}
+    
+    .message.error { 
+      background-color: #ffebee; 
+      color: #c62828; 
+      border: 1px solid #ffcdd2;
+    }
+    
+    .message.info {
+      background-color: #e3f2fd;
+      color: var(--accent-dark);
+      border: 1px solid #bbdefb;
+    }
+
+    /* --- Area Hasil (Tabel) --- */
+    .result-container { margin-top: 20px; overflow-x: auto; display: none; }
+    
+    table { 
+      width: 100%; 
+      border-collapse: separate; 
+      border-spacing: 0;
+      margin-top: 10px; 
+      font-size: 14px; 
+      min-width: 600px; /* Biar ga terlalu dempet di HP */
+    }
+
+    th { 
+      background-color: #f5fafd; /* Biru sangat muda untuk header tabel */
+      color: var(--accent-dark); 
+      text-align: left; 
+      padding: 16px 12px; 
+      font-weight: 700; 
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 1px;
+      border-bottom: 2px solid #e1f5fe;
+    }
+
+    td { padding: 16px 12px; border-bottom: 1px solid #eeeeee; color: var(--text-main); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background-color: #fbfdff; }
+
+    .badge-nilai { 
+      background-color: var(--accent-bright); 
+      color: white; 
+      padding: 5px 10px; 
+      border-radius: 20px; 
+      font-weight: 700; 
+      font-size: 13px;
+    }
+
+    /* Kustomisasi Nilai Bagus */
+    .nilai-tinggi { background-color: #2e7d32; } /* Hijau untuk nilai >= 80 */
+
+    /* --- Responsif --- */
+    @media (max-width: 768px) {
+      .card { padding: 25px; }
+      .header-panel h1 { font-size: 22px; }
+      .form-row { flex-direction: column; gap: 10px; }
+      select { flex: 1 1 auto; width: 100%; }
+      .btn-search { width: 100%; }
+      th, td { padding: 12px 8px; font-size: 13px; }
+    }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="header">
-      <h2><i class="fa-solid fa-graduation-cap"></i> CEK NILAI LATIHAN</h2>
-      <p>SDN Butoh 1 Ngasem</p>
-    </div>
+  <div class="nav-header">
+    <a href="https://sdnbutoh1ngasem.my.id" class="btn-home">
+      <i class="fa-solid fa-arrow-left"></i> Beranda
+    </a>
+    <div class="school-logo-mini">SDN Butoh 1 <span>Ngasem</span></div>
+  </div>
 
-    <div class="search-box">
-      <div class="form-group">
-        <input type="text" id="searchName" placeholder="Masukkan Nama Lengkap Siswa..." autocomplete="off">
-        <button id="btnCari" onclick="cariNilai()"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+  <div class="main-container">
+    <div class="card">
+      <div class="header-panel">
+        <h1>CEK NILAI LATIHAN</h1>
+        <p>Silakan masukkan nama dan pilih kelas Anda</p>
       </div>
-    </div>
 
-    <div id="loader" class="loader">
-      <i class="fa-solid fa-spinner fa-spin fa-2xl"></i> <p style="margin-top:10px;">Sedang mengambil data...</p>
-    </div>
+      <div class="search-filter-panel">
+        <div class="form-row">
+          <input type="text" id="searchName" placeholder="Nama Lengkap Siswa... (misal: Budi Santoso)" autocomplete="off">
+          
+          <select id="filterKelas">
+            <option value="" selected>Semua Kelas</option>
+            <option value="1">Kelas 1</option>
+            <option value="2">Kelas 2</option>
+            <option value="3">Kelas 3</option>
+            <option value="4">Kelas 4</option>
+            <option value="5">Kelas 5</option>
+            <option value="6">Kelas 6</option>
+          </select>
+        </div>
+        
+        <button id="btnCari" class="btn-search" onclick="cariNilai()">
+          <i class="fa-solid fa-magnifying-glass"></i> Cari Nilai
+        </button>
+      </div>
 
-    <div id="msgBox" class="message"></div>
+      <div id="loader" class="loader">
+        <i class="fa-solid fa-circle-notch fa-spin fa-3x"></i>
+        <p style="margin-top:15px; font-weight:600; font-size:14px; color:var(--text-muted);">Menghubungkan ke database...</p>
+      </div>
 
-    <div id="resultArea" class="result-container" style="display: none;">
-      <table>
-        <thead>
-          <tr>
-            <th>Tanggal</th>
-            <th>Nama</th>
-            <th>Kelas</th>
-            <th>Mapel</th>
-            <th>Bab</th>
-            <th>Nilai</th>
-          </tr>
-        </thead>
-        <tbody id="resultBody"></tbody>
-      </table>
+      <div id="msgBox" class="message"></div>
+
+      <div id="resultArea" class="result-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Nama Siswa</th>
+              <th>Kelas</th>
+              <th>Mata Pelajaran</th>
+              <th>Bab/Materi</th>
+              <th>Nilai</th>
+            </tr>
+          </thead>
+          <tbody id="resultBody">
+            </tbody>
+        </table>
+      </div>
+      
     </div>
   </div>
 
   <script>
-    // MASUKKAN URL WEB APP APPS SCRIPT ANDA DI SINI
+    // =========================================================
+    // WAJIB: GANTI DENGAN URL WEB APP APPS SCRIPT ANDA
+    // =========================================================
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzMAtFGc1uHbutZUYHSCums529Ahq1kHrpaNkyKrXbZ69izp8xIuAKaZaMI1_wa6tHXhA/exec";
 
+    // Fitur Enter untuk mencari
     document.getElementById("searchName").addEventListener("keypress", function(event) {
       if (event.key === "Enter") cariNilai();
     });
 
+    // Variabel global untuk menyimpan data mentah
+    let allData = [];
+
     function cariNilai() {
-      var nameInput = document.getElementById("searchName").value;
-      var btn = document.getElementById("btnCari");
-      var loader = document.getElementById("loader");
-      var msgBox = document.getElementById("msgBox");
-      var resultArea = document.getElementById("resultArea");
-      var resultBody = document.getElementById("resultBody");
+      const nameInput = document.getElementById("searchName").value;
+      const btn = document.getElementById("btnCari");
+      const loader = document.getElementById("loader");
+      const msgBox = document.getElementById("msgBox");
+      const resultArea = document.getElementById("resultArea");
+      const resultBody = document.getElementById("resultBody");
 
       if (nameInput.trim() === "") {
-        showMsg("Silakan masukkan nama siswa terlebih dahulu.", "error");
+        showMsg("Oops! Nama siswa tidak boleh kosong.", "error");
         return;
       }
 
+      // Reset Tampilan
       msgBox.style.display = "none";
       resultArea.style.display = "none";
       resultBody.innerHTML = "";
       loader.style.display = "block";
       btn.disabled = true;
 
-      // Mengambil data dari Google Apps Script menggunakan fetch API
+      // Ambil data dari Google Apps Script (API)
       fetch(`${WEB_APP_URL}?nama=${encodeURIComponent(nameInput)}`)
         .then(response => response.json())
         .then(response => {
@@ -114,17 +330,15 @@
           btn.disabled = false;
 
           if (response.success) {
-            response.data.forEach(function(row) {
-              var tr = document.createElement("tr");
-              tr.innerHTML = `<td>${row.tanggal}</td>
-                              <td>${row.nama}</td>
-                              <td>${row.kelas}</td>
-                              <td>${row.mapel}</td>
-                              <td>${row.bab}</td>
-                              <td><span class='badge-nilai'>${row.nilai}</span></td>`;
-              resultBody.appendChild(tr);
-            });
-            resultArea.style.display = "block";
+            allData = response.data; // Simpan data asli
+            renderTable(allData);   // Tampilkan semua data dulu
+            
+            // Tambahkan event listener untuk filter kelas jikalau belum ada
+            const selectKelas = document.getElementById("filterKelas");
+            selectKelas.onchange = function() {
+              filterByKelas(this.value);
+            };
+            
           } else {
             showMsg(response.message, "error");
           }
@@ -132,13 +346,64 @@
         .catch(error => {
           loader.style.display = "none";
           btn.disabled = false;
-          showMsg("Gagal memuat data dari server. Pastikan URL Apps Script sudah benar.", "error");
+          showMsg("Gagal memuat data. Pastikan URL Apps Script sudah benar dan dipublish.", "error");
           console.error(error);
         });
     }
 
+    // Fungsi untuk menampilkan data ke dalam tabel
+    function renderTable(dataArray) {
+      const resultArea = document.getElementById("resultArea");
+      const resultBody = document.getElementById("resultBody");
+      const msgBox = document.getElementById("msgBox");
+
+      resultBody.innerHTML = ""; // Bersihkan tabel
+      msgBox.style.display = "none"; // Sembunyikan pesan
+
+      if (dataArray.length === 0) {
+        resultArea.style.display = "none";
+        showMsg("Tidak ada data nilai yang cocok dengan kelas yang dipilih.", "info");
+        return;
+      }
+
+      dataArray.forEach(function(row) {
+        const tr = document.createElement("tr");
+        
+        // Cek nilai untuk badge warna
+        let badgeClass = "badge-nilai";
+        const nilaiNum = parseFloat(row.nilai);
+        if (!isNaN(nilaiNum) && nilaiNum >= 80) {
+          badgeClass += " nilai-tinggi"; // Tambah class hijau
+        }
+
+        tr.innerHTML = `<td>${row.tanggal}</td>
+                        <td style="font-weight:600;">${row.nama}</td>
+                        <td>Kelas ${row.kelas}</td>
+                        <td>${row.mapel}</td>
+                        <td>${row.bab}</td>
+                        <td><span class='${badgeClass}'>${row.nilai}</span></td>`;
+        resultBody.appendChild(tr);
+      });
+      resultArea.style.display = "block";
+    }
+
+    // Fungsi untuk memfilter data berdasarkan kelas yang dipilih
+    function filterByKelas(kelasYangDipilih) {
+      if (allData.length === 0) return;
+
+      if (kelasYangDipilih === "") {
+        renderTable(allData); // Tampilkan semua jika "Semua Kelas" dipilih
+      } else {
+        const filtered = allData.filter(function(item) {
+          // Sesuaikan tipe data (string vs number) jikalau perlu
+          return String(item.kelas) === String(kelasYangDipilih);
+        });
+        renderTable(filtered);
+      }
+    }
+
     function showMsg(text, type) {
-      var msgBox = document.getElementById("msgBox");
+      const msgBox = document.getElementById("msgBox");
       msgBox.innerText = text;
       msgBox.className = "message " + type;
       msgBox.style.display = "block";
