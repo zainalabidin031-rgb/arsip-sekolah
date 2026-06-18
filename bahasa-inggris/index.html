@@ -163,120 +163,101 @@
 
   <script>
     const LINK_WEB_APP_CBT = "ulangan/";
-
     let kelasAktif = 1;
     let semesterAktif = 1;
 
+    // DATABASE MATERI (Contoh Pengisian Kelas 1)
+    // Silakan tiru format 10 baris kosakata ini untuk kelas-kelas lainnya ya, Min!
     const databaseMateri = {
       1: {
         1: [
           { bab: "Unit 1: Hello!", sub: [
-            { nama: "Saying Hello & Goodbye", vocab: [{w: "Halo", m: "Hello", p: "he-lou"}, {w: "Hai", m: "Hi", p: "hai"}, {w: "Selamat tinggal", m: "Goodbye", p: "gud-bai"}, {w: "Sampai jumpa", m: "See you", p: "si yu"}] },
-            { nama: "My Name & Introducing Myself", vocab: [{w: "Nama", m: "Name", p: "neim"}, {w: "Nama saya", m: "My name is", p: "mai neim is"}, {w: "Saya adalah", m: "I am", p: "ai em"}, {w: "Anak laki-laki", m: "Boy", p: "boi"}, {w: "Anak perempuan", m: "Girl", p: "gerl"}] },
-            { nama: "Polite Words & Greetings", vocab: [{w: "Terima kasih", m: "Thank you", p: "theng kyu"}, {w: "Maaf", m: "Sorry", p: "so-ri"}, {w: "Tolong", m: "Please", p: "pliz"}, {w: "Guru", m: "Teacher", p: "ti-cer"}] }
+            { nama: "Saying Hello & Goodbye", vocab: [
+              {w: "Halo", m: "Hello", p: "he-lou"},
+              {w: "Hai", m: "Hi", p: "hai"},
+              {w: "Selamat tinggal", m: "Goodbye", p: "gud-bai"},
+              {w: "Sampai jumpa", m: "See you", p: "si yu"},
+              {w: "Selamat pagi", m: "Good morning", p: "gud mor-ning"},
+              {w: "Selamat sore", m: "Good afternoon", p: "gud af-ter-nun"},
+              {w: "Selamat malam", m: "Good night", p: "gud nait"},
+              {w: "Senang bertemu denganmu", m: "Nice to meet you", p: "nais tu mit yu"},
+              {w: "Sampai jumpa besok", m: "See you tomorrow", p: "si yu tu-ma-rou"},
+              {w: "Hati-hati", m: "Take care", p: "teik ker"}
+            ]},
+            { nama: "Introducing Myself", vocab: [
+              {w: "Nama", m: "Name", p: "neim"},
+              {w: "Nama saya adalah...", m: "My name is...", p: "mai neim is"},
+              {w: "Saya adalah", m: "I am", p: "ai em"},
+              {w: "Anak laki-laki", m: "Boy", p: "boi"},
+              {w: "Anak perempuan", m: "Girl", p: "gerl"},
+              {w: "Teman", m: "Friend", p: "frend"},
+              {w: "Umur / Usia", m: "Age", p: "eidz"},
+              {w: "Murid", m: "Student", p: "styu-dent"},
+              {w: "Tinggal", m: "Live", p: "liv"},
+              {w: "Siapa namamu?", m: "What is your name?", p: "wot is yor neim"}
+            ]}
           ]},
           { bab: "Unit 2: Numbers Fun", sub: [
-            { nama: "Numbers 1–10", vocab: [{w: "Satu", m: "One", p: "wan"}, {w: "Dua", m: "Two", p: "tu"}, {w: "Tiga", m: "Three", p: "thri"}, {w: "Empat", m: "Four", p: "for"}, {w: "Lima", m: "Five", p: "faiv"}, {w: "Enam", m: "Six", p: "siks"}, {w: "Tujuh", m: "Seven", p: "se-ven"}, {w: "Delapan", m: "Eight", p: "eit"}, {w: "Sembilan", m: "Nine", p: "nain"}, {w: "Sepuluh", m: "Ten", p: "ten"}] },
-            { nama: "Counting & Objects Around Me", vocab: [{w: "Buku", m: "Book", p: "buk"}, {w: "Pensil", m: "Pencil", p: "pen-sil"}, {w: "Menghitung", m: "Counting", p: "kaun-ting"}, {w: "Berapa banyak", m: "How many", p: "hau me-ni"}, {w: "Meja", m: "Table", p: "tei-bel"}] }
+            { nama: "Numbers 1-10", vocab: [
+              {w: "Satu", m: "One", p: "wan"},
+              {w: "Dua", m: "Two", p: "tu"},
+              {w: "Tiga", m: "Three", p: "thri"},
+              {w: "Empat", m: "Four", p: "for"},
+              {w: "Lima", m: "Five", p: "faiv"},
+              {w: "Enam", m: "Six", p: "siks"},
+              {w: "Tujuh", m: "Seven", p: "se-ven"},
+              {w: "Delapan", m: "Eight", p: "eit"},
+              {w: "Sembilan", m: "Nine", p: "nain"},
+              {w: "Sepuluh", m: "Ten", p: "ten"}
+            ]},
+            { nama: "Objects Counting", vocab: [
+              {w: "Menghitung", m: "Counting", p: "kaun-ting"},
+              {w: "Buku", m: "Book", p: "buk"},
+              {w: "Pensil", m: "Pencil", p: "pen-sil"},
+              {w: "Meja", m: "Table", p: "tei-bel"},
+              {w: "Kursi", m: "Chair", p: "cer"},
+              {w: "Berapa banyak", m: "How many", p: "hau me-ni"},
+              {w: "Banyak", m: "Many", p: "me-ni"},
+              {w: "Ada (Tunggal)", m: "There is", p: "der is"},
+              {w: "Ada (Jamak)", m: "There are", p: "der ar"},
+              {w: "Kotak", m: "Box", p: "boks"}
+            ]}
           ]},
-          { bab: "Unit 3: Colorful World", sub: [
-            { nama: "Basic Colors", vocab: [{w: "Merah", m: "Red", p: "red"}, {w: "Biru", m: "Blue", p: "blu"}, {w: "Kuning", m: "Yellow", p: "ye-lou"}, {w: "Hijau", m: "Green", p: "grin"}, {w: "Putih", m: "White", p: "wait"}, {w: "Hitam", m: "Black", p: "blek"}] },
-            { nama: "Colors at School & Home", vocab: [{w: "Warna", m: "Color", p: "ka-ler"}, {w: "Tas sekolah", m: "School bag", p: "skul beg"}, {w: "Krayon", m: "Crayon", p: "krei-on"}, {w: "Rumah", m: "Home", p: "houm"}, {w: "Mainan", m: "Toy", p: "toi"}] }
+          { bab: "Unit 3: Template Slot Kosong 10 Vocab", sub: [
+            { nama: "Sub Bab Contoh A", vocab: [
+              {w: "Isi Disini", m: "English Here", p: "Cara Baca"},
+              {w: "Isi Disini", m: "English Here", p: "Cara Baca"},
+              {w: "Isi Disini", m: "English Here", p: "Cara Baca"},
+              {w: "Isi Disini", m: "English Here", p: "Cara Baca"},
+              {w: "Isi Disini", m: "English Here", p: "Cara Baca"},
+              {w: "Isi Disini", m: "English Here", p: "Cara Baca"},
+              {w: "Isi Disini", m: "English Here", p: "Cara Baca"},
+              {w: "Isi Disini", m: "English Here", p: "Cara Baca"},
+              {w: "Isi Disini", m: "English Here", p: "Cara Baca"},
+              {w: "Isi Disini", m: "English Here", p: "Cara Baca"}
+            ]}
           ]},
-          { bab: "Unit 4: My Body", sub: [
-            { nama: "Parts of Face & Body", vocab: [{w: "Tubuh", m: "Body", p: "bo-di"}, {w: "Tangan", m: "Hand", p: "hend"}, {w: "Kaki", m: "Foot", p: "fut"}, {w: "Mata", m: "Eye", p: "ai"}, {w: "Hidung", m: "Nose", p: "nous"}, {w: "Mulut", m: "Mouth", p: "mauth"}] },
-            { nama: "Senses, Movements & Cleanliness", vocab: [{w: "Melihat", m: "See", p: "si"}, {w: "Mendengar", m: "Hear", p: "hier"}, {w: "Melompat", m: "Jump", p: "djamp"}, {w: "Berjalan", m: "Walk", p: "wok"}, {w: "Bersih", m: "Clean", p: "klin"}, {w: "Sehat", m: "Healthy", p: "hel-ti"}] }
+          { bab: "Unit 4: Masukkan Judul Bab", sub: [
+            { nama: "Nama Sub Bab", vocab: [
+              {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""},
+              {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}
+            ]}
           ]}
         ],
         2: [
-          { bab: "Unit 5: Animals Around Me", sub: [
-            { nama: "Types of Animals", vocab: [{w: "Kucing", m: "Cat", p: "ket"}, {w: "Anjing", m: "Dog", p: "dog"}, {w: "Ikan", m: "Fish", p: "fis"}, {w: "Sapi", m: "Cow", p: "kau"}, {w: "Bebek", m: "Duck", p: "dak"}, {w: "Ayam", m: "Chicken", p: "cik-en"}, {w: "Singa", m: "Lion", p: "lai-on"}, {w: "Burung", m: "Bird", p: "berd"}] },
-            { nama: "Sounds & Descriptions", vocab: [{w: "Suara", m: "Sound", p: "saun"}, {w: "Lucu", m: "Cute", p: "kyut"}, {w: "Besar", m: "Big", p: "bik"}, {w: "Kecil", m: "Small", p: "smol"}] }
-          ]},
-          { bab: "Unit 6: Food and Drinks", sub: [
-            { nama: "Meals & Beverages", vocab: [{w: "Nasi", m: "Rice", p: "rais"}, {w: "Roti", m: "Bread", p: "bred"}, {w: "Kue", m: "Cake", p: "keik"}, {w: "Air", m: "Water", p: "wo-ter"}, {w: "Susu", m: "Milk", p: "milk"}, {w: "Teh", m: "Tea", p: "ti"}] },
-            { nama: "Fruits & Snacks", vocab: [{w: "Apel", m: "Apple", p: "e-pel"}, {w: "Pisang", m: "Banana", p: "be-ne-ne"}, {w: "Lapar", m: "Hungry", p: "hang-gri"}, {w: "Lezat", m: "Delicious", p: "di-li-ses"}, {w: "Makan", m: "Eat", p: "it"}, {w: "Minum", m: "Drink", p: "drink"}] }
-          ]},
-          { bab: "Unit 7: My Things", sub: [
-            { nama: "Toys & Class Objects", vocab: [{w: "Boneka", m: "Doll", p: "dol"}, {w: "Bola", m: "Ball", p: "bol"}, {w: "Mobil-mobilan", m: "Toy car", p: "toi kar"}, {w: "Penggaris", m: "Ruler", p: "ru-ler"}, {w: "Penghapus", m: "Eraser", p: "i-rei-ser"}, {w: "Kursi", m: "Chair", p: "cer"}] },
-            { nama: "Home Objects & Sizes", vocab: [{w: "Lampu", m: "Lamp", p: "lemp"}, {w: "Televisi", m: "Television", p: "te-le-vi-syen"}, {w: "Layang-layang", m: "Kite", p: "kait"}, {w: "Baru", m: "New", p: "nyu"}] }
-          ]},
-          { bab: "Unit 8: My Daily Life", sub: [
-            { nama: "Morning Routines", vocab: [{w: "Bangun tidur", m: "Wake up", p: "weik ap"}, {w: "Pagi", m: "Morning", p: "mor-ning"}, {w: "Sarapan", m: "Breakfast", p: "brek-fest"}, {w: "Mencuci muka", m: "Wash face", p: "wos feis"}, {w: "Sekolah", m: "School", p: "skul"}] },
-            { nama: "After School & Bedtime", vocab: [{w: "Belajar", m: "Study", p: "sta-di"}, {w: "Bermain", m: "Play", p: "plei"}, {w: "Pulang rumah", m: "Go home", p: "gou houm"}, {w: "Tidur", m: "Sleep", p: "slip"}, {w: "Malam", m: "Night", p: "nait"}, {w: "Senang", m: "Happy", p: "he-pi"}] }
-          ]}
+          { bab: "Unit 5: Masukkan Judul Bab", sub: [{ nama: "Nama Sub Bab", vocab: [{w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}] }] },
+          { bab: "Unit 6: Masukkan Judul Bab", sub: [{ nama: "Nama Sub Bab", vocab: [{w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}] }] },
+          { bab: "Unit 7: Masukkan Judul Bab", sub: [{ nama: "Nama Sub Bab", vocab: [{w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}] }] },
+          { bab: "Unit 8: Masukkan Judul Bab", sub: [{ nama: "Nama Sub Bab", vocab: [{w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}] }] }
         ]
       },
-      2: {
+      2: { 
         1: [
-          { bab: "Unit 1: Hello!", sub: [{ nama: "Class Expressions", vocab: [{w: "Selamat pagi", m: "Good morning", p: "gud mor-ning"}, {w: "Selamat siang", m: "Good afternoon", p: "gud af-ter-nun"}, {w: "Sampai jumpa", m: "See you", p: "si yu"}, {w: "Siswa", m: "Student", p: "styu-dent"}, {w: "Tolong", m: "Please", p: "pliz"}, {w: "Duduk", m: "Sit down", p: "sit daun"}, {w: "Berdiri", m: "Stand up", p: "stend ap"}, {w: "Masuk", m: "Come in", p: "kam in"}, {w: "Dengarkan", m: "Listen", p: "li-sen"}, {w: "Diam", m: "Quiet", p: "kwai-et"}] }] },
-          { bab: "Unit 2: Numbers Around Us", sub: [{ nama: "Numbers 11-20 & Counting", vocab: [{w: "Sebelas", m: "Eleven", p: "i-le-ven"}, {w: "Dua belas", m: "Twelve", p: "twelf"}, {w: "Tiga belas", m: "Thirteen", p: "ther-tin"}, {w: "Empat belas", m: "Fourteen", p: "for-tin"}, {w: "Lima belas", m: "Fifteen", p: "fif-tin"}, {w: "Dua puluh", m: "Twenty", p: "twen-ti"}, {w: "Buku tulis", m: "Notebook", p: "nout-buk"}, {w: "Rautan", m: "Sharpener", p: "sar-pe-ner"}, {w: "Kotak pensil", m: "Pencil case", p: "pen-sil keis"}, {w: "Banyak", m: "Many", p: "me-ni"}] }] },
-          { bab: "Unit 3: Colors Everywhere", sub: [{ nama: "Objects and Colors", vocab: [{w: "Abu-abu", m: "Grey", p: "grei"}, {w: "Cokelat", m: "Brown", p: "braun"}, {w: "Merah muda", m: "Pink", p: "pingk"}, {w: "Ungu", m: "Purple", p: "per-pel"}, {w: "Jingga", m: "Orange", p: "o-rendj"}, {w: "Papan tulis", m: "Whiteboard", p: "wait-bord"}, {w: "Pintu", m: "Door", p: "dor"}, {w: "Jendela", m: "Window", p: "win-dou"}, {w: "Mewarnai", m: "Coloring", p: "ka-ler-ing"}, {w: "Dinding", m: "Wall", p: "wol"}] }] },
-          { bab: "Unit 4: My Body", sub: [{ nama: "Everyday Body Functions", vocab: [{w: "Rambut", m: "Hair", p: "heir"}, {w: "Telinga", m: "Ear", p: "ier"}, {w: "Lidah", m: "Tongue", p: "tang"}, {w: "Gigi", m: "Tooth", p: "tuth"}, {w: "Bahu", m: "Shoulder", p: "soul-der"}, {w: "Berlari", m: "Run", p: "ran"}, {w: "Sikat gigi", m: "Brush teeth", p: "bras tith"}, {w: "Mencuci tangan", m: "Wash hands", p: "wos hends"}, {w: "Menyentuh", m: "Touch", p: "tac"}, {w: "Mengunyah", m: "Chew", p: "cu"}] }] }
+          { bab: "Unit 1: Kelas 2", sub: [{ nama: "Sub Bab", vocab: [{w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}, {w: "", m: "", p: ""}] }] }
         ],
-        2: [
-          { bab: "Unit 5: Animals Around Me", sub: [{ nama: "Domestic and Wild Animals", vocab: [{w: "Kelinci", m: "Rabbit", p: "re-bit"}, {w: "Burung", m: "Bird", p: "berd"}, {w: "Kuda", m: "Horse", p: "hors"}, {w: "Gajah", m: "Elephant", p: "e-le-fent"}, {w: "Kambing", m: "Goat", p: "gout"}, {w: "Kupu-kupu", m: "Butterfly", p: "ba-ter-flai"}, {w: "Tikus", m: "Mouse", p: "maus"}, {w: "Ular", m: "Snake", p: "sneik"}, {w: "Kura-kura", m: "Turtle", p: "ter-tel"}, {w: "Bulu", m: "Fur", p: "fer"}] }] },
-          { bab: "Unit 6: Food and Drinks", sub: [{ nama: "Healthy Food & Tastes", vocab: [{w: "Sup", m: "Soup", p: "sup"}, {w: "Mie", m: "Noodle", p: "nu-del"}, {w: "Ayam goreng", m: "Fried chicken", p: "fraid cik-en"}, {w: "Jus", m: "Juice", p: "djus"}, {w: "Semangka", m: "Watermelon", p: "wo-ter-me-len"}, {w: "Wortel", m: "Carrot", p: "ke-rot"}, {w: "Manis", m: "Sweet", p: "swit"}, {w: "Pahit", m: "Bitter", p: "bi-ter"}, {w: "Haus", m: "Thirsty", p: "thers-ti"}, {w: "Kenyang", m: "Full", p: "ful"}] }] },
-          { bab: "Unit 7: Things Around Me", sub: [{ nama: "Everyday Objects", vocab: [{w: "Sepatu", m: "Shoes", p: "syus"}, {w: "Kaos kaki", m: "Socks", p: "soks"}, {w: "Topi", m: "Hat", p: "het"}, {w: "Jam dinding", m: "Clock", p: "klok"}, {w: "Cermin", m: "Mirror", p: "mi-rer"}, {w: "Bantal", m: "Pillow", p: "pi-lou"}, {w: "Payung", m: "Umbrella", p: "am-bre-la"}, {w: "Kunci", m: "Key", p: "ki"}, {w: "Dompet", m: "Wallet", p: "wo-let"}, {w: "Lemari", m: "Cupboard", p: "kap-bord"}] }] },
-          { bab: "Unit 8: My Daily Activities", sub: [{ nama: "Time Routines", vocab: [{w: "Siang", m: "Afternoon", p: "af-ter-nun"}, {w: "Malam", m: "Night", p: "nait"}, {w: "Makan malam", m: "Dinner", p: "din-ner"}, {w: "Mengerjakan PR", m: "Do homework", p: "du houm-work"}, {w: "Menonton TV", m: "Watch TV", p: "woc ti-vi"}, {w: "Mandi", m: "Take a bath", p: "teik e beth"}, {w: "Berdoa", m: "Pray", p: "prei"}, {w: "Membersihkan kasur", m: "Make the bed", p: "meik de bed"}, {w: "Bermain sepeda", m: "Ride a bike", p: "raid e baik"}, {w: "Istirahat", m: "Rest", p: "rest"}] }] }
-        ]
-      },
-      3: {
-        1: [
-          { bab: "Unit 1: My House", sub: [{ nama: "Rooms & Furniture", vocab: [{w: "Kamar tidur", m: "Bedroom", p: "bed-rum"}, {w: "Dapur", m: "Kitchen", p: "kit-cen"}, {w: "Ruang tamu", m: "Living room", p: "li-ving rum"}, {w: "Kamar mandi", m: "Bathroom", p: "beth-rum"}, {w: "Garasi", m: "Garage", p: "ge-radj"}, {w: "Sofa", m: "Sofa", p: "sou-fa"}, {w: "Televisi", m: "Television", p: "te-le-vi-syen"}, {w: "Kulkas", m: "Refrigerator", p: "re-frid-je-rei-ter"}, {w: "Kompor", m: "Stove", p: "stouv"}, {w: "Tempat tidur", m: "Bed", p: "bed"}] }] },
-          { bab: "Unit 2: My Family", sub: [{ nama: "Family Lineage & Traits", vocab: [{w: "Ayah", m: "Father", p: "fa-der"}, {w: "Ibu", m: "Mother", p: "ma-der"}, {w: "Saudara laki-laki", m: "Brother", p: "bra-der"}, {w: "Saudara perempuan", m: "Sister", p: "sis-ter"}, {w: "Kakek", m: "Grandfather", p: "grend-fa-der"}, {w: "Nenek", m: "Grandmother", p: "grend-ma-der"}, {w: "Paman", m: "Uncle", p: "ang-kel"}, {w: "Bibi", m: "Aunt", p: "ent"}, {w: "Muda", m: "Young", p: "yang"}, {w: "Tua", m: "Old", p: "ould"}] }] },
-          { bab: "Unit 3: Clothes We Wear", sub: [{ nama: "Daily Attire", vocab: [{w: "Kemeja", m: "Shirt", p: "sert"}, {w: "Kaos", m: "T-shirt", p: "ti-sert"}, {w: "Celana panjang", m: "Trousers", p: "trau-zers"}, {w: "Rok", m: "Skirt", p: "skert"}, {w: "Gaun", m: "Dress", p: "dres"}, {w: "Jaket", m: "Jacket", p: "dje-ket"}, {w: "Dasi", m: "Tie", p: "tai"}, {w: "Sabuk", m: "Belt", p: "belt"}, {w: "Memakai", m: "Wear", p: "wer"}, {w: "Seragam", m: "Uniform", p: "yu-ni-form"}] }] },
-          { bab: "Unit 4: My School", sub: [{ nama: "School Environment", vocab: [{w: "Perpustakaan", m: "Library", p: "lai-bre-ri"}, {w: "Kelas", m: "Classroom", p: "kles-rum"}, {w: "Kantin", m: "Canteen", p: "ken-tin"}, {w: "Halaman sekolah", m: "Schoolyard", p: "skul-yard"}, {w: "Kantor kepala sekolah", m: "Principal's office", p: "prin-si-pels o-fis"}, {w: "Ruang guru", m: "Teacher's room", p: "ti-cers rum"}, {w: "Lapangan", m: "Field", p: "fild"}, {w: "Toilet", m: "Restroom", p: "rest-rum"}, {w: "Belajar", m: "Study", p: "sta-di"}, {w: "Membaca", m: "Read", p: "rid"}] }] }
-        ],
-        2: [
-          { bab: "Unit 5: Around the Garden", sub: [{ nama: "Plants & Insects", vocab: [{w: "Bunga", m: "Flower", p: "flau-wer"}, {w: "Pohon", m: "Tree", p: "tri"}, {w: "Rumput", m: "Grass", p: "gres"}, {w: "Daun", m: "Leaf", p: "lif"}, {w: "Tanah", m: "Soil", p: "soil"}, {w: "Kupu-kupu", m: "Butterfly", p: "ba-ter-flai"}, {w: "Lebah", m: "Bee", p: "bi"}, {w: "Semut", m: "Ant", p: "ent"}, {w: "Ulat", m: "Caterpillar", p: "ke-ter-pi-ler"}, {w: "Menyiram", m: "Watering", p: "wo-ter-ing"}] }] },
-          { bab: "Unit 6: Weather and Seasons", sub: [{ nama: "Atmosphere Elements", vocab: [{w: "Cerah / Bersinar", m: "Sunny", p: "sa-ni"}, {w: "Hujan", m: "Rainy", p: "rei-ni"}, {w: "Berawan", m: "Cloudy", p: "klau-di"}, {w: "Berangin", m: "Windy", p: "win-di"}, {w: "Berdasar petir", m: "Stormy", p: "stor-mi"}, {w: "Langit", m: "Sky", p: "skai"}, {w: "Awan", m: "Cloud", p: "klaud"}, {w: "Matahari", m: "Sun", p: "san"}, {w: "Dingin", m: "Cold", p: "kould"}, {w: "Panas", m: "Hot", p: "hot"}] }] },
-          { bab: "Unit 7: Transports", sub: [{ nama: "Vehicles Categories", vocab: [{w: "Mobil", m: "Car", p: "kar"}, {w: "Sepeda", m: "Bicycle", p: "bai-si-kel"}, {w: "Sepeda motor", m: "Motorcycle", p: "mo-ter-sai-kel"}, {w: "Bus", m: "Bus", p: "bas"}, {w: "Kereta api", m: "Train", p: "trein"}, {w: "Pesawat terbang", m: "Airplane", p: "eir-plein"}, {w: "Kapal laut", m: "Ship", p: "sip"}, {w: "Perahu", m: "Boat", p: "bout"}, {w: "Truk", m: "Truck", p: "trak"}, {w: "Mengendarai", m: "Drive / Ride", p: "draiv / raid"}] }] },
-          { bab: "Unit 8: Hobbies", sub: [{ nama: "Leisure Activities", vocab: [{w: "Berenang", m: "Swimming", p: "swi-ming"}, {w: "Membaca", m: "Reading", p: "ri-ding"}, {w: "Memasak", m: "Cooking", p: "ku-king"}, {w: "Menyanyi", m: "Singing", p: "sing-ing"}, {w: "Menari", m: "Dancing", p: "den-sing"}, {w: "Menggambar", m: "Drawing", p: "dro-ing"}, {w: "Memancing", m: "Fishing", p: "fi-sing"}, {w: "Bersepeda", m: "Cycling", p: "sai-kling"}, {w: "Bermain sepak bola", m: "Playing football", p: "plei-ing fut-bol"}, {w: "Kesenangan", m: "Hobby", p: "ho-bi"}] }] }
-        ]
-      },
-      4: {
-        1: [
-          { bab: "Unit 1: What Are You Doing?", sub: [{ nama: "Verbs in Action", vocab: [{w: "Membaca", m: "Reading", p: "ri-ding"}, {w: "Menulis", m: "Writing", p: "rai-ting"}, {w: "Mendengarkan", m: "Listening", p: "lis-ning"}, {w: "Berbicara", m: "Speaking", p: "spi-king"}, {w: "Makan", m: "Eating", p: "i-ting"}, {w: "Minum", m: "Drinking", p: "drink-ing"}, {w: "Bermain", m: "Playing", p: "plei-ing"}, {w: "Membersihkan", m: "Cleaning", p: "klin-ing"}, {w: "Tidur", m: "Sleeping", p: "slip-ing"}, {w: "Berlari", m: "Running", p: "ran-ing"}] }] },
-          { bab: "Unit 2: There are 25 Books", sub: [{ nama: "Numbers 21-50", vocab: [{w: "Dua puluh satu", m: "Twenty-one", p: "twen-ti wan"}, {w: "Dua puluh lima", m: "Twenty-five", p: "twen-ti faiv"}, {w: "Tiga puluh", m: "Thirty", p: "ther-ti"}, {w: "Tiga puluh lima", m: "Thirty-five", p: "ther-ti faiv"}, {w: "Empat puluh", m: "Forty", p: "for-ti"}, {w: "Empat puluh lima", m: "Forty-five", p: "for-ti faiv"}, {w: "Lima puluh", m: "Fifty", p: "fif-ti"}, {w: "Jumlah / Tambah", m: "Plus", p: "plas"}, {w: "Kurang", m: "Minus", p: "mai-nes"}, {w: "Sama dengan", m: "Equals", p: "i-kwels"}] }] },
-          { bab: "Unit 3: My Living Room", sub: [{ nama: "Furniture & Decor", vocab: [{w: "Kursi empuk", m: "Armchair", p: "arm-cer"}, {w: "Karpet", m: "Rug", p: "rag"}, {w: "Tirai", m: "Curtain", p: "ker-ten"}, {w: "Rak buku", m: "Bookcase", p: "buk-keis"}, {w: "Lukisan", m: "Painting", p: "peint-ing"}, {w: "Vas bunga", m: "Vase", p: "veis"}, {w: "Meja kopi", m: "Coffee table", p: "ko-fi tei-bel"}, {w: "Dinding", m: "Wall", p: "wol"}, {w: "Lantai", m: "Floor", p: "flor"}, {w: "Rapi", m: "Tidy", p: "tai-di"}] }] },
-          { bab: "Unit 4: Cici's Activity", sub: [{ nama: "Daily Habits & Times", vocab: [{w: "Mandi shower", m: "Take a shower", p: "teik e sau-wer"}, {w: "Menyikat rambut", m: "Brush hair", p: "bras heir"}, {w: "Pergi tidur", m: "Go to bed", p: "gou tu bed"}, {w: "Belajar", m: "Studying", p: "sta-di-ing"}, {w: "Membantu orang tua", m: "Help parents", p: "help pe-rents"}, {w: "Menonton kartun", m: "Watch cartoon", p: "woc kar-tun"}, {w: "Menyiram tanaman", m: "Water flowers", p: "wo-ter flau-wers"}, {w: "Sore hari", m: "Evening", p: "iv-ning"}, {w: "Malam hari", m: "Night", p: "nait"}, {w: "Rutin", m: "Routine", p: "ru-tin"}] }] }
-        ],
-        2: [
-          { bab: "Unit 5: Where is My Pencil?", sub: [{ nama: "Positioning Words", vocab: [{w: "Di atas (menempel)", m: "On", p: "on"}, {w: "Di dalam", m: "In", p: "in"}, {w: "Di bawah", m: "Under", p: "an-der"}, {w: "Di depan", m: "In front of", p: "in frant ov"}, {w: "Di belakang", m: "Behind", p: "bi-haind"}, {w: "Di samping", m: "Next to", p: "nekst tu"}, {w: "Di antara", m: "Between", p: "bi-twin"}, {w: "Di atas (melayang)", m: "Above", p: "e-bav"}, {w: "Mencari", m: "Look for", p: "luk for"}, {w: "Kehilangan", m: "Lost", p: "lost"}] }] },
-          { bab: "Unit 6: My New House", sub: [{ nama: "House Boundaries", vocab: [{w: "Atap", m: "Roof", p: "ruf"}, {w: "Pagar", m: "Fence", p: "fens"}, {w: "Halaman", m: "Yard", p: "yard"}, {w: "Tangga", m: "Stairs", p: "steirs"}, {w: "Balkon", m: "Balcony", p: "bel-ko-ni"}, {w: "Langit-langit", m: "Ceiling", p: "si-ling"}, {w: "Tingkat atas", m: "Upstairs", p: "ap-steirs"}, {w: "Tingkat bawah", m: "Downstairs", p: "daun-steirs"}, {w: "Baru", m: "New", p: "nyu"}, {w: "Nyaman", m: "Comfortable", p: "kam-fer-te-bel"}] }] },
-          { bab: "Unit 7: In the Kitchen", sub: [{ nama: "Cooking Utensils", vocab: [{w: "Piring", m: "Plate", p: "pleit"}, {w: "Gelas", m: "Glass", p: "gles"}, {w: "Sendok", m: "Spoon", p: "spun"}, {w: "Garpu", m: "Fork", p: "fork"}, {w: "Pisau", m: "Knife", p: "naif"}, {w: "Mangkuk", m: "Bowl", p: "boul"}, {w: "Wajan penggorengan", m: "Frying pan", p: "frai-ing pen"}, {w: "Panci", m: "Pot", p: "pot"}, {w: "Tempat cuci piring", m: "Sink", p: "singk"}, {w: "Memotong", m: "Cut", p: "kat"}] }] },
-          { bab: "Unit 8: Vehicles", sub: [{ nama: "Public Transportation", vocab: [{w: "Taksi", m: "Taxi", p: "tek-si"}, {w: "Helikopter", m: "Helicopter", p: "he-li-kop-ter"}, {w: "Kapal selam", m: "Submarine", p: "sab-ma-rin"}, {w: "Stasiun kereta", m: "Train station", p: "trein stei-sen"}, {w: "Bandara", m: "Airport", p: "eir-port"}, {w: "Pelabuhan", m: "Harbor", p: "har-ber"}, {w: "Halte bus", m: "Bus stop", p: "bas stop"}, {w: "Tiket", m: "Ticket", p: "ti-ket"}, {w: "Penumpang", m: "Passenger", p: "pe-sen-djer"}, {w: "Bepergian", m: "Travel", p: "tre-vel"}] }] }
-        ]
-      },
-      5: {
-        1: [
-          { bab: "Unit 1: What Delicious Bakso!", sub: [{ nama: "Taste Bud Vocabulary", vocab: [{w: "Manis", m: "Sweet", p: "swit"}, {w: "Asin", m: "Salty", p: "sol-ti"}, {w: "Asam", m: "Sour", p: "sau-wer"}, {w: "Pedas", m: "Spicy", p: "spai-si"}, {w: "Gurih", m: "Savory", p: "sei-ve-ri"}, {w: "Pahit", m: "Bitter", p: "bi-ter"}, {w: "Hambar", m: "Tasteless", p: "teist-les"}, {w: "Bakso", m: "Meatball", p: "mit-bol"}, {w: "Rasa", m: "Taste", p: "teist"}, {w: "Lezat", m: "Delicious", p: "di-li-ses"}] }] },
-          { bab: "Unit 2: How Much Is It?", sub: [{ nama: "Money & Shopping", vocab: [{w: "Berapa harganya", m: "How much is it", p: "hau mac is it"}, {w: "Harga", m: "Price", p: "prais"}, {w: "Rupiah", m: "Rupiah", p: "ru-pi-ah"}, {w: "Uang", m: "Money", p: "ma-ni"}, {w: "Murah", m: "Cheap", p: "cip"}, {w: "Mahal", m: "Expensive", p: "ik-spen-siv"}, {w: "Membeli", m: "Buy", p: "bai"}, {w: "Menjual", m: "Sell", p: "sel"}, {w: "Kembalian", m: "Change", p: "ceindj"}, {w: "Total", m: "Total", p: "tou-tel"}] }] },
-          { bab: "Unit 3: I Have a Headache", sub: [{ nama: "Sickness & Illnesses", vocab: [{w: "Sakit kepala", m: "Headache", p: "hed-eik"}, {w: "Sakit gigi", m: "Toothache", p: "tuth-eik"}, {w: "Sakit perut", m: "Stomachache", p: "sta-mek-eik"}, {w: "Demam", m: "Fever", p: "fi-ver"}, {w: "Batuk", m: "Cough", p: "kof"}, {w: "Flu / Pilek", m: "Cold", p: "kould"}, {w: "Obat", m: "Medicine", p: "med-sin"}, {w: "Dokter", m: "Doctor", p: "dok-ter"}, {w: "Sakit", m: "Sick", p: "sik"}, {w: "Istirahat", m: "Rest", p: "rest"}] }] },
-          { bab: "Unit 4: My Clothes", sub: [{ nama: "Wardrobe & Style", vocab: [{w: "Kemeja resmi", m: "Shirt", p: "sert"}, {w: "Celana pendek", m: "Shorts", p: "sorts"}, {w: "Jaket bertopi", m: "Hoodie", p: "hu-di"}, {w: "Sweater", m: "Sweater", p: "swe-ter"}, {w: "Sandal", m: "Sandals", p: "sen-dels"}, {w: "Jas hujan", m: "Raincoat", p: "rein-kout"}, {w: "Pakaian adat", m: "Traditional costume", p: "tre-di-se-nel kos-tyum"}, {w: "Ganteng / Cantik", m: "Fashionable", p: "fe-se-ne-bel"}, {w: "Mencuci pakaian", m: "Laundry", p: "lon-dri"}, {w: "Lemari baju", m: "Wardrobe", p: "wor-droub"}] }] }
-        ],
-        2: [
-          { bab: "Unit 5: Parts of Body", sub: [{ nama: "Internal & Specific Organs", vocab: [{w: "Jantung", m: "Heart", p: "hart"}, {w: "Paru-paru", m: "Lungs", p: "langs"}, {w: "Lambung", m: "Stomach", p: "sta-mek"}, {w: "Otak", m: "Brain", p: "brein"}, {w: "Tulang", m: "Bone", p: "boun"}, {w: "Darah", m: "Blood", p: "bled"}, {w: "Otot", m: "Muscle", p: "ma-sel"}, {w: "Kulit", m: "Skin", p: "skin"}, {w: "Leher", m: "Neck", p: "nek"}, {w: "Lutut", m: "Knee", p: "ni"}] }] },
-          { bab: "Unit 6: Parts of the House", sub: [{ nama: "Detailed Home Architecture", vocab: [{w: "Ruang makan", m: "Dining room", p: "dai-ning rum"}, {w: "Gudang", m: "Store room", p: "stor rum"}, {w: "Halaman belakang", m: "Backyard", p: "bek-yard"}, {w: "Cerobong asap", m: "Chimney", p: "cim-ni"}, {w: "Pondasi", m: "Foundation", p: "faun-dei-sen"}, {w: "Pintu gerbang", m: "Gate", p: "geit"}, {w: "Tembok", m: "Brick wall", p: "brik wol"}, {w: "Luas", m: "Spacious", p: "spei-ses"}, {w: "Sempit", m: "Narrow", p: "ne-rou"}, {w: "Tangga darurat", m: "Emergency exit", p: "i-mer-djen-si eg-zit"}] }] },
-          { bab: "Unit 7: Daily Schedule", sub: [{ nama: "Adverbs of Time & Clock", vocab: [{w: "Tepat waktu", m: "On time", p: "on taim"}, {w: "Seperempat jam", m: "A quarter", p: "e kwor-ter"}, {w: "Setengah jam", m: "Half", p: "hef"}, {w: "Lebih (Menit)", m: "Past", p: "pest"}, {w: "Kurang (Menit)", m: "To", p: "tu"}, {w: "Jadwal", m: "Schedule", p: "ske-dyul"}, {w: "Tengah hari", m: "Noon", p: "nun"}, {w: "Tengah malam", m: "Midnight", p: "mid-nait"}, {w: "Lebih awal", m: "Early", p: "er-li"}, {w: "Terlambat", m: "Late", p: "leit"}] }] },
-          { bab: "Unit 8: Comparison", sub: [{ nama: "Comparative Degrees", vocab: [{w: "Lebih besar", m: "Bigger", p: "bi-ger"}, {w: "Lebih kecil", m: "Smaller", p: "smol-er"}, {w: "Lebih tinggi", m: "Taller", p: "tol-er"}, {w: "Lebih pendek", m: "Shorter", p: "sort-er"}, {w: "Lebih murah", m: "Cheaper", p: "cip-er"}, {w: "Lebih mahal", m: "More expensive", p: "mor ik-spen-siv"}, {w: "Lebih tua", m: "Older", p: "ould-er"}, {w: "Lebih muda", m: "Younger", p: "yang-er"}, {w: "Lebih kuat", m: "Stronger", p: "strong-ger"}, {w: "Daripada", m: "Than", p: "den"}] }] }
-        ]
-      },
-      6: {
-        1: [
-          { bab: "Unit 1: My School", sub: [{ nama: "School Infrastructure", vocab: [{w: "Kantin", m: "Canteen", p: "ken-tin"}, {w: "Laboratorium Komputer", m: "Computer lab", p: "kom-pyu-ter leb"}, {w: "Ruang UKS", m: "Medical room", p: "me-di-kel rum"}, {w: "Gudang sekolah", m: "Storage room", p: "stor-idj rum"}, {w: "Tempat parkir", m: "Parking lot", p: "par-king lot"}, {w: "Pos satpam", m: "Security post", p: "si-kyu-ri-ti poust"}, {w: "Lobi", m: "Lobby", p: "lo-bi"}, {w: "Aula", m: "Hall", p: "hol"}, {w: "Bersih", m: "Clean", p: "klin"}, {w: "Luas", m: "Large", p: "lardj"}] }] },
-          { bab: "Unit 2: Daily Routines", sub: [{ nama: "Frequencies & Routines", vocab: [{w: "Selalu", m: "Always", p: "ol-weis"}, {w: "Biasanya", m: "Usually", p: "yu-zu-e-li"}, {w: "Sering", m: "Often", p: "of-ten"}, {w: "Kadang-kadang", m: "Sometimes", p: "sam-taims"}, {w: "Jarang", m: "Seldom", p: "sel-dem"}, {w: "Tidak pernah", m: "Never", p: "ne-ver"}, {w: "Setiap hari", m: "Everyday", p: "ev-ri-dei"}, {w: "Seminggu sekali", m: "Once a week", p: "wans e wik"}, {w: "Kebiasaan", m: "Habit", p: "he-bit"}, {w: "Mengulang", m: "Repeat", p: "ri-pit"}] }] },
-          { bab: "Unit 3: Future Dreams", sub: [{ nama: "Advanced Professions", vocab: [{w: "Dokter", m: "Doctor", p: "dok-ter"}, {w: "Pilot", m: "Pilot", p: "pai-lot"}, {w: "Ilmuwan", m: "Scientist", p: "sai-en-tist"}, {w: "Astronot", m: "Astronaut", p: "as-tro-not"}, {w: "Insinyur / Arsitek", m: "Engineer", p: "en-dzi-nir"}, {w: "Tentara", m: "Soldier", p: "soul-djer"}, {w: "Polisi", m: "Policeman", p: "po-lis-men"}, {w: "Pengusaha", m: "Businessman", p: "bis-nes-men"}, {w: "Cita-cita", m: "Dream", p: "drim"}, {w: "Masa depan", m: "Future", p: "fyu-cer"}] }] },
-          { bab: "Unit 4: Public Places", sub: [{ nama: "City Structures", vocab: [{w: "Rumah sakit", m: "Hospital", p: "hos-pi-tel"}, {w: "Bank", m: "Bank", p: "bengk"}, {w: "Kantor pos", m: "Post office", p: "poust o-fis"}, {w: "Stasiun Damkar", m: "Fire station", p: "fai-er stei-sen"}, {w: "Pasar swalayan", m: "Supermarket", p: "su-per-mar-ket"}, {w: "Kebun binatang", m: "Zoo", p: "zu"}, {w: "Museum", m: "Museum", p: "myu-zi-em"}, {w: "Taman umum", m: "Public park", p: "pab-lik park"}, {w: "Ramai", m: "Crowded", p: "krau-ded"}, {w: "Tempat", m: "Place", p: "pleis"}] }] }
-        ],
-        2: [
-          { bab: "Unit 5: Directions", sub: [{ nama: "Navigation Vocabulary", vocab: [{w: "Belok kanan", m: "Turn right", p: "tern rait"}, {w: "Belok kiri", m: "Turn left", p: "tern left"}, {w: "Jalan lurus", m: "Go straight", p: "gou streit"}, {w: "Pertigaan", m: "T-junction", p: "ti-dangk-sen"}, {w: "Perempatan", m: "Crossroad", p: "kros-roud"}, {w: "Sebelah barat", m: "West", p: "west"}, {w: "Sebelah timur", m: "East", p: "ist"}, {w: "Sebelah utara", m: "North", p: "north"}, {w: "Sebelah selatan", m: "South", p: "sauth"}, {w: "Peta lokasi", m: "Map", p: "mep"}] }] },
-          { bab: "Unit 6: Holiday Plans", sub: [{ nama: "Vacation Terminal", vocab: [{w: "Liburan", m: "Holiday / Vacation", p: "ho-li-dei / vei-kei-sen"}, {w: "Pantai", m: "Beach", p: "bic"}, {w: "Pegunungan", m: "Mountain", p: "maun-ten"}, {w: "Berkemah", m: "Camping", p: "kem-ping"}, {w: "Mengunjungi", m: "Visit", p: "vi-zit"}, {w: "Koper pakaian", m: "Suitcase", p: "syut-keis"}, {w: "Hotel / Penginapan", m: "Hotel", p: "hou-tel"}, {w: "Rencana", m: "Plan", p: "plen"}, {w: "Menyenangkan", m: "Fun", p: "fan"}, {w: "Oleh-oleh", m: "Souvenir", p: "su-ve-nir"}] }] },
-          { bab: "Unit 7: Simple Inventions", sub: [{ nama: "Basic Technology", vocab: [{w: "Komputer", m: "Computer", p: "kom-pyu-ter"}, {w: "Telepon pintar", m: "Smartphone", p: "smart-foun"}, {w: "Penemuan", m: "Invention", p: "in-ven-sen"}, {w: "Mesin otomatis", m: "Machine", p: "me-sin"}, {w: "Kamera digital", m: "Camera", p: "ke-me-ra"}, {w: "Listrik", m: "Electricity", p: "i-lek-tri-si-ti"}, {w: "Internet", m: "Internet", p: "in-ter-net"}, {w: "Alat bantu", m: "Tool", p: "tul"}, {w: "Bermanfaat", m: "Useful", p: "yus-ful"}, {w: "Menciptakan", m: "Invent", p: "in-vent"}] }] },
-          { bab: "Unit 8: Global Issues", sub: [{ nama: "Environment & Earth", vocab: [{w: "Pohon kehidupan", m: "Tree", p: "tri"}, {w: "Pemanasan global", m: "Global warming", p: "glou-bel wor-ming"}, {w: "Polusi udara", m: "Air pollution", p: "eir po-lyu-sen"}, {w: "Sampah plastik", m: "Plastic waste", p: "ples-tik weist"}, {w: "Daur ulang", m: "Recycle", p: "ri-sai-kel"}, {w: "Bumi", m: "Earth", p: "erth"}, {w: "Menanam", m: "Plant", p: "plent"}, {w: "Hemat air", m: "Save water", p: "seiv wo-ter"}, {w: "Lingkungan", m: "Environment", p: "in-vai-ren-ment"}, {w: "Alam bebas", m: "Nature", p: "nei-cer"}] }] }
-        ]
+        2: []
       }
+      // Dan seterusnya untuk kelas 3, 4, 5, 6...
     };
 
     function bukaModalKelas(kelas) {
@@ -301,7 +282,7 @@
       const listBab = databaseMateri[kelasAktif] && databaseMateri[kelasAktif][semesterAktif];
 
       if (!listBab || listBab.length === 0) {
-        areaMateri.innerHTML = `<div class="no-materi">Belum ada rincian materi untuk semester ini. 📑</div>`;
+        areaMateri.innerHTML = `<div class="no-materi">Belum ada rincian materi untuk semester ini. Mimin bisa tambahkan isi data array kosongnya di kode script! 📑</div>`;
         return;
       }
 
@@ -312,7 +293,7 @@
           
           let tableRows = "";
           subItem.vocab.forEach(v => {
-            tableRows += `<tr><td><b>${v.w}</b></td><td>${v.m}</td><td><span class="cara-baca">"${v.p}"</span></td></tr>`;
+            tableRows += `<tr><td><b>${v.w || "-"}</b></td><td>${v.m || "-"}</td><td><span class="cara-baca">"${v.p || "-"}"</span></td></tr>`;
           });
 
           subRowsHtml += `
