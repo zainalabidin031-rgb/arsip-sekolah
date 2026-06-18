@@ -117,17 +117,28 @@
   </div>
 
   <script>
+   <script>
     let masterData = [];
 
     // Mengambil data dari Google Apps Script backend saat halaman dibuka
     document.addEventListener("DOMContentLoaded", function() {
-      google.script.run.withSuccessHandler(function(data) {
-        masterData = data;
-        isiOpsiFilter(data);
-        renderTabel(data);
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("tableWrapper").style.display = "block"; // Perbaikan di baris ini
-      }).getDataSiswa();
+      google.script.run
+        .withSuccessHandler(function(data) {
+          masterData = data;
+          if (data.length === 0) {
+            document.getElementById("loading").innerHTML = "<p class='text-danger fw-bold'>Data tidak ditemukan. Pastikan nama sheet di spreadsheet adalah 'results' (pake s) dan kolom Nama tidak kosong.</p>";
+            return;
+          }
+          isiOpsiFilter(data);
+          renderTabel(data);
+          document.getElementById("loading").style.display = "none";
+          document.getElementById("tableWrapper").style.display = "block"; // SUDAH DIPERBAIKI DI SINI
+        })
+        .withFailureHandler(function(error) {
+          // Jika sistem Google Apps Script error, peringatan ini akan muncul di layar Anda
+          document.getElementById("loading").innerHTML = "<p class='text-danger fw-bold'>Gagal memuat data dari Google Script: " + error.message + "</p>";
+        })
+        .getDataSiswa();
     });
 
     // Mengisi dropdown filter secara dinamis berdasarkan data unik di spreadsheet
@@ -196,5 +207,6 @@
       renderTabel(dataTerfilter);
     }
   </script>
+  
 </body>
 </html>
