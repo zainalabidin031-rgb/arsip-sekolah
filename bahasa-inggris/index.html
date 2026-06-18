@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Portal - SDN Butoh 1 Ngasem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg: #f0f7ff;
+      --text: #2c3e50;
+      --primary: #0288d1;
+      --dark: #01579b;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 50px; }
+
+    /* HEADER */
+    .hero {
+      background: linear-gradient(135deg, #0288d1, #01579b);
+      color: white;
+      text-align: center;
+      padding: 50px 20px;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 32px; margin-bottom: 10px; }
+    .hero p { font-size: 16px; opacity: 0.9; }
+
+    /* GRID KELAS */
+    .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+    .welcome-text { text-align: center; margin-bottom: 30px; font-family: 'Montserrat', sans-serif; font-size: 22px; color: var(--dark); }
+    
+    .grid-kelas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    /* KARTU KELAS */
+    .card-kelas {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      border-bottom: 8px solid #ccc;
+    }
+    .card-kelas:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+    }
+    .card-kelas i { font-size: 50px; margin-bottom: 15px; display: block; }
+    .card-kelas h3 { font-family: 'Montserrat', sans-serif; font-size: 24px; margin-bottom: 8px; }
+    .card-kelas p { color: #7f8c8d; font-size: 14px; }
+
+    /* TEMA WARNA CERIA ANAK SD */
+    .g1 { border-color: #ff7675; } .g1 i { color: #ff7675; }
+    .g2 { border-color: #74b9ff; } .g2 i { color: #74b9ff; }
+    .g3 { border-color: #55efc4; } .g3 i { color: #55efc4; }
+    .g4 { border-color: #fdcb6e; } .g4 i { color: #fdcb6e; }
+    .g5 { border-color: #a29bfe; } .g5 i { color: #a29bfe; }
+    .g6 { border-color: #fd79a8; } .g6 i { color: #fd79a8; }
+
+    /* POP-UP MODAL PANEL */
+    .modal {
+      display: none; position: fixed; z-index: 100; left: 0; top: 0;
+      width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-content {
+      background-color: white; padding: 25px; border-radius: 16px;
+      max-width: 600px; width: 100%; max-height: 85vh; overflow-y: auto;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2); animation: pop 0.3s ease;
+    }
+    @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #f0f4f8; padding-bottom: 10px; }
+    .modal-header h2 { font-family: 'Montserrat', sans-serif; color: var(--dark); font-size: 22px; }
+    .close-btn { background: none; border: none; font-size: 24px; color: #94a3b8; cursor: pointer; }
+    .close-btn:hover { color: #ff7675; }
+
+    /* SELEKSI SEMESTER */
+    .semester-group { display: flex; gap: 10px; margin-bottom: 20px; }
+    .sem-btn { flex: 1; padding: 10px; border: 2px solid #cbd5e1; background: white; border-radius: 8px; font-weight: bold; cursor: pointer; color: #64748b; }
+    .sem-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+    /* AKORDION MATERI / UNIT */
+    .unit-box { border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+    .unit-header { background: #f8fafc; padding: 12px 15px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 15px; }
+    .unit-header:hover { background: #f1f5f9; }
+    .unit-content { display: none; padding: 15px; background: white; border-top: 1px solid #e2e8f0; }
+    
+    /* SUB BAB LIST */
+    .sub-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .sub-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #f0f7ff; border-radius: 6px; font-size: 14px; font-weight: 600; }
+    .btn-cbt { background: #2e7d32; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; text-decoration: none; }
+    .btn-cbt:hover { background: #1b5e20; }
+    
+    .no-materi { text-align: center; color: #94a3b8; padding: 20px 0; font-style: italic; }
+  </style>
+</head>
+<body>
+
+  <!-- BANNER PORTAL -->
+  <div class="hero">
+    <h1><i class="fa-solid fa-graduation-cap"></i> English Learning Zone</h1>
+    <p>SDN Butoh 1 Ngasem — Fun, Active, and Creative!</p>
+  </div>
+
+  <!-- CONTAINER UTAMA -->
+  <div class="container">
+    <h2 class="welcome-text">Hi Students! Choose Your Class Below 👇</h2>
+    
+    <div class="grid-kelas">
+      <!-- GRADE 1 -->
+      <div class="card-kelas g1" onclick="bukaModalKelas(1)">
+        <i class="fa-solid fa-child-reaching"></i>
+        <h3>Grade 1</h3>
+        <p>Alphabet, Numbers, and Greeting</p>
+      </div>
+      <!-- GRADE 2 -->
+      <div class="card-kelas g2" onclick="bukaModalKelas(2)">
+        <i class="fa-solid fa-icons"></i>
+        <h3>Grade 2</h3>
+        <p>Animals, Colors, and My Family</p>
+      </div>
+      <!-- GRADE 3 -->
+      <div class="card-kelas g3" onclick="bukaModalKelas(3)">
+        <i class="fa-solid fa-apple-whole"></i>
+        <h3>Grade 3</h3>
+        <p>Fruits, Vegetables, and My House</p>
+      </div>
+      <!-- GRADE 4 -->
+      <div class="card-kelas g4" onclick="bukaModalKelas(4)">
+        <i class="fa-solid fa-bicycle"></i>
+        <h3>Grade 4</h3>
+        <p>Hobbies and Daily Activities</p>
+      </div>
+      <!-- GRADE 5 -->
+      <div class="card-kelas g5" onclick="bukaModalKelas(5)">
+        <i class="fa-solid fa-cloud-sun-rain"></i>
+        <h3>Grade 5</h3>
+        <p>Food, Drinks, Prices, and Clothes</p>
+      </div>
+      <!-- GRADE 6 -->
+      <div class="card-kelas g6" onclick="bukaModalKelas(6)">
+        <i class="fa-solid fa-rocket"></i>
+        <h3>Grade 6</h3>
+        <p>Direction, Holidays, and Simple Tense</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- JENDELA POP-UP (MODAL) MATERI -->
+  <div class="modal" id="modalMateri">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="judulModal">Grade X Material</h2>
+        <button class="close-btn" onclick="tutupModal()">&times;</button>
+      </div>
+      
+      <!-- Pilihan Semester -->
+      <div class="semester-group">
+        <button class="sem-btn active" id="btnSem1" onclick="gantiSemester(1)">Semester 1</button>
+        <button class="sem-btn" id="btnSem2" onclick="gantiSemester(2)">Semester 2</button>
+      </div>
+
+      <!-- Area Tampilan Daftar Unit / Bab -->
+      <div id="areaDaftarMateri"></div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // PASTI-KAN ALAMAT DI BAWAH INI SESUAI DENGAN LINK WEB APP CBT GITHUB ANDA
+    // =========================================================================
+    const LINK_WEB_APP_CBT = "MASUKKAN_URL_GITHUB_PAGES_CBT_ANDA_DI_SINI";
+
+    let kelasAktif = 5;
+    let semesterAktif = 1;
+
+    // DATABASE MATERI LENGKAP (Kombinasi data asli Kelas 5 dan Template Kelas lain)
+    const databaseMateri = {
+      // Data Asli Kelas 5 Hasil Ekstraksi Gambar image_9d982c.png
+      5: {
+        1: [
+          {
+            bab: "Unit 1: What Delicious Bakso!",
+            sub: ["Food and Drinks", "Tastes of Food", "Ingredients of Bakso", "My Favorite Food", "Describing Food", "Healthy and Unhealthy Food"]
+          },
+          {
+            bab: "Unit 2: I Want an Ice Cream Cone",
+            sub: ["Food and Drink Quantities", "Containers and Packaging", "Ordering Food and Drinks", "At the Canteen", "Expressing Wants and Needs", "Daily Food Consumption"]
+          },
+          {
+            bab: "Unit 3: How Much Is It?",
+            sub: ["Money and Prices", "Numbers and Currency", "Shopping Conversations", "Buying and Selling", "Asking About Prices", "Simple Transactions"]
+          },
+          {
+            bab: "Unit 4: I've Got a Stomachache",
+            sub: ["Parts of the Body", "Common Illnesses", "Health Problems", "Visiting the Doctor", "Giving Health Advice", "Healthy Habits"]
+          },
+          {
+            bab: "Unit 5: What a Nice Skirt!",
+            sub: ["Clothes and Accessories", "Colors and Patterns", "Describing Appearance", "Giving Compliments", "School Uniforms", "My Favorite Clothes"]
+          }
+        ],
+        2: [
+          { bab: "Unit 6: [Materi Belum Diisi]", sub: ["Sub-Bab Contoh A", "Sub-Bab Contoh B"] }
+        ]
+      },
+      
+      // Kerangka Template Kelas 1-4 & 6 (Bisa Anda ganti nanti teksnya)
+      1: { 1: [{ bab: "Unit 1: Alphabet & Greetings", sub: ["The Alphabet", "Saying Hello"] }], 2: [] },
+      2: { 1: [{ bab: "Unit 1: Colors around Us", sub: ["Primary Colors", "My Colorful Bag"] }], 2: [] },
+      3: { 1: [{ bab: "Unit 1: My Fruits", sub: ["Sweet Fruits", "At the Market"] }], 2: [] },
+      4: { 1: [{ bab: "Unit 1: Introduction", sub: ["Self Introduction", "My Friends"] }], 2: [] },
+      6: { 1: [{ bab: "Unit 1: Directions", sub: ["Turn Right & Left", "Maps"] }], 2: [] }
+    };
+
+    function bukaModalKelas(kelas) {
+      kelasAktif = kelas;
+      semesterAktif = 1; // reset default ke sem 1 tiap buka kelas baru
+      document.getElementById("judulModal").innerText = `Grade ${kelas} English Lessons`;
+      document.getElementById("modalMateri").style.display = "flex";
+      renderMateri();
+    }
+
+    function tutupModal() {
+      document.getElementById("modalMateri").style.display = "none";
+    }
+
+    function gantiSemester(sem) {
+      semesterAktif = sem;
+      document.getElementById("btnSem1").classList.toggle("active", sem === 1);
+      document.getElementById("btnSem2").classList.toggle("active", sem === 2);
+      renderMateri();
+    }
+
+    function renderMateri() {
+      const areaMateri = document.getElementById("areaDaftarMateri");
+      areaMateri.innerHTML = "";
+      
+      const listBab = databaseMateri[kelasAktif] && databaseMateri[kelasAktif][semesterAktif];
+
+      if (!listBab || listBab.length === 0) {
+        areaMateri.innerHTML = `<div class="no-materi">Belum ada data materi untuk Semester ini. 📑</div>`;
+        return;
+      }
+
+      listBab.forEach((item, index) => {
+        let subItemsHtml = "";
+        item.sub.forEach(subBab => {
+          // Membuat link otomatis menuju web CBT dinamis dengan mengirimkan parameter via URL
+          const linkUjian = `${LINK_WEB_APP_CBT}?kelas=${kelasAktif}&semester=${semesterAktif}&bab=${encodeURIComponent(item.bab)}&subBab=${encodeURIComponent(subBab)}`;
+          
+          subItemsHtml += `
+            <div class="sub-item">
+              <span>📌 ${subBab}</span>
+              <a href="${linkUjian}" target="_blank" class="btn-cbt"><i class="fa-solid fa-play"></i> Mulai Ujian</a>
+            </div>`;
+        });
+
+        areaMateri.innerHTML += `
+          <div class="unit-box">
+            <div class="unit-header" onclick="toggleAkordion(${index})">
+              <span>${item.bab}</span>
+              <i class="fa-solid fa-chevron-down" id="icon-${index}"></i>
+            </div>
+            <div class="unit-content" id="content-${index}">
+              <div class="sub-list">${subItemsHtml}</div>
+            </div>
+          </div>`;
+      });
+    }
+
+    function toggleAkordion(index) {
+      const content = document.getElementById(`content-${index}`);
+      const icon = document.getElementById(`icon-${index}`);
+      
+      if (content.style.display === "block") {
+        content.style.display = "none";
+        icon.className = "fa-solid fa-chevron-down";
+      } else {
+        content.style.display = "block";
+        icon.className = "fa-solid fa-chevron-up";
+      }
+    }
+
+    // Menutup modal jika siswa mengklik area luar kotak modal
+    window.onclick = function(event) {
+      const modal = document.getElementById("modalMateri");
+      if (event.target == modal) modal.style.display = "none";
+    }
+  </script>
+</body>
+</html>
