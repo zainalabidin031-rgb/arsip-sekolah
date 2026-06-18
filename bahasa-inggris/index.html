@@ -141,13 +141,11 @@
 </head>
 <body>
 
-  <!-- BANNER PORTAL MATCHING WEBSITE UTAMA -->
   <div class="hero">
     <h1><i class="fa-solid fa-graduation-cap" style="margin-right: 8px;"></i> English Learning Zone</h1>
     <p>Portal Pembelajaran Digital Efektif — SDN Butoh 1 Ngasem</p>
   </div>
 
-  <!-- CONTAINER DASHBOARD -->
   <div class="container">
     <h2 class="welcome-text">Hi Students! Choose Your Class Below 👇</h2>
     <div class="grid-kelas">
@@ -160,7 +158,6 @@
     </div>
   </div>
 
-  <!-- POP-UP MODAL MATERI & VOCABULARY -->
   <div class="modal" id="modalMateri">
     <div class="modal-content">
       <div class="modal-header">
@@ -181,248 +178,105 @@
     let kelasAktif = 5;
     let semesterAktif = 1;
 
-    // MASTER DATABASE MATERI (Unit 1 s.d 5 Kelas 5 Terisi Lengkap Otomatis)
+    // MASTER DATABASE MATERI (Unit 1 s.d 8 Kelas 5 Terisi Lengkap Otomatis)
     const databaseMateri = {
       5: {
+        // SEMESTER 1
         1: [
           {
             bab: "Unit 1: What Delicious Bakso!",
             sub: [
-              {
-                nama: "Food and Drinks",
-                vocab: [
-                  {w: "Bakso", m: "Meatball", p: "mit-bol"}, {w: "Mie", m: "Noodles", p: "nu-delz"},
-                  {w: "Es Teh", m: "Iced Tea", p: "ais ti"}, {w: "Jus", m: "Juice", p: "jus"}
-                ]
-              },
-              {
-                nama: "Tastes of Food",
-                vocab: [
-                  {w: "Manis", m: "Sweet", p: "swit"}, {w: "Asin", m: "Salty", p: "sol-ti"},
-                  {w: "Pahit", m: "Bitter", p: "bi-ter"}, {w: "Pedas", m: "Spicy", p: "spai-si"}
-                ]
-              },
-              {
-                nama: "Ingredients of Bakso",
-                vocab: [
-                  {w: "Daging", m: "Meat", p: "mit"}, {w: "Tepung", m: "Flour", p: "flau-er"},
-                  {w: "Bawang", m: "Garlic", p: "gar-lik"}, {w: "Garam", m: "Salt", p: "solt"}
-                ]
-              },
-              {
-                nama: "My Favorite Food",
-                vocab: [
-                  {w: "Favorit", m: "Favorite", p: "fei-ve-rit"}, {w: "Suka", m: "Like", p: "laik"},
-                  {w: "Makanan", m: "Food", p: "fud"}, {w: "Lezat", m: "Delicious", p: "di-li-syas"}
-                ]
-              },
-              {
-                nama: "Describing Food",
-                vocab: [
-                  {w: "Panas", m: "Hot", p: "hot"}, {w: "Dingin", m: "Cold", p: "kold"},
-                  {w: "Segar", m: "Fresh", p: "fres"}, {w: "Berminyak", m: "Oily", p: "oi-li"}
-                ]
-              },
-              {
-                nama: "Healthy and Unhealthy Food",
-                vocab: [
-                  {w: "Sehat", m: "Healthy", p: "hel-ti"}, {w: "Kurang Sehat", m: "Unhealthy", p: "an-hel-ti"},
-                  {w: "Sayur", m: "Vegetables", p: "vedj-te-belz"}, {w: "Permen", m: "Candy", p: "ken-di"}
-                ]
-              }
+              { nama: "Food and Drinks", vocab: [{w: "Bakso", m: "Meatball", p: "mit-bol"}, {w: "Mie", m: "Noodles", p: "nu-delz"}, {w: "Es Teh", m: "Iced Tea", p: "ais ti"}, {w: "Jus", m: "Juice", p: "jus"}] },
+              { nama: "Tastes of Food", vocab: [{w: "Manis", m: "Sweet", p: "swit"}, {w: "Asin", m: "Salty", p: "sol-ti"}, {w: "Pahit", m: "Bitter", p: "bi-ter"}, {w: "Pedas", m: "Spicy", p: "spai-si"}] },
+              { nama: "Ingredients of Bakso", vocab: [{w: "Daging", m: "Meat", p: "mit"}, {w: "Tepung", m: "Flour", p: "flau-er"}, {w: "Bawang", m: "Garlic", p: "gar-lik"}, {w: "Garam", m: "Salt", p: "solt"}] },
+              { nama: "My Favorite Food", vocab: [{w: "Favorit", m: "Favorite", p: "fei-ve-rit"}, {w: "Suka", m: "Like", p: "laik"}, {w: "Makanan", m: "Food", p: "fud"}, {w: "Lezat", m: "Delicious", p: "di-li-syas"}] },
+              { nama: "Describing Food", vocab: [{w: "Panas", m: "Hot", p: "hot"}, {w: "Dingin", m: "Cold", p: "kold"}, {w: "Segar", m: "Fresh", p: "fres"}, {w: "Berminyak", m: "Oily", p: "oi-li"}] },
+              { nama: "Healthy and Unhealthy Food", vocab: [{w: "Sehat", m: "Healthy", p: "hel-ti"}, {w: "Kurang Sehat", m: "Unhealthy", p: "an-hel-ti"}, {w: "Sayur", m: "Vegetables", p: "vedj-te-belz"}, {w: "Permen", m: "Candy", p: "ken-di"}] }
             ]
           },
           {
             bab: "Unit 2: I Want an Ice Cream Cone",
             sub: [
-              {
-                nama: "Food and Drink Quantities",
-                vocab: [
-                  {w: "Sepotong", m: "A piece of", p: "e pis of"}, {w: "Semangkok", m: "A bowl of", p: "e boul of"},
-                  {w: "Segelas", m: "A glass of", p: "e gles of"}, {w: "Sebotol", m: "A bottle of", p: "e bo-tel of"}
-                ]
-              },
-              {
-                nama: "Containers and Packaging",
-                vocab: [
-                  {w: "Kotak", m: "Box", p: "boks"}, {w: "Kaleng", m: "Can", p: "ken"},
-                  {w: "Bungkus", m: "Pack", p: "pek"}, {w: "Kantong", m: "Bag", p: "beg"}
-                ]
-              },
-              {
-                nama: "Ordering Food and Drinks",
-                vocab: [
-                  {w: "Memesan", m: "Order", p: "or-der"}, {w: "Saya ingin", m: "I want", p: "ai wont"},
-                  {w: "Tolong", m: "Please", p: "plis"}, {w: "Menu", m: "Menu", p: "me-nyu"}
-                ]
-              },
-              {
-                nama: "At the Canteen",
-                vocab: [
-                  {w: "Kantin", m: "Canteen", p: "ken-tin"}, {w: "Penjual", m: "Seller", p: "se-ler"},
-                  {w: "Membeli", m: "Buy", p: "bai"}, {w: "Antre", m: "Queue", p: "kyu"}
-                ]
-              },
-              {
-                nama: "Expressing Wants and Needs",
-                vocab: [
-                  {w: "Ingin", m: "Want", p: "wont"}, {w: "Butuh", m: "Need", p: "nid"},
-                  {w: "Lapar", m: "Hungry", p: "hang-gri"}, {w: "Haus", m: "Thirsty", p: "ters-ti"}
-                ]
-              },
-              {
-                nama: "Daily Food Consumption",
-                vocab: [
-                  {w: "Sarapan", m: "Breakfast", p: "brek-fest"}, {w: "Makan Siang", m: "Lunch", p: "lanch"},
-                  {w: "Makan Malam", m: "Dinner", p: "di-ner"}, {w: "Setiap hari", m: "Every day", p: "ev-ri dei"}
-                ]
-              }
+              { nama: "Food and Drink Quantities", vocab: [{w: "Sepotong", m: "A piece of", p: "e pis of"}, {w: "Semangkok", m: "A bowl of", p: "e boul of"}, {w: "Segelas", m: "A glass of", p: "e gles of"}, {w: "Sebotol", m: "A bottle of", p: "e bo-tel of"}] },
+              { nama: "Containers and Packaging", vocab: [{w: "Kotak", m: "Box", p: "boks"}, {w: "Kaleng", m: "Can", p: "ken"}, {w: "Bungkus", m: "Pack", p: "pek"}, {w: "Kantong", m: "Bag", p: "beg"}] },
+              { nama: "Ordering Food and Drinks", vocab: [{w: "Memesan", m: "Order", p: "or-der"}, {w: "Saya ingin", m: "I want", p: "ai wont"}, {w: "Tolong", m: "Please", p: "plis"}, {w: "Menu", m: "Menu", p: "me-nyu"}] },
+              { nama: "At the Canteen", vocab: [{w: "Kantin", m: "Canteen", p: "ken-tin"}, {w: "Penjual", m: "Seller", p: "se-ler"}, {w: "Membeli", m: "Buy", p: "bai"}, {w: "Antre", m: "Queue", p: "kyu"}] },
+              { nama: "Expressing Wants and Needs", vocab: [{w: "Ingin", m: "Want", p: "wont"}, {w: "Butuh", m: "Need", p: "nid"}, {w: "Lapar", m: "Hungry", p: "hang-gri"}, {w: "Haus", m: "Thirsty", p: "ters-ti"}] },
+              { nama: "Daily Food Consumption", vocab: [{w: "Sarapan", m: "Breakfast", p: "brek-fest"}, {w: "Makan Siang", m: "Lunch", p: "lanch"}, {w: "Makan Malam", m: "Dinner", p: "di-ner"}, {w: "Setiap hari", m: "Every day", p: "ev-ri dei"}] }
             ]
           },
           {
             bab: "Unit 3: How Much Is It?",
             sub: [
-              {
-                nama: "Money and Prices",
-                vocab: [
-                  {w: "Uang", m: "Money", p: "ma-ni"}, {w: "Harga", m: "Price", p: "prais"},
-                  {w: "Berapa harga", m: "How much", p: "hau mach"}, {w: "Rupiah", m: "Rupiah", p: "ru-pi-ah"}
-                ]
-              },
-              {
-                nama: "Numbers and Currency",
-                vocab: [
-                  {w: "Ribu", m: "Thousand", p: "thau-zend"}, {w: "Ratus", m: "Hundred", p: "han-dred"},
-                  {w: "Puluh", m: "Ten", p: "ten"}, {w: "Juta", m: "Million", p: "mil-yan"}
-                ]
-              },
-              {
-                nama: "Shopping Conversations",
-                vocab: [
-                  {w: "Belanja", m: "Shopping", p: "so-ping"}, {w: "Beli", m: "Buy", p: "bai"},
-                  {w: "Kembalian", m: "Change", p: "ceindj"}, {w: "Kantong plastik", m: "Plastic bag", p: "ples-tik beg"}
-                ]
-              },
-              {
-                nama: "Buying and Selling",
-                vocab: [
-                  {w: "Membeli", m: "Buy", p: "bai"}, {w: "Menjual", m: "Sell", p: "sel"},
-                  {w: "Pembeli", m: "Buyer", p: "bai-er"}, {w: "Toko", m: "Shop", p: "sop"}
-                ]
-              },
-              {
-                nama: "Asking About Prices",
-                vocab: [
-                  {w: "Mahal", m: "Expensive", p: "ik-spen-siv"}, {w: "Murah", m: "Cheap", p: "cip"},
-                  {w: "Total", m: "Total", p: "tou-tel"}, {w: "Bayar", m: "Pay", p: "pei"}
-                ]
-              },
-              {
-                nama: "Simple Transactions",
-                vocab: [
-                  {w: "Uang tunai", m: "Cash", p: "kes"}, {w: "Nota", m: "Receipt", p: "ri-sit"},
-                  {w: "Ini dia", m: "Here it is", p: "hi-er it is"}, {w: "Terima kasih", m: "Thank you", p: "theng kyu"}
-                ]
-              }
+              { nama: "Money and Prices", vocab: [{w: "Uang", m: "Money", p: "ma-ni"}, {w: "Harga", m: "Price", p: "prais"}, {w: "Berapa harga", m: "How much", p: "hau mach"}, {w: "Rupiah", m: "Rupiah", p: "ru-pi-ah"}] },
+              { nama: "Numbers and Currency", vocab: [{w: "Ribu", m: "Thousand", p: "thau-zend"}, {w: "Ratus", m: "Hundred", p: "han-dred"}, {w: "Puluh", m: "Ten", p: "ten"}, {w: "Juta", m: "Million", p: "mil-yan"}] },
+              { nama: "Shopping Conversations", vocab: [{w: "Belanja", m: "Shopping", p: "so-ping"}, {w: "Beli", m: "Buy", p: "bai"}, {w: "Kembalian", m: "Change", p: "ceindj"}, {w: "Kantong plastik", m: "Plastic bag", p: "ples-tik beg"}] },
+              { nama: "Buying and Selling", vocab: [{w: "Membeli", m: "Buy", p: "bai"}, {w: "Menjual", m: "Sell", p: "sel"}, {w: "Pembeli", m: "Buyer", p: "bai-er"}, {w: "Toko", m: "Shop", p: "sop"}] },
+              { nama: "Asking About Prices", vocab: [{w: "Mahal", m: "Expensive", p: "ik-spen-siv"}, {w: "Murah", m: "Cheap", p: "cip"}, {w: "Total", m: "Total", p: "tou-tel"}, {w: "Bayar", m: "Pay", p: "pei"}] },
+              { nama: "Simple Transactions", vocab: [{w: "Uang tunai", m: "Cash", p: "kes"}, {w: "Nota", m: "Receipt", p: "ri-sit"}, {w: "Ini dia", m: "Here it is", p: "hi-er it is"}, {w: "Terima kasih", m: "Thank you", p: "theng kyu"}] }
             ]
           },
           {
             bab: "Unit 4: I've Got a Stomachache",
             sub: [
-              {
-                nama: "Parts of the Body",
-                vocab: [
-                  {w: "Kepala", m: "Head", p: "hed"}, {w: "Perut", m: "Stomach", p: "sto-mak"},
-                  {w: "Gigi", m: "Tooth", p: "tuth"}, {w: "Telinga", m: "Ear", p: "ier"}
-                ]
-              },
-              {
-                nama: "Common Illnesses",
-                vocab: [
-                  {w: "Sakit Perut", m: "Stomachache", p: "sto-mak-eik"}, {w: "Sakit Kepala", m: "Headache", p: "hed-eik"},
-                  {w: "Sakit Gigi", m: "Toothache", p: "tuth-eik"}, {w: "Batuk", m: "Cough", p: "kof"}
-                ]
-              },
-              {
-                nama: "Health Problems",
-                vocab: [
-                  {w: "Sakit", m: "Sick", p: "sik"}, {w: "Demam", m: "Fever", p: "fi-ver"},
-                  {w: "Flu", m: "Flu", p: "flu"}, {w: "Terluka", m: "Hurt", p: "hert"}
-                ]
-              },
-              {
-                nama: "Visiting the Doctor",
-                vocab: [
-                  {w: "Dokter", m: "Doctor", p: "dok-ter"}, {w: "Rumah Sakit", m: "Hospital", p: "hos-pi-tel"},
-                  {w: "Obat", m: "Medicine", p: "me-di-sin"}, {w: "Periksa", m: "Check", p: "cek"}
-                ]
-              },
-              {
-                nama: "Giving Health Advice",
-                vocab: [
-                  {w: "Harus", m: "Should", p: "sud"}, {w: "Istirahat", m: "Rest", p: "rest"},
-                  {w: "Minum air", m: "Drink water", p: "dringk wa-ter"}, {w: "Jangan", m: "Don't", p: "dont"}
-                ]
-              },
-              {
-                nama: "Healthy Habits",
-                vocab: [
-                  {w: "Cuci tangan", m: "Wash hands", p: "wos hendz"}, {w: "Olahraga", m: "Exercise", p: "ek-ser-sais"},
-                  {w: "Tidur awal", m: "Sleep early", p: "slip er-li"}, {w: "Bersih", m: "Clean", p: "klin"}
-                ]
-              }
+              { nama: "Parts of the Body", vocab: [{w: "Kepala", m: "Head", p: "hed"}, {w: "Perut", m: "Stomach", p: "sto-mak"}, {w: "Gigi", m: "Tooth", p: "tuth"}, {w: "Telinga", m: "Ear", p: "ier"}] },
+              { nama: "Common Illnesses", vocab: [{w: "Sakit Perut", m: "Stomachache", p: "sto-mak-eik"}, {w: "Sakit Kepala", m: "Headache", p: "hed-eik"}, {w: "Sakit Gigi", m: "Toothache", p: "tuth-eik"}, {w: "Batuk", m: "Cough", p: "kof"}] },
+              { nama: "Health Problems", vocab: [{w: "Sakit", m: "Sick", p: "sik"}, {w: "Demam", m: "Fever", p: "fi-ver"}, {w: "Flu", m: "Flu", p: "flu"}, {w: "Terluka", m: "Hurt", p: "hert"}] },
+              { nama: "Visiting the Doctor", vocab: [{w: "Dokter", m: "Doctor", p: "dok-ter"}, {w: "Rumah Sakit", m: "Hospital", p: "hos-pi-tel"}, {w: "Obat", m: "Medicine", p: "me-di-sin"}, {w: "Periksa", m: "Check", p: "cek"}] },
+              { nama: "Giving Health Advice", vocab: [{w: "Harus", m: "Should", p: "sud"}, {w: "Istirahat", m: "Rest", p: "rest"}, {w: "Minum air", m: "Drink water", p: "dringk wa-ter"}, {w: "Jangan", m: "Don't", p: "dont"}] },
+              { nama: "Healthy Habits", vocab: [{w: "Cuci tangan", m: "Wash hands", p: "wos hendz"}, {w: "Olahraga", m: "Exercise", p: "ek-ser-sais"}, {w: "Tidur awal", m: "Sleep early", p: "slip er-li"}, {w: "Bersih", m: "Clean", p: "klin"}] }
             ]
           },
           {
             bab: "Unit 5: What a Nice Skirt!",
             sub: [
-              {
-                nama: "Clothes and Accessories",
-                vocab: [
-                  {w: "Rok", m: "Skirt", p: "skert"}, {w: "Kemeja", m: "Shirt", p: "syert"},
-                  {w: "Celana", m: "Pants", p: "pents"}, {w: "Topi", m: "Hat", p: "het"}
-                ]
-              },
-              {
-                nama: "Colors and Patterns",
-                vocab: [
-                  {w: "Merah", m: "Red", p: "red"}, {w: "Biru", m: "Blue", p: "blu"},
-                  {w: "Bergaris", m: "Striped", p: "straipt"}, {w: "Kotak-kotak", m: "Checked", p: "cekt"}
-                ]
-              },
-              {
-                nama: "Describing Appearance",
-                vocab: [
-                  {w: "Bagus/Rapi", m: "Nice", p: "nais"}, {w: "Cantik", m: "Beautiful", p: "byu-ti-ful"},
-                  {w: "Tampan", m: "Handsome", p: "hen-sam"}, {w: "Baru", m: "New", p: "nyu"}
-                ]
-              },
-              {
-                nama: "Giving Compliments",
-                vocab: [
-                  {w: "Keren sekali!", m: "How cool!", p: "hau kul"}, {w: "Sangat rapi", m: "Very neat", p: "ve-ri nit"},
-                  {w: "Saya suka", m: "I like it", p: "ai laik it"}, {w: "Cocok", m: "Fits well", p: "fits wel"}
-                ]
-              },
-              {
-                nama: "School Uniforms",
-                vocab: [
-                  {w: "Seragam", m: "Uniform", p: "yu-ni-form"}, {w: "Dasi", m: "Tie", p: "tai"},
-                  {w: "Sepatu", m: "Shoes", p: "syuz"}, {w: "Kaos kaki", m: "Socks", p: "soks"}
-                ]
-              },
-              {
-                nama: "My Favorite Clothes",
-                vocab: [
-                  {w: "Memakai", m: "Wear", p: "wier"}, {w: "Jaket", m: "Jacket", p: "dje-kit"},
-                  {w: "Nyaman", m: "Comfortable", p: "kam-fe-te-bel"}, {w: "Kaos", m: "T-shirt", p: "ti syert"}
-                ]
-              }
+              { nama: "Clothes and Accessories", vocab: [{w: "Rok", m: "Skirt", p: "skert"}, {w: "Kemeja", m: "Shirt", p: "syert"}, {w: "Celana", m: "Pants", p: "pents"}, {w: "Topi", m: "Hat", p: "het"}] },
+              { nama: "Colors and Patterns", vocab: [{w: "Merah", m: "Red", p: "red"}, {w: "Biru", m: "Blue", p: "blu"}, {w: "Bergaris", m: "Striped", p: "straipt"}, {w: "Kotak-kotak", m: "Checked", p: "cekt"}] },
+              { nama: "Describing Appearance", vocab: [{w: "Bagus/Rapi", m: "Nice", p: "nais"}, {w: "Cantik", m: "Beautiful", p: "byu-ti-ful"}, {w: "Tampan", m: "Handsome", p: "hen-sam"}, {w: "Baru", m: "New", p: "nyu"}] },
+              { nama: "Giving Compliments", vocab: [{w: "Keren sekali!", m: "How cool!", p: "hau kul"}, {w: "Sangat rapi", m: "Very neat", p: "ve-ri nit"}, {w: "Saya suka", m: "I like it", p: "ai laik it"}, {w: "Cocok", m: "Fits well", p: "fits wel"}] },
+              { nama: "School Uniforms", vocab: [{w: "Seragam", m: "Uniform", p: "yu-ni-form"}, {w: "Dasi", m: "Tie", p: "tai"}, {w: "Sepatu", m: "Shoes", p: "syuz"}, {w: "Kaos kaki", m: "Socks", p: "soks"}] },
+              { nama: "My Favorite Clothes", vocab: [{w: "Memakai", m: "Wear", p: "wier"}, {w: "Jaket", m: "Jacket", p: "dje-kit"}, {w: "Nyaman", m: "Comfortable", p: "kam-fe-te-bel"}, {w: "Kaos", m: "T-shirt", p: "ti syert"}] }
             ]
           }
         ],
-        2: []
+        // SEMESTER 2 (BARU HASIL EKSTRAKSI DARI FOTO!)
+        2: [
+          {
+            bab: "Unit 6: I Can Make It Myself!",
+            sub: [
+              { nama: "Daily Activities", vocab: [{w: "Bangun tidur", m: "Wake up", p: "weik ap"}, {w: "Mandi", m: "Take a bath", p: "teik e bet"}, {w: "Belajar", m: "Study", p: "sta-di"}, {w: "Bermain", m: "Play", p: "plei"}] },
+              { nama: "Household Chores", vocab: [{w: "Menyapu", m: "Sweep", p: "swip"}, {w: "Mengepel", m: "Mop", p: "mop"}, {w: "Mencuci", m: "Wash", p: "wos"}, {w: "Merapikan", m: "Tidy up", p: "tai-di ap"}] },
+              { nama: "Following Instructions", vocab: [{w: "Dengarkan", m: "Listen", p: "li-sen"}, {w: "Ikuti", m: "Follow", p: "fo-lou"}, {w: "Lakukan", m: "Do it", p: "du it"}, {w: "Paham", m: "Understand", p: "an-der-stend"}] },
+              { nama: "Making Simple Things", vocab: [{w: "Membuat", m: "Make", p: "meik"}, {w: "Memotong", m: "Cut", p: "kat"}, {w: "Mencampur", m: "Mix", p: "miks"}, {w: "Menuangkan", m: "Pour", p: "por"}] },
+              { nama: "Sequencing Actions", vocab: [{w: "Pertama", m: "First", p: "ferst"}, {w: "Kemudian", m: "Then", p: "den"}, {w: "Lalu", m: "Next", p: "neks"}, {w: "Terakhir", m: "Finally", p: "fai-ne-li"}] },
+              { nama: "Being Independent", vocab: [{w: "Mandiri", m: "Independent", p: "in-di-pen-dent"}, {w: "Sendiri", m: "Myself", p: "mai-self"}, {w: "Bisa", m: "Can", p: "ken"}, {w: "Mencoba", m: "Try", p: "trai"}] }
+            ]
+          },
+          {
+            bab: "Unit 7: We Had a Great Holiday",
+            sub: [
+              { nama: "Holiday Activities", vocab: [{w: "Liburan", m: "Holiday", p: "ho-li-dei"}, {w: "Berenang", m: "Swimming", p: "swi-ming"}, {w: "Berkemah", m: "Camping", p: "kem-ping"}, {w: "Santai", m: "Relax", p: "ri-leks"}] },
+              { nama: "Places to Visit", vocab: [{w: "Pantai", m: "Beach", p: "bici"}, {w: "Gunung", m: "Mountain", p: "maun-ten"}, {w: "Museum", m: "Museum", p: "myu-zi-am"}, {w: "Kebun Binatang", m: "Zoo", p: "zu"}] },
+              { nama: "Past Experiences", vocab: [{w: "Seru", m: "Exciting", p: "ik-sai-ting"}, {w: "Menyenangkan", m: "Fun", p: "fan"}, {w: "Bagus", m: "Great", p: "greit"}, {w: "Indah", m: "Beautiful", p: "byu-ti-ful"}] },
+              { nama: "Travel and Transportation", vocab: [{w: "Kereta", m: "Train", p: "trein"}, {w: "Mobil", m: "Car", p: "kar"}, {w: "Pesawat", m: "Plane", p: "plein"}, {w: "Bus", m: "Bus", p: "bas"}] },
+              { nama: "Telling Holiday Stories", vocab: [{w: "Bercerita", m: "Tell", p: "tel"}, {w: "Cerita", m: "Story", p: "sto-ri"}, {w: "Mengunjungi", m: "Visited", p: "vi-zi-tid"}, {w: "Pergi", m: "Went", p: "went"}] },
+              { nama: "Memorable Experiences", vocab: [{w: "Ingatan", m: "Memory", p: "me-mo-ri"}, {w: "Tak terlupakan", m: "Unforgettable", p: "an-for-ge-te-bel"}, {w: "Bahagia", m: "Happy", p: "he-pi"}, {w: "Senang", m: "Glad", p: "gled"}] }
+            ]
+          },
+          {
+            bab: "Unit 8: What Did You Do Yesterday?",
+            sub: [
+              { nama: "Daily Activities in the Past", vocab: [{w: "Kemarin", m: "Yesterday", p: "yes-ter-dei"}, {w: "Tadi malam", m: "Last night", p: "lest nait"}, {w: "Mengerjakan", m: "Did", p: "did"}, {w: "Membantu", m: "Helped", p: "helpt"}] },
+              { nama: "Simple Past Tense", vocab: [{w: "Belajar (lampau)", m: "Studied", p: "sta-did"}, {w: "Bermain (lampau)", m: "Played", p: "pleid"}, {w: "Makan (lampau)", m: "Ate", p: "et"}, {w: "Minum (lampau)", m: "Drank", p: "drenk"}] },
+              { nama: "Time Expressions", vocab: [{w: "Lalu / Yang lalu", m: "Ago", p: "e-gou"}, {w: "Minggu lalu", m: "Last week", p: "lest wik"}, {w: "Kemarin pagi", m: "Yesterday morning", p: "yes-ter-dei mor-ning"}] },
+              { nama: "Weekend Activities", vocab: [{w: "Akhir pekan", m: "Weekend", p: "wik-end"}, {w: "Nonton film", m: "Watched movie", p: "woc mu-vi"}, {w: "Bersepeda", m: "Cycled", p: "sai-keld"}] },
+              { nama: "Asking About Past Events", vocab: [{w: "Apa yang kamu lakukan?", m: "What did you do?", p: "wot did yu du"}, {w: "Di mana kamu?", m: "Where were you?", p: "wer wer yu"}] },
+              { nama: "Talking About Yesterday", vocab: [{w: "Berbicara", m: "Talk", p: "tok"}, {w: "Selesai", m: "Finished", p: "fi-nist"}, {w: "Sibuk", m: "Busy", p: "bi-zi"}, {w: "Lelah", m: "Tired", p: "tai-erd"}] }
+            ]
+          }
+        ]
       },
+      // Kerangka Smt 1 Kelas Lain (Tetap Aman)
       1: { 1: [{ bab: "Unit 1: Alphabet & Greetings", sub: [{nama:"The Alphabet", vocab:[{w:"A", m:"A", p:"ei"}]}] }], 2: [] },
       2: { 1: [{ bab: "Unit 1: Colors around Us", sub: [{nama:"Primary Colors", vocab:[{w:"Merah", m:"Red", p:"red"}]}] }], 2: [] },
       3: { 1: [{ bab: "Unit 1: My Fruits", sub: [{nama:"Sweet Fruits", vocab:[{w:"Apel", m:"Apple", p:"e-pel"}]}] }], 2: [] },
