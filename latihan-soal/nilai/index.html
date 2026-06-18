@@ -10,29 +10,28 @@
   <style>
     body {
       background: linear-gradient(135deg, #e6f2ff 0%, #cce6ff 100%);
-      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #2b3d52;
       min-height: 100vh;
       padding-bottom: 50px;
     }
-    .header-panel {
+    .navbar-custom {
       background: linear-gradient(135deg, #0056b3, #0080ff);
-      color: white;
-      border-radius: 0 0 24px 24px;
-      box-shadow: 0 8px 24px rgba(0, 86, 179, 0.15);
-      padding: 35px 20px;
-      margin-bottom: 35px;
-      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 86, 179, 0.15);
+      border-radius: 0 0 16px 16px;
     }
-    .header-panel h1 {
-      font-weight: 700;
-      font-size: 26px;
-      letter-spacing: 0.5px;
-      margin-bottom: 5px;
+    .btn-home {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white !important;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
     }
-    .header-panel p {
-      font-size: 14px;
-      opacity: 0.9;
+    .btn-home:hover {
+      background-color: white;
+      color: #0056b3 !important;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
     .card-custom {
       background: rgba(255, 255, 255, 0.9);
@@ -54,11 +53,6 @@
       border-radius: 10px;
       padding: 11px 15px;
       font-size: 14px;
-      transition: all 0.3s ease;
-    }
-    .form-control:focus, .form-select:focus {
-      border-color: #007bff;
-      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
     }
     .table-container {
       background: white;
@@ -67,9 +61,6 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.04);
       border: 1px solid #e1e8ed;
     }
-    .table {
-      margin-bottom: 0;
-    }
     .table thead {
       background-color: #0056b3;
       color: white;
@@ -77,16 +68,9 @@
     .table th {
       padding: 16px;
       font-weight: 600;
-      font-size: 14px;
-      border: none;
     }
     .table td {
       padding: 16px;
-      font-size: 14px;
-      border-bottom: 1px solid #f1f4f6;
-    }
-    .table tbody tr:hover {
-      background-color: #f4f9ff;
     }
     .badge-kelas {
       background-color: #e6f2ff;
@@ -95,41 +79,31 @@
       padding: 6px 12px;
       border-radius: 8px;
     }
-    .nilai-text {
-      font-weight: 700;
-      color: #198754;
-      font-size: 16px;
-    }
-    /* Loader minimalis mewah */
     .loader-box {
-      padding: 40px;
+      padding: 50px;
       text-align: center;
-    }
-    .spinner-custom {
-      width: 3rem;
-      height: 3rem;
-      color: #0056b3;
     }
   </style>
 </head>
 <body>
 
-  <div class="header-panel">
-    <div class="container">
-      <h1><i class="fa-solid fa-layer-group me-2"></i> DATA NILAI LATIHAN SOAL</h1>
-      <p class="mb-0">Sistem Informasi Hasil Nilai Perkembangan Siswa Terintegrasi</p>
+  <nav class="navbar navbar-custom py-3 mb-4">
+    <div class="container d-flex justify-content-between align-items-center">
+      <span class="navbar-brand mb-0 h1 fw-bold text-white fs-5">
+        <i class="fa-solid fa-graduation-cap me-2"></i> MONITORING NILAI SISWA
+      </span>
+      <a href="https://sdnbutoh1ngasem.my.id" target="_top" class="btn btn-home px-3 py-2">
+        <i class="fa-solid fa-house me-1"></i> Beranda Sekolah
+      </a>
     </div>
-  </div>
+  </nav>
 
   <div class="container">
     <div class="card-custom">
       <div class="row g-3">
         <div class="col-md-4">
           <label class="form-label"><i class="fa-solid fa-user me-1"></i> CARI NAMA SISWA</label>
-          <div class="input-group">
-            <span class="input-group-text bg-light border-end-0" style="border: 1.5px solid #b3d7ff; border-radius: 10px 0 0 10px;"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-            <input type="text" id="searchNama" class="form-control border-start-0" placeholder="Ketik nama untuk mencari..." onkeyup="filterData()">
-          </div>
+          <input type="text" id="searchNama" class="form-control" placeholder="Ketik nama untuk mencari..." onkeyup="filterData()">
         </div>
         <div class="col-md-4">
           <label class="form-label"><i class="fa-solid fa-school me-1"></i> FILTER KELAS</label>
@@ -148,19 +122,19 @@
 
     <div class="table-container p-2">
       <div id="loading" class="loader-box">
-        <div class="spinner-border spinner-custom mb-3" role="status"></div>
-        <p class="text-muted mb-0 fw-medium">Sedang memproses & menyelaraskan data...</p>
+        <div class="spinner-border text-primary mb-3" role="status"></div>
+        <p class="text-muted mb-0 fw-medium">Menghubungkan & memuat data spreadsheet...</p>
       </div>
       
       <div class="table-responsive" id="tableWrapper" style="display: none;">
-        <table class="table align-middle">
+        <table class="table align-middle table-hover">
           <thead>
             <tr>
-              <th style="width: 130px;">Tanggal</th>
+              <th>Tanggal</th>
               <th>Nama Siswa</th>
               <th>Kelas</th>
               <th>Mata Pelajaran</th>
-              <th>Bab / Pembahasan</th>
+              <th>Bab</th>
               <th class="text-center" style="width: 100px;">Nilai</th>
             </tr>
           </thead>
@@ -174,69 +148,59 @@
   <script>
     let masterData = [];
 
-    // Memanggil database Google Sheets saat halaman pertama dimuat
     document.addEventListener("DOMContentLoaded", function() {
-      function dapatkanData() {
+      function ambilData() {
         if (typeof google !== 'undefined' && google.script) {
           google.script.run
             .withSuccessHandler(function(data) {
               masterData = data;
               if (data.length === 0) {
-                document.getElementById("loading").innerHTML = "<p class='text-danger fw-bold py-3'>Data masih kosong. Pastikan nama tab sheet adalah 'results' dan baris data sudah terisi.</p>";
+                document.getElementById("loading").innerHTML = "<p class='text-danger fw-bold py-3'>Koneksi sukses, tetapi data kosong. Pastikan nama tab sheet terbawah Anda adalah 'results' dan kolom nama terisi.</p>";
                 return;
               }
-              isiOpsiDropdown(data);
-              renderKeTabel(data);
+              isiDropdown(data);
+              renderTabel(data);
               document.getElementById("loading").style.display = "none";
               document.getElementById("tableWrapper").style.display = "block";
             })
             .withFailureHandler(function(error) {
-              document.getElementById("loading").innerHTML = "<p class='text-danger fw-bold py-3'>Gagal terhubung dengan database: " + error.message + "</p>";
+              document.getElementById("loading").innerHTML = "<div class='alert alert-danger mx-auto' style='max-width:500px;'><strong>Gagal Memuat Data!</strong><br>" + error.message + "<br><br><small>Petunjuk: Coba klik tombol 'Jalankan' (Run) di Google Apps Script untuk memberikan izin akses akun Anda.</small></div>";
             })
             .getDataSiswa();
         } else {
-          setTimeout(dapatkanData, 300); // Polling peluncuran aman jika jaringan lambat
+          setTimeout(ambilData, 300);
         }
       }
-      dapatkanData();
+      ambilData();
     });
 
-    // Membuat isi pilihan filter otomatis berdasar data di Excel
-    function isiOpsiDropdown(data) {
+    function isiDropdown(data) {
       let kelasSet = new Set();
       let mapelSet = new Set();
-      
       data.forEach(item => {
         if(item.kelas && item.kelas !== "-") kelasSet.add(item.kelas);
         if(item.mapel && item.mapel !== "-") mapelSet.add(item.mapel);
       });
-
       let selectKelas = document.getElementById("filterKelas");
-      Array.from(kelasSet).sort().forEach(k => {
-        selectKelas.options[selectKelas.options.length] = new Option(k, k);
-      });
-
+      Array.from(kelasSet).sort().forEach(k => { selectKelas.options[selectKelas.options.length] = new Option(k, k); });
       let selectMapel = document.getElementById("filterMapel");
-      Array.from(mapelSet).sort().forEach(m => {
-        selectMapel.options[selectMapel.options.length] = new Option(m, m);
-      });
+      Array.from(mapelSet).sort().forEach(m => { selectMapel.options[selectMapel.options.length] = new Option(m, m); });
     }
 
-    // Menggambar data ke dalam baris tabel HTML
-    function renderKeTabel(data) {
+    function renderTabel(data) {
       let html = "";
       if (data.length === 0) {
-        html = `<tr><td colspan="6" class="text-center text-muted py-4">Data siswa tidak ditemukan</td></tr>`;
+        html = `<tr><td colspan="6" class="text-center text-muted py-4">Data tidak ditemukan</td></tr>`;
       } else {
         data.forEach(item => {
           html += `
             <tr>
               <td class="text-secondary"><small>${item.tanggal}</small></td>
-              <td class="fw-semibold text-dark">${item.nama}</td>
+              <td class="fw-semibold">${item.nama}</td>
               <td><span class="badge badge-kelas">${item.kelas}</span></td>
-              <td><i class="fa-solid fa-bookmark me-1 text-primary" style="font-size:12px;"></i> ${item.mapel}</td>
+              <td>${item.mapel}</td>
               <td class="text-muted">${item.bab}</td>
-              <td class="text-center nilai-text">${item.nilai}</td>
+              <td class="text-center fw-bold text-success fs-5">${item.nilai}</td>
             </tr>
           `;
         });
@@ -244,20 +208,17 @@
       document.getElementById("tabelBody").innerHTML = html;
     }
 
-    // Logika Filter Instan (Nama, Kelas, Mapel) tanpa refresh halaman
     function filterData() {
       let keyword = document.getElementById("searchNama").value.toLowerCase();
       let kelasVal = document.getElementById("filterKelas").value;
       let mapelVal = document.getElementById("filterMapel").value;
-
       let dataTerfilter = masterData.filter(item => {
         let matchNama = item.nama.toLowerCase().includes(keyword);
         let matchKelas = kelasVal === "" || item.kelas === kelasVal;
         let matchMapel = mapelVal === "" || item.mapel === mapelVal;
         return matchNama && matchKelas && matchMapel;
       });
-
-      renderKeTabel(dataTerfilter);
+      renderTabel(dataTerfilter);
     }
   </script>
 </body>
