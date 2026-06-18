@@ -1,31 +1,296 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cek Nilai Latihan Siswa - SDN Butoh 1 Ngasem</title>
-    <style>
-        /* Menghilangkan margin bawaan dan scrollbar ganda */
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            background-color: #f4f7f6;
-        }
-        /* Membuat iframe memenuhi 100% layar penuh tanpa garis tepi */
-        iframe {
-            border: none;
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Wali Murid - SDN Butoh 1 Ngasem</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f7f6;
+      color: #333;
+    }
+    .navbar-sekolah {
+      background-color: #0d6efd; /* Menyelaraskan dengan nuansa biru/hijau sekolah */
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: white;
+      padding: 15px 0;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .navbar-brand-custom h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .navbar-brand-custom p {
+      font-size: 0.85rem;
+      margin: 0;
+      opacity: 0.9;
+    }
+    .card-filter {
+      background: white;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      margin-top: -20px;
+      margin-bottom: 25px;
+      z-index: 10;
+      position: relative;
+    }
+    .card-table {
+      background: white;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 20px;
+      margin-bottom: 50px;
+    }
+    .table-responsive {
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .table-custom thead {
+      background-color: #2a5298;
+      color: white;
+    }
+    .table-custom th {
+      font-weight: 600;
+      padding: 12px 15px;
+    }
+    .table-custom td {
+      padding: 12px 15px;
+      vertical-align: middle;
+    }
+    .badge-nilai {
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 30px;
+    }
+    .loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      flex-direction: column;
+    }
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+  </style>
 </head>
 <body>
 
-    <iframe src="https://script.google.com/macros/s/AKfycbwArzoK-jJk96yKM4IRAm3TlP39njzvy71oPCuMJQd54Z1Yhf-aFNToqH_J9O5QwGspkQ/exec"></iframe>
+  <header class="navbar-sekolah">
+    <div class="container text-center text-md-start d-md-flex justify-content-between align-items-center">
+      <div class="navbar-brand-custom">
+        <h1>PORTAL WALI MURID</h1>
+        <p>SDN Butoh 1 Ngasem - Cek Hasil Latihan Siswa</p>
+      </div>
+      <div class="mt-2 mt-md-0 text-white-50 font-monospace" style="font-size: 0.85rem;">
+        Mode: Read-Only (Hanya Membaca)
+      </div>
+    </div>
+  </header>
 
+  <div class="container">
+    <div class="card card-filter p-4">
+      <div class="row g-3">
+        <div class="col-md-5">
+          <label for="filterKelas" class="form-label fw-medium">Pilih Kelas</label>
+          <select id="filterKelas" class="form-select" onchange="applyFilters()" disabled>
+            <option value="">-- Semua Kelas --</option>
+          </select>
+        </div>
+        <div class="col-md-5">
+          <label for="filterMapel" class="form-label fw-medium">Pilih Mata Pelajaran (Mapel)</label>
+          <select id="filterMapel" class="form-select" onchange="applyFilters()" disabled>
+            <option value="">-- Semua Mapel --</option>
+          </select>
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+          <button class="btn btn-outline-secondary w-100" onclick="resetFilters()">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-table">
+      <div id="loading" class="loader">
+        <div class="spinner-border text-primary" role="status"></div>
+        <span class="mt-2 text-muted">Memuat data nilai siswa...</span>
+      </div>
+
+      <div id="error-message" class="alert alert-danger d-none" role="alert"></div>
+
+      <div id="table-container" class="table-responsive d-none">
+        <table class="table table-hover table-striped table-custom m-0">
+          <thead>
+            <tr id="table-header">
+              </tr>
+          </thead>
+          <tbody id="table-body">
+            </tbody>
+        </table>
+        
+        <div id="empty-message" class="text-center p-4 d-none text-muted">
+          Data tidak ditemukan untuk kombinasi filter ini.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    &copy; 2026 sdnbutoh1ngasem.my.id | Hak Cipta Dilindungi.
+  </footer>
+
+  <script>
+    let globalData = [];
+    let headers = [];
+
+    // Fungsi otomatis berjalan saat halaman dibuka
+    document.addEventListener("DOMContentLoaded", function() {
+      google.script.run
+        .withSuccessHandler(onSuccessLoad)
+        .withFailureHandler(onFailureLoad)
+        .getDataNilai();
+    });
+
+    function onSuccessLoad(response) {
+      document.getElementById('loading').classList.add('d-none');
+      
+      if (response.error) {
+        showError(response.message);
+        return;
+      }
+
+      globalData = response.rows;
+      headers = response.headers;
+
+      if (globalData.length === 0) {
+        showError("Belum ada data nilai di dalam spreadsheet.");
+        return;
+      }
+
+      // Generate Header Tabel
+      const headerTr = document.getElementById('table-header');
+      headers.forEach(header => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        headerTr.appendChild(th);
+      });
+
+      // Buat pilihan dropdown filter secara dinamis berdasarkan data unik
+      populateDropdowns(globalData);
+
+      // Tampilkan seluruh data awal
+      renderTable(globalData);
+      document.getElementById('table-container').classList.remove('d-none');
+    }
+
+    function onFailureLoad(error) {
+      document.getElementById('loading').classList.add('d-none');
+      showError("Gagal terhubung ke server: " + error.toString());
+    }
+
+    function showError(msg) {
+      const errDiv = document.getElementById('error-message');
+      errDiv.textContent = msg;
+      errDiv.classList.remove('d-none');
+    }
+
+    function populateDropdowns(rows) {
+      // Index kolom berdasarkan struktur: Tanggal(0), Nama(1), Kelas(2), Mapel(3), Bab(4), Nilai(5)
+      const kelasSet = new Set();
+      const mapelSet = new Set();
+
+      rows.forEach(row => {
+        if(row[2]) kelasSet.add(row[2].toString().trim());
+        if(row[3]) mapelSet.add(row[3].toString().trim());
+      });
+
+      const selectKelas = document.getElementById('filterKelas');
+      const selectMapel = document.getElementById('filterMapel');
+
+      // Isi Dropdown Kelas
+      Array.from(kelasSet).sort().forEach(kelas => {
+        let opt = document.createElement('option');
+        opt.value = kelas;
+        opt.textContent = kelas;
+        selectKelas.appendChild(opt);
+      });
+
+      // Isi Dropdown Mapel
+      Array.from(mapelSet).sort().forEach(mapel => {
+        let opt = document.createElement('option');
+        opt.value = mapel;
+        opt.textContent = mapel;
+        selectMapel.appendChild(opt);
+      });
+
+      // Aktifkan dropdown setelah data siap
+      selectKelas.disabled = false;
+      selectMapel.disabled = false;
+    }
+
+    function renderTable(rows) {
+      const tbody = document.getElementById('table-body');
+      const emptyMsg = document.getElementById('empty-message');
+      tbody.innerHTML = "";
+
+      if (rows.length === 0) {
+        emptyMsg.classList.remove('d-none');
+        return;
+      } else {
+        emptyMsg.classList.add('d-none');
+      }
+
+      rows.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach((cell, index) => {
+          const td = document.createElement('td');
+          
+          // Mempercantik tampilan kolom nilai (asumsi kolom terakhir/index 5)
+          if (index === 5) {
+            let nilaiNum = parseFloat(cell);
+            let badgeClass = "bg-success";
+            if (nilaiNum < 70) badgeClass = "bg-danger";
+            else if (nilaiNum < 80) badgeClass = "bg-warning text-dark";
+            
+            td.innerHTML = `<span class="badge ${badgeClass} badge-nilai">${cell}</span>`;
+          } else {
+            td.textContent = cell;
+          }
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+    }
+
+    function applyFilters() {
+      const valKelas = document.getElementById('filterKelas').value.toLowerCase();
+      const valMapel = document.getElementById('filterMapel').value.toLowerCase();
+
+      const filtered = globalData.filter(row => {
+        const matchKelas = valKelas === "" || (row[2] && row[2].toString().toLowerCase() === valKelas);
+        const matchMapel = valMapel === "" || (row[3] && row[3].toString().toLowerCase() === valMapel);
+        return matchKelas && matchMapel;
+      });
+
+      renderTable(filtered);
+    }
+
+    function resetFilters() {
+      document.getElementById('filterKelas').value = "";
+      document.getElementById('filterMapel').value = "";
+      renderTable(globalData);
+    }
+  </script>
 </body>
 </html>
