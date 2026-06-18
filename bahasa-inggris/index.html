@@ -4,25 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>English Portal - SDN Butoh 1 Ngasem</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     :root {
-      --primary: #0066cc;       /* Biru Cerah Utama */
-      --primary-dark: #004994;  /* Biru Tua */
-      --secondary: #0a2540;    /* Navy Elegan Web Sekolah */
-      --accent: #ffb300;       /* Kuning Emas Aksen */
-      --bg-light: #f8fafc;     /* Latar Belakang Bersih */
-      --text-main: #2d3748;    /* Warna Teks Utama */
-      --text-muted: #718096;   /* Warna Teks Redup */
+      --primary: #0066cc;       
+      --primary-dark: #004994;  
+      --secondary: #0a2540;    
+      --accent: #ffb300;       
+      --bg-light: #f8fafc;     
+      --text-main: #2d3748;    
+      --text-muted: #718096;   
       --white: #ffffff;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
     body { background: var(--bg-light); color: var(--text-main); padding-bottom: 60px; }
 
-    /* HEADER & BANNER ELEGAN */
     .hero {
       background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-dark) 50%, var(--primary) 100%);
       color: var(--white);
@@ -42,18 +41,15 @@
     .hero h1 { font-size: 34px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
     .hero p { font-size: 16px; opacity: 0.85; font-weight: 400; }
 
-    /* CONTAINER UTAMA */
     .container { max-width: 1100px; margin: 45px auto; padding: 0 24px; }
     .welcome-text { text-align: center; margin-bottom: 35px; font-size: 24px; font-weight: 700; color: var(--secondary); }
     
-    /* GRID KELAS */
     .grid-kelas {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 30px;
     }
 
-    /* KARTU KELAS PREMIUM */
     .card-kelas {
       background: var(--white);
       border-radius: 24px;
@@ -77,7 +73,6 @@
     }
     .card-kelas:hover::after { width: 40%; }
     
-    /* IKON & TEKS DI DALAM KARTU */
     .icon-wrapper {
       width: 80px; height: 80px; background: rgba(0, 102, 204, 0.06);
       border-radius: 20px; display: flex; align-items: center; justify-content: center;
@@ -88,7 +83,6 @@
     .card-kelas h3 { font-size: 22px; font-weight: 700; color: var(--secondary); margin-bottom: 8px; }
     .card-kelas p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
 
-    /* POP-UP MODAL PANEL ELEGAN */
     .modal {
       display: none; position: fixed; z-index: 100; left: 0; top: 0;
       width: 100%; height: 100%; background-color: rgba(10, 35, 64, 0.6);
@@ -106,19 +100,16 @@
     .close-btn { background: none; border: none; font-size: 28px; color: var(--text-muted); cursor: pointer; transition: color 0.2s; }
     .close-btn:hover { color: #e53e3e; }
 
-    /* TABS SEMESTER */
     .semester-group { display: flex; gap: 12px; margin-bottom: 25px; background: #edf2f7; padding: 6px; border-radius: 12px; }
     .sem-btn { flex: 1; padding: 12px; border: none; background: transparent; border-radius: 8px; font-weight: 600; cursor: pointer; color: var(--text-muted); transition: all 0.3s; font-size: 15px; }
     .sem-btn.active { background: var(--white); color: var(--primary); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
 
-    /* ACCORDION DESIGN */
     .unit-box { border: 1px solid #e2e8f0; border-radius: 14px; margin-bottom: 12px; overflow: hidden; background: var(--white); transition: border-color 0.3s; }
     .unit-box:hover { border-color: rgba(0, 102, 204, 0.3); }
     .unit-header { background: #fafbfc; padding: 16px 20px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 16px; color: var(--secondary); }
     .unit-header:hover { background: #f4f7f9; }
     .unit-content { display: none; padding: 20px; background: var(--white); border-top: 1px solid #e2e8f0; }
     
-    /* SUB-BAB LIST & VOCAB BOX */
     .sub-tabs-container { display: flex; flex-direction: column; gap: 12px; }
     .sub-row { border: 1px solid #edf2f7; border-radius: 10px; padding: 14px; background: #fdfefe; }
     .sub-title-bar { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 15px; cursor: pointer; color: var(--text-main); }
@@ -126,13 +117,11 @@
     .vocab-box { display: none; margin-top: 16px; background: #f8fafc; border-left: 4px solid var(--primary); border-radius: 0 10px 10px 0; padding: 20px; }
     .vocab-box h4 { color: var(--secondary); font-size: 15px; font-weight: 700; margin-bottom: 12px; }
     
-    /* TABEL MATERI VOCAB */
     .table-vocab { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
     .table-vocab th, .table-vocab td { padding: 12px 16px; border: 1px solid #e2e8f0; }
     .table-vocab th { background: rgba(0, 102, 204, 0.05); color: var(--primary-dark); font-weight: 600; text-align: left; }
     .cara-baca { color: #dd6b20; font-style: italic; font-weight: 600; background: #fffaf0; padding: 2px 6px; border-radius: 4px; display: inline-block; }
 
-    /* TOMBOL CBT PREMIUM ACCENT */
     .btn-cbt { display: block; text-align: center; background: var(--primary); color: var(--white); border: none; padding: 14px; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.2s; box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2); }
     .btn-cbt:hover { background: var(--primary-dark); transform: translateY(-1px); }
     
@@ -141,26 +130,23 @@
 </head>
 <body>
 
-  <!-- BANNER PORTAL MATCHING WEBSITE UTAMA -->
   <div class="hero">
     <h1><i class="fa-solid fa-graduation-cap" style="margin-right: 8px;"></i> English Learning Zone</h1>
     <p>Portal Pembelajaran Digital Efektif — SDN Butoh 1 Ngasem</p>
   </div>
 
-  <!-- CONTAINER DASHBOARD -->
   <div class="container">
     <h2 class="welcome-text">Hi Students! Choose Your Class Below 👇</h2>
     <div class="grid-kelas">
-      <div class="card-kelas" onclick="bukaModalKelas(1)"><div class="icon-wrapper"><i class="fa-solid fa-child-reaching"></i></div><h3>Grade 1</h3><p>Greetings, Numbers, and Colors</p></div>
-      <div class="card-kelas" onclick="bukaModalKelas(2)"><div class="icon-wrapper"><i class="fa-solid fa-icons"></i></div><h3>Grade 2</h3><p>Greetings, Numbers, and Colors</p></div>
-      <div class="card-kelas" onclick="bukaModalKelas(3)"><div class="icon-wrapper"><i class="fa-solid fa-apple-whole"></i></div><h3>Grade 3</h3><p>Fruits, Colors, and My House</p></div>
-      <div class="card-kelas" onclick="bukaModalKelas(4)"><div class="icon-wrapper"><i class="fa-solid fa-bicycle"></i></div><h3>Grade 4</h3><p>What Are You Doing? & My New House</p></div>
-      <div class="card-kelas" onclick="bukaModalKelas(5)"><div class="icon-wrapper"><i class="fa-solid fa-cloud-sun-rain"></i></div><h3>Grade 5</h3><p>Food, Prices, and Clothes</p></div>
-      <div class="card-kelas" onclick="bukaModalKelas(6)"><div class="icon-wrapper"><i class="fa-solid fa-rocket"></i></div><h3>Grade 6</h3><p>School Life, Routines, and Future Dreams</p></div>
+      <div class="card-kelas" onclick="bukaModalKelas(1)"><div class="icon-wrapper"><i class="fa-solid fa-child-reaching"></i></div><h3>Grade 1</h3><p>Greetings, Numbers, and Everyday Words</p></div>
+      <div class="card-kelas" onclick="bukaModalKelas(2)"><div class="icon-wrapper"><i class="fa-solid fa-icons"></i></div><h3>Grade 2</h3><p>Numbers, Colors, and Daily Activities</p></div>
+      <div class="card-kelas" onclick="bukaModalKelas(3)"><div class="icon-wrapper"><i class="fa-solid fa-apple-whole"></i></div><h3>Grade 3</h3><p>My House, My Family, and Weather</p></div>
+      <div class="card-kelas" onclick="bukaModalKelas(4)"><div class="icon-wrapper"><i class="fa-solid fa-bicycle"></i></div><h3>Grade 4</h3><p>Activities, Household Items, and Vehicles</p></div>
+      <div class="card-kelas" onclick="bukaModalKelas(5)"><div class="icon-wrapper"><i class="fa-solid fa-cloud-sun-rain"></i></div><h3>Grade 5</h3><p>Food Prices, Clothing, and Body Health</p></div>
+      <div class="card-kelas" onclick="bukaModalKelas(6)"><div class="icon-wrapper"><i class="fa-solid fa-rocket"></i></div><h3>Grade 6</h3><p>School Life, Future Dreams, and Global Topics</p></div>
     </div>
   </div>
 
-  <!-- POP-UP MODAL MATERI & VOCABULARY -->
   <div class="modal" id="modalMateri">
     <div class="modal-content">
       <div class="modal-header">
@@ -176,163 +162,95 @@
   </div>
 
   <script>
-    const LINK_WEB_APP_CBT = "ulangan/"; // Jalur relatif file CBT Anda di repositori
+    const LINK_WEB_APP_CBT = "ulangan/";
 
     let kelasAktif = 1;
     let semesterAktif = 1;
 
-    // MASTER DATABASE MATERI (Kelas 1 - 6 Terisi Lengkap)
     const databaseMateri = {
       1: {
-        // KELAS 1 - SEMESTER 1 (UNIT 1 SAMPAI 4)
         1: [
-          {
-            bab: "Unit 1: Hello!",
-            sub: [
-              { nama: "Saying Hello", vocab: [{w: "Halo", m: "Hello", p: "he-lou"}, {w: "Hai", m: "Hi", p: "hai"}, {w: "Selamat pagi", m: "Good morning", p: "gud mor-ning"}] },
-              { nama: "Saying Goodbye", vocab: [{w: "Selamat tinggal", m: "Goodbye", p: "gud-bai"}, {w: "Dada / Sampai jumpa", m: "Bye-bye", p: "bai-bai"}] },
-              { nama: "My Name", vocab: [{w: "Nama", m: "Name", p: "neim"}, {w: "Nama saya", m: "My name is", p: "mai neim is"}] },
-              { nama: "Introducing Myself", vocab: [{w: "Saya adalah", m: "I am", p: "ai em"}, {w: "Anak laki-laki", m: "Boy", p: "boi"}, {w: "Anak perempuan", m: "Girl", p: "gerl"}] },
-              { nama: "Polite Words", vocab: [{w: "Terima kasih", m: "Thank you", p: "theng kyu"}, {w: "Maaf", m: "Sorry", p: "so-ri"}, {w: "Tolong", m: "Please", p: "pliz"}] },
-              { nama: "Classroom Greetings", vocab: [{w: "Guru", m: "Teacher", p: "ti-cer"}, {w: "Teman", m: "Friend", p: "frend"}] }
-            ]
-          },
-          {
-            bab: "Unit 2: Numbers Fun",
-            sub: [
-              { nama: "Numbers 1–5", vocab: [{w: "Satu", m: "One", p: "wan"}, {w: "Dua", m: "Two", p: "tu"}, {w: "Tiga", m: "Three", p: "thri"}, {w: "Empat", m: "Four", p: "for"}, {w: "Lima", m: "Five", p: "faiv"}] },
-              { nama: "Numbers 6–10", vocab: [{w: "Enam", m: "Six", p: "siks"}, {w: "Tujuh", m: "Seven", p: "se-ven"}, {w: "Delapan", m: "Eight", p: "eit"}, {w: "Sembilan", m: "Nine", p: "nain"}, {w: "Sepuluh", m: "Ten", p: "ten"}] },
-              { nama: "Counting Objects", vocab: [{w: "Menghitung", m: "Counting", p: "kaun-ting"}, {w: "Buku", m: "Book", p: "buk"}, {w: "Pensil", m: "Pencil", p: "pen-sil"}] },
-              { nama: "How Many?", vocab: [{w: "Berapa banyak", m: "How many", p: "hau me-ni"}, {w: "Ada (jumlah 1)", m: "There is", p: "der is"}] },
-              { nama: "Number Songs", vocab: [{w: "Lagu", m: "Song", p: "song"}, {w: "Bernyanyi", m: "Sing", p: "sing"}] },
-              { nama: "Numbers Around Me", vocab: [{w: "Jari", m: "Finger", p: "fing-ger"}, {w: "Meja", m: "Table", p: "tei-bel"}] }
-            ]
-          },
-          {
-            bab: "Unit 3: Colorful World",
-            sub: [
-              { nama: "Basic Colors", vocab: [{w: "Merah", m: "Red", p: "red"}, {w: "Biru", m: "Blue", p: "blu"}, {w: "Kuning", m: "Yellow", p: "ye-lou"}] },
-              { nama: "Colors of Objects", vocab: [{w: "Hijau", m: "Green", p: "grin"}, {w: "Putih", m: "White", p: "wait"}, {w: "Hitam", m: "Black", p: "blek"}] },
-              { nama: "My Favorite Color", vocab: [{w: "Warna", m: "Color", p: "ka-ler"}, {w: "Suka", m: "Like", p: "laik"}, {w: "Favorit", m: "Favorite", p: "fei-ve-rit"}] },
-              { nama: "Color Matching", vocab: [{w: "Sama / Cocok", m: "Match", p: "mec"}, {w: "Sama", m: "Same", p: "seim"}] },
-              { nama: "Colors at School", vocab: [{w: "Tas sekolah", m: "School bag", p: "skul beg"}, {w: "Krayon", m: "Crayon", p: "krei-on"}] },
-              { nama: "Colors at Home", vocab: [{w: "Rumah", m: "Home", p: "houm"}, {w: "Mainan", m: "Toy", p: "toi"}] }
-            ]
-          },
-          {
-            bab: "Unit 4: My Body",
-            sub: [
-              { nama: "Parts of the Body", vocab: [{w: "Tubuh", m: "Body", p: "bo-di"}, {w: "Tangan", m: "Hand", p: "hend"}, {w: "Kaki", m: "Foot", p: "fut"}] },
-              { nama: "My Face", vocab: [{w: "Mata", m: "Eye", p: "ai"}, {w: "Hidung", m: "Nose", p: "nous"}, {w: "Mulut", m: "Mouth", p: "mauth"}] },
-              { nama: "Five Senses", vocab: [{w: "Melihat", m: "See", p: "si"}, {w: "Mendengar", m: "Hear", p: "hier"}, {w: "Menyentuh", m: "Touch", p: "tac"}] },
-              { nama: "Body Movements", vocab: [{w: "Melompat", m: "Jump", p: "djamp"}, {w: "Berjalan", m: "Walk", p: "wok"}, {w: "Menari", m: "Dance", p: "dens"}] },
-              { nama: "Keeping Clean", vocab: [{w: "Mandi", m: "Bath", p: "beth"}, {w: "Bersih", m: "Clean", p: "klin"}, {w: "Mencuci", m: "Wash", p: "wos"}] },
-              { nama: "My Healthy Body", vocab: [{w: "Sehat", m: "Healthy", p: "hel-ti"}, {w: "Kuat", m: "Strong", p: "strong"}] }
-            ]
-          }
+          { bab: "Unit 1: Hello!", sub: [{ nama: "Saying Hello", vocab: [{w: "Halo", m: "Hello", p: "he-lou"}, {w: "Hai", m: "Hi", p: "hai"}] }, { nama: "Saying Goodbye", vocab: [{w: "Selamat tinggal", m: "Goodbye", p: "gud-bai"}] }, { nama: "My Name", vocab: [{w: "Nama", m: "Name", p: "neim"}, {w: "Nama saya", m: "My name is", p: "mai neim is"}] }, { nama: "Introducing Myself", vocab: [{w: "Saya adalah", m: "I am", p: "ai em"}] }, { nama: "Polite Words", vocab: [{w: "Terima kasih", m: "Thank you", p: "theng kyu"}] }, { nama: "Classroom Greetings", vocab: [{w: "Guru", m: "Teacher", p: "ti-cer"}] }] },
+          { bab: "Unit 2: Numbers Fun", sub: [{ nama: "Numbers 1–5", vocab: [{w: "Satu", m: "One", p: "wan"}, {w: "Dua", m: "Two", p: "tu"}] }, { nama: "Numbers 6–10", vocab: [{w: "Enam", m: "Six", p: "siks"}, {w: "Sepuluh", m: "Ten", p: "ten"}] }, { nama: "Counting Objects", vocab: [{w: "Buku", m: "Book", p: "buk"}] }, { nama: "How Many?", vocab: [{w: "Berapa banyak", m: "How many", p: "hau me-ni"}] }, { nama: "Number Songs", vocab: [{w: "Lagu", m: "Song", p: "song"}] }, { nama: "Numbers Around Me", vocab: [{w: "Jari", m: "Finger", p: "fing-ger"}] }] },
+          { bab: "Unit 3: Colorful World", sub: [{ nama: "Basic Colors", vocab: [{w: "Merah", m: "Red", p: "red"}, {w: "Biru", m: "Blue", p: "blu"}] }, { nama: "Colors of Objects", vocab: [{w: "Hijau", m: "Green", p: "grin"}] }, { nama: "My Favorite Color", vocab: [{w: "Favorit", m: "Favorite", p: "fei-ve-rit"}] }, { nama: "Color Matching", vocab: [{w: "Cocok", m: "Match", p: "mec"}] }, { nama: "Colors at School", vocab: [{w: "Tas", m: "Bag", p: "beg"}] }, { nama: "Colors at Home", vocab: [{w: "Rumah", m: "Home", p: "houm"}] }] },
+          { bab: "Unit 4: My Body", sub: [{ nama: "Parts of the Body", vocab: [{w: "Tubuh", m: "Body", p: "bo-di"}] }, { nama: "My Face", vocab: [{w: "Mata", m: "Eye", p: "ai"}, {w: "Hidung", m: "Nose", p: "nous"}] }, { nama: "Five Senses", vocab: [{w: "Melihat", m: "See", p: "si"}] }, { nama: "Body Movements", vocab: [{w: "Lompat", m: "Jump", p: "djamp"}] }, { nama: "Keeping Clean", vocab: [{w: "Mandi", m: "Bath", p: "beth"}] }, { nama: "My Healthy Body", vocab: [{w: "Sehat", m: "Healthy", p: "hel-ti"}] }] },
+          { bab: "Unit 5: Animals Around Me", sub: [{ nama: "Pets", vocab: [{w: "Kucing", m: "Cat", p: "ket"}] }, { nama: "Farm Animals", vocab: [{w: "Sapi", m: "Cow", p: "kau"}] }, { nama: "Wild Animals", vocab: [{w: "Singa", m: "Lion", p: "lai-on"}] }, { nama: "Animal Sounds", vocab: [{w: "Suara", m: "Sound", p: "saun"}] }, { nama: "Animal Colors", vocab: [{w: "Bulu", m: "Fur", p: "fer"}] }, { nama: "My Favorite Animal", vocab: [{w: "Lucu", m: "Cute", p: "kyut"}] }] }
         ],
-        // KELAS 1 - SEMESTER 2 (UNIT 5 SAMPAI 8)
         2: [
-          {
-            bab: "Unit 5: Animals Around Me",
-            sub: [
-              { nama: "Pets", vocab: [{w: "Kucing", m: "Cat", p: "ket"}, {w: "Anjing", m: "Dog", p: "dog"}, {w: "Ikan", m: "Fish", p: "fis"}] },
-              { nama: "Farm Animals", vocab: [{w: "Sapi", m: "Cow", p: "kau"}, {w: "Bebek", m: "Duck", p: "dak"}, {w: "Ayam", m: "Chicken", p: "cik-en"}] },
-              { nama: "Wild Animals", vocab: [{w: "Singa", m: "Lion", p: "lai-on"}, {w: "Burung", m: "Bird", p: "berd"}, {w: "Monyet", m: "Monkey", p: "mang-ki"}] },
-              { nama: "Animal Sounds", vocab: [{w: "Suara", m: "Sound", p: "saun"}, {w: "Suara kucing", m: "Meow", p: "mi-au"}] },
-              { nama: "Animal Colors", vocab: [{w: "Kucing putih", m: "White cat", p: "wait ket"}, {w: "Burung biru", m: "Blue bird", p: "blu berd"}] },
-              { nama: "My Favorite Animal", vocab: [{w: "Lucu", m: "Cute", p: "kyut"}, {w: "Besar", m: "Big", p: "bik"}] }
-            ]
-          },
-          {
-            bab: "Unit 6: Food and Drinks",
-            sub: [
-              { nama: "Food Vocabulary", vocab: [{w: "Nasi", m: "Rice", p: "rais"}, {w: "Roti", m: "Bread", p: "bred"}, {w: "Kue", m: "Cake", p: "keik"}] },
-              { nama: "Drinks Vocabulary", vocab: [{w: "Air", m: "Water", p: "wo-ter"}, {w: "Susu", m: "Milk", p: "milk"}, {w: "Teh", m: "Tea", p: "ti"}] },
-              { nama: "Fruits", vocab: [{w: "Apel", m: "Apple", p: "e-pel"}, {w: "Pisang", m: "Banana", p: "be-ne-ne"}] },
-              { nama: "My Favorite Food", vocab: [{w: "Lapar", m: "Hungry", p: "hang-gri"}, {w: "Lezat", m: "Delicious", p: "di-li-ses"}] },
-              { nama: "Healthy Snacks", vocab: [{w: "Sehat", m: "Healthy", p: "hel-ti"}, {w: "Buah", m: "Fruit", p: "frut"}] },
-              { nama: "Food Around Me", vocab: [{w: "Makan", m: "Eat", p: "it"}, {w: "Minum", m: "Drink", p: "drink"}] }
-            ]
-          },
-          {
-            bab: "Unit 7: My Things",
-            sub: [
-              { nama: "Toys", vocab: [{w: "Boneka", m: "Doll", p: "dol"}, {w: "Bola", m: "Ball", p: "bol"}, {w: "Mobil-mobilan", m: "Toy car", p: "toi kar"}] },
-              { nama: "Classroom Objects", vocab: [{w: "Penggaris", m: "Ruler", p: "ru-ler"}, {w: "Penghapus", m: "Eraser", p: "i-rei-ser"}, {w: "Kursi", m: "Chair", p: "cer"}] },
-              { nama: "My School Bag", vocab: [{w: "Di dalam", m: "In", p: "in"}, {w: "Buku catatan", m: "Notebook", p: "nout-buk"}] },
-              { nama: "Objects at Home", vocab: [{w: "Televisi", m: "Television", p: "te-le-vi-syen"}, {w: "Lampu", m: "Lamp", p: "lemp"}] },
-              { nama: "Big and Small", vocab: [{w: "Besar", m: "Big", p: "bik"}, {w: "Kecil", m: "Small", p: "smol"}] },
-              { nama: "My Favorite Toy", vocab: [{w: "Layang-layang", m: "Kite", p: "kait"}, {w: "Baru", m: "New", p: "nyu"}] }
-            ]
-          },
-          {
-            bab: "Unit 8: My Daily Life",
-            sub: [
-              { nama: "Wake Up Time", vocab: [{w: "Bangun tidur", m: "Wake up", p: "weik ap"}, {w: "Pagi", m: "Morning", p: "mor-ning"}] },
-              { nama: "Morning Activities", vocab: [{w: "Sarapan", m: "Breakfast", p: "brek-fest"}, {w: "Mencuci muka", m: "Wash face", p: "wos feis"}] },
-              { nama: "At School", vocab: [{w: "Belajar", m: "Study", p: "sta-di"}, {w: "Bermain", m: "Play", p: "plei"}] },
-              { nama: "After School Activities", vocab: [{w: "Pulang rumah", m: "Go home", p: "gou houm"}, {w: "Makan siang", m: "Lunch", p: "lanc"}] },
-              { nama: "Bedtime Routine", vocab: [{w: "Tidur", m: "Sleep", p: "slip"}, {w: "Malam", m: "Night", p: "nait"}] },
-              { nama: "My Happy Day", vocab: [{w: "Senang", m: "Happy", p: "he-pi"}, {w: "Hari", m: "Day", p: "dei"}] }
-            ]
-          }
+          { bab: "Unit 6: Food and Drinks", sub: [{ nama: "Food Vocabulary", vocab: [{w: "Nasi", m: "Rice", p: "rais"}] }, { nama: "Drinks Vocabulary", vocab: [{w: "Air", m: "Water", p: "wo-ter"}] }, { nama: "Fruits", vocab: [{w: "Apel", m: "Apple", p: "e-pel"}] }, { nama: "My Favorite Food", vocab: [{w: "Lezat", m: "Delicious", p: "di-li-ses"}] }, { nama: "Healthy Snacks", vocab: [{w: "Camilan", m: "Snack", p: "snek"}] }, { nama: "Food Around Me", vocab: [{w: "Makan", m: "Eat", p: "it"}] }] },
+          { bab: "Unit 7: My Things", sub: [{ nama: "Toys", vocab: [{w: "Bola", m: "Ball", p: "bol"}] }, { nama: "Classroom Objects", vocab: [{w: "Kursi", m: "Chair", p: "cer"}] }, { nama: "My School Bag", vocab: [{w: "Tas", m: "Bag", p: "beg"}] }, { nama: "Objects at Home", vocab: [{w: "Lampu", m: "Lamp", p: "lemp"}] }, { nama: "Big and Small", vocab: [{w: "Besar", m: "Big", p: "bik"}, {w: "Kecil", m: "Small", p: "smol"}] }, { nama: "My Favorite Toy", vocab: [{w: "Boneka", m: "Doll", p: "dol"}] }] },
+          { bab: "Unit 8: My Daily Life", sub: [{ nama: "Wake Up Time", vocab: [{w: "Bangun", m: "Wake up", p: "weik ap"}] }, { nama: "Morning Activities", vocab: [{w: "Sarapan", m: "Breakfast", p: "brek-fest"}] }, { nama: "At School", vocab: [{w: "Belajar", m: "Study", p: "sta-di"}] }, { nama: "After School Activities", vocab: [{w: "Bermain", m: "Play", p: "plei"}] }, { nama: "Bedtime Routine", vocab: [{w: "Tidur", m: "Sleep", p: "slip"}] }, { nama: "My Happy Day", vocab: [{w: "Senang", m: "Happy", p: "he-pi"}] }] }
         ]
       },
       2: {
         1: [
-          {
-            bab: "Unit 1: Hello!",
-            sub: [
-              { nama: "Greetings", vocab: [{w: "Halo", m: "Hello", p: "he-lou"}] }
-            ]
-          }
+          { bab: "Unit 1: Hello!", sub: [{ nama: "Greetings", vocab: [{w: "Halo", m: "Hello", p: "he-lou"}] }, { nama: "Saying Goodbye", vocab: [{w: "Sampai jumpa", m: "See you", p: "si yu"}] }, { nama: "My Name", vocab: [{w: "Nama", m: "Name", p: "neim"}] }, { nama: "Introducing Myself", vocab: [{w: "Siswa", m: "Student", p: "styu-dent"}] }, { nama: "Polite Expressions", vocab: [{w: "Tolong", m: "Please", p: "pliz"}] }, { nama: "Classroom Greetings", vocab: [{w: "Duduk", m: "Sit down", p: "sit daun"}] }] },
+          { bab: "Unit 2: Numbers Around Us", sub: [{ nama: "Numbers 1–10", vocab: [{w: "Sepuluh", m: "Ten", p: "ten"}] }, { nama: "Numbers 11–20", vocab: [{w: "Sebelas", m: "Eleven", p: "i-le-ven"}] }, { nama: "Counting Objects", vocab: [{w: "Pensil", m: "Pencil", p: "pen-sil"}] }, { nama: "How Many?", vocab: [{w: "Berapa banyak", m: "How many", p: "hau me-ni"}] }, { nama: "Number Games", vocab: [{w: "Permainan", m: "Game", p: "geim"}] }, { nama: "Numbers in Daily Life", vocab: [{w: "Waktu", m: "Time", p: "taim"}] }] },
+          { bab: "Unit 3: Colors Everywhere", sub: [{ nama: "Basic Colors", vocab: [{w: "Kuning", m: "Yellow", p: "ye-lou"}] }, { nama: "Coloring Objects", vocab: [{w: "Mewarnai", m: "Coloring", p: "ka-ler-ing"}] }, { nama: "My Favorite Color", vocab: [{w: "Suka", m: "Like", p: "laik"}] }, { nama: "Colors at Home", vocab: [{w: "Pintu", m: "Door", p: "dor"}] }, { nama: "Colors at School", vocab: [{w: "Meja", m: "Desk", p: "desk"}] }, { nama: "Mixing Colors", vocab: [{w: "Campur", m: "Mix", p: "miks"}] }] },
+          { bab: "Unit 4: My Body", sub: [{ nama: "Parts of the Body", vocab: [{w: "Tangan", m: "Hand", p: "hend"}] }, { nama: "My Face", vocab: [{w: "Mulut", m: "Mouth", p: "mauth"}] }, { nama: "Five Senses", vocab: [{w: "Mendengar", m: "Hear", p: "hier"}] }, { nama: "Keeping Clean", vocab: [{w: "Bersih", m: "Clean", p: "klin"}] }, { nama: "Healthy Habits", vocab: [{w: "Sikat gigi", m: "Brush teeth", p: "bras tith"}] }, { nama: "My Body Functions", vocab: [{w: "Berlari", m: "Run", p: "ran"}] }] },
+          { bab: "Unit 5: Animals Around Me", sub: [{ nama: "Pets", vocab: [{w: "Kelinci", m: "Rabbit", p: "re-bit"}] }, { nama: "Farm Animals", vocab: [{w: "Bebek", m: "Duck", p: "dak"}] }, { nama: "Wild Animals", vocab: [{w: "Gajah", m: "Elephant", p: "e-le-fent"}] }, { nama: "Animal Sounds", vocab: [{w: "Suara", m: "Sound", p: "saun"}] }, { nama: "Animal Colors", vocab: [{w: "Hitam", m: "Black", p: "blek"}] }, { nama: "My Favorite Animal", vocab: [{w: "Favorit", m: "Favorite", p: "fei-ve-rit"}] }] }
         ],
-        2: []
+        2: [
+          { bab: "Unit 6: Food and Drinks", sub: [{ nama: "Food Vocabulary", vocab: [{w: "Roti", m: "Bread", p: "bred"}] }, { nama: "Drinks Vocabulary", vocab: [{w: "Susu", m: "Milk", p: "milk"}] }, { nama: "Fruits", vocab: [{w: "Pisang", m: "Banana", p: "be-ne-ne"}] }, { nama: "Vegetables", vocab: [{w: "Wortel", m: "Carrot", p: "ke-rot"}] }, { nama: "My Favorite Food", vocab: [{w: "Makanan", m: "Food", p: "fud"}] }, { nama: "Healthy Food", vocab: [{w: "Sehat", m: "Healthy", p: "hel-ti"}] }] },
+          { bab: "Unit 7: Things Around Me", sub: [{ nama: "Classroom Objects", vocab: [{w: "Peta", m: "Map", p: "mep"}] }, { nama: "Toys", vocab: [{w: "Yoyo", m: "Yoyo", p: "you-you"}] }, { nama: "My School Bag", vocab: [{w: "Penggaris", m: "Ruler", p: "ru-ler"}] }, { nama: "Objects at Home", vocab: [{w: "Jam", m: "Clock", p: "klok"}] }, { nama: "Big and Small", vocab: [{w: "Ukuran", m: "Size", p: "sais"}] }, { nama: "Colors and Objects", vocab: [{w: "Benda", m: "Object", p: "ob-djext"}] }] },
+          { bab: "Unit 8: My Daily Activities", sub: [{ nama: "Wake Up Time", vocab: [{w: "Pagi", m: "Morning", p: "mor-ning"}] }, { nama: "Morning Activities", vocab: [{w: "Sekolah", m: "School", p: "skul"}] }, { nama: "Afternoon Activities", vocab: [{w: "Makan siang", m: "Lunch", p: "lanc"}] }, { nama: "Evening Activities", vocab: [{w: "Makan malam", m: "Dinner", p: "din-ner"}] }, { nama: "Simple Daily Routines", vocab: [{w: "Rutin", m: "Routine", p: "ru-tin"}] }, { nama: "My Day", vocab: [{w: "Hari", m: "Day", p: "dei"}] }] }
+        ]
       },
       3: {
         1: [
-          {
-            bab: "Unit 1: My Favorite Fruits",
-            sub: [
-              { nama: "Names of Fruits", vocab: [{w: "Apel", m: "Apple", p: "e-pel"}] }
-            ]
-          }
+          { bab: "Unit 1: My House", sub: [{ nama: "Rooms in the House", vocab: [{w: "Kamar tidur", m: "Bedroom", p: "bed-rum"}, {w: "Dapur", m: "Kitchen", p: "kit-cen"}] }, { nama: "Objects in the Living Room", vocab: [{w: "Sofa", m: "Sofa", p: "sou-fa"}] }] },
+          { bab: "Unit 2: My Family", sub: [{ nama: "Family Members", vocab: [{w: "Ayah", m: "Father", p: "fa-der"}, {w: "Ibu", m: "Mother", p: "ma-der"}] }, { nama: "Describing Family", vocab: [{w: "Baik", m: "Kind", p: "kaind"}] }] },
+          { bab: "Unit 3: Clothes We Wear", sub: [{ nama: "Types of Clothes", vocab: [{w: "Kemeja", m: "Shirt", p: "sert"}, {w: "Rok", m: "Skirt", p: "skert"}] }, { nama: "My Favorite Outfit", vocab: [{w: "Pakaian", m: "Clothes", p: "klouds"}] }] },
+          { bab: "Unit 4: My School", sub: [{ nama: "School Areas", vocab: [{w: "Perpustakaan", m: "Library", p: "lai-bre-ri"}] }, { nama: "People at School", vocab: [{w: "Kepala Sekolah", m: "Principal", p: "prin-si-pel"}] }] },
+          { bab: "Unit 5: Around the Garden", sub: [{ nama: "Flowers and Plants", vocab: [{w: "Bunga", m: "Flower", p: "flau-wer"}] }, { nama: "Insects", vocab: [{w: "Kupu-kupu", m: "Butterfly", p: "ba-ter-flai"}] }] }
         ],
-        2: []
+        2: [
+          { bab: "Unit 6: Weather and Seasons", sub: [{ nama: "Sunny Day", vocab: [{w: "Cerah", m: "Sunny", p: "sa-ni"}] }, { nama: "Rainy Day", vocab: [{w: "Hujan", m: "Rainy", p: "rei-ni"}] }] },
+          { bab: "Unit 7: Transports", sub: [{ nama: "Land Transportation", vocab: [{w: "Mobil", m: "Car", p: "kar"}, {w: "Sepeda", m: "Bicycle", p: "bai-si-kel"}] }, { nama: "Air and Sea Transports", vocab: [{w: "Pesawat", m: "Airplane", p: "eir-plein"}] }] },
+          { bab: "Unit 8: Hobbies", sub: [{ nama: "Fun Hobbies", vocab: [{w: "Berenang", m: "Swimming", p: "swi-ming"}, {w: "Membaca", m: "Reading", p: "ri-ding"}] }, { nama: "What Do You Like?", vocab: [{w: "Hobi", m: "Hobby", p: "ho-bi"}] }] }
+        ]
       },
       4: {
         1: [
-          {
-            bab: "Unit 1: What Are You Doing?",
-            sub: [
-              { nama: "Activities in the Classroom", vocab: [{w: "Membaca", m: "Reading", p: "ri-ding"}] }
-            ]
-          }
+          { bab: "Unit 1: What Are You Doing?", sub: [{ nama: "Activities in Classroom", vocab: [{w: "Membaca", m: "Reading", p: "ri-ding"}, {w: "Menulis", m: "Writing", p: "rai-ting"}] }] },
+          { bab: "Unit 2: There are 25 Books", sub: [{ nama: "Numbers 21-50", vocab: [{w: "Dua puluh lima", m: "Twenty-five", p: "twen-ti faiv"}] }] },
+          { bab: "Unit 3: My Living Room", sub: [{ nama: "Things in Living Room", vocab: [{w: "Televisi", m: "Television", p: "te-le-vi-syen"}] }] },
+          { bab: "Unit 4: Cici's Activity", sub: [{ nama: "Daily Routines", vocab: [{w: "Memasak", m: "Cooking", p: "ku-king"}] }] },
+          { bab: "Unit 5: Where is My Pencil?", sub: [{ nama: "Prepositions of Place", vocab: [{w: "Di atas", m: "On", p: "on"}, {w: "Di dalam", m: "In", p: "in"}] }] }
         ],
-        2: []
+        2: [
+          { bab: "Unit 6: My New House", sub: [{ nama: "Parts of House", vocab: [{w: "Garasi", m: "Garage", p: "ge-radj"}] }] },
+          { bab: "Unit 7: In the Kitchen", sub: [{ nama: "Kitchen Utensils", vocab: [{w: "Wajan", m: "Pan", p: "pen"}] }] },
+          { bab: "Unit 8: Vehicles", sub: [{ nama: "Public Transports", vocab: [{w: "Kereta api", m: "Train", p: "trein"}] }] }
+        ]
       },
       5: {
         1: [
-          {
-            bab: "Unit 1: What Delicious Bakso!",
-            sub: [
-              { nama: "Food and Drinks", vocab: [{w: "Bakso", m: "Meatball", p: "mit-bol"}] }
-            ]
-          }
+          { bab: "Unit 1: What Delicious Bakso!", sub: [{ nama: "Food Taste", vocab: [{w: "Manis", m: "Sweet", p: "swit"}, {w: "Asin", m: "Salty", p: "sol-ti"}] }] },
+          { bab: "Unit 2: How Much Is It?", sub: [{ nama: "Asking Price", vocab: [{w: "Harga / Berapa harganya", m: "How much", p: "hau mac"}] }] },
+          { bab: "Unit 3: I Have a Headache", sub: [{ nama: "Health Problems", vocab: [{w: "Sakit kepala", m: "Headache", p: "hed-eik"}] }] },
+          { bab: "Unit 4: My Clothes", sub: [{ nama: "Outfits and Uniforms", vocab: [{w: "Seragam", m: "Uniform", p: "yu-ni-form"}] }] },
+          { bab: "Unit 5: Parts of Body", sub: [{ nama: "Internal Organs", vocab: [{w: "Jantung", m: "Heart", p: "hart"}] }] }
         ],
-        2: []
+        2: [
+          { bab: "Unit 6: Parts of the House", sub: [{ nama: "Rooms Functions", vocab: [{w: "Ruang makan", m: "Dining room", p: "dai-ning rum"}] }] },
+          { bab: "Unit 7: Daily Schedule", sub: [{ nama: "Telling Time", vocab: [{w: "Jam / Waktu", m: "Clock / Time", p: "klok / taim"}] }] },
+          { bab: "Unit 8: Comparison", sub: [{ nama: "Adjectives", vocab: [{w: "Lebih besar", m: "Bigger", p: "bi-ger"}] }] }
+        ]
       },
       6: {
         1: [
-          {
-            bab: "Unit 1: My School and I",
-            sub: [
-              { nama: "School Subjects", vocab: [{w: "Matematika", m: "Math", p: "meth"}] }
-            ]
-          }
+          { bab: "Unit 1: My School", sub: [{ nama: "School Environment", vocab: [{w: "Kantin", m: "Canteen", p: "ken-tin"}] }] },
+          { bab: "Unit 2: Daily Routines", sub: [{ nama: "Adverbs of Frequency", vocab: [{w: "Selalu", m: "Always", p: "ol-weis"}] }] },
+          { bab: "Unit 3: Future Dreams", sub: [{ nama: "Professions", vocab: [{w: "Dokter", m: "Doctor", p: "dok-ter"}] }] },
+          { bab: "Unit 4: Public Places", sub: [{ nama: "Around Town", vocab: [{w: "Rumah sakit", m: "Hospital", p: "hos-pi-tel"}] }] },
+          { bab: "Unit 5: Directions", sub: [{ nama: "Asking for Way", vocab: [{w: "Belok kanan", m: "Turn right", p: "tern rait"}] }] }
         ],
-        2: []
+        2: [
+          { bab: "Unit 6: Holiday Plans", sub: [{ nama: "Going Places", vocab: [{w: "Liburan", m: "Holiday", p: "ho-li-dei"}] }] },
+          { bab: "Unit 7: Simple Inventions", sub: [{ nama: "Technology", vocab: [{w: "Komputer", m: "Computer", p: "kom-pyu-ter"}] }] },
+          { bab: "Unit 8: Global Issues", sub: [{ nama: "Environment", vocab: [{w: "Pohon", m: "Tree", p: "tri"}] }] }
+        ]
       }
     };
 
