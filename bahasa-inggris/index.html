@@ -168,49 +168,43 @@
 
     // DATABASE MATERI (Contoh Pengisian Kelas 1)
     // Silakan tiru format 10 baris kosakata ini untuk kelas-kelas lainnya ya, Min!
-  const databaseMateri = {
-      // ==========================================
-      // GRADE 1
-      // ==========================================
-      1: {
-        1: [
-          { bab: "Unit 1: Hello!", sub: [
-            { nama: "Greetings", vocab: [{w: "Halo", m: "Hello", p: "he-lou"}, {w: "Selamat pagi", m: "Good morning", p: "gud mor-ning"}]},
-            { nama: "Parting & Farewell", vocab: [{w: "Selamat tinggal", m: "Goodbye", p: "gud-bai"}, {w: "Sampai jumpa", m: "See you", p: "si yu"}]}
-          ]},
-          { bab: "Unit 2: My Numbers", sub: [
-            { nama: "Numbers 1-5", vocab: [{w: "Satu", m: "One", p: "wan"}, {w: "Dua", m: "Two", p: "tu"}]},
-            { nama: "Numbers 6-10", vocab: [{w: "Enam", m: "Six", p: "siks"}, {w: "Tujuh", m: "Seven", p: "se-ven"}]}
-          ]},
-          { bab: "Unit 3: My Colors", sub: [
-            { nama: "Primary Colors", vocab: [{w: "Merah", m: "Red", p: "red"}, {w: "Biru", m: "Blue", p: "blu"}]},
-            { nama: "Secondary Colors", vocab: [{w: "Hijau", m: "Green", p: "grin"}, {w: "Kuning", m: "Yellow", p: "ye-lou"}]}
-          ]},
-          { bab: "Unit 4: My Family", sub: [
-            { nama: "Core Family", vocab: [{w: "Ayah", m: "Father", p: "fa-der"}, {w: "Ibu", m: "Mother", p: "ma-der"}]},
-            { nama: "Siblings", vocab: [{w: "Saudara laki-laki", m: "Brother", p: "bra-der"}, {w: "Saudara perempuan", m: "Sister", p: "sis-ter"}]}
-          ]},
-          { bab: "Unit 5: My Classroom", sub: [
-            { nama: "Stationery", vocab: [{w: "Buku", m: "Book", p: "buk"}, {w: "Pensil", m: "Pencil", p: "pen-sil"}]},
-            { nama: "Classroom Furniture", vocab: [{w: "Meja", m: "Table", p: "tei-bel"}, {w: "Kursi", m: "Chair", p: "cer"}]}
-          ]}
-        ],
-        2: [
-          { bab: "Unit 6: My Body", sub: [
-            { nama: "Head Parts", vocab: [{w: "Mata", m: "Eyes", p: "ais"}, {w: "Hidung", m: "Nose", p: "nous"}]},
-            { nama: "Limbs", vocab: [{w: "Tangan", m: "Hand", p: "hend"}, {w: "Kaki", m: "Foot", p: "fut"}]}
-          ]},
-          { bab: "Unit 7: My Animals", sub: [
-            { nama: "Pets", vocab: [{w: "Kucing", m: "Cat", p: "ket"}, {w: "Anjing", m: "Dog", p: "dog"}]},
-            { nama: "Farm Animals", vocab: [{w: "Sapi", m: "Cow", p: "kau"}, {w: "Ayam", m: "Chicken", p: "ci-ken"}]}
-          ]},
-          { bab: "Unit 8: My House", sub: [
-            { nama: "Rooms", vocab: [{w: "Kamar tidur", m: "Bedroom", p: "bed-rum"}, {w: "Dapur", m: "Kitchen", p: "kit-cen"}]},
-            { nama: "House Objects", vocab: [{w: "Pintu", m: "Door", p: "dor"}, {w: "Jendela", m: "Window", p: "win-dou"}]}
-          ]}
+ const kelas1 = {
+  grade: 1,
+  semester: {
+    1: [ // Semester 1 (Unit 1 - 5)
+      {
+        nama: "Unit 1: Greetings",
+        subBab: [
+          { nama: "Saying Hello", vocab: [{w: "Halo", m: "Hello", p: "he-lou"}, {w: "Hai", m: "Hi", p: "hai"}, {w: "Nama saya", m: "My name is", p: "mai neim is"}] },
+          { nama: "Morning Greetings", vocab: [{w: "Selamat pagi", m: "Good morning", p: "gud mor-ning"}, {w: "Selamat siang", m: "Good afternoon", p: "gud af-ter-nun"}, {w: "Bapak/Tuan", m: "Mr.", p: "mis-ter"}] },
+          { nama: "Evening Greetings", vocab: [{w: "Selamat sore/malam", m: "Good evening", p: "gud iv-ning"}, {w: "Selamat tidur", m: "Good night", p: "gud nait"}, {w: "Keluarga", m: "Family", p: "fe-me-li"}] },
+          { nama: "Saying Goodbye", vocab: [{w: "Selamat tinggal", m: "Goodbye", p: "gud-bai"}, {w: "Sampai jumpa lagi", m: "See you later", p: "si yu lei-ter"}, {w: "Hati-hati", m: "Take care", p: "teik ker"}] },
+          { nama: "Polite Expressions", vocab: [{w: "Terima kasih", m: "Thank you", p: "theng kyu"}, {w: "Sama-sama", m: "You are welcome", p: "yu ar wel-kam"}, {w: "Tolong/Silakan", m: "Please", p: "plis"}] },
+          { nama: "Asking Condition", vocab: [{w: "Apa kabar?", m: "How are you?", p: "hau ar yu"}, {w: "Saya baik-baik saja", m: "I am fine", p: "ai em fain"}, {w: "Kabar buruk", m: "Bad news", p: "bed nyus"}] }
         ]
       },
-
+      {
+        nama: "Unit 2: My Numbers",
+        subBab: [
+          { nama: "Numbers 1-3", vocab: [{w: "Satu", m: "One", p: "wan"}, {w: "Dua", m: "Two", p: "tu"}, {w: "Tiga", m: "Three", p: "thri"}] },
+          { nama: "Numbers 4-6", vocab: [{w: "Empat", m: "Four", p: "for"}, {w: "Lima", m: "Five", p: "faiv"}, {w: "Enam", m: "Six", p: "siks"}] },
+          { nama: "Numbers 7-10", vocab: [{w: "Tujuh", m: "Seven", p: "se-ven"}, {w: "Delapan", m: "Eight", p: "eit"}, {w: "Sembilan", m: "Nine", p: "nain"}] },
+          { nama: "Zero & Ten", vocab: [{w: "Nol", m: "Zero", p: "zi-rou"}, {w: "Sepuluh", m: "Ten", p: "ten"}, {w: "Berapa banyak?", m: "How many?", p: "hau me-ni"}] },
+          { nama: "Counting Objects", vocab: [{w: "Menghitung", m: "Counting", p: "kaun-ting"}, {w: "Benda", m: "Object", p: "ob-jek"}, {w: "Buku", m: "Book", p: "buk"}] },
+          { nama: "Simple Addition", vocab: [{w: "Ditambah", m: "Plus", p: "plas"}, {w: "Sama dengan", m: "Equals", p: "i-kwals"}, {w: "Total", m: "Total", p: "tou-tal"}] }
+        ]
+      },
+      { nama: "Unit 3: My Colors", subBab: [ { nama: "Sub 1", vocab: [{w: "Merah", m: "Red", p: "red"}, {w: "Biru", m: "Blue", p: "blu"}, {w: "Kuning", m: "Yellow", p: "ye-lou"}] }, { nama: "Sub 2", vocab: [{w: "Hijau", m: "Green", p: "grin"}, {w: "Hitam", m: "Black", p: "blek"}, {w: "Putih", m: "White", p: "wait"}] }, { nama: "Sub 3", vocab: [{w: "Warna", m: "Color", p: "ka-ler"}, {w: "Banyak warna", m: "Colorful", p: "ka-ler-ful"}, {w: "Pelangi", m: "Rainbow", p: "rein-bou"}] }, { nama: "Sub 4", vocab: [/* kosongi/teruskan sendiri */]}, { nama: "Sub 5", vocab: []}, { nama: "Sub 6", vocab: []} ] },
+      { nama: "Unit 4: My Body", subBab: [ { nama: "Sub 1", vocab: [{w: "Mata", m: "Eye", p: "ai"}, {w: "Hidung", m: "Nose", p: "nous"}, {w: "Telinga", m: "Ear", p: "ir"}] }, { nama: "Sub 2", vocab: [{w: "Tangan", m: "Hand", p: "hend"}, {w: "Kaki", m: "Foot", p: "fut"}, {w: "Rambut", m: "Hair", p: "her"}] }, { nama: "Sub 3", vocab: [/* vocab baru */]}, { nama: "Sub 4", vocab: []}, { nama: "Sub 5", vocab: []}, { nama: "Sub 6", vocab: []} ] },
+      { nama: "Unit 5: My Family", subBab: [ { nama: "Sub 1", vocab: [{w: "Ayah", m: "Father", p: "fa-ther"}, {w: "Ibu", m: "Mother", p: "ma-ther"}, {w: "Orang tua", m: "Parents", p: "pe-rents"}] }, { nama: "Sub 2", vocab: [{w: "Saudara laki-laki", m: "Brother", p: "bra-ther"}, {w: "Saudara perempuan", m: "Sister", p: "sis-ter"}, {w: "Bayi", m: "Baby", p: "bei-bi"}] }, { nama: "Sub 3", vocab: [/* vocab baru */]}, { nama: "Sub 4", vocab: []}, { nama: "Sub 5", vocab: []}, { nama: "Sub 6", vocab: []} ] }
+    ],
+    2: [ // Semester 2 (Unit 6 - 8)
+      { nama: "Unit 6: My House", subBab: [ { nama: "Sub 1", vocab: [{w: "Rumah", m: "House", p: "haus"}, {w: "Kamar tidur", m: "Bedroom", p: "bed-rum"}, {w: "Dapur", m: "Kitchen", p: "kit-chen"}] }, { nama: "Sub 2", vocab: [/* vocab baru */]}, { nama: "Sub 3", vocab: []}, { nama: "Sub 4", vocab: []}, { nama: "Sub 5", vocab: []}, { nama: "Sub 6", vocab: []} ] },
+      { nama: "Unit 7: Animals", subBab: [ { nama: "Sub 1", vocab: [{w: "Kucing", m: "Cat", p: "ket"}, {w: "Anjing", m: "Dog", p: "dog"}, {w: "Burung", m: "Bird", p: "berd"}] }, { nama: "Sub 2", vocab: [/* vocab baru */]}, { nama: "Sub 3", vocab: []}, { nama: "Sub 4", vocab: []}, { nama: "Sub 5", vocab: []}, { nama: "Sub 6", vocab: []} ] },
+      { nama: "Unit 8: Fruits", subBab: [ { nama: "Sub 1", vocab: [{w: "Apel", m: "Apple", p: "e-pel"}, {w: "Pisang", m: "Banana", p: "be-ne-ne"}, {w: "Jeruk", m: "Orange", p: "o-renj"}] }, { nama: "Sub 2", vocab: [/* vocab baru */]}, { nama: "Sub 3", vocab: []}, { nama: "Sub 4", vocab: []}, { nama: "Sub 5", vocab: []}, { nama: "Sub 6", vocab: []} ] }
+    ]
+  }
+};
       // ==========================================
       // GRADE 2
       // ==========================================
