@@ -39,11 +39,10 @@
 
         .container {
             width: 100%;
-            max-width: 520px; /* Ukuran kotak sangat ideal & pas di laptop/HP */
+            max-width: 520px;
             margin: auto;
         }
 
-        /* CARD UTAMA */
         .card {
             background: #ffffff;
             border-radius: 24px;
@@ -77,7 +76,6 @@
             font-weight: 500;
         }
 
-        /* FORM INPUT */
         .form-group {
             margin-bottom: 20px;
             position: relative;
@@ -125,7 +123,6 @@
             box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.1);
         }
 
-        /* TOMBOL CARI */
         button {
             width: 100%;
             border: none;
@@ -149,12 +146,11 @@
             transform: translateY(-1px);
         }
 
-        /* HASIL PENCARIAN */
         .result-box {
             margin-top: 25px;
             border-top: 2px dashed #e2e8f0;
             padding-top: 20px;
-            display: none; /* Tersembunyi di awal */
+            display: none;
         }
 
         .result-title {
@@ -187,7 +183,6 @@
             text-align: right;
         }
 
-        /* STATUS / NOTIFIKASI */
         .status-msg {
             text-align: center;
             font-size: 14px;
@@ -200,7 +195,6 @@
         .status-loading { background: #e0f2fe; color: #0369a1; }
         .status-error { background: #fee2e2; color: #b91c1c; }
 
-        /* FOOTER */
         footer {
             text-align: center;
             color: var(--text-muted);
@@ -269,7 +263,6 @@
 </div>
 
 <script>
-// IMPORTANT: GANTI dengan tautan Web App API khusus wali murid yang Mimin salin dari langkah 1 tadi!
 const API_URL = "https://script.google.com/macros/s/AKfycbwAPZtoa7kReZijZ2C-j1SoXvWjeCVggYMUqkwUFYgXScR1VKQIFDDthFE-pdXXJr8j/exec";
 
 async function cariIjazah() {
@@ -277,7 +270,6 @@ async function cariIjazah() {
     const statusBox = document.getElementById("status");
     const resultBox = document.getElementById("resultBox");
 
-    // Sembunyikan hasil lama saat pencarian baru dimulai
     resultBox.style.display = "none";
     statusBox.style.display = "none";
 
@@ -288,21 +280,19 @@ async function cariIjazah() {
         return;
     }
 
-    // Aktifkan animasi memuat data
     statusBox.className = "status-msg status-loading";
     statusBox.innerHTML = "<i class='fa-solid fa-circle-notch fa-spin'></i> Membuka arsip data kelulusan...";
     statusBox.style.display = "block";
 
     try {
-        // Mengirimkan permintaan pencarian mutlak hanya lewat parameter nomor_ijazah
         const response = await fetch(`${API_URL}?nomor_ijazah=${encodeURIComponent(inputVal)}`);
         const resData = await response.json();
 
-        if (resData.length === 0) {
+        if (!resData || resData.length === 0) {
             statusBox.className = "status-msg status-error";
             statusBox.innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Data tidak ditemukan. Pastikan karakter huruf dan nomor ijazah sudah benar.";
+            statusBox.style.display = "block";
         } else {
-            // Sembunyikan status loading, langsung tampilkan rincian datanya
             statusBox.style.display = "none";
             
             const siswa = resData[0];
@@ -317,7 +307,8 @@ async function cariIjazah() {
     } catch (err) {
         console.error(err);
         statusBox.className = "status-msg status-error";
-        statusBox.innerHTML = "<i class='fa-solid fa-cloud-bolt'></i> Terjadi gangguan koneksi ke server awan Google.";
+        statusBox.innerHTML = "<i class='fa-solid fa-cloud-bolt'></i> Terjadi gangguan koneksi atau Apps Script belum diizinkan.";
+        statusBox.style.display = "block";
     }
 }
 </script>
