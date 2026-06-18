@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cek Nilai Latihan - SDN Butoh 1 Ngasem</title>
+  <title>Cek Nilai Kelas - SDN Butoh 1 Ngasem</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,14 +11,14 @@
   <style>
     /* --- PALET WARNA: Biru Cerah Elegan --- */
     :root {
-      --primary-bg: #e3f2fd;    /* Biru Super Cerah untuk Background */
-      --card-bg: #ffffff;       /* Putih Bersih untuk Area Konten */
-      --text-main: #263238;     /* Abu-abu Sangat Tua untuk Teks Utama */
-      --text-muted: #546e7a;    /* Abu-abu Kebiruan untuk Teks Sekunder */
+      --primary-bg: #e3f2fd;    
+      --card-bg: #ffffff;       
+      --text-main: #263238;     
+      --text-muted: #546e7a;    
       
-      --accent-bright: #0091ea; /* Biru Cerah Utama (Tombol, Header) */
-      --accent-hover: #00b0ff;  /* Biru Lebih Cerah saat Hover */
-      --accent-dark: #0069c0;   /* Biru Tua untuk Aksen Kuat */
+      --accent-bright: #0091ea; 
+      --accent-hover: #00b0ff;  
+      --accent-dark: #0069c0;   
       
       --shadow-soft: 0 8px 30px rgba(0,0,0,0.05);
       --transition: all 0.3s ease;
@@ -62,13 +62,12 @@
     }
 
     .btn-home:hover { color: var(--accent-dark); transform: translateX(-3px); }
-
     .school-logo-mini { font-weight: 700; color: var(--text-main); font-size: 16px; }
     .school-logo-mini span { color: var(--accent-bright); }
 
     /* --- Container Utama --- */
     .main-container { 
-      max-width: 900px; 
+      max-width: 950px; 
       margin: 40px auto; 
       padding: 0 20px 40px 20px; 
     }
@@ -78,7 +77,7 @@
       padding: 40px; 
       border-radius: 16px; 
       box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(0,145,234,0.1); /* Border Biru Tipis */
+      border: 1px solid rgba(0,145,234,0.1); 
     }
 
     .header-panel { text-align: center; margin-bottom: 35px; }
@@ -86,64 +85,58 @@
       color: var(--accent-dark); 
       font-weight: 700; 
       font-size: 28px; 
-      letter-spacing: -0.5px;
       margin-bottom: 5px;
     }
-    .header-panel p { color: var(--text-muted); font-size: 15px; font-weight: 400; }
+    .header-panel p { color: var(--text-muted); font-size: 15px; }
 
-    /* --- Area Pencarian & Filter --- */
-    .search-filter-panel { 
+    /* --- Area Filter Kelas --- */
+    .filter-panel { 
       display: flex; 
-      flex-direction: column;
       gap: 15px;
       margin-bottom: 30px;
       padding: 20px;
       background: #fbfdff;
       border-radius: 12px;
       border: 1px solid #e1f5fe;
+      align-items: center;
+      justify-content: center;
     }
 
-    .form-row {
-      display: flex;
-      gap: 10px;
+    .select-container {
+      flex: 1;
+      max-width: 400px;
+      position: relative;
+    }
+
+    select { 
       width: 100%;
-    }
-
-    input[type="text"], select { 
-      flex: 1; 
       padding: 14px 18px; 
       border: 2px solid #e0e0e0; 
       border-radius: 8px; 
-      font-size: 15px; 
+      font-size: 16px; 
       font-family: inherit; 
       transition: var(--transition);
       background-color: white;
+      color: var(--text-main);
+      cursor: pointer;
+      appearance: none; 
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230091ea'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 24px;
     }
 
-    input[type="text"]:focus, select:focus { 
+    select:focus { 
       border-color: var(--accent-hover); 
       outline: none; 
       box-shadow: 0 0 0 4px rgba(0,176,255,0.1);
     }
 
-    /* Styling khusus Dropdown Kelas */
-    select {
-      flex: 0 0 150px; /* Lebar tetap untuk dropdown */
-      color: var(--text-muted);
-      cursor: pointer;
-      appearance: none; /* Hapus panah default */
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23546e7a'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 15px center;
-      background-size: 20px;
-    }
-    select:not(:placeholder-shown) { color: var(--text-main); }
-
     .btn-search { 
       background-color: var(--accent-bright); 
       color: white; 
       border: none; 
-      padding: 14px 30px; 
+      padding: 14px 35px; 
       border-radius: 8px; 
       cursor: pointer; 
       font-size: 15px; 
@@ -152,7 +145,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      justify-content: center;
     }
 
     .btn-search:hover { background-color: var(--accent-dark); transform: translateY(-2px); }
@@ -161,18 +153,7 @@
     /* --- Status Messages --- */
     .loader { display: none; text-align: center; margin: 30px 0; color: var(--accent-bright); }
     .message { padding: 15px; border-radius: 8px; margin-bottom: 25px; display: none; font-size: 14px; font-weight: 600; text-align: center;}
-    
-    .message.error { 
-      background-color: #ffebee; 
-      color: #c62828; 
-      border: 1px solid #ffcdd2;
-    }
-    
-    .message.info {
-      background-color: #e3f2fd;
-      color: var(--accent-dark);
-      border: 1px solid #bbdefb;
-    }
+    .message.error { background-color: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
 
     /* --- Area Hasil (Tabel) --- */
     .result-container { margin-top: 20px; overflow-x: auto; display: none; }
@@ -183,11 +164,11 @@
       border-spacing: 0;
       margin-top: 10px; 
       font-size: 14px; 
-      min-width: 600px; /* Biar ga terlalu dempet di HP */
+      min-width: 650px; 
     }
 
     th { 
-      background-color: #f5fafd; /* Biru sangat muda untuk header tabel */
+      background-color: #f5fafd; 
       color: var(--accent-dark); 
       text-align: left; 
       padding: 16px 12px; 
@@ -211,16 +192,15 @@
       font-size: 13px;
     }
 
-    /* Kustomisasi Nilai Bagus */
-    .nilai-tinggi { background-color: #2e7d32; } /* Hijau untuk nilai >= 80 */
+    .nilai-tinggi { background-color: #2e7d32; } 
 
     /* --- Responsif --- */
-    @media (max-width: 768px) {
-      .card { padding: 25px; }
+    @media (max-width: 600px) {
+      .card { padding: 20px 15px; }
       .header-panel h1 { font-size: 22px; }
-      .form-row { flex-direction: column; gap: 10px; }
-      select { flex: 1 1 auto; width: 100%; }
-      .btn-search { width: 100%; }
+      .filter-panel { flex-direction: column; width: 100%; }
+      .select-container { max-width: 100%; width: 100%; }
+      .btn-search { width: 100%; justify-content: center; }
       th, td { padding: 12px 8px; font-size: 13px; }
     }
   </style>
@@ -237,16 +217,14 @@
   <div class="main-container">
     <div class="card">
       <div class="header-panel">
-        <h1>CEK NILAI LATIHAN</h1>
-        <p>Silakan masukkan nama dan pilih kelas Anda</p>
+        <h1>LIHAT NILAI LATIHAN</h1>
+        <p>Pilih kelas Anda untuk menampilkan seluruh daftar nilai</p>
       </div>
 
-      <div class="search-filter-panel">
-        <div class="form-row">
-          <input type="text" id="searchName" placeholder="Nama Lengkap Siswa... (misal: Budi Santoso)" autocomplete="off">
-          
+      <div class="filter-panel">
+        <div class="select-container">
           <select id="filterKelas">
-            <option value="" selected>Semua Kelas</option>
+            <option value="" disabled selected>-- Pilih Kelas Di Sini --</option>
             <option value="1">Kelas 1</option>
             <option value="2">Kelas 2</option>
             <option value="3">Kelas 3</option>
@@ -256,14 +234,14 @@
           </select>
         </div>
         
-        <button id="btnCari" class="btn-search" onclick="cariNilai()">
-          <i class="fa-solid fa-magnifying-glass"></i> Cari Nilai
+        <button id="btnCari" class="btn-search" onclick="tampilkanNilaiKelas()">
+          <i class="fa-solid fa-eye"></i> Tampilkan Nilai
         </button>
       </div>
 
       <div id="loader" class="loader">
         <i class="fa-solid fa-circle-notch fa-spin fa-3x"></i>
-        <p style="margin-top:15px; font-weight:600; font-size:14px; color:var(--text-muted);">Menghubungkan ke database...</p>
+        <p style="margin-top:15px; font-weight:600; color:var(--text-muted);">Sedang mengambil data kelas...</p>
       </div>
 
       <div id="msgBox" class="message"></div>
@@ -272,12 +250,12 @@
         <table>
           <thead>
             <tr>
-              <th>Tanggal</th>
               <th>Nama Siswa</th>
               <th>Kelas</th>
               <th>Mata Pelajaran</th>
               <th>Bab/Materi</th>
               <th>Nilai</th>
+              <th>Tanggal Mengikuti</th>
             </tr>
           </thead>
           <tbody id="resultBody">
@@ -290,55 +268,56 @@
 
   <script>
     // =========================================================
-    // WAJIB: GANTI DENGAN URL WEB APP APPS SCRIPT ANDA
+    // WAJIB: GANTI DENGAN URL WEB APP APPS SCRIPT ANDA YANG BARU
     // =========================================================
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzMAtFGc1uHbutZUYHSCums529Ahq1kHrpaNkyKrXbZ69izp8xIuAKaZaMI1_wa6tHXhA/exec";
 
-    // Fitur Enter untuk mencari
-    document.getElementById("searchName").addEventListener("keypress", function(event) {
-      if (event.key === "Enter") cariNilai();
-    });
-
-    // Variabel global untuk menyimpan data mentah
-    let allData = [];
-
-    function cariNilai() {
-      const nameInput = document.getElementById("searchName").value;
+    function tampilkanNilaiKelas() {
+      const kelasSelect = document.getElementById("filterKelas").value;
       const btn = document.getElementById("btnCari");
       const loader = document.getElementById("loader");
       const msgBox = document.getElementById("msgBox");
       const resultArea = document.getElementById("resultArea");
       const resultBody = document.getElementById("resultBody");
 
-      if (nameInput.trim() === "") {
-        showMsg("Oops! Nama siswa tidak boleh kosong.", "error");
+      if (kelasSelect === "") {
+        showMsg("Silakan pilih kelas terlebih dahulu sebelum klik tombol.", "error");
         return;
       }
 
-      // Reset Tampilan
+      // Reset UI
       msgBox.style.display = "none";
       resultArea.style.display = "none";
       resultBody.innerHTML = "";
       loader.style.display = "block";
       btn.disabled = true;
 
-      // Ambil data dari Google Apps Script (API)
-      fetch(`${WEB_APP_URL}?nama=${encodeURIComponent(nameInput)}`)
+      // Ambil data berdasarkan parameter kelas
+      fetch(`${WEB_APP_URL}?kelas=${encodeURIComponent(kelasSelect)}`)
         .then(response => response.json())
         .then(response => {
           loader.style.display = "none";
           btn.disabled = false;
 
           if (response.success) {
-            allData = response.data; // Simpan data asli
-            renderTable(allData);   // Tampilkan semua data dulu
-            
-            // Tambahkan event listener untuk filter kelas jikalau belum ada
-            const selectKelas = document.getElementById("filterKelas");
-            selectKelas.onchange = function() {
-              filterByKelas(this.value);
-            };
-            
+            response.data.forEach(function(row) {
+              const tr = document.createElement("tr");
+              
+              let badgeClass = "badge-nilai";
+              const nilaiNum = parseFloat(row.nilai);
+              if (!isNaN(nilaiNum) && nilaiNum >= 80) {
+                badgeClass += " nilai-tinggi";
+              }
+
+              tr.innerHTML = `<td style="font-weight:600; color:var(--accent-dark);">${row.nama}</td>
+                              <td>Kelas ${row.kelas}</td>
+                              <td>${row.mapel}</td>
+                              <td>${row.bab}</td>
+                              <td><span class='${badgeClass}'>${row.nilai}</span></td>
+                              <td style="color:var(--text-muted); font-size:13px;">${row.tanggal}</td>`;
+              resultBody.appendChild(tr);
+            });
+            resultArea.style.display = "block";
           } else {
             showMsg(response.message, "error");
           }
@@ -346,60 +325,9 @@
         .catch(error => {
           loader.style.display = "none";
           btn.disabled = false;
-          showMsg("Gagal memuat data. Pastikan URL Apps Script sudah benar dan dipublish.", "error");
+          showMsg("Gagal memuat data dari spreadsheet. Pastikan Anda telah meng-deploy ulang Apps Script versi terbaru.", "error");
           console.error(error);
         });
-    }
-
-    // Fungsi untuk menampilkan data ke dalam tabel
-    function renderTable(dataArray) {
-      const resultArea = document.getElementById("resultArea");
-      const resultBody = document.getElementById("resultBody");
-      const msgBox = document.getElementById("msgBox");
-
-      resultBody.innerHTML = ""; // Bersihkan tabel
-      msgBox.style.display = "none"; // Sembunyikan pesan
-
-      if (dataArray.length === 0) {
-        resultArea.style.display = "none";
-        showMsg("Tidak ada data nilai yang cocok dengan kelas yang dipilih.", "info");
-        return;
-      }
-
-      dataArray.forEach(function(row) {
-        const tr = document.createElement("tr");
-        
-        // Cek nilai untuk badge warna
-        let badgeClass = "badge-nilai";
-        const nilaiNum = parseFloat(row.nilai);
-        if (!isNaN(nilaiNum) && nilaiNum >= 80) {
-          badgeClass += " nilai-tinggi"; // Tambah class hijau
-        }
-
-        tr.innerHTML = `<td>${row.tanggal}</td>
-                        <td style="font-weight:600;">${row.nama}</td>
-                        <td>Kelas ${row.kelas}</td>
-                        <td>${row.mapel}</td>
-                        <td>${row.bab}</td>
-                        <td><span class='${badgeClass}'>${row.nilai}</span></td>`;
-        resultBody.appendChild(tr);
-      });
-      resultArea.style.display = "block";
-    }
-
-    // Fungsi untuk memfilter data berdasarkan kelas yang dipilih
-    function filterByKelas(kelasYangDipilih) {
-      if (allData.length === 0) return;
-
-      if (kelasYangDipilih === "") {
-        renderTable(allData); // Tampilkan semua jika "Semua Kelas" dipilih
-      } else {
-        const filtered = allData.filter(function(item) {
-          // Sesuaikan tipe data (string vs number) jikalau perlu
-          return String(item.kelas) === String(kelasYangDipilih);
-        });
-        renderTable(filtered);
-      }
     }
 
     function showMsg(text, type) {
