@@ -9,80 +9,136 @@
   
   <style>
     body {
-      background-color: #f0f8ff; /* Latar biru muda lembut */
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #333;
+      background: linear-gradient(135deg, #e6f2ff 0%, #cce6ff 100%);
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      color: #2b3d52;
+      min-height: 100vh;
+      padding-bottom: 50px;
     }
-    .navbar-custom {
-      background: linear-gradient(135deg, #0056b3, #0080ff); /* Biru cerah ceremoni sekolah */
+    .header-panel {
+      background: linear-gradient(135deg, #0056b3, #0080ff);
       color: white;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      border-radius: 0 0 24px 24px;
+      box-shadow: 0 8px 24px rgba(0, 86, 179, 0.15);
+      padding: 35px 20px;
+      margin-bottom: 35px;
+      text-align: center;
     }
-    .card-filter {
-      background: white;
-      border-radius: 12px;
-      border: none;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    .header-panel h1 {
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+    .header-panel p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    .card-custom {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+    .form-label {
+      font-weight: 600;
+      color: #004085;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .form-control, .form-select {
+      border: 1.5px solid #b3d7ff;
+      border-radius: 10px;
+      padding: 11px 15px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
     }
     .table-container {
       background: white;
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      border: 1px solid #e1e8ed;
+    }
+    .table {
+      margin-bottom: 0;
     }
     .table thead {
       background-color: #0056b3;
       color: white;
     }
-    .badge-rank-1 { background-color: #ffd700; color: #000; font-weight: bold; padding: 6px 10px; } /* Emas */
-    .badge-rank-2 { background-color: #c0c0c0; color: #000; font-weight: bold; padding: 6px 10px; } /* Perak */
-    .badge-rank-3 { background-color: #cd7f32; color: white; font-weight: bold; padding: 6px 10px; } /* Perunggu */
-    .badge-rank-other { background-color: #e2e8f0; color: #4a5568; padding: 6px 10px; }
-    
-    /* Animasi Loading */
-    .loader {
-      border: 5px solid #f3f3f3;
-      border-top: 5px solid #0056b3;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 20px auto;
+    .table th {
+      padding: 16px;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .table td {
+      padding: 16px;
+      font-size: 14px;
+      border-bottom: 1px solid #f1f4f6;
+    }
+    .table tbody tr:hover {
+      background-color: #f4f9ff;
+    }
+    .badge-kelas {
+      background-color: #e6f2ff;
+      color: #0056b3;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+    .nilai-text {
+      font-weight: 700;
+      color: #198754;
+      font-size: 16px;
+    }
+    /* Loader minimalis mewah */
+    .loader-box {
+      padding: 40px;
+      text-align: center;
+    }
+    .spinner-custom {
+      width: 3rem;
+      height: 3rem;
+      color: #0056b3;
     }
   </style>
 </head>
 <body>
 
-  <nav class="navbar navbar-custom py-3 mb-4">
-    <div class="container text-center text-sm-start">
-      <span class="navbar-brand mb-0 h1 fw-bold text-white">
-        <i class="fa-solid fa-graduation-cap me-2"></i> MONITORING NILAI LATIHAN SISWA
-      </span>
+  <div class="header-panel">
+    <div class="container">
+      <h1><i class="fa-solid fa-layer-group me-2"></i> DATA NILAI LATIHAN SOAL</h1>
+      <p class="mb-0">Sistem Informasi Hasil Nilai Perkembangan Siswa Terintegrasi</p>
     </div>
-  </nav>
+  </div>
 
   <div class="container">
-    <div class="card card-filter p-4 mb-4">
+    <div class="card-custom">
       <div class="row g-3">
         <div class="col-md-4">
-          <label class="form-label fw-semibold text-secondary">Cari Nama Siswa</label>
+          <label class="form-label"><i class="fa-solid fa-user me-1"></i> CARI NAMA SISWA</label>
           <div class="input-group">
-            <span class="input-group-text bg-light"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-            <input type="text" id="searchNama" class="form-control" placeholder="Ketik nama siswa..." onkeyup="filterData()">
+            <span class="input-group-text bg-light border-end-0" style="border: 1.5px solid #b3d7ff; border-radius: 10px 0 0 10px;"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+            <input type="text" id="searchNama" class="form-control border-start-0" placeholder="Ketik nama untuk mencari..." onkeyup="filterData()">
           </div>
         </div>
         <div class="col-md-4">
-          <label class="form-label fw-semibold text-secondary">Filter Kelas</label>
+          <label class="form-label"><i class="fa-solid fa-school me-1"></i> FILTER KELAS</label>
           <select id="filterKelas" class="form-select" onchange="filterData()">
             <option value="">-- Semua Kelas --</option>
           </select>
         </div>
         <div class="col-md-4">
-          <label class="form-label fw-semibold text-secondary">Filter Mata Pelajaran</label>
+          <label class="form-label"><i class="fa-solid fa-book me-1"></i> MATA PELAJARAN</label>
           <select id="filterMapel" class="form-select" onchange="filterData()">
             <option value="">-- Semua Mapel --</option>
           </select>
@@ -90,22 +146,21 @@
       </div>
     </div>
 
-    <div class="table-container p-3">
-      <div id="loading" class="text-center my-4">
-        <div class="loader"></div>
-        <p class="text-muted">Memuat data nilai dari database...</p>
+    <div class="table-container p-2">
+      <div id="loading" class="loader-box">
+        <div class="spinner-border spinner-custom mb-3" role="status"></div>
+        <p class="text-muted mb-0 fw-medium">Sedang memproses & menyelaraskan data...</p>
       </div>
       
       <div class="table-responsive" id="tableWrapper" style="display: none;">
-        <table class="table table-hover align-middle">
+        <table class="table align-middle">
           <thead>
             <tr>
-              <th class="text-center" style="width: 140px;">Peringkat Kelas</th>
-              <th>Tanggal</th>
+              <th style="width: 130px;">Tanggal</th>
               <th>Nama Siswa</th>
               <th>Kelas</th>
               <th>Mata Pelajaran</th>
-              <th>Bab</th>
+              <th>Bab / Pembahasan</th>
               <th class="text-center" style="width: 100px;">Nilai</th>
             </tr>
           </thead>
@@ -119,34 +174,41 @@
   <script>
     let masterData = [];
 
-    // Mengambil data dari Google Apps Script backend saat halaman dibuka
+    // Memanggil database Google Sheets saat halaman pertama dimuat
     document.addEventListener("DOMContentLoaded", function() {
-      google.script.run
-        .withSuccessHandler(function(data) {
-          masterData = data;
-          if (data.length === 0) {
-            document.getElementById("loading").innerHTML = "<p class='text-danger fw-bold'>Data tidak ditemukan. Pastikan nama sheet di spreadsheet adalah 'results' (pake s) dan kolom Nama tidak kosong.</p>";
-            return;
-          }
-          isiOpsiFilter(data);
-          renderTabel(data);
-          document.getElementById("loading").style.display = "none";
-          document.getElementById("tableWrapper").style.display = "block";
-        })
-        .withFailureHandler(function(error) {
-          document.getElementById("loading").innerHTML = "<p class='text-danger fw-bold'>Gagal memuat data dari Google Script: " + error.message + "</p>";
-        })
-        .getDataSiswa();
+      function dapatkanData() {
+        if (typeof google !== 'undefined' && google.script) {
+          google.script.run
+            .withSuccessHandler(function(data) {
+              masterData = data;
+              if (data.length === 0) {
+                document.getElementById("loading").innerHTML = "<p class='text-danger fw-bold py-3'>Data masih kosong. Pastikan nama tab sheet adalah 'results' dan baris data sudah terisi.</p>";
+                return;
+              }
+              isiOpsiDropdown(data);
+              renderKeTabel(data);
+              document.getElementById("loading").style.display = "none";
+              document.getElementById("tableWrapper").style.display = "block";
+            })
+            .withFailureHandler(function(error) {
+              document.getElementById("loading").innerHTML = "<p class='text-danger fw-bold py-3'>Gagal terhubung dengan database: " + error.message + "</p>";
+            })
+            .getDataSiswa();
+        } else {
+          setTimeout(dapatkanData, 300); // Polling peluncuran aman jika jaringan lambat
+        }
+      }
+      dapatkanData();
     });
 
-    // Mengisi dropdown filter secara dinamis berdasarkan data unik di spreadsheet
-    function isiOpsiFilter(data) {
+    // Membuat isi pilihan filter otomatis berdasar data di Excel
+    function isiOpsiDropdown(data) {
       let kelasSet = new Set();
       let mapelSet = new Set();
       
       data.forEach(item => {
-        if(item.kelas) kelasSet.add(item.kelas);
-        if(item.mapel) mapelSet.add(item.mapel);
+        if(item.kelas && item.kelas !== "-") kelasSet.add(item.kelas);
+        if(item.mapel && item.mapel !== "-") mapelSet.add(item.mapel);
       });
 
       let selectKelas = document.getElementById("filterKelas");
@@ -160,28 +222,21 @@
       });
     }
 
-    // Fungsi menampilkan data ke dalam tabel HTML
-    function renderTabel(data) {
+    // Menggambar data ke dalam baris tabel HTML
+    function renderKeTabel(data) {
       let html = "";
       if (data.length === 0) {
-        html = `<tr><td colspan="7" class="text-center text-muted py-4">Data tidak ditemukan atau tidak sesuai filter</td></tr>`;
+        html = `<tr><td colspan="6" class="text-center text-muted py-4">Data siswa tidak ditemukan</td></tr>`;
       } else {
         data.forEach(item => {
-          let rankBadge = "";
-          if (item.peringkat === 1) rankBadge = `<span class="badge badge-rank-1"><i class="fa-solid fa-medal me-1"></i>Juara 1</span>`;
-          else if (item.peringkat === 2) rankBadge = `<span class="badge badge-rank-2"><i class="fa-solid fa-medal me-1"></i>Juara 2</span>`;
-          else if (item.peringkat === 3) rankBadge = `<span class="badge badge-rank-3"><i class="fa-solid fa-medal me-1"></i>Juara 3</span>`;
-          else rankBadge = `<span class="badge badge-rank-other">#${item.peringkat}</span>`;
-
           html += `
             <tr>
-              <td class="text-center">${rankBadge}</td>
-              <td>${item.tanggal}</td>
-              <td class="fw-bold text-primary">${item.nama}</td>
-              <td><span class="badge bg-secondary">${item.kelas}</span></td>
-              <td>${item.mapel}</td>
-              <td><small class="text-muted">${item.bab}</small></td>
-              <td class="text-center fw-bold text-success fs-5">${item.nilai}</td>
+              <td class="text-secondary"><small>${item.tanggal}</small></td>
+              <td class="fw-semibold text-dark">${item.nama}</td>
+              <td><span class="badge badge-kelas">${item.kelas}</span></td>
+              <td><i class="fa-solid fa-bookmark me-1 text-primary" style="font-size:12px;"></i> ${item.mapel}</td>
+              <td class="text-muted">${item.bab}</td>
+              <td class="text-center nilai-text">${item.nilai}</td>
             </tr>
           `;
         });
@@ -189,7 +244,7 @@
       document.getElementById("tabelBody").innerHTML = html;
     }
 
-    // Fungsi Filter Realtime (Gabungan Input Nama + Dropdown Kelas + Dropdown Mapel)
+    // Logika Filter Instan (Nama, Kelas, Mapel) tanpa refresh halaman
     function filterData() {
       let keyword = document.getElementById("searchNama").value.toLowerCase();
       let kelasVal = document.getElementById("filterKelas").value;
@@ -202,7 +257,7 @@
         return matchNama && matchKelas && matchMapel;
       });
 
-      renderTabel(dataTerfilter);
+      renderKeTabel(dataTerfilter);
     }
   </script>
 </body>
