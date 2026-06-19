@@ -350,9 +350,18 @@
           }
         ]
       },
-       6: {
+      
+      // Kerangka Smt 1 Kelas Lain (Tetap Aman)
+      1: { 1: [{ bab: "Unit 1: Alphabet & Greetings", sub: [{nama:"The Alphabet", vocab:[{w:"A", m:"A", p:"ei"}]}] }], 2: [] },
+      2: { 1: [{ bab: "Unit 1: Colors around Us", sub: [{nama:"Primary Colors", vocab:[{w:"Merah", m:"Red", p:"red"}]}] }], 2: [] },
+      3: { 1: [{ bab: "Unit 1: My Fruits", sub: [{nama:"Sweet Fruits", vocab:[{w:"Apel", m:"Apple", p:"e-pel"}]}] }], 2: [] },
+      4: { 1: [{ bab: "Unit 1: Introduction", sub: [{nama:"Self Introduction", vocab:[{w:"Nama", m:"Name", p:"neim"}]}] }], 2: [] },
+      6: { 1: [{ bab: "Unit 1: Directions", sub: [{nama:"Turn Right & Left", vocab:[{w:"Kanan", m:"Right", p:"rait"}]}] }], 2: [] }
+    };
+                                                                                       6: {
       // KELAS 6 - SEMESTER 1 (UNIT 1 SAMPAI 4)
-        1: [
+        6: { 
+          1: [
           {
             bab: "Unit 1: My School and I",
             sub: [
@@ -447,13 +456,6 @@
           }
         ]
       },
-      // Kerangka Smt 1 Kelas Lain (Tetap Aman)
-      1: { 1: [{ bab: "Unit 1: Alphabet & Greetings", sub: [{nama:"The Alphabet", vocab:[{w:"A", m:"A", p:"ei"}]}] }], 2: [] },
-      2: { 1: [{ bab: "Unit 1: Colors around Us", sub: [{nama:"Primary Colors", vocab:[{w:"Merah", m:"Red", p:"red"}]}] }], 2: [] },
-      3: { 1: [{ bab: "Unit 1: My Fruits", sub: [{nama:"Sweet Fruits", vocab:[{w:"Apel", m:"Apple", p:"e-pel"}]}] }], 2: [] },
-      4: { 1: [{ bab: "Unit 1: Introduction", sub: [{nama:"Self Introduction", vocab:[{w:"Nama", m:"Name", p:"neim"}]}] }], 2: [] },
-      6: { 1: [{ bab: "Unit 1: Directions", sub: [{nama:"Turn Right & Left", vocab:[{w:"Kanan", m:"Right", p:"rait"}]}] }], 2: [] }
-    };
     function bukaModalKelas(kelas) {
       kelasAktif = kelas; semesterAktif = 1;
       document.getElementById("judulModal").innerText = `Grade ${kelas} English Lessons`;
