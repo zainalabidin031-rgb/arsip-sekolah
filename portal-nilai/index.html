@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Nilai Sekolah</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f4f6f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .main-container { max-width: 1140px; margin: 40px auto; }
+    .card-custom { border: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); background: white; padding: 25px; margin-bottom: 25px; }
+    .card-login { max-width: 450px; margin: 100px auto; }
+    .table th { background-color: #f8f9fa; color: #495057; font-weight: 600; text-align: center; vertical-align: middle; }
+    .table td { vertical-align: middle; }
+    .low-score { color: #dc3545; font-weight: bold; }
+    .badge-bab { background-color: #6c757d; color: white; padding: 5px 10px; border-radius: 4px; }
+    .btn-action { font-weight: 600; border-radius: 6px; }
+    .form-control-score { width: 80px; text-align: center; margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+  <div id="screenOrangTuaLogin" class="container" style="display: block;">
+    <div class="card card-custom card-login">
+      <div class="text-center mb-4">
+        <h4 class="fw-bold text-primary">PORTAL RAPOR DIGITAL</h4>
+        <small class="text-muted">Akses Khusus Orang Tua / Wali Murid</small>
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">NISN Siswa</label>
+        <input type="text" id="nisnInput" class="form-control" placeholder="Masukkan 6-10 digit NISN">
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Tanggal Lahir Anak</label>
+        <input type="date" id="tglLahirInput" class="form-control">
+      </div>
+      <button class="btn btn-primary w-100 py-2 btn-action" onclick="authOrangTua()">Buka Lembar Rapor</button>
+    </div>
+  </div>
+
+
+  <div id="screenOrangTuaDashboard" class="container main-container" style="display: none;">
+    <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-3 rounded shadow-sm">
+      <div>
+        <h4 class="m-0 fw-bold text-primary">Transkrip Capaian Nilai Siswa</h4>
+        <span id="txtInfoSiswa" class="text-muted font-monospace"></span>
+      </div>
+      <button class="btn btn-outline-danger btn-sm" onclick="keluarSistem()">Keluar</button>
+    </div>
+    
+    <div class="card card-custom">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>Mata Pelajaran</th>
+              <th>Bab Pembelajaran</th>
+              <th class="text-center">UH-1</th>
+              <th class="text-center">UH-2</th>
+              <th class="text-center">UH-3</th>
+              <th class="text-center table-primary text-dark">PTS</th>
+              <th class="text-center table-warning text-dark">UAS</th>
+            </tr>
+          </thead>
+          <tbody id="tabelNilaiOrangTua">
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="screenGuruDashboard" class="container main-container" style="display: none;">
+    <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-3 rounded shadow-sm">
+      <div>
+        <h4 class="m-0 fw-bold text-success">Manajemen Penilaian Akademik</h4>
+        <span id="txtNamaGuru" class="text-muted fw-semibold"></span>
+      </div>
+      <span class="badge bg-success py-2 px-3">Sesi Terverifikasi Portal</span>
+    </div>
+    
+    <div class="card card-custom">
+      <h5 class="fw-bold text-success mb-3">1. Pilih Target Parameter Kelas</h5>
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label class="form-label small fw-bold text-secondary">KELAS</label>
+          <select id="filterKelas" class="form-select"></select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small fw-bold text-secondary">MATA PELAJARAN</label>
+          <select id="filterMapel" class="form-select"></select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small fw-bold text-secondary">BAB PEMBELAJARAN</label>
+          <select id="filterBab" class="form-select">
+            <option value="Bab 1">Bab 1</option>
+            <option value="Bab 2">Bab 2</option>
+            <option value="Bab 3">Bab 3</option>
+            <option value="Bab 4">Bab 4</option>
+            <option value="Bab 5">Bab 5</option>
+          </select>
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+          <button class="btn btn-success w-100 btn-action py-2" onclick="ambilDataSiswaGuru()">Tampilkan Nilai Siswa</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card card-custom">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold text-dark m-0">2. Lembar Kerja Pengisian Nilai</h5>
+        <div id="areaAksiGuru" style="display: none;">
+          <button class="btn btn-primary btn-sm btn-action px-3 py-2" onclick="simpanNilaiKeGoogle()">Simpan Semua Perubahan Nilai</button>
+        </div>
+      </div>
+      
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+          <thead>
+            <tr>
+              <th width="12%">NISN</th>
+              <th width="28%">Nama Lengkap Siswa</th>
+              <th width="12%">UH-1</th>
+              <th width="12%">UH-2</th>
+              <th width="12%">UH-3</th>
+              <th width="12%">PTS</th>
+              <th width="12%">UAS</th>
+            </tr>
+          </thead>
+          <tbody id="tabelNilaiKerjaGuru">
+            <tr>
+              <td colspan="7" class="text-center text-muted py-4">Silakan tentukan filter di atas lalu klik "Tampilkan Nilai Siswa"</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // =========================================================================
+    // WAJIB: PASTE URL WEB APP HASIL DEPLOY GOOGLE APPS SCRIPT ANDA DI SINI!
+    // =========================================================================
+    const URL_API_GOOGLE = "https://script.google.com/macros/s/AKfycbz6o9fubPVjue5Bun7kEmJdkxjotICEUpSwPJgqfTXJafw-Qncm6vfiYWLlgq_6vNhJTQ/exec"; 
+
+    // Pengecekan otomatis saat halaman pertama kali dimuat di server sekolah
+    window.onload = function() {
+      const URLQuery = new URLSearchParams(window.location.search);
+      const roleUser = URLQuery.get('role'); // Mengambil parameter ?role=
+      const namaGuru = URLQuery.get('nama'); // Mengambil parameter &nama=
+
+      if (roleUser === "guru") {
+        // BYPASS LOGIN: Sembunyikan panel orang tua, tampilkan panel guru
+        document.getElementById('screenOrangTuaLogin').style.display = 'none';
+        document.getElementById('screenOrangTuaDashboard').style.display = 'none';
+        document.getElementById('screenGuruDashboard').style.display = 'block';
+        document.getElementById('txtNamaGuru').innerText = "Guru Pengampu: " + (namaGuru || "Pengajar Sekolah");
+        
+        // Tarik opsi dropdown Kelas & Mapel langsung dari basis data Google Sheets
+        muatDropdownFilterGuru();
+      }
+    };
+
+    // 1. ORANG TUA: Autentikasi NISN & Tanggal Lahir
+    function authOrangTua() {
+      var nisn = document.getElementById('nisnInput').value;
+      var tgl = document.getElementById('tglLahirInput').value;
+      if(!nisn || !tgl) return alert("Mohon lengkapi NISN dan Tanggal Lahir anak!");
+
+      fetch(URL_API_GOOGLE, {
+        method: 'POST',
+        body: JSON.stringify({ aksi: "loginOrangTua", nisn: nisn, tglLahir: tgl })
+      })
+      .then(res => res.json())
+      .then(res => {
+        if(res.status === "success") {
+          document.getElementById('screenOrangTuaLogin').style.display = 'none';
+          document.getElementById('screenOrangTuaDashboard').style.display = 'block';
+          document.getElementById('txtInfoSiswa').innerText = `Nama: ${res.siswa.nama} | Kelas: ${res.siswa.kelas} | Wali: ${res.siswa.ortu}`;
+          muatTabelNilaiOrangTua(res.siswa.nisn);
+        } else {
+          alert(res.message);
+        }
+      }).catch(err => alert("Gagal terhubung ke database server: " + err));
+    }
+
+    // 2. ORANG TUA: Muat transkrip nilai ke tabel
+    function muatTabelNilaiOrangTua(nisnSiswa) {
+      fetch(URL_API_GOOGLE, {
+        method: 'POST',
+        body: JSON.stringify({ aksi: "loadNilaiOrangTua", nisn: nisnSiswa })
+      })
+      .then(res => res.json())
+      .then(res => {
+        var HTMLBaris = "";
+        if(res.data.length === 0) {
+          HTMLBaris = `<tr><td colspan="7" class="text-center text-muted py-4">Belum ada rekaman entri nilai untuk siswa ini.</td></tr>`;
+        } else {
+          res.data.forEach(row => {
+            HTMLBaris += `
+              <tr>
+                <td class="fw-bold text-dark">${row.mapel}</td>
+                <td class="text-center"><span class="badge-bab">${row.bab}</span></td>
+                <td class="text-center ${row.uh1 < 70 && row.uh1 !== '-' ? 'low-score':''}">${row.uh1}</td>
+                <td class="text-center ${row.uh2 < 70 && row.uh2 !== '-' ? 'low-score':''}">${row.uh2}</td>
+                <td class="text-center ${row.uh3 < 70 && row.uh3 !== '-' ? 'low-score':''}">${row.uh3}</td>
+                <td class="text-center table-primary fw-bold">${row.pts}</td>
+                <td class="text-center table-warning fw-bold">${row.uas}</td>
+              </tr>`;
+          });
+        }
+        document.getElementById('tabelNilaiOrangTua').innerHTML = HTMLBaris;
+      });
+    }
+
+    // 3. GURU: Ambil opsi Kelas dan Mapel dinamis
+    function muatDropdownFilterGuru() {
+      fetch(URL_API_GOOGLE, {
+        method: 'POST',
+        body: JSON.stringify({ aksi: "getFilterOptions" })
+      })
+      .then(res => res.json())
+      .then(res => {
+        document.getElementById('filterKelas').innerHTML = res.kelas.map(k => `<option value="${k}">${k}</option>`).join('');
+        document.getElementById('filterMapel').innerHTML = res.mapel.map(m => `<option value="${m}">${m}</option>`).join('');
+      });
+    }
+
+    // 4. GURU: Tampilkan baris pengisian nilai siswa (Fungsi Tambah & Ubah sekaligus)
+    function ambilDataSiswaGuru() {
+      var kelasSelected = document.getElementById('filterKelas').value;
+      var mapelSelected = document.getElementById('filterMapel').value;
+      var babSelected = document.getElementById('filterBab').value;
+
+      document.getElementById('tabelNilaiKerjaGuru').innerHTML = `<tr><td colspan="7" class="text-center text-primary py-4"><div class="spinner-border spinner-border-sm me-2"></div>Membuka basis data siswa...</td></tr>`;
+
+      fetch(URL_API_GOOGLE, {
+        method: 'POST',
+        body: JSON.stringify({ aksi: "loadNilaiGuru", kelas: kelasSelected, mapel: mapelSelected, bab: babSelected })
+      })
+      .then(res => res.json())
+      .then(data => {
+        var HTMLBaris = "";
+        if(data.length === 0) {
+          HTMLBaris = `<tr><td colspan="7" class="text-center text-danger py-4 font-weight-bold">Tidak ditemukan siswa terdaftar di kelas ${kelasSelected}!</td></tr>`;
+          document.getElementById('areaAksiGuru').style.display = 'none';
+        } else {
+          data.forEach(row => {
+            HTMLBaris += `
+              <tr class="row-data-nilai-siswa" data-nisn="${row.nisn}">
+                <td class="font-monospace"><strong>${row.nisn}</strong></td>
+                <td class="fw-semibold">${row.nama}</td>
+                <td><input type="number" class="form-control form-control-sm form-control-score in-uh1" value="${row.uh1}" min="0" max="100"></td>
+                <td><input type="number" class="form-control form-control-sm form-control-score in-uh2" value="${row.uh2}" min="0" max="100"></td>
+                <td><input type="number" class="form-control form-control-sm form-control-score in-uh3" value="${row.uh3}" min="0" max="100"></td>
+                <td><input type="number" class="form-control form-control-sm form-control-score in-pts" value="${row.pts}" min="0" max="100"></td>
+                <td><input type="number" class="form-control form-control-sm form-control-score in-uas" value="${row.uas}" min="0" max="100"></td>
+              </tr>`;
+          });
+          document.getElementById('areaAksiGuru').style.display = 'block';
+        }
+        document.getElementById('tabelNilaiKerjaGuru').innerHTML = HTMLBaris;
+      });
+    }
+
+    // 5. GURU: Eksekutor kirim data massal ke Google Sheet
+    function simpanNilaiKeGoogle() {
+      var kelasSelected = document.getElementById('filterKelas').value;
+      var mapelSelected = document.getElementById('filterMapel').value;
+      var babSelected = document.getElementById('filterBab').value;
+      
+      var arrayRecords = [];
+      document.querySelectorAll('.row-data-nilai-siswa').forEach(row => {
+        arrayRecords.push({
+          nisn: row.getAttribute('data-nisn'),
+          uh1: row.querySelector('.in-uh1').value,
+          uh2: row.querySelector('.in-uh2').value,
+          uh3: row.querySelector('.in-uh3').value,
+          pts: row.querySelector('.in-pts').value,
+          uas: row.querySelector('.in-uas').value
+        });
+      });
+
+      if(arrayRecords.length === 0) return;
+
+      fetch(URL_API_GOOGLE, {
+        method: 'POST',
+        body: JSON.stringify({
+          aksi: "simpanNilai", kelas: kelasSelected, mapel: mapelSelected, bab: babSelected, records: arrayRecords
+        })
+      })
+      .then(res => res.json())
+      .then(res => {
+        alert(res.message); 
+        ambilDataSiswaGuru(); 
+      }).catch(err => alert("Gagal mengirim perintah simpan: " + err));
+    }
+
+    function keluarSistem() {
+      window.location.href = window.location.pathname; 
+    }
+  </script>
+</body>
+</html>
