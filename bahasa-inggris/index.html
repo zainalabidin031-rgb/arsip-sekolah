@@ -135,7 +135,7 @@
       font-weight: 600;
     }
 
-    /* Warna Spesifik Kartu Tradisional yang Di-upgrade lebih hidup */
+    /* Warna Spesifik Kartu */
     .g1::after { background: #ff4757; } .g1 i { color: #ff4757; }
     .g2::after { background: #2ed573; } .g2 i { color: #2ed573; }
     .g3::after { background: #ffa502; } .g3 i { color: #ffa502; }
@@ -245,16 +245,29 @@
   </div>
 
   <script>
-    // =========================================================================
-    // ISI JALUR RELATIF FILE CBT ANDA DI REPO GITHUB (MISAL: "cbt.html")
-    // =========================================================================
     const LINK_WEB_APP_CBT = "ulangan/";
 
     let kelasAktif = 5;
     let semesterAktif = 1;
 
-    // MASTER DATABASE MATERI (Unit 1 s.d 5 Kelas 5 Terisi Lengkap Otomatis)
+    // MASTER DATABASE MATERI
     const databaseMateri = {
+      1: { 
+        1: [{ bab: "Unit 1: Alphabet & Greetings", sub: [{nama:"The Alphabet", vocab:[{w:"A", m:"A", p:"ei"}]}] }], 
+        2: [] 
+      },
+      2: { 
+        1: [{ bab: "Unit 1: Colors around Us", sub: [{nama:"Primary Colors", vocab:[{w:"Merah", m:"Red", p:"red"}]}] }], 
+        2: [] 
+      },
+      3: { 
+        1: [{ bab: "Unit 1: My Fruits", sub: [{nama:"Sweet Fruits", vocab:[{w:"Apel", m:"Apple", p:"e-pel"}]}] }], 
+        2: [] 
+      },
+      4: { 
+        1: [{ bab: "Unit 1: Introduction", sub: [{nama:"Self Introduction", vocab:[{w:"Nama", m:"Name", p:"neim"}]}] }], 
+        2: [] 
+      },
       5: {
         1: [
           {
@@ -313,7 +326,6 @@
             ]
           }
         ],
-        // SEMESTER 2 (BARU HASIL EKSTRAKSI DARI FOTO!)
         2: [
           {
             bab: "Unit 6: I Can Make It Myself!",
@@ -350,13 +362,9 @@
           }
         ]
       },
-      
-      // Kerangka Smt 1 Kelas Lain (Tetap Aman)
-      1: { 1: [{ bab: "Unit 1: Alphabet & Greetings", sub: [{nama:"The Alphabet", vocab:[{w:"A", m:"A", p:"ei"}]}] }], 2: [] },
-      2: { 1: [{ bab: "Unit 1: Colors around Us", sub: [{nama:"Primary Colors", vocab:[{w:"Merah", m:"Red", p:"red"}]}] }], 2: [] },
-      3: { 1: [{ bab: "Unit 1: My Fruits", sub: [{nama:"Sweet Fruits", vocab:[{w:"Apel", m:"Apple", p:"e-pel"}]}] }], 2: [] },
-      4: { 1: [{ bab: "Unit 1: Introduction", sub: [{nama:"Self Introduction", vocab:[{w:"Nama", m:"Name", p:"neim"}]}] }], 2: [] },
-      6: { 1: [{ bab: "Unit 1:  My School and I", sub: [
+      6: { 
+        1: [
+          { bab: "Unit 1: My School and I", sub: [
               { nama: "School Subjects", vocab: [{w: "Matematika", m: "Math", p: "meth"}, {w: "Bahasa Inggris", m: "English", p: "ing-glis"}, {w: "Sains", m: "Science", p: "sai-ens"}, {w: "Sejarah", m: "History", p: "his-to-ri"}] },
               { nama: "Classroom Activities", vocab: [{w: "Membaca", m: "Reading", p: "ri-ding"}, {w: "Menulis", m: "Writing", p: "rai-ting"}, {w: "Diskusi", m: "Discussion", p: "dis-ka-syen"}, {w: "Mendengarkan", m: "Listening", p: "li-se-ning"}] },
               { nama: "School Rules", vocab: [{w: "Tepat waktu", m: "On time", p: "on taim"}, {w: "Seragam", m: "Uniform", p: "yu-ni-form"}, {w: "Dilarang ribut", m: "Be quiet", p: "bi kwai-et"}, {w: "Hormat", m: "Respect", p: "ri-spek"}] },
@@ -365,8 +373,7 @@
               { nama: "Describing School Life", vocab: [{w: "Ramai", m: "Crowded", p: "krau-did"}, {w: "Bersih", m: "Clean", p: "klin"}, {w: "Sangat menyenangkan", m: "Wonderful", p: "wan-der-ful"}, {w: "Aktif", m: "Active", p: "ek-tiv"}] }
             ]
           },
-          {                                                                               6: {
-      
+          {
             bab: "Unit 2: My Daily Routine",
             sub: [
               { nama: "Daily Activities", vocab: [{w: "Rutinitas", m: "Routine", p: "ru-tin"}, {w: "Mandi", m: "Shower", p: "syau-er"}, {w: "Merapikan kasur", m: "Make the bed", p: "meik de bed"}, {w: "Berpakaian", m: "Get dressed", p: "get drest"}] },
@@ -399,9 +406,7 @@
               { nama: "Talking About Interests", vocab: [{w: "Tertarik pada", m: "Interested in", p: "in-tres-tid in"}, {w: "Bakat", m: "Talent", p: "te-lent"}, {w: "Keren", m: "Cool", p: "kul"}] }
             ]
           }
-        ],
-     
-        // KELAS 6 - SEMESTER 2 (UNIT 5 SAMPAI 8)
+        ], 
         2: [
           {
             bab: "Unit 5: Our Environment",
@@ -430,105 +435,143 @@
             sub: [
               { nama: "Holiday Activities", vocab: [{w: "Liburan luar biasa", m: "Wonderful holiday", p: "wan-der-ful ho-li-dei"}, {w: "Berkemah", m: "Camping", p: "kem-ping"}] },
               { nama: "Past Experiences", vocab: [{w: "Pengalaman", m: "Experience", p: "ik-spi-ri-ens"}, {w: "Masa lalu", m: "Past", p: "pest"}, {w: "Terjadi", m: "Happened", p: "he-pend"}] },
-              { nama: "Memorable Events", vocab: [{w: "Berkesan", m: "Memorable", p: "me-mo-re-bel"}, {w: "Kejadian", m: "Event", p: "i-vent"}, {w: "Bahagia", m: "Happy", p: "he-pi"}] },
-              { nama: "Travel Experiences", vocab: [{w: "Perjalanan", m: "Travel / Journey", p: "tre-vel / djer-ni"}, {w: "Tiket", m: "Ticket", p: "ti-ket"}] },
-              { nama: "Telling Stories", vocab: [{w: "Bercerita", m: "Storytelling", p: "sto-ri-te-ling"}, {w: "Mendengarkan", m: "Listen", p: "li-sen"}, {w: "Seru", m: "Exciting", p: "ik-sai-ting"}] },
-              { nama: "Sharing Experiences", vocab: [{w: "Berbagi", m: "Sharing", p: "sye-ring"}, {w: "Bicara", m: "Talk", p: "tok"}, {w: "Bersama", m: "Together", p: "tu-ge-der"}] }
-            ]
-          },
-          {
-            bab: "Unit 8: My Future Dreams",
-            sub: [
-              { nama: "Jobs and Occupations", vocab: [{w: "Pekerjaan", m: "Job / Occupation", p: "djob / o-kyu-pei-syen"}, {w: "Dokter", m: "Doctor", p: "dok-ter"}, {w: "Pilot", m: "Pilot", p: "pai-lot"}, {w: "Guru", m: "Teacher", p: "ti-cer"}] },
-              { nama: "Ambitions and Dreams", vocab: [{w: "Cita-cita", m: "Ambition", p: "em-bi-syen"}, {w: "Mimpi", m: "Dream", p: "drim"}, {w: "Masa depan", m: "Future", p: "fyu-cer"}] },
-              { nama: "Skills and Talents", vocab: [{w: "Keahlian", m: "Skill", p: "skil"}, {w: "Bakat", m: "Talent", p: "te-lent"}, {w: "Pintar", m: "Smart", p: "smart"}] },
-              { nama: "Future Plans", vocab: [{w: "Rencana", m: "Plan", p: "plen"}, {w: "Akan menjadi", m: "Will be", p: "wil bi"}, {w: "Belajar giat", m: "Study hard", p: "sta-di hard"}] },
-              { nama: "Helping Others", vocab: [{w: "Membantu sesama", m: "Helping others", p: "hel-ping a-derz"}, {w: "Baik hati", m: "Kind", p: "kaind"}, {w: "Berguna", m: "Useful", p: "yus-ful"}] },
-              { nama: "My Future Career", vocab: [{w: "Karir", m: "Career", p: "ka-rier"}, {w: "Sukses", m: "Success", p: "sak-ses"}, {w: "Bekerja keras", m: "Work hard", p: "werk hard"}] }
+              { nama: "Memorable Events", vocab: [{w: "Berkesan", m: "Memorable", p: "me-mo-re-bel"}, {w: "Kejadian", m: "Event", p: "i-vent"}, {w: "Bahagia", m: "Happy", p: "he-pi"}] }
             ]
           }
-        ]
-      },
-    function bukaModalKelas(kelas) {
-      kelasAktif = kelas; semesterAktif = 1;
-      document.getElementById("judulModal").innerText = `Grade ${kelas} English Lessons`;
-      document.getElementById("modalMateri").style.display = "flex";
+        ] 
+      }
+    };
+
+    // FUNGSI UNTUK MEMBUKA MODAL KELAS
+    function bukaModalKelas(noKelas) {
+      kelasAktif = noKelas;
+      document.getElementById('judulModal').innerText = `Grade ${noKelas} Material`;
+      document.getElementById('modalMateri').style.display = 'flex';
+      gantiSemester(1); // Default buka semester 1
+    }
+
+    // FUNGSI UNTUK MENUTUP MODAL
+    function tutupModal() {
+      document.getElementById('modalMateri').style.display = 'none';
+    }
+
+    // FUNGSI UNTUK BERGANTI SEMESTER
+    function gantiSemester(noSem) {
+      semesterAktif = noSem;
+      document.getElementById('btnSem1').classList.toggle('active', noSem === 1);
+      document.getElementById('btnSem2').classList.toggle('active', noSem === 2);
       renderMateri();
     }
 
-    function tutupModal() { document.getElementById("modalMateri").style.display = "none"; }
-
-    function gantiSemester(sem) {
-      semesterAktif = sem;
-      document.getElementById("btnSem1").classList.toggle("active", sem === 1);
-      document.getElementById("btnSem2").classList.toggle("active", sem === 2);
-      renderMateri();
-    }
-
+    // FUNGSI UNTUK MENAMPILKAN DAFTAR MATERI KE LAYAR
     function renderMateri() {
-      const areaMateri = document.getElementById("areaDaftarMateri");
-      areaMateri.innerHTML = "";
-      const listBab = databaseMateri[kelasAktif] && databaseMateri[kelasAktif][semesterAktif];
+      const area = document.getElementById('areaDaftarMateri');
+      area.innerHTML = '';
 
-      if (!listBab || listBab.length === 0) {
-        areaMateri.innerHTML = `<div class="no-materi">Belum ada data materi/semester untuk bagian ini. 📑</div>`;
+      const materiKelas = databaseMateri[kelasAktif];
+      if (!materiKelas || !materiKelas[semesterAktif] || materiKelas[semesterAktif].length === 0) {
+        area.innerHTML = '<div class="no-materi">No materials available for this semester yet. 😊</div>';
         return;
       }
 
-      listBab.forEach((item, bIdx) => {
-        let subRowsHtml = "";
-        item.sub.forEach((subItem, sIdx) => {
-          const linkUjian = `${LINK_WEB_APP_CBT}?kelas=${kelasAktif}&semester=${semesterAktif}&bab=${encodeURIComponent(item.bab)}&subBab=${encodeURIComponent(subItem.nama)}`;
+      materiKelas[semesterAktif].forEach((materi, idxMateri) => {
+        let unitBox = document.createElement('div');
+        unitBox.className = 'unit-box';
+
+        let unitHeader = document.createElement('div');
+        unitHeader.className = 'unit-header';
+        unitHeader.innerHTML = `<span>${materi.bab}</span> <i class="fa-solid fa-chevron-down"></i>`;
+        
+        let unitContent = document.createElement('div');
+        unitContent.className = 'unit-content';
+
+        let subContainer = document.createElement('div');
+        subContainer.className = 'sub-tabs-container';
+
+        materi.sub.forEach((s, idxSub) => {
+          let subRow = document.createElement('div');
+          subRow.className = 'sub-row';
+
+          let idUnikVocab = `vocab-${kelasAktif}-${semesterAktif}-${idxMateri}-${idxSub}`;
+
+          let subTitleBar = document.createElement('div');
+          subTitleBar.className = 'sub-title-bar';
+          subTitleBar.innerHTML = `<span>${s.nama}</span> <i class="fa-solid fa-book-open"></i>`;
           
-          let tableRows = "";
-          subItem.vocab.forEach(v => {
-            tableRows += `<tr><td><b>${v.w}</b></td><td>${v.m}</td><td class="cara-baca">"${v.p}"</td></tr>`;
+          // Event Klik Sub-Bab untuk memunculkan tabel Vocabulary
+          subTitleBar.onclick = function() {
+            let vBox = document.getElementById(idUnikVocab);
+            if(vBox.style.display === 'block') {
+              vBox.style.display = 'none';
+            } else {
+              vBox.style.display = 'block';
+            }
+          };
+
+          let vocabBox = document.createElement('div');
+          vocabBox.className = 'vocab-box';
+          vocabBox.id = idUnikVocab;
+          vocabBox.innerHTML = `<h4><i class="fa-solid fa-spell-check"></i> Vocabulary List</h4>`;
+
+          let table = document.createElement('table');
+          table.className = 'table-vocab';
+          table.innerHTML = `
+            <thead>
+              <tr>
+                <th>Indonesian</th>
+                <th>English</th>
+                <th>Pronunciation</th>
+              </tr>
+            </thead>
+            <tbody>
+          `;
+
+          s.vocab.forEach(v => {
+            table.innerHTML += `
+              <tr>
+                <td><strong>${v.w}</strong></td>
+                <td><span style="color:var(--primary-dark); font-weight:700;">${v.m}</span></td>
+                <td><span class="cara-baca">${v.p}</span></td>
+              </tr>
+            `;
           });
 
-          subRowsHtml += `
-            <div class="sub-row">
-              <div class="sub-title-bar" onclick="toggleMateriBox(${bIdx}, ${sIdx})">
-                <span>📌 Sub-Bab: ${subItem.nama}</span>
-                <i class="fa-solid fa-book-open" style="color:var(--primary);"></i>
-              </div>
-              <div class="vocab-box" id="vocab-${bIdx}-${sIdx}">
-                <h4>📚 Vocabulary & Pronunciation:</h4>
-                <table class="table-vocab">
-                  <thead><tr><th>Arti Indo</th><th>Bahasa Inggris</th><th>Cara Baca</th></tr></thead>
-                  <tbody>${tableRows}</tbody>
-                </table>
-                <a href="${linkUjian}" target="_blank" class="btn-cbt"><i class="fa-solid fa-graduation-cap"></i> Saya Sudah Paham, Mulai Ujian CBT!</a>
-              </div>
-            </div>`;
+          table.innerHTML += `</tbody>`;
+          vocabBox.appendChild(table);
+          subRow.appendChild(subTitleBar);
+          subRow.appendChild(vocabBox);
+          subContainer.appendChild(subRow);
         });
 
-        areaMateri.innerHTML += `
-          <div class="unit-box">
-            <div class="unit-header" onclick="toggleAkordion(${bIdx})">
-              <span>${item.bab}</span>
-              <i class="fa-solid fa-chevron-down" id="icon-${bIdx}"></i>
-            </div>
-            <div class="unit-content" id="content-${bIdx}">
-              <div class="sub-tabs-container">${subRowsHtml}</div>
-            </div>
-          </div>`;
+        // Tombol Link CBT Ulangan
+        let btnCbt = document.createElement('a');
+        btnCbt.className = 'btn-cbt';
+        btnCbt.href = `${LINK_WEB_APP_CBT}?kelas=${kelasAktif}&unit=${idxMateri + 1}`;
+        btnCbt.target = '_blank';
+        btnCbt.innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Take Exercise / Quiz`;
+
+        unitContent.appendChild(subContainer);
+        unitContent.appendChild(btnCbt);
+
+        // Event Klik Akordion Bab Utama
+        unitHeader.onclick = function() {
+          let isVisible = unitContent.style.display === 'block';
+          unitContent.style.display = isVisible ? 'none' : 'block';
+          this.querySelector('i').className = isVisible ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-up';
+        };
+
+        unitBox.appendChild(unitHeader);
+        unitBox.appendChild(unitContent);
+        area.appendChild(unitBox);
       });
-
-    function toggleAkordion(bIdx) {
-      const content = document.getElementById(`content-${bIdx}`);
-      const icon = document.getElementById(`icon-${bIdx}`);
-      content.style.display = (content.style.display === "block") ? "none" : "block";
-      icon.className = (content.style.display === "block") ? "fa-solid fa-chevron-up" : "fa-solid fa-chevron-down";
     }
 
-    function toggleMateriBox(bIdx, sIdx) {
-      const target = document.getElementById(`vocab-${bIdx}-${sIdx}`);
-      target.style.display = (target.style.display === "block") ? "none" : "block";
-    }
-
+    // Klik di luar area modal untuk menutup modal secara otomatis
     window.onclick = function(event) {
-      const modal = document.getElementById("modalMateri");
-      if (event.target == modal) modal.style.display = "none";
+      let modal = document.getElementById('modalMateri');
+      if (event.target == modal) {
+        tutupModal();
+      }
     }
   </script>
 </body>
