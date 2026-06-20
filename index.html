@@ -333,7 +333,49 @@
                 gap: 6px;
                 text-align: center;
             }
-            
+            /* TOMBOL RUANG BELAJAR MELAYANG */
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #0072ff 0%, #00c6ff 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(0, 114, 255, 0.4);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 9999;
+            transition: all 0.3s ease;
+            animation: floatPulse 2s infinite;
+        }
+
+        .floating-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(0, 114, 255, 0.6);
+            color: white;
+        }
+
+        /* Animasi berdenyut halus */
+        @keyframes floatPulse {
+            0% { box-shadow: 0 8px 25px rgba(0, 114, 255, 0.4); }
+            50% { box-shadow: 0 8px 35px rgba(0, 114, 255, 0.7); }
+            100% { box-shadow: 0 8px 25px rgba(0, 114, 255, 0.4); }
+        }
+
+        /* Penyesuaian posisi di HP agar tidak menutupi konten utama */
+        @media (max-width: 768px) {
+            .floating-btn {
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 16px;
+                font-size: 11px;
+            }
+        }
             /* MEMBUAT MENU BERBARIS MENYAMPING DI HP (BISA DIGESER HINGGA PAS) */
             .nav-links {
                 flex-direction: row; /* Tetap menyamping horizontal */
@@ -492,7 +534,7 @@
 
             <div class="news-grid">
                 <article class="news-card">
-                    <div class="news-thumb"><img src="naya.jpg" alt="PPDB"></div>
+                    <div class="news-thumb"><img src="/assets/naya.jpg" alt="PPDB"></div>
                     <div class="news-body">
                         <span class="news-tag">Pengumuman</span>
                         <h3>Seleksi Penerimaan Murid Baru (SPMB) Tahun Ajaran 2026/2027 Telah Dibuka</h3>
@@ -501,7 +543,7 @@
                 </article>
 
                 <article class="news-card">
-                    <div class="news-thumb"><img src="kbr.jpg" alt="Prestasi"></div>
+                    <div class="news-thumb"><img src="/assets/kbr.jpg" alt="Prestasi"></div>
                     <div class="news-body">
                         <span class="news-tag">Prestasi</span>
                         <h3>Siswa SDN Butoh 1 Raih Prestasi di Tingkat Kecamatan</h3>
@@ -510,7 +552,7 @@
                 </article>
 
                 <article class="news-card">
-                    <div class="news-thumb"><img src="koptri.jpg" alt="Kegiatan"></div>
+                    <div class="news-thumb"><img src="/assets/koptri.jpg" alt="Kegiatan"></div>
                     <div class="news-body">
                         <span class="news-tag">Kegiatan</span>
                         <h3>Pemanfaatan Ekosistem Kelas Digital untuk Ruang Belajar Siswa</h3>
