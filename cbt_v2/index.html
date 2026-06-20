@@ -74,11 +74,42 @@
     var dataSoalSistem = []; 
 
     // OTOMATIS JALAN SAAT HALAMAN DIBUKA
-    window.onload = function() {
-      google.script.run.withSuccessHandler(function(pilihan) {
-        var htmlMapel = "";
-        var htmlKelas = "";
-        var htmlBab = "";
+    // FUNGSI BARU UNTUK MEMANGGIL DATABASE SECARA AMAN
+function muatFilterAwal() {
+  // Cek apakah objek 'google' sudah siap di memori browser
+  if (typeof google !== 'undefined' && google.script && google.script.run) {
+    
+    google.script.run.withSuccessHandler(function(pilihan) {
+      var htmlMapel = "";
+      var htmlKelas = "";
+      var htmlBab = "";
+      
+      for(var m=0; m<pilihan.mapel.length; m++){
+        htmlMapel += '<option value="'+pilihan.mapel[m]+'">'+pilihan.mapel[m]+'</option>';
+      }
+      for(var i=0; i<pilihan.kelas.length; i++){
+        htmlKelas += '<option value="'+pilihan.kelas[i]+'">Kelas '+pilihan.kelas[i]+'</option>';
+      }
+      for(var j=0; j<pilihan.bab.length; j++){
+        htmlBab += '<option value="'+pilihan.bab[j]+'">'+pilihan.bab[j]+'</option>';
+      }
+      
+      document.getElementById('filterMapel').innerHTML = htmlMapel;
+      document.getElementById('filterKelas').innerHTML = htmlKelas;
+      document.getElementById('filterBab').innerHTML = htmlBab;
+      
+      document.getElementById('loading-filter').style.display = 'none';
+      document.getElementById('form-cbt').style.display = 'block';
+    }).getDaftarFilter();
+
+  } else {
+    // Jika 'google' belum siap, tunggu 500 milidetik (0.5 detik) lalu coba panggil lagi
+    setTimeout(muatFilterAwal, 500);
+  }
+}
+
+// Jalankan fungsi pengaman di atas langsung saat script dieksekusi
+muatFilterAwal();
         
         // Render Pilihan Mapel
         for(var m=0; m<pilihan.mapel.length; m++){
