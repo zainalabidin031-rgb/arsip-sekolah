@@ -225,12 +225,18 @@
             box-shadow: 0 4px 20px rgba(0, 114, 255, 0.02);
             text-align: center;
         }
-        .metric-item { border-right: 1px solid #e6f2ff; }
+        .metric-item { 
+            border-right: 1px solid #e6f2ff; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
         .metric-item:last-child { border: none; }
         .metric-label { font-size: 11px; font-weight: 700; color: #8da2bb; text-transform: uppercase; letter-spacing: 1px; }
-        .metric-value { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 800; color: #0072ff; margin-top: 5px; }
+        .metric-value { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 19px; font-weight: 800; color: #0072ff; margin-top: 5px; }
+        .metric-icon-inline { display: none; } /* Hanya muncul di HP */
 
-        /* --- LAYOUT KONTEN BERITA (3 KOLOM KEMDIKBUD) --- */
+        /* --- LAYOUT KONTEN BERITA --- */
         .main-content { padding: 40px 0 60px 0; }
         .content-header {
             display: flex;
@@ -318,10 +324,44 @@
         .footer-links a:hover { text-decoration: underline; }
         .footer-bottom { text-align: center; font-size: 12px; color: #a0aec0; border-top: 1px solid #e6f2ff; padding-top: 20px; }
 
-        /* ANIMASI */
+        /* --- TOMBOL RUANG BELAJAR MELAYANG --- */
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #0072ff 0%, #00c6ff 100%);
+            color: white !important;
+            padding: 12px 22px;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(0, 114, 255, 0.4);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 99999; /* Ditinggikan maksimal agar selalu di atas */
+            transition: all 0.3s ease;
+            animation: floatPulse 2s infinite;
+        }
+
+        .floating-btn:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(0, 114, 255, 0.6);
+        }
+
+        @keyframes floatPulse {
+            0% { box-shadow: 0 8px 25px rgba(0, 114, 255, 0.3); }
+            50% { box-shadow: 0 8px 35px rgba(0, 114, 255, 0.6); }
+            100% { box-shadow: 0 8px 25px rgba(0, 114, 255, 0.3); }
+        }
+
+        /* ANIMASI SLIDER */
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- RESPONSIVE DESIGN FOR MOBILE --- */
+        /* ==========================================================================
+           --- RESPONSIVE DESIGN UNTUK HP & TABLET (PERBAIKAN TOTAL) ---
+           ========================================================================== */
         @media (max-width: 992px) {
             .navbar .flex-box {
                 flex-direction: column;
@@ -333,92 +373,91 @@
                 gap: 6px;
                 text-align: center;
             }
-      
-            /* MEMBUAT MENU BERBARIS MENYAMPING DI HP (BISA DIGESER HINGGA PAS) */
+        
+            /* Memperbaiki Scroll Horizontal Menu di HP */
             .nav-links {
-                flex-direction: row; /* Tetap menyamping horizontal */
+                flex-direction: row;
                 width: 100%;
-                justify-content: center;
-                overflow-x: auto; /* Mengaktifkan geser jika menu penuh */
-                padding: 4px 0;
-                white-space: nowrap; /* Teks tidak turun baris */
-                -webkit-overflow-scrolling: touch; /* Geseran mulus di layar sentuh */
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding: 6px 10px;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+                position: relative;
             }
-            
-            /* Sembunyikan garis scroll bawaan browser agar estetik */
-            .nav-links::-webkit-scrollbar {
-                display: none;
+            .nav-links::-webkit-scrollbar { display: none; } /* Hilangkan scrollbar kaku */
+
+            .nav-links li {
+                display: inline-block;
             }
 
             .nav-links a, .nav-links .dropbtn {
-                padding: 6px 12px; /* Padat sedikit ukurannya */
-                font-size: 12px;
+                padding: 8px 14px;
+                font-size: 13px;
             }
 
-            .carousel-wrapper { 
-                aspect-ratio: 16/10; 
+            /* Perbaikan Dropdown di HP agar Muncul Mengambang Sempurna tanpa Terpotong */
+            .dropdown-content {
+                position: fixed; /* Menggunakan fixed agar lepas dari kekangan overflow-x */
+                left: 5%;
+                right: 5%;
+                width: 90%;
+                margin-top: 12px;
+                box-shadow: 0px 10px 30px rgba(0, 50, 150, 0.25);
+                border: 1px solid #b3d7ff;
             }
-            .slide-caption {
-                padding: 15px;
-            }
-            .slide-caption h2 { 
-                font-size: 15px; 
-            }
-            .metric-grid, .news-grid, .footer-grid { 
-                grid-template-columns: 1fr; 
-                gap: 20px; 
+
+            .carousel-wrapper { aspect-ratio: 16/10; }
+            .slide-caption { padding: 20px; }
+            .slide-caption h2 { font-size: 16px; }
+            
+            /* RE-DESIGN TOTAL MATRIKS DATA DI HP (Grid Modern 2x2 Berpola Elegan) */
+            .metric-grid { 
+                grid-template-columns: repeat(2, 1fr); /* Model Kotak 2x2 */
+                gap: 12px; 
+                padding: 14px;
+                background: #ffffff;
+                border: 1px solid #e2eefe;
             }
             .metric-item { 
                 border-right: none; 
-                border-bottom: 1px solid #e6f2ff; 
-                padding-bottom: 15px; 
+                border-bottom: none;
+                background-color: #f4f8fc; /* Kotak berlatar biru super lembut */
+                padding: 15px 10px; 
+                border-radius: 10px;
+                border: 1px solid rgba(0, 114, 255, 0.05);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
             }
-        }
-            /* TOMBOL RUANG BELAJAR MELAYANG */
-        .floating-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, #0072ff 0%, #00c6ff 100%);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 50px;
-            box-shadow: 0 8px 25px rgba(0, 114, 255, 0.4);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 9999;
-            transition: all 0.3s ease;
-            animation: floatPulse 2s infinite;
-        }
+            .metric-label { 
+                font-size: 10px; 
+                color: #718096; 
+                letter-spacing: 0.5px;
+                margin-bottom: 2px;
+            }
+            .metric-value { 
+                font-size: 13px; /* Ukuran pas, tidak merusak layar HP */
+                color: #0056cc; 
+                font-weight: 700;
+                margin-top: 2px;
+                text-transform: none;
+            }
 
-        .floating-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 12px 30px rgba(0, 114, 255, 0.6);
-            color: white;
-        }
-
-        /* Animasi berdenyut halus */
-        @keyframes floatPulse {
-            0% { box-shadow: 0 8px 25px rgba(0, 114, 255, 0.4); }
-            50% { box-shadow: 0 8px 35px rgba(0, 114, 255, 0.7); }
-            100% { box-shadow: 0 8px 25px rgba(0, 114, 255, 0.4); }
-        }
-
-        /* Penyesuaian posisi di HP agar tidak menutupi konten utama */
-        @media (max-width: 768px) {
+            /* Penyesuaian Bagian Berita & Footer */
+            .news-grid, .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+            
+            /* Penyesuaian Tombol Melayang di HP */
             .floating-btn {
                 bottom: 20px;
                 right: 20px;
                 padding: 10px 16px;
-                font-size: 11px;
+                font-size: 12px;
+                box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
             }
         }
     </style>
-      
 </head>
 <body>
 
@@ -509,7 +548,7 @@
             <div class="metric-grid">
                 <div class="metric-item">
                     <div class="metric-label">Status</div>
-                    <div class="metric-value">TERAKREDITASI-B</div>
+                    <div class="metric-value">Akreditasi B</div>
                 </div>
                 <div class="metric-item">
                     <div class="metric-label">Siswa</div>
@@ -589,6 +628,11 @@
         </div>
     </footer>
 
+    <!-- TOMBOL MELAYANG RUANG BELAJAR (Kini Muncul Sempurna di HP & PC) -->
+    <a href="https://sdnbutoh1ngasem.my.id/latihan-soal/" target="_blank" class="floating-btn">
+        <i class="fa-solid fa-laptop-code"></i> Ruang Belajar
+    </a>
+
     <script>
         // Logika Slider Otomatis
         let currentSlide = 0;
@@ -600,7 +644,7 @@
         }
         setInterval(nextSlide, 5000);
 
-        // Logika Dropdown Ganda
+        // Logika Dropdown Ganda (Diperbaiki Responsif Sentuhan)
         function toggleDropdown(event, id) {
             event.stopPropagation();
             const dropdowns = ['infoDropdown', 'otherDropdown'];
