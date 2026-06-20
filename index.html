@@ -61,7 +61,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-b: 1px solid #e6f2ff;
+            border-bottom: 1px solid #e6f2ff;
         }
         .navbar .flex-box {
             display: flex;
@@ -177,7 +177,7 @@
         .slide { display: none; width: 100%; height: 100%; position: relative; }
         .slide.active { display: block; animation: fadeIn 0.8s ease-in-out; }
         
-        .slide img { width: 100%; height: 100%; object-cover: cover; opacity: 0.5; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
         
         .slide-overlay {
             position: absolute;
@@ -321,14 +321,58 @@
         /* ANIMASI */
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* RESPONSIVE */
+        /* --- RESPONSIVE DESIGN FOR MOBILE --- */
         @media (max-width: 992px) {
-            .navbar .flex-box, .topbar .flex-box { flex-direction: column; gap: 10px; text-align: center; }
-            .nav-links { flex-direction: column; width: 100%; }
-            .carousel-wrapper { aspect-ratio: 16/10; }
-            .slide-caption h2 { font-size: 18px; }
-            .metric-grid, .news-grid, .footer-grid { grid-template-columns: 1fr; gap: 20px; }
-            .metric-item { border-right: none; border-bottom: 1px solid #e6f2ff; padding-bottom: 15px; }
+            .navbar .flex-box {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+            .topbar .flex-box {
+                flex-direction: column;
+                gap: 6px;
+                text-align: center;
+            }
+            
+            /* MEMBUAT MENU BERBARIS MENYAMPING DI HP (BISA DIGESER HINGGA PAS) */
+            .nav-links {
+                flex-direction: row; /* Tetap menyamping horizontal */
+                width: 100%;
+                justify-content: center;
+                overflow-x: auto; /* Mengaktifkan geser jika menu penuh */
+                padding: 4px 0;
+                white-space: nowrap; /* Teks tidak turun baris */
+                -webkit-overflow-scrolling: touch; /* Geseran mulus di layar sentuh */
+            }
+            
+            /* Sembunyikan garis scroll bawaan browser agar estetik */
+            .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-links a, .nav-links .dropbtn {
+                padding: 6px 12px; /* Padat sedikit ukurannya */
+                font-size: 12px;
+            }
+
+            .carousel-wrapper { 
+                aspect-ratio: 16/10; 
+            }
+            .slide-caption {
+                padding: 15px;
+            }
+            .slide-caption h2 { 
+                font-size: 15px; 
+            }
+            .metric-grid, .news-grid, .footer-grid { 
+                grid-template-columns: 1fr; 
+                gap: 20px; 
+            }
+            .metric-item { 
+                border-right: none; 
+                border-bottom: 1px solid #e6f2ff; 
+                padding-bottom: 15px; 
+            }
         }
     </style>
 </head>
@@ -364,7 +408,7 @@
                         Informasi <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i>
                     </button>
                     <div class="dropdown-content" id="infoDropdown">
-                        <a href="smpb/">🎓 SMPB</a>
+                        <a href="smpb/">🎓 SPMB</a>
                         <a href="mutasi/">✈️ Pindah Sekolah</a>
                         <a href="statistik/">📊 Statistik</a>
                         <a href="hubungi-kami/">📞 Hubungi Kami</a>
@@ -389,7 +433,7 @@
         <div class="container">
             <div class="carousel-wrapper">
                 <div class="slide active">
-                    <img src="koptri.jpg" alt="Slide 1">
+                    <img src="assets/koptri.jpg" alt="Slide 1">
                     <div class="slide-overlay"></div>
                     <div class="slide-caption">
                         <span class="slide-badge">Fokus Utama</span>
@@ -397,7 +441,7 @@
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="naya.jpg" alt="Slide 2">
+                    <img src="assets/naya.jpg" alt="Slide 2">
                     <div class="slide-overlay"></div>
                     <div class="slide-caption">
                         <span class="slide-badge">Pendaftaran</span>
@@ -405,7 +449,7 @@
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="kbr.jpg" alt="Slide 3">
+                    <img src="assets/kbr.jpg" alt="Slide 3">
                     <div class="slide-overlay"></div>
                     <div class="slide-caption">
                         <span class="slide-badge">Fasilitas</span>
@@ -482,11 +526,11 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <h4>SDN Butoh 1 Ngasem</h4>
-                    <p>Satuan pendidikan tingkat dasar resmi - Pemerintah Kabupaten Bojonegoro.</p>
+                    <p>Satuan pendidikan tingkat dasar resmi di bawah naungan Pemerintah Kabupaten Bojonegoro.</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Alamat</h4>
-                    <p>Desa Butoh, Kecamatan Ngasem, Kabupaten Bojonegoro.<br>Email: info@sdnbutoh1ngasem.my.id</p>
+                    <h4>Kontak & Lokasi</h4>
+                    <p>Desa Butoh, Kecamatan Ngasem, Kabupaten Bojonegoro.<br>Email: info@sdnbutoh1ngasem.sch.id</p>
                 </div>
                 <div class="footer-col">
                     <h4>Pranala Luar</h4>
