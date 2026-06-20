@@ -1,318 +1,206 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Ulangan Online</title>
-
-<style>
-
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  padding:20px;
-  font-family:'Segoe UI',sans-serif;
-  background:linear-gradient(135deg,#e3f2fd,#bbdefb);
-}
-
-.container{
-  max-width:900px;
-  margin:auto;
-  background:#fff;
-  border-radius:20px;
-  padding:30px;
-  box-shadow:0 10px 30px rgba(0,0,0,.1);
-}
-
-h1{
-  text-align:center;
-  color:#0288d1;
-  margin-bottom:25px;
-}
-
-label{
-  font-weight:600;
-  display:block;
-  margin-top:15px;
-  margin-bottom:5px;
-}
-
-input{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccc;
-  border-radius:10px;
-}
-
-button{
-  border:none;
-  border-radius:10px;
-  padding:12px 20px;
-  cursor:pointer;
-  font-weight:bold;
-  margin-top:15px;
-}
-
-.btn-primary{
-  background:#03a9f4;
-  color:white;
-}
-
-.btn-primary:hover{
-  background:#039be5;
-}
-
-.btn-success{
-  background:#4caf50;
-  color:white;
-}
-
-.btn-danger{
-  background:#f44336;
-  color:white;
-}
-
-.btn-secondary{
-  background:#607d8b;
-  color:white;
-}
-
-.soal-box{
-  background:#f8fbff;
-  border-left:5px solid #03a9f4;
-  padding:15px;
-  margin-bottom:20px;
-  border-radius:10px;
-}
-
-.opsi{
-  margin-top:8px;
-}
-
-.nilai-box{
-  text-align:center;
-  padding:30px;
-}
-
-.nilai{
-  font-size:60px;
-  color:#0288d1;
-  font-weight:bold;
-}
-
-.loading{
-  text-align:center;
-  margin-top:20px;
-  color:#0288d1;
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ulangan Online SD</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Fredoka', sans-serif; }
+  </style>
 </head>
-<body>
+<body class="bg-blue-50 text-slate-700 min-h-screen flex flex-col justify-between">
 
-<div class="container">
+  <header class="bg-blue-500 text-white p-4 shadow-md text-center">
+    <h1 class="text-2xl font-bold tracking-wide">🌤️ Yuk, Kita Ulangan! 🌤️</h1>
+  </header>
 
-<h1>📘 Ulangan Online</h1>
-
-<div id="halamanAwal">
-
-<label>Nama Lengkap</label>
-<input type="text" id="nama" placeholder="Masukkan nama lengkap">
-
-<label>Token Ulangan</label>
-<input type="text" id="token" placeholder="Masukkan token">
-
-<button class="btn-primary" onclick="mulaiUjian()">
-Mulai Ulangan
-</button>
-
-<button class="btn-secondary" onclick="history.back()">
-Kembali
-</button>
-
-<div id="loading" class="loading"></div>
-
-</div>
-
-<div id="areaSoal"></div>
-
-<div id="hasil"></div>
-
-</div>
-
-<script>
-
-let dataUjian = null;
-
-function mulaiUjian(){
-
-  const nama = document.getElementById("nama").value.trim();
-  const token = document.getElementById("token").value.trim();
-
-  if(nama === ""){
-    alert("Nama harus diisi");
-    return;
-  }
-
-  if(token === ""){
-    alert("Token harus diisi");
-    return;
-  }
-
-  document.getElementById("loading").innerHTML = "Memuat soal...";
-
-  google.script.run
-    .withSuccessHandler(tampilkanSoal)
-    .withFailureHandler(function(err){
-  document.getElementById("loading").innerHTML = "";
-  alert(JSON.stringify(err));
-  console.log(err);
-})
-    .mulaiUlangan(nama,token);
-}
-
-function tampilkanSoal(data){
-
-  dataUjian = data;
-
-  document.getElementById("loading").innerHTML = "";
-
-  let html = "";
-
-  data.soal.forEach((s,index)=>{
-
-    html += `
-      <div class="soal-box">
-
-        <h3>${index+1}. ${s.soal}</h3>
-
-        <div class="opsi">
-          <label>
-            <input type="radio" name="soal${index}" value="A">
-            ${s.a}
-          </label>
+  <main class="container mx-auto px-4 py-6 max-w-xl flex-grow">
+    
+    <div id="halaman-login" class="bg-white rounded-2xl p-6 shadow-xl border-4 border-blue-300">
+      <h2 class="text-xl font-bold text-blue-600 mb-4 text-center">Isi Data Dirimu Dulu Ya!</h2>
+      <div class="space-y-4">
+        <div>
+          <label class="block font-semibold mb-1">Nama Lengkap:</label>
+          <input type="text" id="nama" class="w-full border-2 border-blue-200 rounded-xl p-2 focus:outline-none focus:border-blue-500" placeholder="Contoh: Andi Pratama">
         </div>
-
-        <div class="opsi">
-          <label>
-            <input type="radio" name="soal${index}" value="B">
-            ${s.b}
-          </label>
+        <div>
+          <label class="block font-semibold mb-1">NISN:</label>
+          <input type="number" id="nisn" class="w-full border-2 border-blue-200 rounded-xl p-2 focus:outline-none focus:border-blue-500" placeholder="Contoh: 0123456789">
         </div>
-
-        <div class="opsi">
-          <label>
-            <input type="radio" name="soal${index}" value="C">
-            ${s.c}
-          </label>
+        <div>
+          <label class="block font-semibold mb-1">Kelas:</label>
+          <select id="kelas" class="w-full border-2 border-blue-200 rounded-xl p-2 focus:outline-none focus:border-blue-500">
+            <option value="1">Kelas 1</option>
+            <option value="2">Kelas 2</option>
+            <option value="3">Kelas 3</option>
+            <option value="4">Kelas 4</option>
+            <option value="5">Kelas 5</option>
+            <option value="6">Kelas 6</option>
+          </select>
         </div>
-
-        <div class="opsi">
-          <label>
-            <input type="radio" name="soal${index}" value="D">
-            ${s.d}
-          </label>
+        <div>
+          <label class="block font-semibold mb-1">Mata Pelajaran:</label>
+          <input type="text" id="mapel" class="w-full border-2 border-blue-200 rounded-xl p-2 focus:outline-none focus:border-blue-500" placeholder="Contoh: Matematika / IPA">
         </div>
-
+        <button onclick="mulaiUlangan()" class="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-800 font-bold py-3 rounded-xl shadow-md transition duration-200 text-lg mt-2">
+          🚀 Mulai Sekarang!
+        </button>
       </div>
-    `;
-  });
+    </div>
 
-  html += `
-    <button class="btn-success" onclick="selesaiUjian()">
-      Selesai Ulangan
-    </button>
-  `;
+    <div id="halaman-soal" class="hidden bg-white rounded-2xl p-6 shadow-xl border-4 border-blue-300">
+      <div class="flex justify-between items-center mb-4 border-b pb-2">
+        <button onclick="kembaliKeLogin()" class="bg-slate-400 hover:bg-slate-500 text-white font-semibold py-1 px-3 rounded-lg text-sm">
+          ⬅️ Kembali
+        </button>
+        <span class="text-blue-600 font-bold" id="info-siswa"></span>
+      </div>
+      
+      <div id="kontainer-soal" class="space-y-6">
+        </div>
 
-  document.getElementById("halamanAwal").style.display = "none";
-  document.getElementById("areaSoal").innerHTML = html;
-}
+      <button onclick="selesaiDanHitung()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl shadow-md text-lg mt-6">
+        Kirim Jawaban 📑
+      </button>
+    </div>
 
-function selesaiUjian(){
+    <div id="halaman-hasil" class="hidden bg-white rounded-2xl p-6 shadow-xl border-4 border-blue-300 text-center">
+      <h2 class="text-2xl font-bold text-blue-600 mb-2">Hasil Ulanganku</h2>
+      <p class="text-slate-500 mb-6" id="hasil-detail"></p>
+      
+      <div class="inline-block bg-blue-100 rounded-full p-8 mb-6 border-4 border-blue-400">
+        <span class="text-5xl font-bold text-blue-600" id="skor-akhir">0</span>
+      </div>
 
-  let benar = 0;
+      <div id="pesan-kelulusan" class="text-lg font-semibold mb-6"></div>
 
-  dataUjian.soal.forEach((s,index)=>{
+      <div class="space-y-3">
+        <button id="btn-ulangi" onclick="ulangiUjian()" class="hidden w-full bg-orange-400 hover:bg-orange-500 text-white font-bold py-3 rounded-xl shadow-md">
+          🔄 Coba Lagi (Nilai di bawah 80)
+        </button>
+        <button onclick="kembaliKeLogin()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-xl shadow-md">
+          🏠 Halaman Utama
+        </button>
+      </div>
+    </div>
 
-    const jawaban = document.querySelector(
-      'input[name="soal'+index+'"]:checked'
-    );
+  </main>
 
-    if(jawaban){
+  <footer class="bg-blue-400 text-white text-center py-2 text-xs">
+    Semangat Belajar! Jangan Lupa Berdoa Sebelum Mengerjakan 🌟
+  </footer>
 
-      if(
-        jawaban.value.toUpperCase() ===
-        s.benar.toUpperCase()
-      ){
-        benar++;
+  <script>
+    let dataSoalGlobal = [];
+    let identitasSiswa = {};
+
+    function mulaiUlangan() {
+      const nama = document.getElementById('nama').value;
+      const nisn = document.getElementById('nisn').value;
+      const kelas = document.getElementById('kelas').value;
+      const mapel = document.getElementById('mapel').value;
+
+      if(!nama || !nisn || !mapel) {
+        alert('Halo! Isi nama, NISN, dan mata pelajaran dulu yaa 😊');
+        return;
       }
+
+      identitasSiswa = { nama, nisn, kelas, mataPelajaran: mapel };
+      document.getElementById('info-siswa').innerText = `${nama} (Kelas ${kelas})`;
+
+      // Ambil soal dari Google Sheet secara asinkron
+      document.getElementById('kontainer-soal').innerHTML = '<p class="text-center font-semibold text-blue-500 animate-pulse">Sedang menyiapkan soal yang seru... Tunggu ya! 📝</p>';
+      pindahHalaman('halaman-soal');
+
+      google.script.run.withSuccessHandler(function(soal) {
+        if(soal.length === 0) {
+          document.getElementById('kontainer-soal').innerHTML = '<p class="text-center text-red-500 font-semibold">Ups, soal untuk kelas atau mata pelajaran ini belum tersedia. Periksa kembali ya!</p>';
+          return;
+        }
+        dataSoalGlobal = soal;
+        tampilkanSoal(soal);
+      }).getSoal(kelas, mapel);
     }
 
-  });
+    function tampilkanSoal(soalList) {
+      let html = '';
+      soalList.forEach((s, index) => {
+        html += `
+          <div class="border-b pb-4">
+            <p class="font-semibold text-base mb-2"><span class="bg-blue-400 text-white px-2 py-0.5 rounded-md mr-1">${index + 1}</span> ${s.soal}</p>
+            <div class="grid grid-cols-1 gap-2 pl-2">
+              ${s.opsi.map((opsi, idx) => {
+                let opsiHuruf = String.fromCharCode(97 + idx); // a, b, c, d
+                return `
+                  <label class="flex items-center space-x-2 bg-slate-50 p-2.5 rounded-lg border hover:bg-blue-50 cursor-pointer transition">
+                    <input type="radio" name="soal_${s.id}" value="${opsiHuruf}" class="w-4 h-4 text-blue-600">
+                    <span><strong class="uppercase">${opsiHuruf}.</strong> ${opsi}</span>
+                  </label>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      });
+      document.getElementById('kontainer-soal').innerHTML = html;
+    }
 
-  const nilai = Math.round(
-    (benar / dataUjian.soal.length) * 100
-  );
+    function selesaiDanHitung() {
+      let benar = 0;
+      let totalSoal = dataSoalGlobal.length;
 
-  google.script.run.simpanNilai({
-    nama:dataUjian.nama,
-    token:dataUjian.token,
-    kelas:dataUjian.kelas,
-    mapel:dataUjian.mapel,
-    nilai:nilai
-  });
+      dataSoalGlobal.forEach(s => {
+        let pilihan = document.querySelector(`input[name="soal_${s.id}"]:checked`);
+        if(pilihan && pilihan.value === s.kunci) {
+          benar++;
+        }
+      });
 
-  let html = `
-    <div class="nilai-box">
+      let nilaiAkhir = Math.round((benar / totalSoal) * 100);
+      identitasSiswa.nilai = nilaiAkhir;
 
-      <h2>Nilai Anda</h2>
+      // Kirim dan rekam hasil ke sheet 'nilai'
+      google.script.run.simpanNilai(identitasSiswa);
 
-      <div class="nilai">${nilai}</div>
-  `;
+      // Tampilkan halaman nilai
+      document.getElementById('skor-akhir').innerText = nilaiAkhir;
+      document.getElementById('hasil-detail').innerText = `${identitasSiswa.nama} - ${identitasSiswa.mataPelajaran}`;
+      
+      let pesanBox = document.getElementById('pesan-kelulusan');
+      let btnUlangi = document.getElementById('btn-ulangi');
 
-  if(nilai >= 80){
+      if(nilaiAkhir >= 80) {
+        pesanBox.innerHTML = '🎉 Hebat sekali! Kamu lulus dengan nilai bagus! 👍🌟';
+        pesanBox.className = "text-green-600 font-bold text-lg mb-6";
+        btnUlangi.classList.add('hidden');
+      } else {
+        pesanBox.innerHTML = '💪 Jangan berkecil hati ya, ayo coba lagi agar nilaimu makin bagus!';
+        pesanBox.className = "text-orange-500 font-bold text-lg mb-6";
+        btnUlangi.classList.remove('hidden');
+      }
 
-    html += `
-      <h3 style="color:green">
-        🎉 Selamat, Anda Lulus
-      </h3>
-    `;
+      pindahHalaman('halaman-hasil');
+    }
 
-  }else{
+    function ulangiUjian() {
+      pindahHalaman('halaman-soal');
+      // Reset semua pilihan radio button
+      let radioButtons = document.querySelectorAll('input[type="radio"]');
+      radioButtons.forEach(radio => radio.checked = false);
+    }
 
-    html += `
-      <h3 style="color:red">
-        Nilai masih di bawah 80
-      </h3>
+    function kembaliKeLogin() {
+      pindahHalaman('halaman-login');
+    }
 
-      <button class="btn-danger"
-        onclick="location.reload()">
-        Ulangi Ulangan
-      </button>
-    `;
-  }
-
-  html += `
-      <br><br>
-
-      <button class="btn-secondary"
-        onclick="history.back()">
-        Kembali
-      </button>
-
-    </div>
-  `;
-
-  document.getElementById("areaSoal").innerHTML = "";
-  document.getElementById("hasil").innerHTML = html;
-}
-
-</script>
-
+    function pindahHalaman(idHalaman) {
+      document.getElementById('halaman-login').classList.add('hidden');
+      document.getElementById('halaman-soal').classList.add('hidden');
+      document.getElementById('halaman-hasil').classList.add('hidden');
+      document.getElementById(idHalaman).classList.remove('hidden');
+    }
+  </script>
 </body>
 </html>
