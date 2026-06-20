@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <title>CBT Modern App</title>
+  <style>
+    :root { --primary: #4f46e5; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px 15px; background-color: var(--bg); color: var(--text); margin: 0; }
+    .container { max-width: 650px; margin: auto; background: var(--card); padding: 35px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    h2, h3 { margin-top: 0; color: #0f172a; }
+    .form-group { margin-bottom: 20px; }
+    label { font-weight: 600; display: block; margin-bottom: 8px; font-size: 14px; color: #475569; }
+    input[type="text"], select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 15px; background-color: #f1f5f9; transition: all 0.3s; }
+    input[type="text"]:focus, select:focus { background-color: #fff; border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15); }
+    button { background-color: var(--primary); color: white; padding: 14px; border: none; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; font-weight: 600; transition: background 0.2s; }
+    button:hover { background-color: #4338ca; }
+    .loader { border: 4px solid #e2e8f0; border-top: 4px solid var(--primary); border-radius: 50%; width: 35px; height: 35px; animation: spin 1s linear infinite; margin: 20px auto; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .error-box { background-color: #fef2f2; border: 1px solid #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px; margin-top: 15px; font-size: 14px; display: none; text-align: left; }
+    .soal-card { background: #fff; border: 1px solid #e2e8f0; padding: 25px; margin-bottom: 20px; border-radius: 12px; }
+    .soal-gambar { max-width: 100%; height: auto; margin: 15px 0; border-radius: 8px; display: block; }
+    .opsi-label { display: block; background: #f8fafc; padding: 12px 15px; margin-bottom: 10px; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer; font-size: 15px; transition: all 0.2s; }
+    .opsi-label:hover { background: #f1f5f9; border-color: #cbd5e1; }
+    .opsi-label input { margin-right: 12px; transform: scale(1.1); }
+    #display-skor { font-size: 96px; color: #16a34a; font-weight: 800; margin: 20px 0; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="area-filter">
+      <h2 style="text-align: center; font-weight: 700;">Portal Latihan CBT v2</h2>
+      <p style="text-align: center; color: #64748b; margin-top: -10px; font-size: 14px;">Model Minimalist Cloud Client</p>
+      <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;">
+      
+      <div id="loading-filter" style="text-align: center;">
+        <div class="loader"></div>
+        <p style="color: #64748b; font-size: 14px;">Menghubungkan ke ID Spreadsheet Sekolah...</p>
+        <div id="error-display" class="error-box"></div>
+      </div>
+      
+      <div id="form-cbt" style="display: none;">
+        <div class="form-group">
+          <label>Nama Lengkap Siswa</label>
+          <input type="text" id="namaSiswa" placeholder="Ketik nama lengkap Anda...">
+        </div>
+        <div class="form-group">
+          <label>Mata Pelajaran</label>
+          <select id="filterMapel"></select>
+        </div>
+        <div class="form-group">
+          <label>Kelas</label>
+          <select id="filterKelas"></select>
+        </div>
+        <div class="form-group">
+          <label>Bab Materi</label>
+          <select id="filterBab"></select>
+        </div>
+        <br>
+        <button onclick="mulaiUjian()">Buka Lembar Soal</button>
+      </div>
+    </div>
+
+    <div id="area-soal" style="display:none;">
+      <h3 style="border-bottom: 2px solid var(--primary); padding-bottom: 12px; margin-bottom: 25px; font-weight: 700;">Lembar Pengerjaan</h3>
+      <div id="konten-soal"></div>
+      <button style="background-color: #16a34a;" onclick="hitungDanSelesai()">Kirim & Selesai</button>
+    </div>
+
+    <div id="area-skor" style="display:none; text-align:center;">
+      <h2 style="font-weight: 700;">Latihan Selesai!</h2>
+      <p style="color: #64748b;">Hasil skor murni Anda langsung terekam ke sistem:</p>
+      <div id="display-skor">0</div>
+      <p style="font-weight: 600; color: #475569; background: #f1f5f9; padding: 12px; border-radius: 8px;">Nilai Anda Sukses Dikunci.</p>
+    </div>
+  </div>
+
+  <script>
+    var databaseMentah = [];
+    var dataSoalSistem = []; 
+    var headers = [];
+
+    function inisialisasiWeb() {
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler(function(dataDariSheet) {
+            databaseMentah = dataDariSheet;
+            headers = databaseMentah[0];
+            buatDropdownOtomatis();
+          })
+          .withFailureHandler(function(error) {
+            var errBox = document.getElementById('error-display');
+            errBox.innerText = "Koneksi Gagal: " + error.message + "\n\nSolusi: Pastikan lembar kerja Anda berlabel 'sheet1' (huruf kecil semua) dan berikan izin akses penuh saat deployment.";
+            errBox.style.display = 'block';
+          })
+          .ambilSemuaDataPusat();
+      } else {
+        setTimeout(inisialisasiWeb, 250);
+      }
+    }
+
+    function buatDropdownOtomatis() {
+      // Pembacaan Kolom Baru Berhuruf Kapital Awal
+      var idxMapel = headers.indexOf("Mapel");
+      var idxKelas = headers.indexOf("Kelas");
+      var idxBab = headers.indexOf("Bab");
+
+      if(idxMapel === -1 || idxKelas === -1 || idxBab === -1) {
+        var errBox = document.getElementById('error-display');
+        errBox.innerText = "Error Struktur Kolom: Kolom 'Kelas', 'Mapel', atau 'Bab' tidak ditemukan pada baris pertama Sheet1.";
+        errBox.style.display = 'block';
+        return;
+      }
+
+      var listMapel = [], listKelas = [], listBab = [];
+
+      for (var i = 1; i < databaseMentah.length; i++) {
+        var m = databaseMentah[i][idxMapel];
+        var k = databaseMentah[i][idxKelas];
+        var b = databaseMentah[i][idxBab];
+
+        if (m && listMapel.indexOf(m) === -1) listMapel.push(m);
+        if (k && listKelas.indexOf(k) === -1) listKelas.push(k);
+        if (b && listBab.indexOf(b) === -1) listBab.push(b);
+      }
+
+      listMapel.sort(); listKelas.sort(); listBab.sort();
+
+      var htmlMapel = "", htmlKelas = "", htmlBab = "";
+      listMapel.forEach(function(val) { htmlMapel += '<option value="'+val+'">'+val+'</option>'; });
+      listKelas.forEach(function(val) { htmlKelas += '<option value="'+val+'">Kelas '+val+'</option>'; });
+      listBab.forEach(function(val) { htmlBab += '<option value="'+val+'">'+val+'</option>'; });
+
+      document.getElementById('filterMapel').innerHTML = htmlMapel;
+      document.getElementById('filterKelas').innerHTML = htmlKelas;
+      document.getElementById('filterBab').innerHTML = htmlBab;
+
+      document.getElementById('loading-filter').style.display = 'none';
+      document.getElementById('form-cbt').style.display = 'block';
+    }
+
+    function mulaiUjian() {
+      var nama = document.getElementById('namaSiswa').value.trim();
+      var selMapel = document.getElementById('filterMapel').value;
+      var selKelas = document.getElementById('filterKelas').value;
+      var selBab = document.getElementById('filterBab').value;
+
+      if(nama === "") {
+        alert("Wajib memasukkan Nama Lengkap sebelum mulai!");
+        return;
+      }
+
+      var idxMapel = headers.indexOf("Mapel");
+      var idxKelas = headers.indexOf("Kelas");
+      var idxBab = headers.indexOf("Bab");
+      var idxSoal = headers.indexOf("Pertanyaan");
+      var idxGambar = headers.indexOf("Gambar");
+      var idxA = headers.indexOf("Opsi_A");
+      var idxB = headers.indexOf("Opsi_B");
+      var idxC = headers.indexOf("Opsi_C");
+      var idxD = headers.indexOf("Opsi_D");
+      var idxKunci = headers.indexOf("Jawaban_Benar");
+
+      dataSoalSistem = [];
+
+      for (var i = 1; i < databaseMentah.length; i++) {
+        var row = databaseMentah[i];
+        if (row[idxMapel] && row[idxKelas] && row[idxBab] &&
+            row[idxMapel].toString().trim() == selMapel.toString().trim() &&
+            row[idxKelas].toString().trim() == selKelas.toString().trim() &&
+            row[idxBab].toString().trim() == selBab.toString().trim()) {
+          
+          dataSoalSistem.push({
+            soal: row[idxSoal],
+            gambar: row[idxGambar] ? row[idxGambar].toString().trim() : "",
+            a: row[idxA], b: row[idxB], c: row[idxC], d: row[idxD],
+            kunci: row[idxKunci] ? row[idxKunci].toString().toUpperCase().trim() : ""
+          });
+        }
+      }
+
+      if (dataSoalSistem.length === 0) {
+        alert("Soal tidak ditemukan untuk filter materi yang dipilih!");
+        return;
+      }
+
+      // Pengacakan Soal Mandiri
+      for (var j = dataSoalSistem.length - 1; j > 0; j--) {
+        var k = Math.floor(Math.random() * (j + 1));
+        var temp = dataSoalSistem[j];
+        dataSoalSistem[j] = dataSoalSistem[k];
+        dataSoalSistem[k] = temp;
+      }
+
+      dataSoalSistem = dataSoalSistem.slice(0, 25);
+
+      document.getElementById('area-filter').style.display = 'none';
+      document.getElementById('area-soal').style.display = 'block';
+
+      renderSoal();
+    }
+
+    function renderSoal() {
+      var html = '';
+      for (var i = 0; i < dataSoalSistem.length; i++) {
+        html += '<div class="soal-card">';
+        html += '<p style="font-size:16px; line-height:1.5;"><strong>' + (i + 1) + '. ' + dataSoalSistem[i].soal + '</strong></p>';
+        
+        if(dataSoalSistem[i].gambar !== "") {
+          html += '<img class="soal-gambar" src="' + dataSoalSistem[i].gambar + '">';
+        }
+        
+        html += '<div style="margin-top: 15px;">';
+        html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="A"> <strong>A.</strong> ' + dataSoalSistem[i].a + '</label>';
+        html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="B"> <strong>B.</strong> ' + dataSoalSistem[i].b + '</label>';
+        html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="C"> <strong>C.</strong> ' + dataSoalSistem[i].c + '</label>';
+        html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="D"> <strong>D.</strong> ' + dataSoalSistem[i].d + '</label>';
+        html += '</div></div>';
+      }
+      document.getElementById('konten-soal').innerHTML = html;
+      window.scrollTo(0,0);
+    }
+
+    function hitungDanSelesai() {
+      if(!confirm("Kirim lembar jawaban sekarang?")) return;
+      
+      var jumlahBenar = 0;
+      var totalSoal = dataSoalSistem.length;
+      
+      for (var i = 0; i < totalSoal; i++) {
+        var pilihanSiswa = document.querySelector('input[name="soal_'+i+'"]:checked');
+        var jawabanSiswa = pilihanSiswa ? pilihanSiswa.value.toUpperCase().trim() : "";
+        if (jawabanSiswa === dataSoalSistem[i].kunci) jumlahBenar++;
+      }
+      
+      var skorAkhir = Math.round((jumlahBenar / totalSoal) * 100);
+      
+      var nama = document.getElementById('namaSiswa').value;
+      var mapel = document.getElementById('filterMapel').value;
+      var kelas = document.getElementById('filterKelas').value;
+      var bab = document.getElementById('filterBab').value;
+      
+      google.script.run.withSuccessHandler(function(response) {
+        document.getElementById('area-soal').style.display = 'none';
+        document.getElementById('area-skor').style.display = 'block';
+        document.getElementById('display-skor').innerText = skorAkhir;
+        window.scrollTo(0,0);
+      }).simpanNilaiSiswa(nama, mapel, kelas, bab, skorAkhir);
+    }
+
+    inisialisasiWeb();
+  </script>
+</body>
+</html>
