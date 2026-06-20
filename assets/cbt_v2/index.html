@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <title>CBT Latihan Dinamis</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f6f9; color: #333; }
+    .container { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .form-group { margin-bottom: 15px; }
+    label { font-weight: bold; display: block; margin-bottom: 5px; }
+    input[type="text"], select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    button { background-color: #007bff; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; }
+    button:hover { background-color: #0056b3; }
+    .soal-card { background: #fff; border: 1px solid #e0e0e0; padding: 20px; margin-bottom: 20px; border-radius: 6px; }
+    .soal-gambar { max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px; border-radius: 4px; display: block; }
+    .opsi-container { margin-top: 10px; }
+    .opsi-label { display: block; background: #f8f9fa; padding: 10px; margin-bottom: 8px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; }
+    .opsi-label:hover { background: #e9ecef; }
+    .opsi-label input { margin-right: 10px; }
+    #display-skor { font-size: 90px; color: #28a745; margin: 20px 0; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="area-filter">
+      <h2 style="text-align: center; color: #007bff;">Latihan Soal CBT v2</h2>
+      <hr><br>
+      
+      <div id="loading-filter" style="text-align: center; color: #666;">
+        <p>Menghubungkan ke database pusat...</p>
+      </div>
+      
+      <div id="form-cbt" style="display: none;">
+        <div class="form-group">
+          <label>Nama Lengkap Siswa</label>
+          <input type="text" id="namaSiswa" placeholder="Masukkan nama lengkap...">
+        </div>
+        <div class="form-group">
+          <label>Pilih Kelas</label>
+          <select id="filterKelas">
+            </select>
+        </div>
+        <div class="form-group">
+          <label>Pilih Bab / Materi</label>
+          <select id="filterBab">
+            </select>
+        </div>
+        <br>
+        <button onclick="mulaiUjian()">Mulai Latihan</button>
+      </div>
+    </div>
+
+    <div id="area-soal" style="display:none;">
+      <h3 style="border-bottom: 2px solid #007bff; padding-bottom: 10px; margin-bottom: 25px;">Lembar Pengerjaan Soal</h3>
+      <div id="konten-soal"></div>
+      <button style="background-color: #28a745;" onclick="hitungDanSelesai()">Selesai & Lihat Nilai</button>
+    </div>
+
+    <div id="area-skor" style="display:none; text-align:center;">
+      <h2 style="color: #333;">Latihan Selesai!</h2>
+      <p style="color: #666;">Nilai Anda murni terhitung oleh sistem dan telah dikunci ke database:</p>
+      <div id="display-skor">0</div>
+      <p style="font-weight: bold; color: #555;">Transparansi Nilai: Skor yang tampil di layar Anda adalah skor asli yang terekam dan akan dilihat oleh Guru maupun Orang Tua Anda.</p>
+    </div>
+  </div>
+
+  <script>
+    var dataSoalSistem = []; 
+
+    // OTOMATIS JALAN SAAT HALAMAN DIBUKA
+    window.onload = function() {
+      google.script.run.withSuccessHandler(function(pilihan) {
+        var htmlKelas = "";
+        var htmlBab = "";
+        
+        // Buat elemen pilihan kelas
+        for(var i=0; i<pilihan.kelas.length; i++){
+          htmlKelas += '<option value="'+pilihan.kelas[i]+'">Kelas '+pilihan.kelas[i]+'</option>';
+        }
+        
+        // Buat elemen pilihan bab (sesuai format asli spreadsheet)
+        for(var j=0; j<pilihan.bab.length; j++){
+          htmlBab += '<option value="'+pilihan.bab[j]+'">'+pilihan.bab[j]+'</option>';
+        }
+        
+        document.getElementById('filterKelas').innerHTML = htmlKelas;
+        document.getElementById('filterBab').innerHTML = htmlBab;
+        
+        // Sembunyikan tulisan loading, tampilkan formulir CBT
+        document.getElementById('loading-filter').style.display = 'none';
+        document.getElementById('form-cbt').style.style.display = 'block'; // Diperbaiki jika typo ganda
+        document.getElementById('form-cbt').style.display = 'block';
+      }).getDaftarFilter();
+    };
+
+    function mulaiUjian() {
+      var nama = document.getElementById('namaSiswa').value.trim();
+      var kelas = document.getElementById('filterKelas').value;
+      var bab = document.getElementById('filterBab').value;
+      
+      if(nama === "") {
+        alert("Silakan masukkan Nama Lengkap Anda terlebih dahulu!");
+        return;
+      }
+      
+      document.getElementById('area-filter').innerHTML = "<h3 style='text-align:center;'>Sedang memuat dan mengacak soal, mohon tunggu...</h3>";
+      
+      google.script.run.withSuccessHandler(function(soalDariServer) {
+        dataSoalSistem = soalDariServer;
+        
+        if(dataSoalSistem.length == 0) {
+          alert("Soal tidak ditemukan untuk kombinasi kelas dan bab ini!");
+          location.reload();
+          return;
+        }
+        
+        document.getElementById('area-filter').style.display = 'none';
+        document.getElementById('area-soal').style.display = 'block';
+        
+        renderSoal();
+      }).getSoalCBT(kelas, bab);
+    }
+
+    function renderSoal() {
+      var html = '';
+      for (var i = 0; i < dataSoalSistem.length; i++) {
+        var nomorOtomatis = i + 1; 
+        
+        html += '<div class="soal-card">';
+        html += '<p><strong>' + nomorOtomatis + '. ' + dataSoalSistem[i].soal + '</strong></p>';
+        
+        if(dataSoalSistem[i].gambar !== "") {
+          html += '<img class="soal-gambar" src="' + dataSoalSistem[i].gambar + '" alt="Gambar Soal">';
+        }
+        
+        html += '<div class="opsi-container">';
+        html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="A"> <strong>A.</strong> ' + dataSoalSistem[i].a + '</label>';
+        html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="B"> <strong>B.</strong> ' + dataSoalSistem[i].b + '</label>';
+        html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="C"> <strong>C.</strong> ' + dataSoalSistem[i].c + '</label>';
+        html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="D"> <strong>D.</strong> ' + dataSoalSistem[i].d + '</label>';
+        html += '</div>';
+        html += '</div>';
+      }
+      document.getElementById('konten-soal').innerHTML = html;
+      window.scrollTo(0,0);
+    }
+
+    function hitungDanSelesai() {
+      if(!confirm("Apakah Anda yakin ingin mengakhiri latihan ini? Nilai akan langsung dikunci.")) return;
+      
+      var jumlahBenar = 0;
+      var totalSoal = dataSoalSistem.length;
+      
+      for (var i = 0; i < totalSoal; i++) {
+        var pilihanSiswa = document.querySelector('input[name="soal_'+i+'"]:checked');
+        var jawabanSiswa = pilihanSiswa ? pilihanSiswa.value.toUpperCase().trim() : "";
+        
+        if (jawabanSiswa === dataSoalSistem[i].kunci) {
+          jumlahBenar++;
+        }
+      }
+      
+      var skorAkhir = Math.round((jumlahBenar / totalSoal) * 100);
+      
+      var nama = document.getElementById('namaSiswa').value;
+      var kelas = document.getElementById('filterKelas').value;
+      var bab = document.getElementById('filterBab').value;
+      
+      google.script.run.withSuccessHandler(function(response) {
+        document.getElementById('area-soal').style.display = 'none';
+        document.getElementById('area-skor').style.display = 'block';
+        document.getElementById('display-skor').innerText = skorAkhir;
+        window.scrollTo(0,0);
+      }).simpanNilaiSiswa(nama, kelas, bab, skorAkhir);
+    }
+  </script>
+</body>
+</html>
