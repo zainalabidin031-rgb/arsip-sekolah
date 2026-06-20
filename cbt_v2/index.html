@@ -13,11 +13,10 @@
     button:hover { background-color: #0056b3; }
     .soal-card { background: #fff; border: 1px solid #e0e0e0; padding: 20px; margin-bottom: 20px; border-radius: 6px; }
     .soal-gambar { max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px; border-radius: 4px; display: block; }
-    .opsi-container { margin-top: 10px; }
     .opsi-label { display: block; background: #f8f9fa; padding: 10px; margin-bottom: 8px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; }
     .opsi-label:hover { background: #e9ecef; }
     .opsi-label input { margin-right: 10px; }
-    #display-skor { font-size: 90px; color: #28a745; margin: 20px 0; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+    #display-skor { font-size: 90px; color: #28a745; margin: 20px 0; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -28,7 +27,7 @@
       <hr><br>
       
       <div id="loading-filter" style="text-align: center; color: #666;">
-        <p>Menghubungkan ke database pusat...</p>
+        <h3 id="teks-loading">Sedang mengunduh database soal, mohon tunggu...</h3>
       </div>
       
       <div id="form-cbt" style="display: none;">
@@ -38,18 +37,15 @@
         </div>
         <div class="form-group">
           <label>Pilih Mata Pelajaran (Mapel)</label>
-          <select id="filterMapel">
-            </select>
+          <select id="filterMapel"></select>
         </div>
         <div class="form-group">
           <label>Pilih Kelas</label>
-          <select id="filterKelas">
-            </select>
+          <select id="filterKelas"></select>
         </div>
         <div class="form-group">
           <label>Pilih Bab / Materi</label>
-          <select id="filterBab">
-            </select>
+          <select id="filterBab"></select>
         </div>
         <br>
         <button onclick="mulaiUjian()">Mulai Latihan</button>
@@ -71,105 +67,133 @@
   </div>
 
   <script>
+    var databaseMentah = [];
     var dataSoalSistem = []; 
+    var headers = [];
 
-    // OTOMATIS JALAN SAAT HALAMAN DIBUKA
-    // FUNGSI BARU UNTUK MEMANGGIL DATABASE SECARA AMAN
-function muatFilterAwal() {
-  // Cek apakah objek 'google' sudah siap di memori browser
-  if (typeof google !== 'undefined' && google.script && google.script.run) {
-    
-    google.script.run.withSuccessHandler(function(pilihan) {
-      var htmlMapel = "";
-      var htmlKelas = "";
-      var htmlBab = "";
-      
-      for(var m=0; m<pilihan.mapel.length; m++){
-        htmlMapel += '<option value="'+pilihan.mapel[m]+'">'+pilihan.mapel[m]+'</option>';
+    // FUNGSI CEK KESIAPAN GOOGLE SCRIPT RUN (ANTI GAGAL)
+    function inisialisasiWeb() {
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run.withSuccessHandler(function(dataDariSheet) {
+          if (typeof dataDariSheet === 'string' && dataDariSheet.includes("ERROR")) {
+            document.getElementById('teks-loading').innerText = "Gagal memuat: Pastikan Anda sudah menjalankan fungsi Run manual di Code.gs untuk mengizinkan akses.";
+            return;
+          }
+          
+          databaseMentah = dataDariSheet;
+          headers = databaseMentah[0];
+          
+          buatDropdownOtomatis();
+        }).ambilSemuaDataPusat();
+      } else {
+        setTimeout(inisialisasiWeb, 300); // Cek lagi tiap 0.3 detik sampai siap
       }
-      for(var i=0; i<pilihan.kelas.length; i++){
-        htmlKelas += '<option value="'+pilihan.kelas[i]+'">Kelas '+pilihan.kelas[i]+'</option>';
+    }
+
+    // MEMBUAT DROPDOWN OTOMATIS DARI DATA SPREADSHEET
+    function buatDropdownOtomatis() {
+      var idxMapel = headers.indexOf("mapel");
+      var idxKelas = headers.indexOf("kelas");
+      var idxBab = headers.indexOf("bab");
+
+      var listMapel = [];
+      var listKelas = [];
+      var listBab = [];
+
+      for (var i = 1; i < databaseMentah.length; i++) {
+        var m = databaseMentah[i][idxMapel];
+        var k = databaseMentah[i][idxKelas];
+        var b = databaseMentah[i][idxBab];
+
+        if (m && listMapel.indexOf(m) === -1) listMapel.push(m);
+        if (k && listKelas.indexOf(k) === -1) listKelas.push(k);
+        if (b && listBab.indexOf(b) === -1) listBab.push(b);
       }
-      for(var j=0; j<pilihan.bab.length; j++){
-        htmlBab += '<option value="'+pilihan.bab[j]+'">'+pilihan.bab[j]+'</option>';
-      }
-      
+
+      listMapel.sort(); listKelas.sort(); listBab.sort();
+
+      var htmlMapel = "", htmlKelas = "", htmlBab = "";
+      listMapel.forEach(function(val) { htmlMapel += '<option value="'+val+'">'+val+'</option>'; });
+      listKelas.forEach(function(val) { htmlKelas += '<option value="'+val+'">Kelas '+val+'</option>'; });
+      listBab.forEach(function(val) { htmlBab += '<option value="'+val+'">'+val+'</option>'; });
+
       document.getElementById('filterMapel').innerHTML = htmlMapel;
       document.getElementById('filterKelas').innerHTML = htmlKelas;
       document.getElementById('filterBab').innerHTML = htmlBab;
-      
+
       document.getElementById('loading-filter').style.display = 'none';
+      document.getElementById('form-cbt').style.style.display = 'block'; // Antisipasi bug ganda browser lawas
       document.getElementById('form-cbt').style.display = 'block';
-    }).getDaftarFilter();
+    }
 
-  } else {
-    // Jika 'google' belum siap, tunggu 500 milidetik (0.5 detik) lalu coba panggil lagi
-    setTimeout(muatFilterAwal, 500);
-  }
-}
-
-// Jalankan fungsi pengaman di atas langsung saat script dieksekusi
-muatFilterAwal();
-        
-        // Render Pilihan Mapel
-        for(var m=0; m<pilihan.mapel.length; m++){
-          htmlMapel += '<option value="'+pilihan.mapel[m]+'">'+pilihan.mapel[m]+'</option>';
-        }
-        
-        // Render Pilihan Kelas
-        for(var i=0; i<pilihan.kelas.length; i++){
-          htmlKelas += '<option value="'+pilihan.kelas[i]+'">Kelas '+pilihan.kelas[i]+'</option>';
-        }
-        
-        // Render Pilihan Bab
-        for(var j=0; j<pilihan.bab.length; j++){
-          htmlBab += '<option value="'+pilihan.bab[j]+'">'+pilihan.bab[j]+'</option>';
-        }
-        
-        document.getElementById('filterMapel').innerHTML = htmlMapel;
-        document.getElementById('filterKelas').innerHTML = htmlKelas;
-        document.getElementById('filterBab').innerHTML = htmlBab;
-        
-        // Tampilkan Form, sembunyikan Loading
-        document.getElementById('loading-filter').style.display = 'none';
-        document.getElementById('form-cbt').style.display = 'block';
-      }).getDaftarFilter();
-    };
-
+    // LOGIKA FILTER DAN ACAK SOAL DI SISI CLIENT (INSTAN TANPA LOADING KEDUA)
     function mulaiUjian() {
       var nama = document.getElementById('namaSiswa').value.trim();
-      var mapel = document.getElementById('filterMapel').value;
-      var kelas = document.getElementById('filterKelas').value;
-      var bab = document.getElementById('filterBab').value;
-      
+      var selMapel = document.getElementById('filterMapel').value;
+      var selKelas = document.getElementById('filterKelas').value;
+      var selBab = document.getElementById('filterBab').value;
+
       if(nama === "") {
         alert("Silakan masukkan Nama Lengkap Anda terlebih dahulu!");
         return;
       }
-      
-      document.getElementById('area-filter').innerHTML = "<h3 style='text-align:center;'>Sedang memuat dan mengacak soal, mohon tunggu...</h3>";
-      
-      google.script.run.withSuccessHandler(function(soalDariServer) {
-        dataSoalSistem = soalDariServer;
-        
-        if(dataSoalSistem.length == 0) {
-          alert("Soal tidak ditemukan untuk kombinasi Mapel, Kelas, dan Bab ini!");
-          location.reload();
-          return;
+
+      var idxMapel = headers.indexOf("mapel");
+      var idxKelas = headers.indexOf("kelas");
+      var idxBab = headers.indexOf("bab");
+      var idxSoal = headers.indexOf("soal");
+      var idxGambar = headers.indexOf("gambar");
+      var idxA = headers.indexOf("opsi_a");
+      var idxB = headers.indexOf("opsi_b");
+      var idxC = headers.indexOf("opsi_c");
+      var idxD = headers.indexOf("opsi_d");
+      var idxKunci = headers.indexOf("jawaban");
+
+      dataSoalSistem = [];
+
+      // Proses Filter
+      for (var i = 1; i < databaseMentah.length; i++) {
+        var row = databaseMentah[i];
+        if (row[idxMapel] && row[idxKelas] && row[idxBab] &&
+            row[idxMapel].toString().trim() == selMapel.toString().trim() &&
+            row[idxKelas].toString().trim() == selKelas.toString().trim() &&
+            row[idxBab].toString().trim() == selBab.toString().trim()) {
+          
+          dataSoalSistem.push({
+            soal: row[idxSoal],
+            gambar: row[idxGambar] ? row[idxGambar].toString().trim() : "",
+            a: row[idxA], b: row[idxB], c: row[idxC], d: row[idxD],
+            kunci: row[idxKunci] ? row[idxKunci].toString().toUpperCase().trim() : ""
+          });
         }
-        
-        document.getElementById('area-filter').style.display = 'none';
-        document.getElementById('area-soal').style.display = 'block';
-        
-        renderSoal();
-      }).getSoalCBT(mapel, kelas, bab);
+      }
+
+      if (dataSoalSistem.length === 0) {
+        alert("Soal tidak ditemukan untuk kombinasi ini!");
+        return;
+      }
+
+      // Proses Acak (Fisher-Yates)
+      for (var j = dataSoalSistem.length - 1; j > 0; j--) {
+        var k = Math.floor(Math.random() * (j + 1));
+        var temp = dataSoalSistem[j];
+        dataSoalSistem[j] = dataSoalSistem[k];
+        dataSoalSistem[k] = temp;
+      }
+
+      // Potong maksimal 25 soal
+      dataSoalSistem = dataSoalSistem.slice(0, 25);
+
+      document.getElementById('area-filter').style.display = 'none';
+      document.getElementById('area-soal').style.display = 'block';
+
+      renderSoal();
     }
 
     function renderSoal() {
       var html = '';
       for (var i = 0; i < dataSoalSistem.length; i++) {
-        var nomorOtomatis = i + 1; 
-        
+        var nomorOtomatis = i + 1;
         html += '<div class="soal-card">';
         html += '<p><strong>' + nomorOtomatis + '. ' + dataSoalSistem[i].soal + '</strong></p>';
         
@@ -182,8 +206,7 @@ muatFilterAwal();
         html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="B"> <strong>B.</strong> ' + dataSoalSistem[i].b + '</label>';
         html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="C"> <strong>C.</strong> ' + dataSoalSistem[i].c + '</label>';
         html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="D"> <strong>D.</strong> ' + dataSoalSistem[i].d + '</label>';
-        html += '</div>';
-        html += '</div>';
+        html += '</div></div>';
       }
       document.getElementById('konten-soal').innerHTML = html;
       window.scrollTo(0,0);
@@ -218,6 +241,9 @@ muatFilterAwal();
         window.scrollTo(0,0);
       }).simpanNilaiSiswa(nama, mapel, kelas, bab, skorAkhir);
     }
+
+    // Jalankan inisialisasi aman
+    inisialisasiWeb();
   </script>
 </body>
 </html>
