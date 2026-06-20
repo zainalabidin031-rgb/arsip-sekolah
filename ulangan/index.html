@@ -169,9 +169,10 @@ function mulaiUjian(){
   google.script.run
     .withSuccessHandler(tampilkanSoal)
     .withFailureHandler(function(err){
-      document.getElementById("loading").innerHTML = "";
-      alert(err.message);
-    })
+  document.getElementById("loading").innerHTML = "";
+  alert(JSON.stringify(err));
+  console.log(err);
+})
     .mulaiUlangan(nama,token);
 }
 
