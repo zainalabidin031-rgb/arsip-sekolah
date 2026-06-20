@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Aplikasi Ulangan Online</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+    }
+    .judul-lucu {
+      font-family: 'Fredoka One', cursive;
+    }
+  </style>
+</head>
+<body class="bg-cyan-100 min-h-screen text-slate-700 pb-10">
+
+  <div class="max-w-xl mx-auto px-4 pt-8">
+    
+    <div class="bg-blue-500 rounded-3xl p-6 text-center text-white shadow-lg border-4 border-white mb-6 relative">
+      <h1 class="judul-lucu text-3xl tracking-wide drop-shadow-md">Yuk, Ulangan! ✏️</h1>
+      <p class="text-sm font-medium opacity-90 mt-1">Kerjakan dengan jujur dan teliti ya!</p>
+    </div>
+
+    <div id="papanLogin" class="bg-white rounded-3xl p-6 shadow-xl border-4 border-blue-200">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-blue-600 font-bold mb-1">Nama Lengkap :</label>
+          <input type="text" id="inputNama" class="w-full px-4 py-3 border-3 border-blue-200 rounded-2xl focus:outline-none focus:border-blue-500 text-lg font-bold text-blue-700" placeholder="Ketik nama kamu...">
+        </div>
+        <div>
+          <label class="block text-blue-600 font-bold mb-1">Token Ujian :</label>
+          <input type="text" id="inputToken" class="w-full px-4 py-3 border-3 border-blue-200 rounded-2xl focus:outline-none focus:border-blue-500 text-lg uppercase font-mono font-bold tracking-widest text-center" placeholder="CONTOH: TKN01">
+        </div>
+        <button onclick="masukUjian()" id="btnMasuk" class="w-full bg-amber-400 hover:bg-amber-500 text-white font-bold text-xl py-4 rounded-2xl shadow-md border-b-4 border-amber-600 transition-all active:transform active:scale-95 mt-4">
+          Mulai Ujian 🚀
+        </button>
+      </div>
+    </div>
+
+    <div id="papanSoal" class="hidden bg-white rounded-3xl p-6 shadow-xl border-4 border-blue-200">
+      <div class="flex justify-between items-center border-b-2 border-blue-100 pb-3 mb-4">
+        <div>
+          <p class="text-xs text-slate-400">Nama Siswa</p>
+          <p id="txtNamaSiswa" class="font-bold text-blue-600">-</p>
+        </div>
+        <div class="text-right">
+          <p class="text-xs text-slate-400">Soal Ke-</p>
+          <p id="txtNomorSoal" class="font-bold text-amber-500 text-lg">-</p>
+        </div>
+      </div>
+
+      <div id="kontenSoal" class="mb-6">
+        <div id="boxGambar" class="hidden mb-4 justify-center">
+          <img id="imgSoal" src="" alt="Gambar Soal" class="max-h-48 rounded-2xl border-2 border-slate-200 object-contain">
+        </div>
+        <h3 id="txtIsiSoal" class="text-lg font-bold text-slate-800 mb-6 leading-relaxed">Isi pertanyaan soal...</h3>
+        
+        <div class="space-y-3">
+          <button onclick="pilihJawaban('a')" id="btnOptA" class="opsi-jawaban w-full text-left p-4 rounded-2xl border-2 border-slate-200 hover:bg-blue-50 hover:border-blue-400 font-medium transition-all flex items-center">
+            <span class="bg-blue-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">A</span>
+            <span id="txtOptA">Pilihan A</span>
+          </button>
+          <button onclick="pilihJawaban('b')" id="btnOptB" class="opsi-jawaban w-full text-left p-4 rounded-2xl border-2 border-slate-200 hover:bg-blue-50 hover:border-blue-400 font-medium transition-all flex items-center">
+            <span class="bg-blue-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">B</span>
+            <span id="txtOptB">Pilihan B</span>
+          </button>
+          <button onclick="pilihJawaban('c')" id="btnOptC" class="opsi-jawaban w-full text-left p-4 rounded-2xl border-2 border-slate-200 hover:bg-blue-50 hover:border-blue-400 font-medium transition-all flex items-center">
+            <span class="bg-blue-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">C</span>
+            <span id="txtOptC">Pilihan C</span>
+          </button>
+          <button onclick="pilihJawaban('d')" id="btnOptD" class="opsi-jawaban w-full text-left p-4 rounded-2xl border-2 border-slate-200 hover:bg-blue-50 hover:border-blue-400 font-medium transition-all flex items-center">
+            <span class="bg-blue-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold mr-3 shrink-0">D</span>
+            <span id="txtOptD">Pilihan D</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex gap-4 border-t-2 border-blue-100 pt-4">
+        <button onclick="soalKembali()" id="btnBack" class="w-1/2 bg-slate-400 hover:bg-slate-500 text-white font-bold py-3 rounded-2xl shadow transition-all disabled:opacity-50" disabled>
+          ⬅️ Kembali
+        </button>
+        <button onclick="soalLanjut()" id="btnNext" class="w-1/2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-2xl shadow border-b-4 border-blue-700 transition-all">
+          Lanjut ➡️
+        </button>
+      </div>
+    </div>
+
+    <div id="papanHasil" class="hidden bg-white rounded-3xl p-8 shadow-xl border-4 border-blue-200 text-center">
+      <h2 class="judul-lucu text-2xl text-blue-600 mb-2">Selesai Ujian! 🎉</h2>
+      <p class="text-slate-500 mb-6">Berikut adalah nilai hasil usaha kamu :</p>
+      
+      <div class="inline-block bg-blue-50 rounded-full p-8 border-4 border-dashed border-blue-400 mb-6">
+        <span id="txtSkorAkhir" class="judul-lucu text-6xl text-blue-600">0</span>
+      </div>
+
+      <div id="boxPesan"></div>
+    </div>
+
+  </div>
+
+  <script>
+    let dbUlangan = null;
+    let indeksSoalSekarang = 0;
+    let memoriJawaban = {}; // format: { idSoal: 'a/b/c/d' }
+
+    function masukUjian() {
+      const nama = document.getElementById('inputNama').value.trim();
+      const token = document.getElementById('inputToken').value.trim();
+      const btn = document.getElementById('btnMasuk');
+
+      if (!nama || !token) {
+        alert('⚠️ Isi nama lengkap dan token terlebih dahulu ya!');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = "Sedang Memuat Soal... ⏳";
+
+      google.script.run
+        .withSuccessHandler(function(response) {
+          btn.disabled = false;
+          btn.innerText = "Mulai Ujian 🚀";
+          
+          if (response.success) {
+            dbUlangan = response;
+            document.getElementById('txtNamaSiswa').innerText = response.nama;
+            document.getElementById('papanLogin').classList.add('hidden');
+            document.getElementById('papanSoal').classList.remove('hidden');
+            indeksSoalSekarang = 0;
+            memoriJawaban = {};
+            tampilkanSoal();
+          } else {
+            alert(response.message);
+          }
+        })
+        .withFailureHandler(function(err) {
+          btn.disabled = false;
+          btn.innerText = "Mulai Ujian 🚀";
+          alert("Terjadi kesalahan jaringan: " + err.message);
+        })
+        .validasiDanAmbilSoal(nama, token);
+    }
+
+    function tampilkanSoal() {
+      const soalAktif = dbUlangan.soal[indeksSoalSekarang];
+      
+      // Update nomor
+      document.getElementById('txtNomorSoal').innerText = (indeksSoalSekarang + 1) + ' / ' + dbUlangan.soal.length;
+      
+      // Update teks soal
+      document.getElementById('txtIsiSoal').innerText = soalAktif.soal;
+      
+      // Pengaturan Gambar jika ada
+      const boxGambar = document.getElementById('boxGambar');
+      const imgSoal = document.getElementById('imgSoal');
+      if (soalAktif.gambar) {
+        imgSoal.src = soalAktif.gambar;
+        boxGambar.classList.remove('hidden');
+        boxGambar.classList.add('flex');
+      } else {
+        boxGambar.classList.add('hidden');
+        boxGambar.classList.remove('flex');
+      }
+
+      // Update Pilihan Opsi
+      document.getElementById('txtOptA').innerText = soalAktif.opsi_a;
+      document.getElementById('txtOptB').innerText = soalAktif.opsi_b;
+      document.getElementById('txtOptC').innerText = soalAktif.opsi_c;
+      document.getElementById('txtOptD').innerText = soalAktif.opsi_d;
+
+      // Atur tombol kembali (Back)
+      document.getElementById('btnBack').disabled = (indeksSoalSekarang === 0);
+
+      // Atur tombol Lanjut / Selesai
+      const btnNext = document.getElementById('btnNext');
+      if (indeksSoalSekarang === dbUlangan.soal.length - 1) {
+        btnNext.innerHTML = "Selesai & Kirim 🏁";
+        btnNext.className = "w-1/2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-2xl shadow border-b-4 border-emerald-700 transition-all";
+      } else {
+        btnNext.innerHTML = "Lanjut ➡️";
+        btnNext.className = "w-1/2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-2xl shadow border-b-4 border-blue-700 transition-all";
+      }
+
+      // Tandai opsi jika sebelumnya sudah pernah dipilih
+      netralkanWarnaOpsi();
+      const jawabanSebelumnya = memoriJawaban[soalAktif.id];
+      if (jawabanSebelumnya) {
+        tandaisudahDipilih(jawabanSebelumnya);
+      }
+    }
+
+    function pilihJawaban(hurufOpsi) {
+      const soalAktif = dbUlangan.soal[indeksSoalSekarang];
+      memoriJawaban[soalAktif.id] = hurufOpsi;
+      netralkanWarnaOpsi();
+      tandaisudahDipilih(hurufOpsi);
+    }
+
+    function netralkanWarnaOpsi() {
+      const opsiList = document.querySelectorAll('.opsi-jawaban');
+      opsiList.forEach(btn => {
+        btn.classList.remove('bg-blue-100', 'border-blue-500', 'ring-2', 'ring-blue-400');
+        btn.classList.add('border-slate-200', 'bg-white');
+      });
+    }
+
+    function tandaisudahDipilih(huruf) {
+      const idBtn = 'btnOpt' + huruf.toUpperCase();
+      const btn = document.getElementById(idBtn);
+      if (btn) {
+        btn.classList.remove('border-slate-200', 'bg-white');
+        btn.classList.add('bg-blue-100', 'border-blue-500', 'ring-2', 'ring-blue-400');
+      }
+    }
+
+    function soalKembali() {
+      if (indeksSoalSekarang > 0) {
+        indeksSoalSekarang--;
+        tampilkanSoal();
+      }
+    }
+
+    function soalLanjut() {
+      const soalAktif = dbUlangan.soal[indeksSoalSekarang];
+      
+      // Validasi agar anak mengisi terlebih dahulu
+      if (!memoriJawaban[soalAktif.id]) {
+        alert("Pilih satu jawaban dulu ya sayang! 😊");
+        return;
+      }
+
+      if (indeksSoalSekarang < dbUlangan.soal.length - 1) {
+        indeksSoalSekarang++;
+        tampilkanSoal();
+      } else {
+        // Jika sudah di nomor terakhir, lakukan submit kuis
+        kirimJawabanAkhir();
+      }
+    }
+
+    function kirimJawabanAkhir() {
+      if (!confirm("Apakah kamu yakin semua jawaban sudah benar dan ingin dikirim?")) return;
+
+      document.getElementById('papanSoal').classList.add('hidden');
+      document.getElementById('papanHasil').classList.remove('hidden');
+      document.getElementById('txtSkorAkhir').innerText = "⏳";
+      document.getElementById('boxPesan').innerHTML = "<p class='text-slate-500'>Sedang menghitung nilai...</p>";
+
+      const paketKirim = {
+        nama: dbUlangan.nama,
+        kelas: dbUlangan.kelas,
+        mapel: dbUlangan.mapel,
+        jawaban: memoriJawaban
+      };
+
+      google.script.run
+        .withSuccessHandler(function(res) {
+          document.getElementById('txtSkorAkhir').innerText = res.skor;
+          
+          let htmlPesan = "";
+          if (res.skor < 80) {
+            htmlPesan = `
+              <p class="text-rose-500 font-bold text-lg mb-4">Yaaah, nilai kamu masih di bawah 80. Semangat, coba lagi yuk! 💪</p>
+              <button onclick="ulangiUjian()" class="w-full bg-amber-400 hover:bg-amber-500 text-white font-bold py-3 rounded-2xl shadow-md border-b-4 border-amber-600 transition-all">
+                🔄 Ulangi Ujian
+              </button>
+            `;
+          } else {
+            htmlPesan = `
+              <p class="text-emerald-500 font-bold text-lg mb-4">Hebat sekali! Nilai kamu sudah di atas 80! 🌟</p>
+              <p class="text-sm text-slate-400">Hasil ini sudah otomatis terekam untuk dilaporkan ke orang tuamu.</p>
+            `;
+          }
+          document.getElementById('boxPesan').innerHTML = htmlPesan;
+        })
+        .withFailureHandler(function(err) {
+          alert("Gagal mengirim nilai: " + err.message);
+        })
+        .hitungDanSimpanNilai(paketKirim);
+    }
+
+    function ulangiUjian() {
+      document.getElementById('papanHasil').classList.add('hidden');
+      document.getElementById('papanLogin').classList.remove('hidden');
+      document.getElementById('inputToken').value = ""; // Bersihkan token biar login ulang nyaman
+    }
+  </script>
+</body>
+</html>
