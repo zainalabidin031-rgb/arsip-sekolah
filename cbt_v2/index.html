@@ -37,6 +37,11 @@
           <input type="text" id="namaSiswa" placeholder="Masukkan nama lengkap...">
         </div>
         <div class="form-group">
+          <label>Pilih Mata Pelajaran (Mapel)</label>
+          <select id="filterMapel">
+            </select>
+        </div>
+        <div class="form-group">
           <label>Pilih Kelas</label>
           <select id="filterKelas">
             </select>
@@ -71,23 +76,30 @@
     // OTOMATIS JALAN SAAT HALAMAN DIBUKA
     window.onload = function() {
       google.script.run.withSuccessHandler(function(pilihan) {
+        var htmlMapel = "";
         var htmlKelas = "";
         var htmlBab = "";
         
-        // Buat elemen pilihan kelas
+        // Render Pilihan Mapel
+        for(var m=0; m<pilihan.mapel.length; m++){
+          htmlMapel += '<option value="'+pilihan.mapel[m]+'">'+pilihan.mapel[m]+'</option>';
+        }
+        
+        // Render Pilihan Kelas
         for(var i=0; i<pilihan.kelas.length; i++){
           htmlKelas += '<option value="'+pilihan.kelas[i]+'">Kelas '+pilihan.kelas[i]+'</option>';
         }
         
-        // Buat elemen pilihan bab (sesuai format asli spreadsheet)
+        // Render Pilihan Bab
         for(var j=0; j<pilihan.bab.length; j++){
           htmlBab += '<option value="'+pilihan.bab[j]+'">'+pilihan.bab[j]+'</option>';
         }
         
+        document.getElementById('filterMapel').innerHTML = htmlMapel;
         document.getElementById('filterKelas').innerHTML = htmlKelas;
         document.getElementById('filterBab').innerHTML = htmlBab;
         
-        // Sembunyikan tulisan loading, tampilkan formulir CBT
+        // Tampilkan Form, sembunyikan Loading
         document.getElementById('loading-filter').style.display = 'none';
         document.getElementById('form-cbt').style.display = 'block';
       }).getDaftarFilter();
@@ -95,6 +107,7 @@
 
     function mulaiUjian() {
       var nama = document.getElementById('namaSiswa').value.trim();
+      var mapel = document.getElementById('filterMapel').value;
       var kelas = document.getElementById('filterKelas').value;
       var bab = document.getElementById('filterBab').value;
       
@@ -109,7 +122,7 @@
         dataSoalSistem = soalDariServer;
         
         if(dataSoalSistem.length == 0) {
-          alert("Soal tidak ditemukan untuk kombinasi kelas dan bab ini!");
+          alert("Soal tidak ditemukan untuk kombinasi Mapel, Kelas, dan Bab ini!");
           location.reload();
           return;
         }
@@ -118,7 +131,7 @@
         document.getElementById('area-soal').style.display = 'block';
         
         renderSoal();
-      }).getSoalCBT(kelas, bab);
+      }).getSoalCBT(mapel, kelas, bab);
     }
 
     function renderSoal() {
@@ -163,6 +176,7 @@
       var skorAkhir = Math.round((jumlahBenar / totalSoal) * 100);
       
       var nama = document.getElementById('namaSiswa').value;
+      var mapel = document.getElementById('filterMapel').value;
       var kelas = document.getElementById('filterKelas').value;
       var bab = document.getElementById('filterBab').value;
       
@@ -171,7 +185,7 @@
         document.getElementById('area-skor').style.display = 'block';
         document.getElementById('display-skor').innerText = skorAkhir;
         window.scrollTo(0,0);
-      }).simpanNilaiSiswa(nama, kelas, bab, skorAkhir);
+      }).simpanNilaiSiswa(nama, mapel, kelas, bab, skorAkhir);
     }
   </script>
 </body>
