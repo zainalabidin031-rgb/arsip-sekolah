@@ -1,249 +1,129 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <base target="_top">
-  <title>CBT Latihan Dinamis</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f6f9; color: #333; }
-    .container { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-    .form-group { margin-bottom: 15px; }
-    label { font-weight: bold; display: block; margin-bottom: 5px; }
-    input[type="text"], select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-    button { background-color: #007bff; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; }
-    button:hover { background-color: #0056b3; }
-    .soal-card { background: #fff; border: 1px solid #e0e0e0; padding: 20px; margin-bottom: 20px; border-radius: 6px; }
-    .soal-gambar { max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px; border-radius: 4px; display: block; }
-    .opsi-label { display: block; background: #f8f9fa; padding: 10px; margin-bottom: 8px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; }
-    .opsi-label:hover { background: #e9ecef; }
-    .opsi-label input { margin-right: 10px; }
-    #display-skor { font-size: 90px; color: #28a745; margin: 20px 0; font-weight: bold; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CBT Latihan Siswa</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f6f9;margin:0;padding:20px}
+.container{max-width:800px;margin:auto;background:#fff;padding:20px;border-radius:8px}
+select,input,button{width:100%;padding:10px;margin:8px 0}
+.soal{border:1px solid #ddd;padding:15px;margin:15px 0;border-radius:6px}
+</style>
 </head>
 <body>
+<div class="container">
+<h2>CBT Latihan Siswa</h2>
 
-  <div class="container">
-    <div id="area-filter">
-      <h2 style="text-align: center; color: #007bff;">Latihan Soal CBT v2</h2>
-      <hr><br>
-      
-      <div id="loading-filter" style="text-align: center; color: #666;">
-        <h3 id="teks-loading">Sedang mengunduh database soal, mohon tunggu...</h3>
-      </div>
-      
-      <div id="form-cbt" style="display: none;">
-        <div class="form-group">
-          <label>Nama Lengkap Siswa</label>
-          <input type="text" id="namaSiswa" placeholder="Masukkan nama lengkap...">
-        </div>
-        <div class="form-group">
-          <label>Pilih Mata Pelajaran (Mapel)</label>
-          <select id="filterMapel"></select>
-        </div>
-        <div class="form-group">
-          <label>Pilih Kelas</label>
-          <select id="filterKelas"></select>
-        </div>
-        <div class="form-group">
-          <label>Pilih Bab / Materi</label>
-          <select id="filterBab"></select>
-        </div>
-        <br>
-        <button onclick="mulaiUjian()">Mulai Latihan</button>
-      </div>
-    </div>
+<div id="awal">
+<input id="nama" placeholder="Nama Lengkap">
 
-    <div id="area-soal" style="display:none;">
-      <h3 style="border-bottom: 2px solid #007bff; padding-bottom: 10px; margin-bottom: 25px;">Lembar Pengerjaan Soal</h3>
-      <div id="konten-soal"></div>
-      <button style="background-color: #28a745;" onclick="hitungDanSelesai()">Selesai & Lihat Nilai</button>
-    </div>
+<select id="mapel"></select>
+<select id="kelas"></select>
+<select id="bab"></select>
 
-    <div id="area-skor" style="display:none; text-align:center;">
-      <h2 style="color: #333;">Latihan Selesai!</h2>
-      <p style="color: #666;">Nilai Anda murni terhitung oleh sistem dan telah dikunci ke database:</p>
-      <div id="display-skor">0</div>
-      <p style="font-weight: bold; color: #555;">Transparansi Nilai: Skor yang tampil di layar Anda adalah skor asli yang terekam dan akan dilihat oleh Guru maupun Orang Tua Anda.</p>
-    </div>
-  </div>
+<button onclick="mulai()">Mulai Ujian</button>
+</div>
 
-  <script>
-    var databaseMentah = [];
-    var dataSoalSistem = []; 
-    var headers = [];
+<div id="ujian" style="display:none">
+<div id="soal"></div>
+<button onclick="selesai()">Selesai</button>
+</div>
 
-    // FUNGSI CEK KESIAPAN GOOGLE SCRIPT RUN (ANTI GAGAL)
-    function inisialisasiWeb() {
-      if (typeof google !== 'undefined' && google.script && google.script.run) {
-        google.script.run.withSuccessHandler(function(dataDariSheet) {
-          if (typeof dataDariSheet === 'string' && dataDariSheet.includes("ERROR")) {
-            document.getElementById('teks-loading').innerText = "Gagal memuat: Pastikan Anda sudah menjalankan fungsi Run manual di Code.gs untuk mengizinkan akses.";
-            return;
-          }
-          
-          databaseMentah = dataDariSheet;
-          headers = databaseMentah[0];
-          
-          buatDropdownOtomatis();
-        }).ambilSemuaDataPusat();
-      } else {
-        setTimeout(inisialisasiWeb, 300); // Cek lagi tiap 0.3 detik sampai siap
-      }
-    }
+<div id="hasil" style="display:none;text-align:center">
+<h2>Nilai Anda</h2>
+<h1 id="nilai">0</h1>
+</div>
 
-    // MEMBUAT DROPDOWN OTOMATIS DARI DATA SPREADSHEET
-    function buatDropdownOtomatis() {
-      var idxMapel = headers.indexOf("mapel");
-      var idxKelas = headers.indexOf("kelas");
-      var idxBab = headers.indexOf("bab");
+<script>
+let soal=[];
 
-      var listMapel = [];
-      var listKelas = [];
-      var listBab = [];
+google.script.run.withSuccessHandler(function(f){
+  isi("mapel",f.mapel);
+  isi("kelas",f.kelas);
+  isi("bab",f.bab);
+}).ambilFilter();
 
-      for (var i = 1; i < databaseMentah.length; i++) {
-        var m = databaseMentah[i][idxMapel];
-        var k = databaseMentah[i][idxKelas];
-        var b = databaseMentah[i][idxBab];
+function isi(id,data){
+  const s=document.getElementById(id);
+  s.innerHTML="";
+  data.forEach(v=>{
+    s.innerHTML+=`<option value="${v}">${v}</option>`;
+  });
+}
 
-        if (m && listMapel.indexOf(m) === -1) listMapel.push(m);
-        if (k && listKelas.indexOf(k) === -1) listKelas.push(k);
-        if (b && listBab.indexOf(b) === -1) listBab.push(b);
-      }
+function mulai(){
 
-      listMapel.sort(); listKelas.sort(); listBab.sort();
+ const nama=document.getElementById("nama").value.trim();
 
-      var htmlMapel = "", htmlKelas = "", htmlBab = "";
-      listMapel.forEach(function(val) { htmlMapel += '<option value="'+val+'">'+val+'</option>'; });
-      listKelas.forEach(function(val) { htmlKelas += '<option value="'+val+'">Kelas '+val+'</option>'; });
-      listBab.forEach(function(val) { htmlBab += '<option value="'+val+'">'+val+'</option>'; });
+ if(!nama){
+   alert("Masukkan nama");
+   return;
+ }
 
-      document.getElementById('filterMapel').innerHTML = htmlMapel;
-      document.getElementById('filterKelas').innerHTML = htmlKelas;
-      document.getElementById('filterBab').innerHTML = htmlBab;
+ google.script.run
+ .withSuccessHandler(function(data){
 
-      document.getElementById('loading-filter').style.display = 'none';
-      document.getElementById('form-cbt').style.style.display = 'block'; // Antisipasi bug ganda browser lawas
-      document.getElementById('form-cbt').style.display = 'block';
-    }
+   soal=data;
 
-    // LOGIKA FILTER DAN ACAK SOAL DI SISI CLIENT (INSTAN TANPA LOADING KEDUA)
-    function mulaiUjian() {
-      var nama = document.getElementById('namaSiswa').value.trim();
-      var selMapel = document.getElementById('filterMapel').value;
-      var selKelas = document.getElementById('filterKelas').value;
-      var selBab = document.getElementById('filterBab').value;
+   document.getElementById("awal").style.display="none";
+   document.getElementById("ujian").style.display="block";
 
-      if(nama === "") {
-        alert("Silakan masukkan Nama Lengkap Anda terlebih dahulu!");
-        return;
-      }
+   let h="";
 
-      var idxMapel = headers.indexOf("mapel");
-      var idxKelas = headers.indexOf("kelas");
-      var idxBab = headers.indexOf("bab");
-      var idxSoal = headers.indexOf("soal");
-      var idxGambar = headers.indexOf("gambar");
-      var idxA = headers.indexOf("opsi_a");
-      var idxB = headers.indexOf("opsi_b");
-      var idxC = headers.indexOf("opsi_c");
-      var idxD = headers.indexOf("opsi_d");
-      var idxKunci = headers.indexOf("jawaban");
+   data.forEach((s,i)=>{
 
-      dataSoalSistem = [];
+     h+=`
+     <div class="soal">
+       <b>${i+1}. ${s.soal}</b>
+       ${s.gambar?'<br><img src="'+s.gambar+'" style="max-width:100%">':""}
+       <p><label><input type="radio" name="s${i}" value="A"> A. ${s.a}</label></p>
+       <p><label><input type="radio" name="s${i}" value="B"> B. ${s.b}</label></p>
+       <p><label><input type="radio" name="s${i}" value="C"> C. ${s.c}</label></p>
+       <p><label><input type="radio" name="s${i}" value="D"> D. ${s.d}</label></p>
+     </div>`;
+   });
 
-      // Proses Filter
-      for (var i = 1; i < databaseMentah.length; i++) {
-        var row = databaseMentah[i];
-        if (row[idxMapel] && row[idxKelas] && row[idxBab] &&
-            row[idxMapel].toString().trim() == selMapel.toString().trim() &&
-            row[idxKelas].toString().trim() == selKelas.toString().trim() &&
-            row[idxBab].toString().trim() == selBab.toString().trim()) {
-          
-          dataSoalSistem.push({
-            soal: row[idxSoal],
-            gambar: row[idxGambar] ? row[idxGambar].toString().trim() : "",
-            a: row[idxA], b: row[idxB], c: row[idxC], d: row[idxD],
-            kunci: row[idxKunci] ? row[idxKunci].toString().toUpperCase().trim() : ""
-          });
-        }
-      }
+   document.getElementById("soal").innerHTML=h;
 
-      if (dataSoalSistem.length === 0) {
-        alert("Soal tidak ditemukan untuk kombinasi ini!");
-        return;
-      }
+ })
+ .withFailureHandler(e=>alert(e.message))
+ .ambilSoal(
+   mapel.value,
+   kelas.value,
+   bab.value
+ );
+}
 
-      // Proses Acak (Fisher-Yates)
-      for (var j = dataSoalSistem.length - 1; j > 0; j--) {
-        var k = Math.floor(Math.random() * (j + 1));
-        var temp = dataSoalSistem[j];
-        dataSoalSistem[j] = dataSoalSistem[k];
-        dataSoalSistem[k] = temp;
-      }
+function selesai(){
 
-      // Potong maksimal 25 soal
-      dataSoalSistem = dataSoalSistem.slice(0, 25);
+ let benar=0;
 
-      document.getElementById('area-filter').style.display = 'none';
-      document.getElementById('area-soal').style.display = 'block';
+ soal.forEach((s,i)=>{
+   const p=document.querySelector('input[name="s'+i+'"]:checked');
+   if(p && p.value===s.kunci) benar++;
+ });
 
-      renderSoal();
-    }
+ const nilai=Math.round((benar/soal.length)*100);
 
-    function renderSoal() {
-      var html = '';
-      for (var i = 0; i < dataSoalSistem.length; i++) {
-        var nomorOtomatis = i + 1;
-        html += '<div class="soal-card">';
-        html += '<p><strong>' + nomorOtomatis + '. ' + dataSoalSistem[i].soal + '</strong></p>';
-        
-        if(dataSoalSistem[i].gambar !== "") {
-          html += '<img class="soal-gambar" src="' + dataSoalSistem[i].gambar + '" alt="Gambar Soal">';
-        }
-        
-        html += '<div class="opsi-container">';
-        html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="A"> <strong>A.</strong> ' + dataSoalSistem[i].a + '</label>';
-        html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="B"> <strong>B.</strong> ' + dataSoalSistem[i].b + '</label>';
-        html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="C"> <strong>C.</strong> ' + dataSoalSistem[i].c + '</label>';
-        html += '<label class="opsi-label"><input type="radio" name="soal_'+i+'" value="D"> <strong>D.</strong> ' + dataSoalSistem[i].d + '</label>';
-        html += '</div></div>';
-      }
-      document.getElementById('konten-soal').innerHTML = html;
-      window.scrollTo(0,0);
-    }
+ google.script.run
+ .withSuccessHandler(function(){
 
-    function hitungDanSelesai() {
-      if(!confirm("Apakah Anda yakin ingin mengakhiri latihan ini? Nilai akan langsung dikunci.")) return;
-      
-      var jumlahBenar = 0;
-      var totalSoal = dataSoalSistem.length;
-      
-      for (var i = 0; i < totalSoal; i++) {
-        var pilihanSiswa = document.querySelector('input[name="soal_'+i+'"]:checked');
-        var jawabanSiswa = pilihanSiswa ? pilihanSiswa.value.toUpperCase().trim() : "";
-        
-        if (jawabanSiswa === dataSoalSistem[i].kunci) {
-          jumlahBenar++;
-        }
-      }
-      
-      var skorAkhir = Math.round((jumlahBenar / totalSoal) * 100);
-      
-      var nama = document.getElementById('namaSiswa').value;
-      var mapel = document.getElementById('filterMapel').value;
-      var kelas = document.getElementById('filterKelas').value;
-      var bab = document.getElementById('filterBab').value;
-      
-      google.script.run.withSuccessHandler(function(response) {
-        document.getElementById('area-soal').style.display = 'none';
-        document.getElementById('area-skor').style.display = 'block';
-        document.getElementById('display-skor').innerText = skorAkhir;
-        window.scrollTo(0,0);
-      }).simpanNilaiSiswa(nama, mapel, kelas, bab, skorAkhir);
-    }
+   document.getElementById("ujian").style.display="none";
+   document.getElementById("hasil").style.display="block";
+   document.getElementById("nilai").innerText=nilai;
 
-    // Jalankan inisialisasi aman
-    inisialisasiWeb();
-  </script>
+ })
+ .simpanNilaiSiswa(
+   nama.value,
+   mapel.value,
+   kelas.value,
+   bab.value,
+   nilai
+ );
+
+}
+</script>
+</div>
 </body>
 </html>
