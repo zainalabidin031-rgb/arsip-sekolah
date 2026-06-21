@@ -144,7 +144,6 @@
 
   </div>
 
-  <script>
     // --- DATABASE KELAS & MAPEL ---
     const dataKurikulum = {
       "4": {
@@ -204,12 +203,16 @@
 
     function lanjutKeToken() {
       const nama = document.getElementById("namaSiswa").value.trim();
+      const nisn = document.getElementById("nisnSiswa").value.trim();
       const kelas = document.getElementById("pilihKelas").value;
       const mapel = document.getElementById("pilihMapel").value;
       const bab = document.getElementById("pilihBab").value;
 
       if (!nama) { alert("Nama Lengkap wajib diisi!"); return; }
       if (!kelas || !mapel || !bab) { alert("Silakan lengkapi data Kelas, Mapel, dan Bab!"); return; }
+
+      // PERBAIKAN 1: Data disimpan di sini agar saat prosesLogin() dipanggil, objek dataSiswa sudah lengkap beserta bab-nya.
+      dataSiswa = { nama: nama, nisn: nisn, kelas: kelas, mapel: mapel, bab: bab };
 
       document.getElementById("pageMenu").classList.add("hidden");
       document.getElementById("pageLogin").classList.remove("hidden");
@@ -222,10 +225,6 @@
 
     // --- LOGIKA UTAMA MESIN UJIAN ---
     function prosesLogin() {
-      const nama = document.getElementById("namaSiswa").value.trim();
-      const nisn = document.getElementById("nisnSiswa").value.trim();
-      const kelas = document.getElementById("pilihKelas").value;
-      const mapel = document.getElementById("pilihMapel").value;
       const token = document.getElementById("inputToken").value.trim();
 
       if (!token) { alert("Token validasi wajib diisi."); return; }
@@ -234,34 +233,47 @@
       document.getElementById("btnMulai").innerText = "Memverifikasi...";
       document.getElementById("btnMulai").disabled = true;
 
-      google.script.run.withSuccessHandler(function(resToken) {
-        if(resToken.valid) {
-          dataSiswa = { nama: nama, nisn: nisn, kelas: kelas, mapel: mapel };
-          muatSoalDariBackend();
-        } else {
-          alert("Token tidak valid atau masa aktif ujian telah berakhir.");
+      // PERBAIKAN 2: Menambahkan .withFailureHandler() untuk mendeteksi eror dari backend Apps Script agar tidak stuck tanpa kejelasan
+      google.script.run
+        .withSuccessHandler(function(resToken) {
+          if(resToken && resToken.valid) {
+            muatSoalDariBackend();
+          } else {
+            alert("Token tidak valid atau masa aktif ujian telah berakhir.");
+            resetTombolLogin();
+          }
+        })
+        .withFailureHandler(function(err) {
+          alert("Gagal terhubung ke server: " + err.message);
           resetTombolLogin();
-        }
-      }).validasiToken(token);
+        })
+        .validasiToken(token);
     }
 
     function muatSoalDariBackend() {
-      google.script.run.withSuccessHandler(function(resSoal) {
-        if(resSoal.length > 0) {
-          semuaSoal = resSoal;
-          indexSekarang = 0;
-          jumlahBenar = 0;
-          
-          document.getElementById("pageLogin").classList.add("hidden");
-          document.getElementById("pageHasil").classList.add("hidden");
-          document.getElementById("pageSoal").classList.remove("hidden");
-          tampilkanSoal();
-        } else {
-          alert("Soal tidak ditemukan! Pastikan kecocokan Kelas, Mapel, dan Materi di database.");
+      // PERBAIKAN 3: Menyertakan dataSiswa.bab dan menambahkan Failure Handler
+      google.script.run
+        .withSuccessHandler(function(resSoal) {
+          if(resSoal && resSoal.length > 0) {
+            semuaSoal = resSoal;
+            indexSekarang = 0;
+            jumlahBenar = 0;
+            
+            document.getElementById("pageLogin").classList.add("hidden");
+            document.getElementById("pageHasil").classList.add("hidden");
+            document.getElementById("pageSoal").classList.remove("hidden");
+            tampilkanSoal();
+          } else {
+            alert("Soal tidak ditemukan! Pastikan kecocokan Kelas, Mapel, dan Materi di database.");
+            resetTombolLogin();
+            kembaliKeMenu();
+          }
+        })
+        .withFailureHandler(function(err) {
+          alert("Gagal mengambil soal: " + err.message);
           resetTombolLogin();
-          kembaliKeMenu();
-        }
-      }).ambilSoal(dataSiswa.kelas, dataSiswa.mapel, tokenSiswaAktif);
+        })
+        .ambilSoal(dataSiswa.kelas, dataSiswa.mapel, dataSiswa.bab, tokenSiswaAktif); 
     }
 
     function resetTombolLogin() {
@@ -294,7 +306,8 @@
 
     function pilihJawaban(jawabanTerpilih) {
       const kunci = semuaSoal[indexSekarang].kunci.toString().toUpperCase().trim();
-      if(jawabanTerpilled === kunci || jawabanTerpilih === kunci) { jumlahBenar++; }
+      // PERBAIKAN 4: Memperbaiki typo variabel 'jawabanTerpilled' menjadi 'jawabanTerpilih'
+      if(jawabanTerpilih === kunci) { jumlahBenar++; }
       indexSekarang++; tampilkanSoal();
     }
 
