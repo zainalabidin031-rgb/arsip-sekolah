@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col items-center justify-center p-6 text-slate-800">
+
+  <div class="w-full max-w-2xl bg-white rounded-xl shadow-md border border-blue-100 overflow-hidden">
+    
+    <div class="bg-blue-600 px-6 py-4 text-white font-semibold text-lg tracking-wide text-center relative">
+      <div id="judulPortal">PORTAL ULANGAN HARIAN SISWA</div>
+    </div>
+
+    <div id="pageMenu" class="p-8 space-y-6">
+      <div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg text-blue-900 text-sm leading-relaxed">
+        Halo! Silakan lengkapi data diri Anda, kemudian pilih <strong>Kelas</strong>, <strong>Mata Pelajaran</strong>, dan <strong>Bab/Materi</strong> yang ingin dikerjakan.
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-b pb-6 border-slate-100">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">Nama Lengkap</label>
+          <input type="text" id="namaSiswa" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase font-medium" placeholder="Contoh: BUDI SETIAWAN">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">NISN Siswa</label>
+          <input type="text" id="nisnSiswa" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="10 Digit Nomor NISN">
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">Pilih Tingkat Kelas</label>
+          <select id="pilihKelas" onchange="updateMapel()" class="w-full border border-slate-300 bg-white rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
+            <option value="">-- Pilih Kelas --</option>
+            <option value="4">Kelas 4 SD</option>
+            <option value="5">Kelas 5 SD</option>
+            <option value="6">Kelas 6 SD</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">Pilih Mata Pelajaran</label>
+          <select id="pilihMapel" onchange="updateBab()" disabled class="w-full border border-slate-300 bg-white rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer disabled:bg-slate-100 disabled:cursor-not-allowed">
+            <option value="">-- Pilih Mata Pelajaran --</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">Pilih Bab / Materi Pembelajaran</label>
+          <select id="pilihBab" disabled class="w-full border border-slate-300 bg-white rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer disabled:bg-slate-100 disabled:cursor-not-allowed">
+            <option value="">-- Pilih Bab / Materi --</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button onclick="lanjutKeToken()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3.5 rounded-lg shadow-sm transition duration-150 text-sm text-center cursor-pointer">
+          🚀 Lanjut ke Validasi Token
+        </button>
+      </div>
+    </div>
+
+    <div id="pageLogin" class="p-8 space-y-5 hidden">
+      <div class="border-l-4 border-amber-500 bg-amber-50 p-4 rounded-r-lg text-amber-900 text-sm leading-relaxed">
+        Langkah Terakhir! Silakan masukkan <strong>Token Ulangan</strong> aktif yang diberikan oleh Bapak/Ibu Guru untuk membuka lembar soal.
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Token Ulangan</label>
+        <input type="text" id="inputToken" class="w-full border border-slate-300 rounded-lg p-3 text-center font-mono font-bold tracking-widest text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase" placeholder="X Y Z 1 2 3">
+      </div>
+      <div class="pt-2 flex gap-3">
+        <button onclick="kembaliKeMenu()" class="w-1/3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-3.5 rounded-lg text-sm cursor-pointer">Kembali</button>
+        <button onclick="prosesLogin()" id="btnMulai" class="w-2/3 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3.5 rounded-lg shadow-sm transition text-sm cursor-pointer">Mulai Ujian</button>
+      </div>
+    </div>
+
+    <div id="pageSoal" class="p-8 hidden space-y-6">
+      <div class="flex justify-between items-center text-xs font-semibold text-slate-500 tracking-wider uppercase border-b pb-3">
+        <span id="infoMateri" class="text-blue-600">Mata Pelajaran</span>
+        <span id="infoProgress" class="bg-slate-100 px-2.5 py-1 rounded">Soal 1 dari 10</span>
+      </div>
+      
+      <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+        <div id="progressBar" class="bg-blue-500 h-full transition-all duration-300" style="width: 0%"></div>
+      </div>
+
+      <div class="space-y-4">
+        <p id="teksSoal" class="text-base font-medium text-slate-900 leading-relaxed"></p>
+        <div id="kontainerGambar" class="mt-4 hidden justify-start">
+          <img id="imgSoal" src="" class="max-h-64 rounded-lg border bg-white p-1 shadow-sm">
+        </div>
+      </div>
+
+      <div class="space-y-2.5 pt-2">
+        <button onclick="pilihJawaban('A')" class="btnOpsi w-full text-left p-4 rounded-lg border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 text-sm font-medium transition duration-150 flex items-center gap-4 cursor-pointer group">
+          <span class="bg-slate-100 text-slate-700 font-bold w-7 h-7 rounded text-xs flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition shrink-0">A</span>
+          <span id="teksA" class="text-slate-700">Opsi A</span>
+        </button>
+        <button onclick="pilihJawaban('B')" class="btnOpsi w-full text-left p-4 rounded-lg border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 text-sm font-medium transition duration-150 flex items-center gap-4 cursor-pointer group">
+          <span class="bg-slate-100 text-slate-700 font-bold w-7 h-7 rounded text-xs flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition shrink-0">B</span>
+          <span id="teksB" class="text-slate-700">Opsi B</span>
+        </button>
+        <button onclick="pilihJawaban('C')" class="btnOpsi w-full text-left p-4 rounded-lg border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 text-sm font-medium transition duration-150 flex items-center gap-4 cursor-pointer group">
+          <span class="bg-slate-100 text-slate-700 font-bold w-7 h-7 rounded text-xs flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition shrink-0">C</span>
+          <span id="teksC" class="text-slate-700">Opsi C</span>
+        </button>
+        <button onclick="pilihJawaban('D')" class="btnOpsi w-full text-left p-4 rounded-lg border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 text-sm font-medium transition duration-150 flex items-center gap-4 cursor-pointer group">
+          <span class="bg-slate-100 text-slate-700 font-bold w-7 h-7 rounded text-xs flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition shrink-0">D</span>
+          <span id="teksD" class="text-slate-700">Opsi D</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="pageHasil" class="p-8 text-center space-y-6 hidden">
+      <div>
+        <h3 class="text-base font-semibold text-slate-500 uppercase tracking-wider">Evaluasi Hasil Nilai</h3>
+        <p class="text-xs text-slate-400 mt-1">Nilai Anda telah direkam oleh sistem secara otomatis</p>
+      </div>
+      <div class="inline-block p-6 rounded-xl bg-slate-50 border">
+        <div class="text-xs font-semibold text-slate-400 uppercase mb-1">Skor Akhir</div>
+        <span id="txtNilai" class="text-5xl font-bold text-slate-800">0</span>
+      </div>
+      <p id="pesanHasil" class="text-sm font-semibold"></p>
+      <div class="bg-slate-50 p-4 rounded-lg text-left text-xs space-y-2 border max-w-md mx-auto text-slate-600">
+        <div class="flex justify-between"><span class="font-medium">Nama Siswa:</span> <span id="resNama" class="font-semibold text-slate-800">-</span></div>
+        <div class="flex justify-between"><span class="font-medium">Mata Pelajaran:</span> <span id="resMapel" class="font-semibold text-slate-800">-</span></div>
+      </div>
+      <div id="kontainerAksi" class="pt-4 max-w-md mx-auto">
+        <button id="btnUlangi" onclick="ulangiUjian()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-medium py-3 rounded-lg shadow-sm hidden transition cursor-pointer text-sm">
+          Nilai Belum Mencapai KKM (80) - Ulangi Ujian
+        </button>
+        <div id="msgSelesai" class="w-full bg-emerald-100 text-emerald-800 font-semibold py-3.5 rounded-lg border border-emerald-200 hidden text-sm">
+          ✓ Ujian Selesai. Silakan tutup browser Anda.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // --- DATABASE KELAS & MAPEL ---
+    const dataKurikulum = {
+      "4": {
+        "Matematika": ["Pecahan Senilai", "KPK dan FPB", "Bangun Datar"],
+        "IPAS": ["Bagian Tubuh Tumbuhan", "Wujud Zat dan Perubahannya"]
+      },
+      "5": {
+        "Matematika": ["Penjumlahan Pecahan", "Kecepatan dan Debit", "Skala Denah"],
+        "IPAS": ["Melihat karena Cahaya", "Harmoni dalam Ekosistem", "Organ Tubuh Manusia"],
+        "Bahasa Indonesia": ["Unsur Intrinsik Cerita", "Surat Resmi dan Pribadi"]
+      },
+      "6": {
+        "Matematika": ["Bilangan Bulat Negatif", "Lingkaran", "Bangun Ruang"],
+        "IPAS": ["Selamatkan Makhluk Hidup", "Persatuan dalam Perbedaan"]
+      }
+    };
+
+    let dataSiswa = {};
+    let semuaSoal = [];
+    let indexSekarang = 0;
+    let jumlahBenar = 0;
+    let tokenSiswaAktif = "";
+
+    function updateMapel() {
+      const kelas = document.getElementById("pilihKelas").value;
+      const mapelSelect = document.getElementById("pilihMapel");
+      const babSelect = document.getElementById("pilihBab");
+      mapelSelect.innerHTML = '<option value="">-- Pilih Mata Pelajaran --</option>';
+      babSelect.innerHTML = '<option value="">-- Pilih Bab / Materi --</option>';
+      babSelect.disabled = true;
+
+      if (kelas && dataKurikulum[kelas]) {
+        mapelSelect.disabled = false;
+        Object.keys(dataKurikulum[kelas]).forEach(mapel => {
+          let opt = document.createElement("option");
+          opt.value = mapel; opt.innerText = mapel;
+          mapelSelect.appendChild(opt);
+        });
+      } else { mapelSelect.disabled = true; }
+    }
+
+    function updateBab() {
+      const kelas = document.getElementById("pilihKelas").value;
+      const mapel = document.getElementById("pilihMapel").value;
+      const babSelect = document.getElementById("pilihBab");
+      babSelect.innerHTML = '<option value="">-- Pilih Bab / Materi --</option>';
+
+      if (kelas && mapel && dataKurikulum[kelas][mapel]) {
+        babSelect.disabled = false;
+        dataKurikulum[kelas][mapel].forEach(bab => {
+          let opt = document.createElement("option");
+          opt.value = bab; opt.innerText = bab;
+          babSelect.appendChild(opt);
+        });
+      } else { babSelect.disabled = true; }
+    }
+
+    function lanjutKeToken() {
+      const nama = document.getElementById("namaSiswa").value.trim();
+      const kelas = document.getElementById("pilihKelas").value;
+      const mapel = document.getElementById("pilihMapel").value;
+      const bab = document.getElementById("pilihBab").value;
+
+      if (!nama) { alert("Nama Lengkap wajib diisi!"); return; }
+      if (!kelas || !mapel || !bab) { alert("Silakan lengkapi data Kelas, Mapel, dan Bab!"); return; }
+
+      document.getElementById("pageMenu").classList.add("hidden");
+      document.getElementById("pageLogin").classList.remove("hidden");
+    }
+
+    function kembaliKeMenu() {
+      document.getElementById("pageLogin").classList.add("hidden");
+      document.getElementById("pageMenu").classList.remove("hidden");
+    }
+
+    // --- LOGIKA UTAMA MESIN UJIAN ---
+    function prosesLogin() {
+      const nama = document.getElementById("namaSiswa").value.trim();
+      const nisn = document.getElementById("nisnSiswa").value.trim();
+      const kelas = document.getElementById("pilihKelas").value;
+      const mapel = document.getElementById("pilihMapel").value;
+      const token = document.getElementById("inputToken").value.trim();
+
+      if (!token) { alert("Token validasi wajib diisi."); return; }
+
+      tokenSiswaAktif = token;
+      document.getElementById("btnMulai").innerText = "Memverifikasi...";
+      document.getElementById("btnMulai").disabled = true;
+
+      google.script.run.withSuccessHandler(function(resToken) {
+        if(resToken.valid) {
+          dataSiswa = { nama: nama, nisn: nisn, kelas: kelas, mapel: mapel };
+          muatSoalDariBackend();
+        } else {
+          alert("Token tidak valid atau masa aktif ujian telah berakhir.");
+          resetTombolLogin();
+        }
+      }).validasiToken(token);
+    }
+
+    function muatSoalDariBackend() {
+      google.script.run.withSuccessHandler(function(resSoal) {
+        if(resSoal.length > 0) {
+          semuaSoal = resSoal;
+          indexSekarang = 0;
+          jumlahBenar = 0;
+          
+          document.getElementById("pageLogin").classList.add("hidden");
+          document.getElementById("pageHasil").classList.add("hidden");
+          document.getElementById("pageSoal").classList.remove("hidden");
+          tampilkanSoal();
+        } else {
+          alert("Soal tidak ditemukan! Pastikan kecocokan Kelas, Mapel, dan Materi di database.");
+          resetTombolLogin();
+          kembaliKeMenu();
+        }
+      }).ambilSoal(dataSiswa.kelas, dataSiswa.mapel, tokenSiswaAktif);
+    }
+
+    function resetTombolLogin() {
+      document.getElementById("btnMulai").innerText = "Mulai Ujian";
+      document.getElementById("btnMulai").disabled = false;
+    }
+
+    function tampilkanSoal() {
+      if(indexSekarang >= semuaSoal.length) {
+        selClassUjian(); return;
+      }
+      const soalAktif = semuaSoal[indexSekarang];
+      document.getElementById("infoMateri").innerText = `${dataSiswa.mapel} / Kelas ${dataSiswa.kelas}`;
+      document.getElementById("infoProgress").innerText = `Soal ${indexSekarang + 1} dari ${semuaSoal.length}`;
+      document.getElementById("progressBar").style.width = ((indexSekarang) / semuaSoal.length) * 100 + "%";
+      document.getElementById("teksSoal").innerText = `${indexSekarang + 1}. ${soalAktif.soal}`;
+      
+      const kontainerImg = document.getElementById("kontainerGambar");
+      const img = document.getElementById("imgSoal");
+      if(soalAktif.gambar) {
+        img.src = soalAktif.gambar;
+        kontainerImg.className = "mt-4 flex justify-start";
+      } else { kontainerImg.className = "hidden"; }
+
+      document.getElementById("teksA").innerText = soalAktif.opsi_a;
+      document.getElementById("teksB").innerText = soalAktif.opsi_b;
+      document.getElementById("teksC").innerText = soalAktif.opsi_c;
+      document.getElementById("teksD").innerText = soalAktif.opsi_d;
+    }
+
+    function pilihJawaban(jawabanTerpilih) {
+      const kunci = semuaSoal[indexSekarang].kunci.toString().toUpperCase().trim();
+      if(jawabanTerpilled === kunci || jawabanTerpilih === kunci) { jumlahBenar++; }
+      indexSekarang++; tampilkanSoal();
+    }
+
+    function selClassUjian() {
+      document.getElementById("progressBar").style.width = "100%";
+      document.getElementById("pageSoal").classList.add("hidden");
+      document.getElementById("pageHasil").classList.remove("hidden");
+      
+      let nilaiAkhir = Math.round((jumlahBenar / semuaSoal.length) * 100);
+      document.getElementById("txtNilai").innerText = nilaiAkhir;
+      document.getElementById("resNama").innerText = dataSiswa.nama;
+      document.getElementById("resMapel").innerText = dataSiswa.mapel;
+      
+      const pesanHtml = document.getElementById("pesanHasil");
+      const btnUlang = document.getElementById("btnUlangi");
+      const msgSelesai = document.getElementById("msgSelesai");
+      
+      if(nilaiAkhir >= 80) {
+        pesanHtml.innerText = "Selamat! Anda berhasil mencapai nilai batas kelulusan.";
+        pesanHtml.className = "text-sm font-semibold text-emerald-600";
+        btnUlang.classList.add("hidden"); msgSelesai.classList.remove("hidden");
+      } else {
+        pesanHtml.innerText = "Nilai Anda belum mencapai batas minimal ketuntasan (80).";
+        pesanHtml.className = "text-sm font-semibold text-amber-600";
+        btnUlang.classList.remove("hidden");
+        btnUlang.innerText = "Nilai Belum Mencapai KKM (80) - Ulangi Ujian";
+        btnUlang.disabled = false;
+        msgSelesai.classList.add("hidden");
+      }
+      google.script.run.simpanNilai(dataSiswa.nama, dataSiswa.nisn, dataSiswa.kelas, dataSiswa.mapel, nilaiAkhir);
+    }
+
+    function ulangiUjian() {
+      const btnUlang = document.getElementById("btnUlangi");
+      btnUlang.innerText = "Memperbarui Soal..."; btnUlang.disabled = true;
+      muatSoalDariBackend();
+    }
+  </script>
+</body>
+</html>
