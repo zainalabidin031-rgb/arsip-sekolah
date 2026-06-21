@@ -268,9 +268,8 @@
             document.getElementById("pageSoal").classList.remove("hidden");
             tampilkanSoal();
           } else {
-            alert("Soal tidak ditemukan! Pastikan kecocokan Kelas, Mapel, dan Materi di database.");
+            alert("⚠️ VERIFIKASI SUKSES, TAPI SOAL KOSONG!\n\nPenyebab: Tidak ada soal di sheet 'soal' yang tulisannya COCOK dengan:\n- Kelas: " + dataSiswa.kelas + "\n- Mapel: " + dataSiswa.mapel + "\n- Bab/Materi: " + dataSiswa.bab + "\n\nSilakan periksa kesamaan tulisan Bab/Materi di Spreadsheet Anda.");
             resetTombolLogin();
-            kembaliKeMenu();
           }
         })
         .withFailureHandler(function(err) {
