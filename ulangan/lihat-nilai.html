@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Nilai Ulangan Siswa </title>
+    <title>Daftar Nilai Ulangan Siswa</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -14,9 +14,9 @@
         }
 
         :root {
-            --blue-light: #0ea5e9; /* Biru muda cerah segar */
-            --blue-deep: #1e3a8a;  /* Biru matang elegan */
-            --blue-bg: #f0f9ff;    /* Latar belakang biru sangat muda */
+            --blue-light: #0ea5e9; 
+            --blue-deep: #1e3a8a;  
+            --blue-bg: #f0f9ff;    
         }
 
         body {
@@ -27,7 +27,6 @@
             min-height: 100vh;
         }
 
-        /* --- HEADER --- */
         header {
             background: linear-gradient(135deg, var(--blue-deep) 0%, #1b264f 100%);
             color: white;
@@ -65,7 +64,6 @@
             transform: translateY(-2px);
         }
 
-        /* --- CONTAINER UTAMA --- */
         .container {
             margin: 40px auto;
             width: 90%;
@@ -94,7 +92,6 @@
             margin-top: 5px;
         }
 
-        /* --- KOTAK PENCARIAN --- */
         .search-box {
             background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
             padding: 20px;
@@ -151,7 +148,6 @@
             opacity: 0.95;
         }
 
-        /* --- RESPONSIVE TABLE --- */
         .table-container {
             overflow-x: auto;
             border-radius: 14px;
@@ -190,7 +186,6 @@
             background-color: #f0f9ff;
         }
 
-        /* Badge khusus Nilai */
         .badge-nilai {
             background: linear-gradient(135deg, var(--blue-light) 0%, var(--blue-deep) 100%);
             color: white;
@@ -200,7 +195,6 @@
             display: inline-block;
         }
 
-        /* Status Loading & Gagal */
         .status-msg {
             text-align: center;
             padding: 30px;
@@ -208,7 +202,6 @@
             font-style: italic;
         }
 
-        /* --- FOOTER --- */
         footer {
             background: #1e293b;
             color: #94a3b8;
@@ -232,35 +225,30 @@
 </head>
 <body>
 
-    <!-- Header / Navigasi Atas -->
     <header>
         <div class="logo-area">
             <h2>SD Negeri Butoh 1 Ngasem</h2>
         </div>
-        <!-- Tombol Back/Home otomatis mengarah ke halaman utama -->
         <a href="index.html" class="btn-home">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             Kembali
         </a>
     </header>
 
-    <!-- Konten Utama -->
     <div class="container">
         <div class="title-section">
             <h1>Lihat Hasil Ulangan Harian</h1>
             <p>Masukkan NISN kamu untuk memunculkan rekap nilai ulangan</p>
         </div>
 
-        <!-- Formulir Pencarian Berdasarkan NISN -->
         <div class="search-box">
             <div class="form-group">
                 <label for="nisnInput">Masukkan NISN Siswa :</label>
-                <input type="number" id="nisnInput" placeholder="Contoh: 0123456789" required>
+                <input type="text" id="nisnInput" placeholder="Contoh: 0123456789" required>
             </div>
             <button class="btn-search" onclick="cariNilai()">Cari Nilai</button>
         </div>
 
-        <!-- Tabel Tampilan Data -->
         <div class="table-container">
             <table>
                 <thead>
@@ -282,12 +270,10 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Aplikasi Portal Ujian Sekolah Dasar. Semua Hak Dilindungi.</p>
     </footer>
 
-    <!-- JAVASCRIPT: Menghubungkan Otomatis ke Spreadsheet -->
     <script>
         function cariNilai() {
             const inputNisn = document.getElementById('nisnInput').value.trim();
@@ -300,37 +286,38 @@
 
             tableBody.innerHTML = `<tr><td colspan="6" class="status-msg">Sedang mencari data nilai... Mohon tunggu ya...</td></tr>`;
 
-            // Konfigurasi Spreadsheet Milikmu
             const spreadsheetId = '1oPfcrcC5D-4J4IjySe0rT57PQ-DvMHZsThInhsdTZYY';
             const sheetName = 'nilai';
             
-            // Menggunakan SQL query via Google Visualization API untuk filter otomatis berdasarkan NISN (Kolom B / Kolom ke-2)
-            const query = encodeURIComponent(`SELECT A, B, C, D, E, F WHERE B = '${inputNisn}'`);
+            // PERBAIKAN 2: Mencari kesamaan data String (teks) ATAU data angka murni demi keamanan tipe data di Sheets
+            const query = encodeURIComponent(`SELECT A, B, C, D, E, F WHERE B = '${inputNisn}' OR B = ${inputNisn}`);
             const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?sheet=${sheetName}&tq=${query}`;
 
             fetch(url)
                 .then(res => res.text())
                 .then(data => {
-                    // Membersihkan format response bawaan Google gviz api
                     const jsonString = data.substring(data.indexOf("{"), data.lastIndexOf("}") + 1);
                     const jsonData = JSON.parse(jsonString);
                     const rows = jsonData.table.rows;
 
-                    tableBody.innerHTML = ""; // Bersihkan pesan loading
+                    tableBody.innerHTML = ""; 
 
-                    if (rows.length === 0) {
+                    if (!rows || rows.length === 0) {
                         tableBody.innerHTML = `<tr><td colspan="6" class="status-msg" style="color: #b91c1c;">Data tidak ditemukan. Pastikan nomor NISN sudah benar!</td></tr>`;
                         return;
                     }
 
-                    // Loop data dan masukkan ke dalam struktur baris tabel HTML
                     rows.forEach(row => {
-                        const timestamp = row.c[0] ? row.c[0].f || row.c[0].v : '-';
+                        // PERBAIKAN 3: Proteksi pembacaan data yang null agar tidak merusak looping map data
+                        const timestamp = row.c[0] ? (row.c[0].f || row.c[0].v) : '-';
                         const nisn = row.c[1] ? row.c[1].v : '-';
                         const nama = row.c[2] ? row.c[2].v : '-';
                         const kelas = row.c[3] ? row.c[3].v : '-';
                         const mapel = row.c[4] ? row.c[4].v : '-';
                         const nilai = row.c[5] ? row.c[5].v : '0';
+
+                        // Mencegah judul kolom utama ikut ter-render kembali apabila baris header ikut lolos query
+                        if(nisn.toString().toLowerCase() === 'nisn') return;
 
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
@@ -343,6 +330,11 @@
                         `;
                         tableBody.appendChild(tr);
                     });
+
+                    // Jika setelah difilter dari header ternyata kosong
+                    if(tableBody.innerHTML === "") {
+                        tableBody.innerHTML = `<tr><td colspan="6" class="status-msg" style="color: #b91c1c;">Data tidak ditemukan. Pastikan nomor NISN sudah benar!</td></tr>`;
+                    }
                 })
                 .catch(error => {
                     console.error("Error:", error);
