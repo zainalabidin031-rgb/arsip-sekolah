@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pabrik Soal - Sistem Ulangan Mandiri</title>
-    <!-- Fonts & Tailwind CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -27,7 +26,6 @@
 </head>
 <body class="bg-gradient-to-tr from-slate-50 via-blue-50 to-indigo-100 min-height-screen pb-12">
 
-    <!-- Top Navigation -->
     <nav class="bg-white/70 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="goHome()">
@@ -47,29 +45,14 @@
                 <button onclick="switchView('parent-monitor')" class="text-slate-600 hover:text-green-600 px-3 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2">
                     <i class="fa-solid fa-user-shield"></i> <span class="hidden sm:inline">Pantau Nilai</span>
                 </button>
-                <button onclick="switchView('dev-guide')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2">
-                    <i class="fa-solid fa-code"></i> <span class="hidden sm:inline">Hubungkan Spreadsheet</span>
-                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Main Container -->
     <main class="max-w-4xl mx-auto px-4 mt-8">
 
-        <!-- ================= APP STICKY WARNING (IF DEMO MODE) ================= -->
-        <div id="demo-badge" class="mb-6 p-4 bg-amber-50 border border-amber-200 text-amber-800 rounded-2xl flex items-start gap-3 shadow-xs">
-            <i class="fa-solid fa-triangle-exclamation text-lg mt-0.5"></i>
-            <div>
-                <p class="font-semibold text-sm">Mode Demo (Belum Terhubung ke Spreadsheet)</p>
-                <p class="text-xs text-amber-700 mt-1">Aplikasi berjalan menggunakan database contoh. Untuk menyambungkan ke Google Sheets Anda, klik menu <b>"Hubungkan Spreadsheet"</b> di kanan atas dan ikuti panduan super mudahnya.</p>
-            </div>
-        </div>
-
-        <!-- ================= VIEW 1: HOME & LOGIN SISWA ================= -->
         <section id="view-home" class="view-section">
             <div class="grid md:grid-cols-12 gap-8 items-center py-6">
-                <!-- Left Banner -->
                 <div class="md:col-span-5 text-center md:text-left">
                     <h1 class="text-4xl font-extrabold text-slate-800 leading-tight">Uji Kemampuanmu Kapan Saja!</h1>
                     <p class="text-slate-600 mt-3 text-base">Media latihan interaktif mandiri siswa. Soal otomatis diacak sesuai kelas dan bab yang ingin kamu perdalam.</p>
@@ -83,7 +66,6 @@
                     </div>
                 </div>
 
-                <!-- Right Form Box -->
                 <div id="login-card" class="md:col-span-7 glass-card rounded-3xl p-6 sm:p-8 shadow-xl shadow-blue-100/50">
                     <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
                         <i class="fa-solid fa-file-signature text-blue-600"></i> Autentikasi Siswa
@@ -134,9 +116,7 @@
             </div>
         </section>
 
-        <!-- ================= VIEW 2: QUIZ INTERFACE ================= -->
         <section id="view-quiz" class="view-section hidden">
-            <!-- Header Informasi Ujian -->
             <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div>
                     <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Peserta Ulangan</h3>
@@ -160,13 +140,10 @@
                 </div>
             </div>
 
-            <!-- Quiz Questions Form -->
             <form id="form-quiz" onsubmit="submitExam(event)">
                 <div id="quiz-questions-container" class="space-y-6">
-                    <!-- Dinamis Diisi JS -->
-                </div>
+                    </div>
 
-                <!-- Action Footer -->
                 <div class="mt-8 p-4 bg-white/75 backdrop-blur-md sticky bottom-4 border border-slate-200 rounded-2xl shadow-lg flex flex-col sm:flex-row justify-between items-center gap-4">
                     <span class="text-sm font-semibold text-slate-600 flex items-center gap-2">
                         <i class="fa-solid fa-circle-question text-blue-500"></i> 
@@ -179,24 +156,20 @@
             </form>
         </section>
 
-        <!-- ================= VIEW 3: SCORE RESULT ================= -->
         <section id="view-result" class="view-section hidden">
             <div class="glass-card rounded-3xl p-8 max-w-xl mx-auto shadow-2xl text-center border border-white">
                 <div id="result-icon-container" class="mx-auto w-24 h-24 rounded-full flex items-center justify-center text-4xl shadow-lg mb-6">
-                    <!-- Diisi Dinamis (Benar/Salah) -->
-                </div>
+                    </div>
 
                 <h2 id="result-title" class="text-3xl font-extrabold text-slate-800">Hebat! Kamu Lulus</h2>
                 <p id="result-subtitle" class="text-slate-500 mt-2 text-sm">Hasil penilaian instan evaluasi latihanmu</p>
 
-                <!-- Nilai Display -->
                 <div class="my-8 bg-slate-50 border border-slate-100 rounded-2xl p-6 inline-block min-w-[200px] shadow-inner">
                     <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">Skor Diperoleh</span>
                     <span id="result-score" class="text-6xl font-black text-slate-800">85</span>
                     <span class="text-sm text-slate-500 font-semibold block mt-1">Passing Grade: 80</span>
                 </div>
 
-                <!-- Detil Hasil -->
                 <div class="space-y-2 max-w-xs mx-auto text-left border-y border-slate-100 py-4 my-4 text-sm text-slate-600">
                     <div class="flex justify-between"><span>Nama:</span> <strong id="res-nama" class="text-slate-800"></strong></div>
                     <div class="flex justify-between"><span>NISN:</span> <strong id="res-nisn" class="text-slate-800"></strong></div>
@@ -204,7 +177,6 @@
                     <div class="flex justify-between"><span>Materi Bab:</span> <strong id="res-bab" class="text-slate-800"></strong></div>
                 </div>
 
-                <!-- Action buttons -->
                 <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
                     <button id="btn-retry" onclick="retryExam()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3.5 rounded-xl transition shadow-lg shadow-blue-200 flex-1 cursor-pointer">
                         <i class="fa-solid fa-rotate-left mr-2"></i> Ulangi Ujian
@@ -216,7 +188,6 @@
             </div>
         </section>
 
-        <!-- ================= VIEW 4: PARENT MONITOR ================= -->
         <section id="parent-monitor" class="view-section hidden">
             <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200">
                 <div class="flex items-center gap-3 mb-4">
@@ -239,7 +210,6 @@
                     </button>
                 </form>
 
-                <!-- Search Results Area -->
                 <div id="parent-results" class="mt-8 hidden border-t border-slate-100 pt-6">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="font-bold text-slate-800 text-lg">Hasil Pencarian Untuk: <span id="parent-student-name" class="text-green-600"></span></h3>
@@ -258,13 +228,11 @@
                                 </tr>
                             </thead>
                             <tbody id="parent-table-body" class="text-sm divide-y divide-slate-100 text-slate-600">
-                                <!-- Dinamis diisi JS -->
-                            </tbody>
+                                </tbody>
                         </table>
                     </div>
                 </div>
 
-                <!-- Empty State -->
                 <div id="parent-empty-state" class="mt-8 text-center py-12 bg-slate-50/50 rounded-2xl border border-dashed border-slate-200 hidden">
                     <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
                         <i class="fa-solid fa-folder-open text-2xl"></i>
@@ -274,557 +242,150 @@
                 </div>
             </div>
         </section>
-
-        <!-- ================= VIEW 5: DEV & CONFIGURATION GUIDE ================= -->
-        <section id="dev-guide" class="view-section hidden">
-            <div class="bg-slate-900 text-slate-100 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-                <div class="absolute right-0 top-0 opacity-10 translate-x-12 -translate-y-12">
-                    <i class="fa-solid fa-network-wired text-[200px]"></i>
-                </div>
-
-                <div class="flex items-center gap-3 mb-6 relative">
-                    <div class="bg-blue-500/20 text-blue-400 p-3 rounded-2xl">
-                        <i class="fa-solid fa-gears text-xl"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-white">Hubungkan ke Google Sheets Anda</h2>
-                        <p class="text-slate-400 text-sm">Ikuti langkah-langkah di bawah untuk menghubungkan sistem ini ke server Anda.</p>
-                    </div>
-                </div>
-
-                <!-- Config Form -->
-                <div class="bg-slate-800 rounded-2xl p-4 sm:p-6 mb-8 border border-slate-700 relative">
-                    <h3 class="font-bold text-white mb-2 flex items-center gap-2 text-sm uppercase tracking-wider text-blue-400">Masukkan Web App URL</h3>
-                    <p class="text-xs text-slate-400 mb-4">Paste tautan Web App URL dari deployment Google Apps Script Anda ke sini:</p>
-                    <div class="flex flex-col sm:flex-row gap-3">
-                        <input type="url" id="app-script-url-input" placeholder="https://script.google.com/macros/s/.../exec" class="flex-1 px-4 py-3 bg-slate-950 text-slate-100 border border-slate-700 rounded-xl focus:outline-none focus:border-blue-500 text-sm transition">
-                        <button onclick="saveConfig()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition text-sm cursor-pointer">Simpan URL</button>
-                    </div>
-                    <p id="save-status-msg" class="text-xs text-green-400 mt-2 font-semibold hidden"><i class="fa-solid fa-circle-check"></i> URL Berhasil Disimpan & Sinkronisasi Aktif!</p>
-                </div>
-
-                <!-- Tutorial Steps -->
-                <div class="space-y-6">
-                    <h3 class="font-bold text-white text-lg border-b border-slate-800 pb-2">Panduan Integrasi Guru:</h3>
-                    
-                    <div class="flex gap-4">
-                        <div class="w-8 h-8 rounded-full bg-blue-500 text-slate-900 font-bold flex items-center justify-center shrink-0">1</div>
-                        <div>
-                            <h4 class="font-bold text-white">Buat Spreadsheet Baru</h4>
-                            <p class="text-sm text-slate-400 mt-1">Buat spreadsheet di Google Drive Anda bernama <code class="bg-slate-950 px-1.5 py-0.5 rounded text-blue-400 font-mono text-xs">pabrik-soal</code>.</p>
-                            <div class="mt-3 space-y-2 text-xs">
-                                <p class="text-slate-300">Buatlah 2 sheet dengan nama persis:</p>
-                                <ul class="list-disc pl-5 text-slate-400 space-y-1">
-                                    <li><code class="text-indigo-400 font-bold font-mono">DataSoal</code> : Untuk bank soal Anda.</li>
-                                    <li><code class="text-indigo-400 font-bold font-mono">Skor</code> : Untuk menyimpan riwayat nilai siswa.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-4">
-                        <div class="w-8 h-8 rounded-full bg-blue-500 text-slate-900 font-bold flex items-center justify-center shrink-0">2</div>
-                        <div class="w-full">
-                            <h4 class="font-bold text-white">Struktur Kolom Sheet</h4>
-                            <p class="text-sm text-slate-400 mt-1">Buat judul kolom berikut tepat pada baris ke-1 di masing-masing sheet:</p>
-                            <div class="grid sm:grid-cols-2 gap-4 mt-3">
-                                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                                    <p class="text-xs font-bold text-blue-400">Sheet: DataSoal</p>
-                                    <p class="text-[11px] text-slate-400 font-mono mt-1 break-all">mapel, kelas, bab, soal, gambar, opsi_a, opsi_b, opsi_c, opsi_d, jawaban</p>
-                                    <span class="text-[10px] text-slate-500 block mt-1 italic">*Kolom gambar opsional (bisa diisi URL gambar atau kosongkan)</span>
-                                </div>
-                                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                                    <p class="text-xs font-bold text-green-400">Sheet: Skor</p>
-                                    <p class="text-[11px] text-slate-400 font-mono mt-1 break-all">tanggal, nama, nisn, kelas, mapel, bab, skor, status</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-4">
-                        <div class="w-8 h-8 rounded-full bg-blue-500 text-slate-900 font-bold flex items-center justify-center shrink-0">3</div>
-                        <div class="w-full">
-                            <h4 class="font-bold text-white">Pasang Apps Script</h4>
-                            <p class="text-sm text-slate-400 mt-1">Di Spreadsheet Anda, klik menu <b>Ekstensi</b> > <b>Apps Script</b>. Hapus semua kode bawaan lalu paste kode di bawah ini:</p>
-                            
-                            <div class="mt-3 relative">
-                                <pre class="bg-slate-950 p-4 rounded-xl text-xs text-blue-300 font-mono overflow-x-auto max-h-60 border border-slate-800" id="code-snippet">
-function doGet(e) {
-  var action = e.parameter.action;
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheetSoal = ss.getSheetByName("DataSoal");
-  var sheetSkor = ss.getSheetByName("Skor");
-  
-  if (action == "getMetadata") {
-    var data = sheetSoal.getDataRange().getValues();
-    var header = data[0];
-    var listKelas = [];
-    var listMapel = [];
-    var listBab = [];
-    
-    var idxKelas = header.indexOf("kelas");
-    var idxMapel = header.indexOf("mapel");
-    var idxBab = header.indexOf("bab");
-    
-    for (var i = 1; i < data.length; i++) {
-      var k = data[i][idxKelas];
-      var m = data[i][idxMapel];
-      var b = data[i][idxBab];
-      if (k && listKelas.indexOf(k) === -1) listKelas.push(k);
-      if (m && listMapel.indexOf(m) === -1) listMapel.push(m);
-      if (b && listBab.indexOf(b) === -1) listBab.push(b);
-    }
-    
-    // Kirim opsi-opsi unik
-    var result = {
-      kelas: listKelas,
-      mapel: listMapel,
-      bab: listBab,
-      relations: getRelations(data, idxKelas, idxMapel, idxBab)
-    };
-    
-    return ContentService.createTextOutput(JSON.stringify({status: "success", data: result}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-  
-  if (action == "getQuestions") {
-    var filterKelas = e.parameter.kelas;
-    var filterBab = e.parameter.bab;
-    var filterMapel = e.parameter.mapel;
-    
-    var data = sheetSoal.getDataRange().getValues();
-    var header = data[0];
-    
-    var idxMapel = header.indexOf("mapel");
-    var idxKelas = header.indexOf("kelas");
-    var idxBab = header.indexOf("bab");
-    var idxSoal = header.indexOf("soal");
-    var idxGambar = header.indexOf("gambar");
-    var idxA = header.indexOf("opsi_a");
-    var idxB = header.indexOf("opsi_b");
-    var idxC = header.indexOf("opsi_c");
-    var idxD = header.indexOf("opsi_d");
-    var idxJawaban = header.indexOf("jawaban");
-    
-    var filtered = [];
-    for (var i = 1; i < data.length; i++) {
-      var r = data[i];
-      if (String(r[idxKelas]).trim() === String(filterKelas).trim() && 
-          String(r[idxBab]).trim() === String(filterBab).trim()) {
-        filtered.push({
-          id: i, // Nomor unik baris sebagai ID
-          mapel: r[idxMapel],
-          kelas: r[idxKelas],
-          bab: r[idxBab],
-          soal: r[idxSoal],
-          gambar: r[idxGambar] || "",
-          opsi_a: r[idxA],
-          opsi_b: r[idxB],
-          opsi_c: r[idxC],
-          opsi_d: r[idxD],
-          jawaban: r[idxJawaban]
-        });
-      }
-    }
-    
-    return ContentService.createTextOutput(JSON.stringify({status: "success", data: filtered}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-  
-  if (action == "getScores") {
-    var nisn = e.parameter.nisn;
-    var data = sheetSkor.getDataRange().getValues();
-    var header = data[0];
-    var filtered = [];
-    
-    var idxTime = header.indexOf("tanggal");
-    var idxNama = header.indexOf("nama");
-    var idxNisn = header.indexOf("nisn");
-    var idxKelas = header.indexOf("kelas");
-    var idxMapel = header.indexOf("mapel");
-    var idxBab = header.indexOf("bab");
-    var idxSkor = header.indexOf("skor");
-    var idxStatus = header.indexOf("status");
-    
-    for (var i = 1; i < data.length; i++) {
-      var r = data[i];
-      if (String(r[idxNisn]).trim() === String(nisn).trim()) {
-        filtered.push({
-          timestamp: Utilities.formatDate(new Date(r[idxTime]), "GMT+7", "dd/MM/yyyy HH:mm"),
-          nama: r[idxNama],
-          nisn: r[idxNisn],
-          kelas: r[idxKelas],
-          mapel: r[idxMapel],
-          bab: r[idxBab],
-          skor: r[idxSkor],
-          status: r[idxStatus] || (r[idxSkor] >= 80 ? "Lulus" : "Remedial")
-        });
-      }
-    }
-    
-    return ContentService.createTextOutput(JSON.stringify({status: "success", data: filtered}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-function doPost(e) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheetSkor = ss.getSheetByName("Skor");
-  var postData = JSON.parse(e.postData.contents);
-  
-  if (postData.action == "submitScore") {
-    sheetSkor.appendRow([
-      new Date(),
-      postData.nama,
-      postData.nisn,
-      postData.kelas,
-      postData.mapel,
-      postData.bab,
-      postData.skor,
-      postData.status
-    ]);
-    return ContentService.createTextOutput(JSON.stringify({status: "success"}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-function getRelations(data, idxKelas, idxMapel, idxBab) {
-  var rel = {};
-  for (var i = 1; i < data.length; i++) {
-    var k = data[i][idxKelas];
-    var m = data[i][idxMapel];
-    var b = data[i][idxBab];
-    if (k && m && b) {
-      if (!rel[k]) rel[k] = {};
-      if (!rel[k][m]) rel[k][m] = [];
-      if (rel[k][m].indexOf(b) === -1) rel[k][m].push(b);
-    }
-  }
-  return rel;
-}</pre>
-                                <button onclick="copyCode()" class="absolute right-4 top-4 bg-slate-800 hover:bg-slate-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition flex items-center gap-1">
-                                    <i class="fa-solid fa-copy"></i> Salin Kode
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-4">
-                        <div class="w-8 h-8 rounded-full bg-blue-500 text-slate-900 font-bold flex items-center justify-center shrink-0 font-bold">4</div>
-                        <div>
-                            <h4 class="font-bold text-white">Deploy sebagai Aplikasi Web</h4>
-                            <p class="text-sm text-slate-400 mt-1">Di pojok kanan atas editor Apps Script, klik tombol <b>Terapkan (Deploy)</b> > <b>Penerapan baru</b>.</p>
-                            <ul class="list-disc pl-5 mt-2 text-xs text-slate-400 space-y-1">
-                                <li>Pilih jenis: <b>Aplikasi web</b></li>
-                                <li>Jalankan sebagai: <b>Saya (Email anda)</b></li>
-                                <li>Yang memiliki akses: <b>Siapa saja (Anyone)</b></li>
-                                <li>Klik <b>Terapkan</b>, lalu salin URL Aplikasi Web yang diberikan dan simpan di form atas.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <!-- UI Logic & Mock Data -->
     <script>
-        // --- KONFIGURASI BACKEND ---
-        let SCRIPT_URL = localStorage.getItem('SPREADSHEET_WEBAPP_URL') || '';
-        let isDemoMode = !SCRIPT_URL;
+        // --- KONFIGURASI BACKEND UTAMA ---
+        // MASUKKAN URL WEB APP GOOGLE APPS SCRIPT ANDA DI BAWAH INI:
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyHOhGg4HfVGvOJEZwbPxduQ0K_IgonTWZW-o3Gb-Zd0WmtuYh5YXn1KWZvNZRs6T_F/exec';
 
         // --- KONFIGURASI JUMLAH SOAL ---
-        // Ganti angka di bawah ini menjadi 35, 60, atau berapapun sesuai keinginan Anda
         const LIMIT_SOAL = 35; 
 
-        // --- DATABASE CONTOH (Untuk Mode Demo / Fallback) ---
-        const dummyRelations = {
-            "Kelas 7": {
-                "Matematika": ["Bab 1 - Aljabar", "Bab 2 - Himpunan"],
-                "Sains IPA": ["Bab 1 - Sel Tumbuhan", "Bab 2 - Klasifikasi Makhluk Hidup"]
-            },
-            "Kelas 8": {
-                "Bahasa Inggris": ["Bab 1 - Narrative Text", "Bab 2 - Simple Past Tense"]
-            }
-        };
-
-        const dummyQuestions = [
-            // MTK - Aljabar - Kelas 7
-            { id: 1, kelas: "Kelas 7", mapel: "Matematika", bab: "Bab 1 - Aljabar", soal: "Berapakah nilai x dari persamaan sederhana 2x - 4 = 10?", gambar: "", opsi_a: "5", opsi_b: "6", opsi_c: "7", opsi_d: "8", jawaban: "opsi_c" },
-            { id: 2, kelas: "Kelas 7", mapel: "Matematika", bab: "Bab 1 - Aljabar", soal: "Sederhanakan bentuk aljabar berikut: 3a + 5b - a + 2b", gambar: "", opsi_a: "2a + 7b", opsi_b: "4a + 7b", opsi_c: "2a + 3b", opsi_d: "4a + 3b", jawaban: "opsi_a" },
-            { id: 3, kelas: "Kelas 7", mapel: "Matematika", bab: "Bab 1 - Aljabar", soal: "Jika a = 3 dan b = 2, berapakah hasil dari 2a^2 + 3b?", gambar: "", opsi_a: "24", opsi_b: "18", opsi_c: "12", opsi_d: "30", jawaban: "opsi_a" }
-        ];
-        
-        // Buat soal tambahan agar total simulasi mencukupi untuk testing
-        for (let i = 4; i <= 40; i++) {
-            dummyQuestions.push({
-                id: i,
-                kelas: "Kelas 7",
-                mapel: "Matematika",
-                bab: "Bab 1 - Aljabar",
-                soal: "Contoh Soal Simulasi Aljabar Nomor " + i + ": Manakah opsi yang benar jika disesuaikan dengan instruksi?",
-                gambar: "",
-                opsi_a: "Opsi Jawaban A (Benar)",
-                opsi_b: "Opsi Jawaban B",
-                opsi_c: "Opsi Jawaban C",
-                opsi_d: "Opsi Jawaban D",
-                jawaban: "opsi_a"
-            });
-        }
-
-        const dummyScores = [
-            { timestamp: "21/06/2026 09:12", nama: "Budi Santoso", nisn: "009823121", kelas: "Kelas 7", mapel: "Matematika", bab: "Bab 1 - Aljabar", skor: 85, status: "Lulus" },
-            { timestamp: "21/06/2026 10:45", nama: "Budi Santoso", nisn: "009823121", kelas: "Kelas 7", mapel: "Matematika", bab: "Bab 1 - Aljabar", skor: 68, status: "Remedial" }
-        ];
-
-        // --- PROGRAM STATE & VARIABLES ---
-        let selectedQuestions = [];
+        // State Aplikasi
+        let appMetadata = { kelas: [], mapel: [], relations: {} };
+        let currentQuestions = [];
         let timerInterval = null;
-        let timeRemaining = 60 * 60; // 60 menit dalam detik
-        let userProfile = { nama: '', nisn: '', kelas: '', mapel: '', bab: '' };
+        let timeRemaining = 3600; // 60 menit dalam detik
 
-        // --- LIFECYCLE ---
-        window.addEventListener('DOMContentLoaded', () => {
-            updateDemoBadge();
-            loadMetadata();
+        // Inisialisasi awal saat halaman dimuat
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchMetadata();
         });
 
-        function updateDemoBadge() {
-            const badge = document.getElementById('demo-badge');
-            if (isDemoMode) {
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
+        // Ambil Data Kelas, Mapel, dan Bab dari Google Sheets secara realtime
+        async function fetchMetadata() {
+            if (SCRIPT_URL === 'URL_DEPLOYMENT_APPS_SCRIPT_ANDA_DI_SINI' || !SCRIPT_URL) {
+                alert("PENTING: Silakan ganti 'URL_DEPLOYMENT_APPS_SCRIPT_ANDA_DI_SINI' pada kode script baris paling bawah dengan tautan Web App dari Apps Script Anda!");
+                return;
+            }
+            try {
+                const response = await fetch(`${SCRIPT_URL}?action=getMetadata`);
+                const result = await response.json();
+                if (result.status === "success") {
+                    appMetadata = result.data;
+                    populateFilterOptions();
+                }
+            } catch (error) {
+                console.error("Gagal memuat metadata dari Google Sheets:", error);
+                alert("Koneksi gagal. Pastikan Google Apps Script Anda telah di-deploy dengan akses 'Anyone'.");
             }
         }
 
-        function scrollToLogin() {
-            document.getElementById('login-card').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // --- ACTIONS & API CONNECTION ---
-        function saveConfig() {
-            const val = document.getElementById('app-script-url-input').value.trim();
-            if (val) {
-                localStorage.setItem('SPREADSHEET_WEBAPP_URL', val);
-                SCRIPT_URL = val;
-                isDemoMode = false;
-                updateDemoBadge();
-                
-                const successMsg = document.getElementById('save-status-msg');
-                successMsg.classList.remove('hidden');
-                setTimeout(() => successMsg.classList.add('hidden'), 5000);
-                
-                loadMetadata(); // Ambil metadata baru dari live spreadsheet
-            }
-        }
-
-        // Ambil Data Dropdown (Metadata)
-        function loadMetadata() {
-            const selectKelas = document.getElementById('select-kelas');
-            const selectMapel = document.getElementById('select-mapel');
+        function populateFilterOptions() {
+            const selectKelas = document.getElementById("select-kelas");
+            const selectMapel = document.getElementById("select-mapel");
             
             selectKelas.innerHTML = '<option value="" disabled selected>Pilih kelas...</option>';
             selectMapel.innerHTML = '<option value="" disabled selected>Pilih pelajaran...</option>';
 
-            if (isDemoMode) {
-                // Gunakan dummyRelations
-                Object.keys(dummyRelations).forEach(kelas => {
-                    selectKelas.innerHTML += `<option value="${kelas}">${kelas}</option>`;
-                });
-                
-                // Kumpulkan mapel unik
-                let mapels = new Set();
-                Object.keys(dummyRelations).forEach(kelas => {
-                    Object.keys(dummyRelations[kelas]).forEach(mapel => mapels.add(mapel));
-                });
-                mapels.forEach(mapel => {
-                    selectMapel.innerHTML += `<option value="${mapel}">${mapel}</option>`;
-                });
-            } else {
-                // Fetch dari google sheets
-                fetch(`${SCRIPT_URL}?action=getMetadata`)
-                    .then(res => res.json())
-                    .then(response => {
-                        if(response.status === "success") {
-                            const data = response.data;
-                            window.sheetsMetadataRelations = data.relations;
-                            
-                            data.kelas.forEach(kelas => {
-                                selectKelas.innerHTML += `<option value="${kelas}">${kelas}</option>`;
-                            });
-                            data.mapel.forEach(mapel => {
-                                selectMapel.innerHTML += `<option value="${mapel}">${mapel}</option>`;
-                            });
-                        }
-                    })
-                    .catch(err => {
-                        console.error("Gagal memuat metadata live. Menggunakan fallback demo.", err);
-                    });
-            }
-        }
-
-        // Filter Opsi Bab Berdasarkan Kelas & Mapel yang dipilih
-        function filterBabOptions() {
-            const selectKelas = document.getElementById('select-kelas').value;
-            const selectMapel = document.getElementById('select-mapel').value;
-            const selectBab = document.getElementById('select-bab');
-            
-            selectBab.innerHTML = '<option value="" disabled selected>Pilih bab materi...</option>';
-
-            if (!selectKelas || !selectMapel) return;
-
-            if (isDemoMode) {
-                if (dummyRelations[selectKelas] && dummyRelations[selectKelas][selectMapel]) {
-                    dummyRelations[selectKelas][selectMapel].forEach(bab => {
-                        selectBab.innerHTML += `<option value="${bab}">${bab}</option>`;
-                    });
-                } else {
-                    selectBab.innerHTML = '<option value="" disabled>Materi bab belum tersedia</option>';
-                }
-            } else {
-                const relations = window.sheetsMetadataRelations;
-                if (relations && relations[selectKelas] && relations[selectKelas][selectMapel]) {
-                    relations[selectKelas][selectMapel].forEach(bab => {
-                        selectBab.innerHTML += `<option value="${bab}">${bab}</option>`;
-                    });
-                } else {
-                    selectBab.innerHTML = '<option value="" disabled>Materi bab belum tersedia</option>';
-                }
-            }
-        }
-
-        // Navigasi Tampilan
-        function switchView(viewId) {
-            document.querySelectorAll('.view-section').forEach(view => {
-                view.classList.add('hidden');
+            appMetadata.kelas.forEach(k => {
+                selectKelas.innerHTML += `<option value="${k}">${k}</option>`;
             });
-            document.getElementById(viewId).classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            appMetadata.mapel.forEach(m => {
+                selectMapel.innerHTML += `<option value="${m}">${m}</option>`;
+            });
         }
 
-        function goHome() {
-            clearInterval(timerInterval);
-            switchView('view-home');
-        }
+        function filterBabOptions() {
+            const kelas = document.getElementById("select-kelas").value;
+            const mapel = document.getElementById("select-mapel").value;
+            const selectBab = document.getElementById("select-bab");
 
-        // --- LOGIKA UJIAN ---
-        function startExam(event) {
-            event.preventDefault();
-            userProfile.nama = document.getElementById('input-nama').value.trim();
-            userProfile.nisn = document.getElementById('input-nisn').value.trim();
-            userProfile.kelas = document.getElementById('select-kelas').value;
-            userProfile.mapel = document.getElementById('select-mapel').value;
-            userProfile.bab = document.getElementById('select-bab').value;
-
-            // Set Header Info
-            document.getElementById('quiz-student-info').innerHTML = `${userProfile.nama} <span class="text-sm text-slate-500 font-normal">(NISN: ${userProfile.nisn})</span>`;
-            document.getElementById('quiz-badge-kelas').innerText = userProfile.kelas;
-            document.getElementById('quiz-badge-mapel').innerText = userProfile.mapel;
-            document.getElementById('quiz-badge-bab').innerText = userProfile.bab;
-
-            // Ambil dan olah soal
-            getAndProcessQuestions();
-        }
-
-        function getAndProcessQuestions() {
-            if (isDemoMode) {
-                // Filter dummy questions
-                let filtered = dummyQuestions.filter(q => q.kelas === userProfile.kelas && q.bab === userProfile.bab);
-                setupQuizQuestions(filtered);
-            } else {
-                // Loading State
-                const container = document.getElementById('quiz-questions-container');
-                container.innerHTML = `
-                    <div class="text-center py-16 bg-white rounded-3xl border border-slate-200 shadow-xs">
-                        <i class="fa-solid fa-spinner text-4xl text-blue-500 animate-spin"></i>
-                        <p class="font-bold text-slate-700 mt-4">Mengunduh Bank Soal...</p>
-                        <p class="text-xs text-slate-400 mt-1">Sistem sedang merakit soal khusus untuk kelas dan bab Anda.</p>
-                    </div>
-                `;
-                switchView('view-quiz');
-
-                fetch(`${SCRIPT_URL}?action=getQuestions&kelas=${encodeURIComponent(userProfile.kelas)}&bab=${encodeURIComponent(userProfile.bab)}`)
-                    .then(res => res.json())
-                    .then(response => {
-                        if(response.status === "success") {
-                            setupQuizQuestions(response.data);
-                        } else {
-                            alert("Gagal merakit soal dari database utama.");
-                            goHome();
-                        }
-                    })
-                    .catch(err => {
-                        alert("Koneksi gagal. Silakan periksa kembali URL Aplikasi Web atau gunakan Mode Demo.");
-                        goHome();
-                    });
-            }
-        }
-
-        // Tata Letak Soal & Pengacakan (Sesuai Limit Konfigurasi)
-        function setupQuizQuestions(questionsList) {
-            if (questionsList.length === 0) {
-                alert("Bank soal untuk materi bab dan kelas ini belum tersedia.");
-                goHome();
+            if (!kelas || !mapel) {
+                selectBab.innerHTML = '<option value="" disabled selected>Silakan pilih kelas & mapel dahulu...</option>';
                 return;
             }
 
-            // Acak Soal (Algoritma Fisher-Yates)
-            let shuffled = [...questionsList];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            selectBab.innerHTML = '<option value="" disabled selected>Pilih bab materi...</option>';
+            
+            if (appMetadata.relations[kelas] && appMetadata.relations[kelas][mapel]) {
+                const babs = appMetadata.relations[kelas][mapel];
+                babs.forEach(b => {
+                    selectBab.innerHTML += `<option value="${b}">${b}</option>`;
+                });
+            } else {
+                selectBab.innerHTML = '<option value="" disabled selected>Tidak ada bab tersedia untuk kombinasi ini</option>';
             }
+        }
 
-            // Batasi persis maksimal sesuai variabel LIMIT_SOAL yang Anda atur di atas
-            selectedQuestions = shuffled.slice(0, LIMIT_SOAL);
-            document.getElementById('quiz-total-counter').innerText = selectedQuestions.length;
+        // Jalankan Ujian
+        async function startExam(e) {
+            e.preventDefault();
+            const nama = document.getElementById("input-nama").value;
+            const nisn = document.getElementById("input-nisn").value;
+            const kelas = document.getElementById("select-kelas").value;
+            const mapel = document.getElementById("select-mapel").value;
+            const bab = document.getElementById("select-bab").value;
 
-            renderQuestions();
-            switchView('view-quiz');
-            startTimer();
+            try {
+                const response = await fetch(`${SCRIPT_URL}?action=getQuestions&kelas=${encodeURIComponent(kelas)}&mapel=${encodeURIComponent(mapel)}&bab=${encodeURIComponent(bab)}`);
+                const result = await response.json();
+                
+                if (result.status === "success" && result.data.length > 0) {
+                    // Acak soal & batasi sesuai LIMIT_SOAL
+                    currentQuestions = result.data.sort(() => 0.5 - Math.random()).slice(0, LIMIT_SOAL);
+                    
+                    // Set up Tampilan Kuis
+                    document.getElementById("quiz-student-info").innerText = `${nama} (NISN: ${nisn})`;
+                    document.getElementById("quiz-badge-kelas").innerText = kelas;
+                    document.getElementById("quiz-badge-mapel").innerText = mapel;
+                    document.getElementById("quiz-badge-bab").innerText = bab;
+                    document.getElementById("quiz-total-counter").innerText = currentQuestions.length;
+
+                    renderQuestions();
+                    switchView('view-quiz');
+                    startTimer();
+                } else {
+                    alert("Maaf, tidak ada soal yang ditemukan di Spreadsheet untuk pilihan Kelas & Bab tersebut.");
+                }
+            } catch (error) {
+                console.error("Gagal mengambil soal:", error);
+                alert("Terjadi kesalahan saat memuat soal dari server.");
+            }
         }
 
         function renderQuestions() {
-            const container = document.getElementById('quiz-questions-container');
+            const container = document.getElementById("quiz-questions-container");
             container.innerHTML = "";
 
-            selectedQuestions.forEach((q, index) => {
-                let imgHtml = "";
-                if (q.gambar && q.gambar.trim() !== "") {
-                    imgHtml = `
-                        <div class="my-4 max-h-60 rounded-xl overflow-hidden border border-slate-200">
-                            <img src="${q.gambar}" alt="Gambar Soal ${index + 1}" class="max-w-full max-h-60 object-contain mx-auto">
-                        </div>
-                    `;
-                }
-
+            currentQuestions.forEach((q, index) => {
+                let imgHtml = q.gambar ? `<div class="mb-3"><img src="${q.gambar}" class="max-h-48 rounded-lg object-contain border border-slate-100" alt="Soal Bergambar"></div>` : '';
+                
                 container.innerHTML += `
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
                         <div class="flex items-start gap-3">
-                            <span class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 font-extrabold flex items-center justify-center shrink-0 text-sm">
-                                ${index + 1}
-                            </span>
+                            <span class="bg-slate-100 text-slate-700 font-bold px-3 py-1 rounded-lg text-sm">${index + 1}</span>
                             <div class="flex-1">
-                                <p class="text-slate-800 font-bold leading-relaxed text-base">${q.soal}</p>
+                                <p class="text-slate-800 font-medium text-base mb-4">${q.soal}</p>
                                 ${imgHtml}
-                                
-                                <div class="mt-6 space-y-3">
-                                    <label class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50/20 cursor-pointer transition text-sm text-slate-700">
-                                        <input type="radio" name="question_${q.id}" value="opsi_a" required class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300">
-                                        <span class="font-semibold text-slate-400">A.</span> ${q.opsi_a}
+                                <div class="grid sm:grid-cols-2 gap-3">
+                                    <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50/80 cursor-pointer transition">
+                                        <input type="radio" required name="question-${index}" value="A" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                                        <span class="text-sm text-slate-600"><b class="text-slate-400 mr-1">A.</b> ${q.opsi_a}</span>
                                     </label>
-                                    <label class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50/20 cursor-pointer transition text-sm text-slate-700">
-                                        <input type="radio" name="question_${q.id}" value="opsi_b" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300">
-                                        <span class="font-semibold text-slate-400">B.</span> ${q.opsi_b}
+                                    <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50/80 cursor-pointer transition">
+                                        <input type="radio" required name="question-${index}" value="B" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                                        <span class="text-sm text-slate-600"><b class="text-slate-400 mr-1">B.</b> ${q.opsi_b}</span>
                                     </label>
-                                    <label class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50/20 cursor-pointer transition text-sm text-slate-700">
-                                        <input type="radio" name="question_${q.id}" value="opsi_c" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300">
-                                        <span class="font-semibold text-slate-400">C.</span> ${q.opsi_c}
+                                    <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50/80 cursor-pointer transition">
+                                        <input type="radio" required name="question-${index}" value="C" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                                        <span class="text-sm text-slate-600"><b class="text-slate-400 mr-1">C.</b> ${q.opsi_c}</span>
                                     </label>
-                                    <label class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50/20 cursor-pointer transition text-sm text-slate-700">
-                                        <input type="radio" name="question_${q.id}" value="opsi_d" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300">
-                                        <span class="font-semibold text-slate-400">D.</span> ${q.opsi_d}
+                                    <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-100 hover:bg-slate-50/80 cursor-pointer transition">
+                                        <input type="radio" required name="question-${index}" value="D" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                                        <span class="text-sm text-slate-600"><b class="text-slate-400 mr-1">D.</b> ${q.opsi_d}</span>
                                     </label>
                                 </div>
                             </div>
@@ -836,222 +397,160 @@ function getRelations(data, idxKelas, idxMapel, idxBab) {
 
         // Timer Logic
         function startTimer() {
+            timeRemaining = 3600;
             clearInterval(timerInterval);
-            timeRemaining = 60 * 60; // Reset ke 60 menit
-            updateTimerDisplay();
-
             timerInterval = setInterval(() => {
                 timeRemaining--;
-                updateTimerDisplay();
-
+                let mins = Math.floor(timeRemaining / 60);
+                let secs = timeRemaining % 60;
+                document.getElementById("quiz-timer").innerHTML = `<i class="fa-regular fa-clock"></i> ${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                
                 if (timeRemaining <= 0) {
                     clearInterval(timerInterval);
-                    alert("Waktu ujian telah habis!");
-                    submitExam(new Event('submit'));
+                    alert("Waktu habis! Jawaban Anda akan otomatis dikirim.");
+                    document.getElementById("form-quiz").requestSubmit();
                 }
             }, 1000);
         }
 
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timeRemaining / 60);
-            const seconds = timeRemaining % 60;
-            document.getElementById('quiz-timer').innerHTML = `
-                <i class="fa-regular fa-clock"></i> ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}
-            `;
-        }
-
-        // Keluar & Batal
-        function confirmExit() {
-            if (confirm("Apakah Anda yakin ingin membatalkan ulangan ini? Semua progres jawaban akan hilang.")) {
-                goHome();
-            }
-        }
-
-        // --- SUBMIT JAWABAN & PENILAIAN ---
-        function submitExam(event) {
-            if (event) event.preventDefault();
+        // Kirim Ujian & Simpan Skor ke Google Sheets
+        async function submitExam(e) {
+            e.preventDefault();
             clearInterval(timerInterval);
 
-            let totalCorrect = 0;
-            selectedQuestions.forEach(q => {
-                const checkedOption = document.querySelector(`input[name="question_${q.id}"]:checked`);
-                const answerValue = checkedOption ? checkedOption.value : "";
-                
-                if (answerValue === q.jawaban) {
-                    totalCorrect++;
+            let correctCount = 0;
+            currentQuestions.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+                if (selected && selected.value.trim().toUpperCase() === q.jawaban.trim().toUpperCase()) {
+                    correctCount++;
                 }
             });
 
-            // Kalkulasi Skor Bulat
-            const rawScore = (totalCorrect / selectedQuestions.length) * 100;
-            const finalScore = Math.round(rawScore);
+            const finalScore = Math.round((correctCount / currentQuestions.length) * 100);
+            const status = finalScore >= 80 ? "Lulus" : "Remedial";
 
-            // Tampilkan Halaman Skor
-            showResultPage(finalScore);
+            const nama = document.getElementById("input-nama").value;
+            const nisn = document.getElementById("input-nisn").value;
+            const kelas = document.getElementById("select-kelas").value;
+            const mapel = document.getElementById("select-mapel").value;
+            const bab = document.getElementById("select-bab").value;
 
-            // Kirim ke Database (Google Sheets)
-            saveScoreToDatabase(finalScore);
-        }
+            // Render Tampilan Hasil
+            document.getElementById("result-score").innerText = finalScore;
+            document.getElementById("res-nama").innerText = nama;
+            document.getElementById("res-nisn").innerText = nisn;
+            document.getElementById("res-mapel").innerText = mapel;
+            document.getElementById("res-bab").innerText = bab;
 
-        function showResultPage(score) {
-            document.getElementById('result-score').innerText = score;
-            document.getElementById('res-nama').innerText = userProfile.nama;
-            document.getElementById('res-nisn').innerText = userProfile.nisn;
-            document.getElementById('res-mapel').innerText = userProfile.mapel;
-            document.getElementById('res-bab').innerText = userProfile.bab;
+            const iconContainer = document.getElementById("result-icon-container");
+            const resTitle = document.getElementById("result-title");
 
-            const iconContainer = document.getElementById('result-icon-container');
-            const title = document.getElementById('result-title');
-            const retryBtn = document.getElementById('btn-retry');
-
-            if (score >= 80) {
-                // LULUS
+            if (finalScore >= 80) {
                 iconContainer.className = "mx-auto w-24 h-24 rounded-full flex items-center justify-center text-4xl shadow-lg mb-6 bg-green-100 text-green-600";
-                iconContainer.innerHTML = '<i class="fa-solid fa-award"></i>';
-                title.innerText = "Hebat! Kamu Lulus";
-                title.className = "text-3xl font-extrabold text-green-600";
-                retryBtn.classList.add('hidden'); // Sembunyikan tombol ulangi karena sudah lulus
+                iconContainer.innerHTML = `<i class="fa-solid fa-award"></i>`;
+                resTitle.innerText = "Hebat! Kamu Lulus";
             } else {
-                // REMEDIAL
-                iconContainer.className = "mx-auto w-24 h-24 rounded-full flex items-center justify-center text-4xl shadow-lg mb-6 bg-red-100 text-red-500";
-                iconContainer.innerHTML = '<i class="fa-solid fa-heart-crack animate-bounce"></i>';
-                title.innerText = "Tetap Semangat, Yuk Coba Lagi!";
-                title.className = "text-3xl font-extrabold text-slate-800";
-                retryBtn.classList.remove('hidden'); // Munculkan tombol ulangi
+                iconContainer.className = "mx-auto w-24 h-24 rounded-full flex items-center justify-center text-4xl shadow-lg mb-6 bg-red-100 text-red-600";
+                iconContainer.innerHTML = `<i class="fa-solid fa-circle-xmark"></i>`;
+                resTitle.innerText = "Ayo Belajar Lagi!";
             }
 
             switchView('view-result');
+
+            // Kirim Skor ke Database Google Sheets secara asynchronous via POST
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors", // Mengabaikan kendala CORS pada Apps Script POST redirect
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        action: "submitScore",
+                        nama: nama,
+                        nisn: nisn,
+                        kelas: kelas,
+                        mapel: mapel,
+                        bab: bab,
+                        skor: finalScore,
+                        status: status
+                    })
+                });
+            } catch (error) {
+                console.error("Gagal menyimpan nilai ke Spreadsheet:", error);
+            }
+        }
+
+        // Ruang Pantau Orang Tua Realtime
+        async function searchParentScores(e) {
+            e.preventDefault();
+            const nisn = document.getElementById("parent-search-nisn").value;
+            const tableBody = document.getElementById("parent-table-body");
+            const resultsDiv = document.getElementById("parent-results");
+            const emptyState = document.getElementById("parent-empty-state");
+
+            resultsDiv.classList.add("hidden");
+            emptyState.classList.add("hidden");
+
+            try {
+                const response = await fetch(`${SCRIPT_URL}?action=getScores&nisn=${nisn}`);
+                const result = await response.json();
+
+                if (result.status === "success" && result.data.length > 0) {
+                    document.getElementById("parent-student-name").innerText = result.data[0].nama;
+                    document.getElementById("parent-student-nisn").innerText = `NISN: ${result.data[0].nisn}`;
+                    
+                    tableBody.innerHTML = "";
+                    result.data.forEach(row => {
+                        let statusBadge = row.status === "Lulus" 
+                            ? `<span class="px-2.5 py-0.5 bg-green-50 text-green-700 rounded-md text-xs font-bold border border-green-100">Lulus</span>`
+                            : `<span class="px-2.5 py-0.5 bg-red-50 text-red-700 rounded-md text-xs font-bold border border-red-100">Remedial</span>`;
+
+                        tableBody.innerHTML += `
+                            <tr class="hover:bg-slate-50/50 transition">
+                                <td class="p-4 font-medium text-slate-700">${row.timestamp}</td>
+                                <td class="p-4">${row.mapel} (Kelas ${row.kelas})</td>
+                                <td class="p-4 max-w-xs truncate">${row.bab}</td>
+                                <td class="p-4 text-center font-bold text-slate-800">${row.skor}</td>
+                                <td class="p-4 text-center">${statusBadge}</td>
+                            </tr>
+                        `;
+                    });
+                    resultsDiv.classList.remove("hidden");
+                } else {
+                    emptyState.classList.remove("hidden");
+                }
+            } catch (error) {
+                console.error("Gagal memuat histori nilai:", error);
+                alert("Gagal melakukan pencarian riwayat nilai.");
+            }
+        }
+
+        // Navigasi & UI helper
+        function switchView(viewId) {
+            document.querySelectorAll(".view-section").forEach(section => {
+                section.classList.add("hidden");
+            });
+            document.getElementById(viewId).classList.remove("hidden");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goHome() {
+            switchView('view-home');
+        }
+
+        function scrollToLogin() {
+            document.getElementById("login-card").scrollIntoView({ behavior: 'smooth' });
         }
 
         function retryExam() {
-            getAndProcessQuestions(); // Re-fetch & acak ulang soal
+            switchView('view-home');
+            scrollToLogin();
         }
 
-        function saveScoreToDatabase(score) {
-            const scoreData = {
-                action: "submitScore",
-                nama: userProfile.nama,
-                nisn: userProfile.nisn,
-                kelas: userProfile.kelas,
-                mapel: userProfile.mapel,
-                bab: userProfile.bab,
-                skor: score,
-                status: score >= 80 ? "Lulus" : "Remedial"
-            };
-
-            if (isDemoMode) {
-                // Simulasikan penulisan data di demo
-                dummyScores.unshift({
-                    timestamp: new Date().toLocaleString('id-ID'),
-                    nama: userProfile.nama,
-                    nisn: userProfile.nisn,
-                    kelas: userProfile.kelas,
-                    mapel: userProfile.mapel,
-                    bab: userProfile.bab,
-                    skor: score,
-                    status: score >= 80 ? "Lulus" : "Remedial"
-                });
-                console.log("Mock saved score: ", scoreData);
-            } else {
-                // Fetch Post ke Apps Script
-                fetch(SCRIPT_URL, {
-                    method: "POST",
-                    body: JSON.stringify(scoreData)
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.status === "success") {
-                        console.log("Skor berhasil disimpan di Google Sheets!");
-                    }
-                })
-                .catch(err => console.error("Koneksi Apps Script Gagal saat menyimpan nilai.", err));
+        function confirmExit() {
+            if (confirm("Apakah Anda yakin ingin membatalkan ulangan ini? Semua progres Anda saat ini akan hilang.")) {
+                clearInterval(timerInterval);
+                goHome();
             }
-        }
-
-        // --- PENCARIAN PENGAMATAN ORANG TUA ---
-        function searchParentScores(event) {
-            event.preventDefault();
-            const searchNisn = document.getElementById('parent-search-nisn').value.trim();
-            const tableBody = document.getElementById('parent-table-body');
-            const resultArea = document.getElementById('parent-results');
-            const emptyState = document.getElementById('parent-empty-state');
-
-            tableBody.innerHTML = "";
-            resultArea.classList.add('hidden');
-            emptyState.classList.add('hidden');
-
-            if (isDemoMode) {
-                let filtered = dummyScores.filter(s => s.nisn === searchNisn);
-                if (filtered.length > 0) {
-                    document.getElementById('parent-student-name').innerText = filtered[0].nama;
-                    document.getElementById('parent-student-nisn').innerText = `NISN: ${filtered[0].nisn}`;
-                    
-                    filtered.forEach(row => {
-                        appendParentScoreRow(row);
-                    });
-                    resultArea.classList.remove('hidden');
-                } else {
-                    emptyState.classList.remove('hidden');
-                }
-            } else {
-                // Loading Spinner State
-                tableBody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="p-8 text-center text-slate-500">
-                            <i class="fa-solid fa-spinner text-2xl text-green-500 animate-spin mr-2"></i> Mencari riwayat data...
-                        </td>
-                    </tr>
-                `;
-                resultArea.classList.remove('hidden');
-
-                fetch(`${SCRIPT_URL}?action=getScores&nisn=${searchNisn}`)
-                    .then(res => res.json())
-                    .then(response => {
-                        tableBody.innerHTML = "";
-                        if (response.status === "success" && response.data.length > 0) {
-                            const data = response.data;
-                            document.getElementById('parent-student-name').innerText = data[0].nama;
-                            document.getElementById('parent-student-nisn').innerText = `NISN: ${data[0].nisn}`;
-                            
-                            data.forEach(row => {
-                                appendParentScoreRow(row);
-                            });
-                        } else {
-                            resultArea.classList.add('hidden');
-                            emptyState.classList.remove('hidden');
-                        }
-                    })
-                    .catch(err => {
-                        tableBody.innerHTML = "";
-                        alert("Gagal terhubung ke database. Coba sesaat lagi.");
-                    });
-            }
-        }
-
-        function appendParentScoreRow(row) {
-            const tableBody = document.getElementById('parent-table-body');
-            const statusVal = row.status || (row.skor >= 80 ? 'Lulus' : 'Remedial');
-            const statusClass = statusVal === 'Lulus' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
-
-            tableBody.innerHTML += `
-                <tr class="hover:bg-slate-50/50 transition">
-                    <td class="p-4 font-semibold text-slate-700">${row.timestamp}</td>
-                    <td class="p-4">${row.mapel} <span class="text-xs text-slate-400 block">${row.kelas}</span></td>
-                    <td class="p-4">${row.bab}</td>
-                    <td class="p-4 text-center font-extrabold text-slate-800 text-base">${row.skor}</td>
-                    <td class="p-4 text-center">
-                        <span class="px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${statusClass}">${statusVal}</span>
-                    </td>
-                </tr>
-            `;
-        }
-
-        // --- SISTEM UTILITY ---
-        function copyCode() {
-            const codeText = document.getElementById('code-snippet').innerText;
-            navigator.clipboard.writeText(codeText).then(() => {
-                alert("Kode Apps Script berhasil disalin!");
-            });
         }
     </script>
 </body>
