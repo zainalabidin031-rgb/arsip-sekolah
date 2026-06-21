@@ -1,352 +1,1054 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <base target="_top">
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-  </style>
-</head>
-<body class="bg-slate-50 min-h-screen flex flex-col items-center justify-center p-6 text-slate-800">
-
-  <div class="w-full max-w-2xl bg-white rounded-xl shadow-md border border-blue-100 overflow-hidden">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pabrik Soal - Sistem Ulangan Mandiri</title>
+    <!-- Fonts & Tailwind CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <div class="bg-blue-600 px-6 py-4 text-white font-semibold text-lg tracking-wide text-center relative">
-      <div id="judulPortal">PORTAL ULANGAN HARIAN SISWA</div>
-    </div>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-tr from-slate-50 via-blue-50 to-indigo-100 min-height-screen pb-12">
 
-    <div id="pageMenu" class="p-8 space-y-6">
-      <div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg text-blue-900 text-sm leading-relaxed">
-        Halo! Silakan lengkapi data diri Anda, kemudian pilih <strong>Kelas</strong>, <strong>Mata Pelajaran</strong>, dan <strong>Bab/Materi</strong> yang ingin dikerjakan.
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-b pb-6 border-slate-100">
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">Nama Lengkap</label>
-          <input type="text" id="namaSiswa" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase font-medium" placeholder="Contoh: BUDI SETIAWAN">
-        </div>
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">NISN Siswa</label>
-          <input type="text" id="nisnSiswa" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="10 Digit Nomor NISN">
-        </div>
-      </div>
-
-      <div class="space-y-4">
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">Pilih Tingkat Kelas</label>
-          <select id="pilihKelas" onchange="updateMapel()" class="w-full border border-slate-300 bg-white rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
-            <option value="">-- Pilih Kelas --</option>
-            <option value="4">Kelas 4 SD</option>
-            <option value="5">Kelas 5 SD</option>
-            <option value="6">Kelas 6 SD</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">Pilih Mata Pelajaran</label>
-          <select id="pilihMapel" onchange="updateBab()" disabled class="w-full border border-slate-300 bg-white rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer disabled:bg-slate-100 disabled:cursor-not-allowed">
-            <option value="">-- Pilih Mata Pelajaran --</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">Pilih Bab / Materi Pembelajaran</label>
-          <select id="pilihBab" disabled class="w-full border border-slate-300 bg-white rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer disabled:bg-slate-100 disabled:cursor-not-allowed">
-            <option value="">-- Pilih Bab / Materi --</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="pt-2">
-        <button onclick="lanjutKeToken()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3.5 rounded-lg shadow-sm transition duration-150 text-sm text-center cursor-pointer">
-          🚀 Lanjut ke Validasi Token
-        </button>
-      </div>
-    </div>
-
-    <div id="pageLogin" class="p-8 space-y-5 hidden">
-      <div class="border-l-4 border-amber-500 bg-amber-50 p-4 rounded-r-lg text-amber-900 text-sm leading-relaxed">
-        Langkah Terakhir! Silakan masukkan <strong>Token Ulangan</strong> aktif yang diberikan oleh Bapak/Ibu Guru untuk membuka lembar soal.
-      </div>
-      <div>
-        <label class="block text-sm font-semibold text-slate-700 mb-1">Token Ulangan</label>
-        <input type="text" id="inputToken" class="w-full border border-slate-300 rounded-lg p-3 text-center font-mono font-bold tracking-widest text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase" placeholder="X Y Z 1 2 3">
-      </div>
-      <div class="pt-2 flex gap-3">
-        <button onclick="kembaliKeMenu()" class="w-1/3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-3.5 rounded-lg text-sm cursor-pointer">Kembali</button>
-        <button onclick="prosesLogin()" id="btnMulai" class="w-2/3 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3.5 rounded-lg shadow-sm transition text-sm cursor-pointer">Mulai Ujian</button>
-      </div>
-    </div>
-
-    <div id="pageSoal" class="p-8 hidden space-y-6">
-      <div class="flex justify-between items-center text-xs font-semibold text-slate-500 tracking-wider uppercase border-b pb-3">
-        <span id="infoMateri" class="text-blue-600">Mata Pelajaran</span>
-        <span id="infoProgress" class="bg-slate-100 px-2.5 py-1 rounded">Soal 1 dari 10</span>
-      </div>
-      
-      <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-        <div id="progressBar" class="bg-blue-500 h-full transition-all duration-300" style="width: 0%"></div>
-      </div>
-
-      <div class="space-y-4">
-        <p id="teksSoal" class="text-base font-medium text-slate-900 leading-relaxed"></p>
-        <div id="kontainerGambar" class="mt-4 hidden justify-start">
-          <img id="imgSoal" src="" class="max-h-64 rounded-lg border bg-white p-1 shadow-sm">
-        </div>
-      </div>
-
-      <div class="space-y-2.5 pt-2">
-        <button onclick="pilihJawaban('A')" class="btnOpsi w-full text-left p-4 rounded-lg border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 text-sm font-medium transition duration-150 flex items-center gap-4 cursor-pointer group">
-          <span class="bg-slate-100 text-slate-700 font-bold w-7 h-7 rounded text-xs flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition shrink-0">A</span>
-          <span id="teksA" class="text-slate-700">Opsi A</span>
-        </button>
-        <button onclick="pilihJawaban('B')" class="btnOpsi w-full text-left p-4 rounded-lg border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 text-sm font-medium transition duration-150 flex items-center gap-4 cursor-pointer group">
-          <span class="bg-slate-100 text-slate-700 font-bold w-7 h-7 rounded text-xs flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition shrink-0">B</span>
-          <span id="teksB" class="text-slate-700">Opsi B</span>
-        </button>
-        <button onclick="pilihJawaban('C')" class="btnOpsi w-full text-left p-4 rounded-lg border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 text-sm font-medium transition duration-150 flex items-center gap-4 cursor-pointer group">
-          <span class="bg-slate-100 text-slate-700 font-bold w-7 h-7 rounded text-xs flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition shrink-0">C</span>
-          <span id="teksC" class="text-slate-700">Opsi C</span>
-        </button>
-        <button onclick="pilihJawaban('D')" class="btnOpsi w-full text-left p-4 rounded-lg border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 text-sm font-medium transition duration-150 flex items-center gap-4 cursor-pointer group">
-          <span class="bg-slate-100 text-slate-700 font-bold w-7 h-7 rounded text-xs flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition shrink-0">D</span>
-          <span id="teksD" class="text-slate-700">Opsi D</span>
-        </button>
-      </div>
-    </div>
-
-    <div id="pageHasil" class="p-8 text-center space-y-6 hidden">
-      <div>
-        <h3 class="text-base font-semibold text-slate-500 uppercase tracking-wider">Evaluasi Hasil Nilai</h3>
-        <p class="text-xs text-slate-400 mt-1">Nilai Anda telah direkam oleh sistem secara otomatis</p>
-      </div>
-      <div class="inline-block p-6 rounded-xl bg-slate-50 border">
-        <div class="text-xs font-semibold text-slate-400 uppercase mb-1">Skor Akhir</div>
-        <span id="txtNilai" class="text-5xl font-bold text-slate-800">0</span>
-      </div>
-      <p id="pesanHasil" class="text-sm font-semibold"></p>
-      <div class="bg-slate-50 p-4 rounded-lg text-left text-xs space-y-2 border max-w-md mx-auto text-slate-600">
-        <div class="flex justify-between"><span class="font-medium">Nama Siswa:</span> <span id="resNama" class="font-semibold text-slate-800">-</span></div>
-        <div class="flex justify-between"><span class="font-medium">Mata Pelajaran:</span> <span id="resMapel" class="font-semibold text-slate-800">-</span></div>
-      </div>
-      <div id="kontainerAksi" class="pt-4 max-w-md mx-auto">
-        <button id="btnUlangi" onclick="ulangiUjian()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-medium py-3 rounded-lg shadow-sm hidden transition cursor-pointer text-sm">
-          Nilai Belum Mencapai KKM (80) - Ulangi Ujian
-        </button>
-        <div id="msgSelesai" class="w-full bg-emerald-100 text-emerald-800 font-semibold py-3.5 rounded-lg border border-emerald-200 hidden text-sm">
-          ✓ Ujian Selesai. Silakan tutup browser Anda.
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
-    const dataKurikulum = {
-      "4": {
-        "Matematika": ["Pecahan Senilai", "KPK dan FPB", "Bangun Datar"],
-        "IPAS": ["Bagian Tubuh Tumbuhan", "Wujud Zat dan Perubahannya"]
-      },
-      "5": {
-        "Matematika": ["Penjumlahan Pecahan", "Kecepatan dan Debit", "Skala Denah"],
-        "IPAS": ["Melihat karena Cahaya", "Harmoni dalam Ekosistem", "Organ Tubuh Manusia"],
-        "Bahasa Indonesia": ["Unsur Intrinsik Cerita", "Surat Resmi dan Pribadi"]
-      },
-      "6": {
-        "Matematika": ["Bilangan Bulat Negatif", "Lingkaran", "Bangun Ruang"],
-        "IPAS": ["Selamatkan Makhluk Hidup", "Persatuan dalam Perbedaan"]
-      }
-    };
-
-    let dataSiswa = {};
-    let semuaSoal = [];
-    let indexSekarang = 0;
-    let jumlahBenar = 0;
-    let tokenSiswaAktif = "";
-
-    function updateMapel() {
-      const kelas = document.getElementById("pilihKelas").value;
-      const mapelSelect = document.getElementById("pilihMapel");
-      const babSelect = document.getElementById("pilihBab");
-      
-      mapelSelect.innerHTML = '<option value="">-- Pilih Mata Pelajaran --</option>';
-      babSelect.innerHTML = '<option value="">-- Pilih Bab / Materi --</option>';
-      babSelect.disabled = true;
-
-      if (kelas && dataKurikulum[kelas]) {
-        mapelSelect.disabled = false;
-        Object.keys(dataKurikulum[kelas]).forEach(mapel => {
-          let opt = document.createElement("option");
-          opt.value = mapel; 
-          opt.innerText = mapel;
-          mapelSelect.appendChild(opt);
-        });
-      } else { 
-        mapelSelect.disabled = true; 
-      }
-    }
-
-    function updateBab() {
-      const kelas = document.getElementById("pilihKelas").value;
-      const mapel = document.getElementById("pilihMapel").value;
-      const babSelect = document.getElementById("pilihBab");
-      
-      babSelect.innerHTML = '<option value="">-- Pilih Bab / Materi --</option>';
-
-      if (kelas && mapel && dataKurikulum[kelas][mapel]) {
-        babSelect.disabled = false;
-        dataKurikulum[kelas][mapel].forEach(bab => {
-          let opt = document.createElement("option");
-          opt.value = bab; 
-          opt.innerText = bab;
-          babSelect.appendChild(opt);
-        });
-      } else { 
-        babSelect.disabled = true; 
-      }
-    }
-
-    function lanjutKeToken() {
-      const nama = document.getElementById("namaSiswa").value.trim();
-      const nisn = document.getElementById("nisnSiswa").value.trim();
-      const kelas = document.getElementById("pilihKelas").value;
-      const mapel = document.getElementById("pilihMapel").value;
-      const bab = document.getElementById("pilihBab").value;
-
-      if (!nama) { alert("Nama Lengkap wajib diisi!"); return; }
-      if (!kelas || !mapel || !bab) { alert("Silakan lengkapi data Kelas, Mapel, dan Bab!"); return; }
-
-      dataSiswa = { nama: nama, nisn: nisn, kelas: kelas, mapel: mapel, bab: bab };
-
-      document.getElementById("pageMenu").classList.add("hidden");
-      document.getElementById("pageLogin").classList.remove("hidden");
-    }
-
-    function kembaliKeMenu() {
-      document.getElementById("pageLogin").classList.add("hidden");
-      document.getElementById("pageMenu").classList.remove("hidden");
-    }
-
-    function prosesLogin() {
-      const token = document.getElementById("inputToken").value.trim();
-
-      if (!token) { alert("Token validasi wajib diisi."); return; }
-
-      tokenSiswaAktif = token;
-      document.getElementById("btnMulai").innerText = "Memverifikasi...";
-      document.getElementById("btnMulai").disabled = true;
-
-      google.script.run
-        .withSuccessHandler(function(resToken) {
-          if(resToken && resToken.valid) {
-            muatSoalDariBackend();
-          } else {
-            alert("Token tidak valid atau masa aktif ujian telah berakhir.");
-            resetTombolLogin();
-          }
-        })
-        .withFailureHandler(function(err) {
-          alert("Gagal terhubung ke server: " + err.message);
-          resetTombolLogin();
-        })
-        .validasiToken(token);
-    }
-
-    function muatSoalDariBackend() {
-      google.script.run
-        .withSuccessHandler(function(resSoal) {
-          if(resSoal && resSoal.length > 0) {
-            semuaSoal = resSoal;
-            indexSekarang = 0;
-            jumlahBenar = 0;
+    <!-- Top Navigation -->
+    <nav class="bg-white/70 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="goHome()">
+                <div class="bg-blue-600 text-white p-2 rounded-xl shadow-md shadow-blue-200">
+                    <i class="fa-solid fa-graduation-cap text-lg"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-slate-800 text-lg block leading-none">Pabrik Soal</span>
+                    <span class="text-xs text-slate-500 font-medium">Latihan & Evaluasi Mandiri</span>
+                </div>
+            </div>
             
-            document.getElementById("pageLogin").classList.add("hidden");
-            document.getElementById("pageHasil").classList.add("hidden");
-            document.getElementById("pageSoal").classList.remove("hidden");
-            tampilkanSoal();
-          } else {
-            alert("⚠️ VERIFIKASI SUKSES, TAPI SOAL KOSONG!\n\nPenyebab: Tidak ada soal di sheet 'soal' yang tulisannya COCOK dengan:\n- Kelas: " + dataSiswa.kelas + "\n- Mapel: " + dataSiswa.mapel + "\n- Bab/Materi: " + dataSiswa.bab + "\n\nSilakan periksa kesamaan tulisan Bab/Materi di Spreadsheet Anda.");
-            resetTombolLogin();
-          }
-        })
-        .withFailureHandler(function(err) {
-          alert("Gagal mengambil soal: " + err.message);
-          resetTombolLogin();
-        })
-        .ambilSoal(dataSiswa.kelas, dataSiswa.mapel, dataSiswa.bab, tokenSiswaAktif); 
-    }
+            <div class="flex items-center space-x-3">
+                <button onclick="goHome()" class="text-slate-600 hover:text-blue-600 px-3 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2">
+                    <i class="fa-solid fa-house"></i> <span class="hidden sm:inline">Beranda</span>
+                </button>
+                <button onclick="switchView('parent-monitor')" class="text-slate-600 hover:text-green-600 px-3 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield"></i> <span class="hidden sm:inline">Pantau Nilai</span>
+                </button>
+                <button onclick="switchView('dev-guide')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2">
+                    <i class="fa-solid fa-code"></i> <span class="hidden sm:inline">Hubungkan Spreadsheet</span>
+                </button>
+            </div>
+        </div>
+    </nav>
 
-    function resetTombolLogin() {
-      document.getElementById("btnMulai").innerText = "Mulai Ujian";
-      document.getElementById("btnMulai").disabled = false;
-    }
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-4 mt-8">
 
-    function tampilkanSoal() {
-      if(indexSekarang >= semuaSoal.length) {
-        selClassUjian(); return;
+        <!-- ================= APP STICKY WARNING (IF DEMO MODE) ================= -->
+        <div id="demo-badge" class="mb-6 p-4 bg-amber-50 border border-amber-200 text-amber-800 rounded-2xl flex items-start gap-3 shadow-xs">
+            <i class="fa-solid fa-triangle-exclamation text-lg mt-0.5"></i>
+            <div>
+                <p class="font-semibold text-sm">Mode Demo (Belum Terhubung ke Spreadsheet)</p>
+                <p class="text-xs text-amber-700 mt-1">Aplikasi berjalan menggunakan database contoh. Untuk menyambungkan ke Google Sheets Anda, klik menu <b>"Hubungkan Spreadsheet"</b> di kanan atas dan ikuti panduan super mudahnya.</p>
+            </div>
+        </div>
+
+        <!-- ================= VIEW 1: HOME & LOGIN SISWA ================= -->
+        <section id="view-home" class="view-section">
+            <div class="grid md:grid-cols-12 gap-8 items-center py-6">
+                <!-- Left Banner -->
+                <div class="md:col-span-5 text-center md:text-left">
+                    <h1 class="text-4xl font-extrabold text-slate-800 leading-tight">Uji Kemampuanmu Kapan Saja!</h1>
+                    <p class="text-slate-600 mt-3 text-base">Media latihan interaktif mandiri siswa. Soal otomatis diacak sesuai kelas dan bab yang ingin kamu perdalam.</p>
+                    <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+                        <button onclick="scrollToLogin()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition shadow-lg shadow-blue-200 cursor-pointer">
+                            Mulai Latihan Sekarang
+                        </button>
+                        <button onclick="switchView('parent-monitor')" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold px-6 py-3 rounded-xl transition cursor-pointer">
+                            Menu Orang Tua
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Form Box -->
+                <div id="login-card" class="md:col-span-7 glass-card rounded-3xl p-6 sm:p-8 shadow-xl shadow-blue-100/50">
+                    <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-file-signature text-blue-600"></i> Autentikasi Siswa
+                    </h2>
+                    <p class="text-slate-500 text-sm mt-1">Isi identitas untuk menyaring soal latihanmu secara instan.</p>
+                    
+                    <form id="form-login" onsubmit="startExam(event)" class="mt-6 space-y-4">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Nama Lengkap</label>
+                                <input type="text" id="input-nama" required placeholder="Contoh: Budi Santoso" class="w-full mt-1.5 px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-white transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">NISN</label>
+                                <input type="number" id="input-nisn" required placeholder="10 digit nomor NISN" class="w-full mt-1.5 px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-white transition">
+                            </div>
+                        </div>
+
+                        <hr class="border-slate-100 my-4">
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Pilih Kelas</label>
+                                <select id="select-kelas" required onchange="filterBabOptions()" class="w-full mt-1.5 px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-white transition">
+                                    <option value="" disabled selected>Pilih kelas...</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Pilih Mata Pelajaran</label>
+                                <select id="select-mapel" required onchange="filterBabOptions()" class="w-full mt-1.5 px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-white transition">
+                                    <option value="" disabled selected>Pilih pelajaran...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Pilih Bab Materi</label>
+                            <select id="select-bab" required class="w-full mt-1.5 px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-white transition">
+                                <option value="" disabled selected>Silakan pilih kelas & mapel dahulu...</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-4 rounded-xl transition shadow-md shadow-blue-200/50 flex items-center justify-center gap-2 mt-2 cursor-pointer">
+                            <i class="fa-solid fa-paper-plane"></i> Mulai Ulangan Mandiri
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 2: QUIZ INTERFACE ================= -->
+        <section id="view-quiz" class="view-section hidden">
+            <!-- Header Informasi Ujian -->
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                <div>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Peserta Ulangan</h3>
+                    <p class="text-lg font-bold text-slate-800" id="quiz-student-info">Budi Santoso (NISN: 009823121)</p>
+                    <div class="flex flex-wrap gap-2 mt-1">
+                        <span id="quiz-badge-kelas" class="px-2.5 py-0.5 bg-blue-50 text-blue-700 rounded-md text-xs font-semibold border border-blue-100">Kelas</span>
+                        <span id="quiz-badge-mapel" class="px-2.5 py-0.5 bg-indigo-50 text-indigo-700 rounded-md text-xs font-semibold border border-indigo-100">Mapel</span>
+                        <span id="quiz-badge-bab" class="px-2.5 py-0.5 bg-purple-50 text-purple-700 rounded-md text-xs font-semibold border border-purple-100">Bab</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="text-right">
+                        <span class="text-xs font-bold text-slate-400 uppercase block tracking-wider">Batas Waktu</span>
+                        <span class="text-xl font-extrabold text-blue-600 flex items-center gap-2" id="quiz-timer">
+                            <i class="fa-regular fa-clock"></i> 60:00
+                        </span>
+                    </div>
+                    <button onclick="confirmExit()" class="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition cursor-pointer" title="Keluar & Batalkan">
+                        <i class="fa-solid fa-right-from-bracket text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Questions Form -->
+            <form id="form-quiz" onsubmit="submitExam(event)">
+                <div id="quiz-questions-container" class="space-y-6">
+                    <!-- Dinamis Diisi JS -->
+                </div>
+
+                <!-- Action Footer -->
+                <div class="mt-8 p-4 bg-white/75 backdrop-blur-md sticky bottom-4 border border-slate-200 rounded-2xl shadow-lg flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <span class="text-sm font-semibold text-slate-600 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-question text-blue-500"></i> 
+                        Pastikan semua dari <span id="quiz-total-counter">35</span> soal terjawab sebelum menekan tombol kirim.
+                    </span>
+                    <button type="submit" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-extrabold px-8 py-3.5 rounded-xl transition shadow-lg shadow-green-200/50 cursor-pointer">
+                        Selesaikan & Kirim Nilai
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- ================= VIEW 3: SCORE RESULT ================= -->
+        <section id="view-result" class="view-section hidden">
+            <div class="glass-card rounded-3xl p-8 max-w-xl mx-auto shadow-2xl text-center border border-white">
+                <div id="result-icon-container" class="mx-auto w-24 h-24 rounded-full flex items-center justify-center text-4xl shadow-lg mb-6">
+                    <!-- Diisi Dinamis (Benar/Salah) -->
+                </div>
+
+                <h2 id="result-title" class="text-3xl font-extrabold text-slate-800">Hebat! Kamu Lulus</h2>
+                <p id="result-subtitle" class="text-slate-500 mt-2 text-sm">Hasil penilaian instan evaluasi latihanmu</p>
+
+                <!-- Nilai Display -->
+                <div class="my-8 bg-slate-50 border border-slate-100 rounded-2xl p-6 inline-block min-w-[200px] shadow-inner">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">Skor Diperoleh</span>
+                    <span id="result-score" class="text-6xl font-black text-slate-800">85</span>
+                    <span class="text-sm text-slate-500 font-semibold block mt-1">Passing Grade: 80</span>
+                </div>
+
+                <!-- Detil Hasil -->
+                <div class="space-y-2 max-w-xs mx-auto text-left border-y border-slate-100 py-4 my-4 text-sm text-slate-600">
+                    <div class="flex justify-between"><span>Nama:</span> <strong id="res-nama" class="text-slate-800"></strong></div>
+                    <div class="flex justify-between"><span>NISN:</span> <strong id="res-nisn" class="text-slate-800"></strong></div>
+                    <div class="flex justify-between"><span>Mata Pelajaran:</span> <strong id="res-mapel" class="text-slate-800"></strong></div>
+                    <div class="flex justify-between"><span>Materi Bab:</span> <strong id="res-bab" class="text-slate-800"></strong></div>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+                    <button id="btn-retry" onclick="retryExam()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3.5 rounded-xl transition shadow-lg shadow-blue-200 flex-1 cursor-pointer">
+                        <i class="fa-solid fa-rotate-left mr-2"></i> Ulangi Ujian
+                    </button>
+                    <button onclick="goHome()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 font-bold px-6 py-3.5 rounded-xl transition flex-1 cursor-pointer">
+                        <i class="fa-solid fa-house mr-2"></i> Beranda
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 4: PARENT MONITOR ================= -->
+        <section id="parent-monitor" class="view-section hidden">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="bg-green-100 text-green-700 p-3 rounded-2xl">
+                        <i class="fa-solid fa-users-viewfinder text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-800">Ruang Pantau Orang Tua</h2>
+                        <p class="text-slate-500 text-sm">Lihat perkembangan kemampuan akademik putra-putri Anda berdasarkan NISN.</p>
+                    </div>
+                </div>
+
+                <form onsubmit="searchParentScores(event)" class="mt-6 flex flex-col sm:flex-row gap-3">
+                    <div class="relative flex-1">
+                        <i class="fa-solid fa-id-card absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="number" id="parent-search-nisn" required placeholder="Masukkan 10 Digit NISN Anak" class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500 bg-white transition">
+                    </div>
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3.5 rounded-xl transition shadow-lg shadow-green-100 flex items-center justify-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-magnifying-glass"></i> Cari Riwayat Nilai
+                    </button>
+                </form>
+
+                <!-- Search Results Area -->
+                <div id="parent-results" class="mt-8 hidden border-t border-slate-100 pt-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-slate-800 text-lg">Hasil Pencarian Untuk: <span id="parent-student-name" class="text-green-600"></span></h3>
+                        <span class="text-xs bg-slate-100 text-slate-600 font-bold px-3 py-1 rounded-md border border-slate-200" id="parent-student-nisn"></span>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                        <table class="w-full text-left border-collapse bg-white">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-500 text-xs font-bold uppercase border-b border-slate-200">
+                                    <th class="p-4">Tanggal & Waktu</th>
+                                    <th class="p-4">Mapel</th>
+                                    <th class="p-4">Bab Materi</th>
+                                    <th class="p-4 text-center">Skor</th>
+                                    <th class="p-4 text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="parent-table-body" class="text-sm divide-y divide-slate-100 text-slate-600">
+                                <!-- Dinamis diisi JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="parent-empty-state" class="mt-8 text-center py-12 bg-slate-50/50 rounded-2xl border border-dashed border-slate-200 hidden">
+                    <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
+                        <i class="fa-solid fa-folder-open text-2xl"></i>
+                    </div>
+                    <p class="font-bold text-slate-700">Data Tidak Ditemukan</p>
+                    <p class="text-sm text-slate-400 mt-1 max-w-sm mx-auto">NISN ini belum melakukan latihan ulangan sama sekali atau data belum tercatat di sistem.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 5: DEV & CONFIGURATION GUIDE ================= -->
+        <section id="dev-guide" class="view-section hidden">
+            <div class="bg-slate-900 text-slate-100 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+                <div class="absolute right-0 top-0 opacity-10 translate-x-12 -translate-y-12">
+                    <i class="fa-solid fa-network-wired text-[200px]"></i>
+                </div>
+
+                <div class="flex items-center gap-3 mb-6 relative">
+                    <div class="bg-blue-500/20 text-blue-400 p-3 rounded-2xl">
+                        <i class="fa-solid fa-gears text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">Hubungkan ke Google Sheets Anda</h2>
+                        <p class="text-slate-400 text-sm">Ikuti langkah-langkah di bawah untuk menghubungkan sistem ini ke server Anda.</p>
+                    </div>
+                </div>
+
+                <!-- Config Form -->
+                <div class="bg-slate-800 rounded-2xl p-4 sm:p-6 mb-8 border border-slate-700 relative">
+                    <h3 class="font-bold text-white mb-2 flex items-center gap-2 text-sm uppercase tracking-wider text-blue-400">Masukkan Web App URL</h3>
+                    <p class="text-xs text-slate-400 mb-4">Paste tautan Web App URL dari deployment Google Apps Script Anda ke sini:</p>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="url" id="app-script-url-input" placeholder="https://script.google.com/macros/s/AKfycbyHOhGg4HfVGvOJEZwbPxduQ0K_IgonTWZW-o3Gb-Zd0WmtuYh5YXn1KWZvNZRs6T_F/exec" class="flex-1 px-4 py-3 bg-slate-950 text-slate-100 border border-slate-700 rounded-xl focus:outline-none focus:border-blue-500 text-sm transition">
+                        <button onclick="saveConfig()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition text-sm cursor-pointer">Simpan URL</button>
+                    </div>
+                    <p id="save-status-msg" class="text-xs text-green-400 mt-2 font-semibold hidden"><i class="fa-solid fa-circle-check"></i> URL Berhasil Disimpan & Sinkronisasi Aktif!</p>
+                </div>
+
+                <!-- Tutorial Steps -->
+                <div class="space-y-6">
+                    <h3 class="font-bold text-white text-lg border-b border-slate-800 pb-2">Panduan Integrasi Guru:</h3>
+                    
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-blue-500 text-slate-900 font-bold flex items-center justify-center shrink-0">1</div>
+                        <div>
+                            <h4 class="font-bold text-white">Buat Spreadsheet Baru</h4>
+                            <p class="text-sm text-slate-400 mt-1">Buat spreadsheet di Google Drive Anda bernama <code class="bg-slate-950 px-1.5 py-0.5 rounded text-blue-400 font-mono text-xs">pabrik-soal</code>.</p>
+                            <div class="mt-3 space-y-2 text-xs">
+                                <p class="text-slate-300">Buatlah 2 sheet dengan nama persis:</p>
+                                <ul class="list-disc pl-5 text-slate-400 space-y-1">
+                                    <li><code class="text-indigo-400 font-bold font-mono">DataSoal</code> : Untuk bank soal Anda.</li>
+                                    <li><code class="text-indigo-400 font-bold font-mono">Skor</code> : Untuk menyimpan riwayat nilai siswa.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-blue-500 text-slate-900 font-bold flex items-center justify-center shrink-0">2</div>
+                        <div class="w-full">
+                            <h4 class="font-bold text-white">Struktur Kolom Sheet</h4>
+                            <p class="text-sm text-slate-400 mt-1">Buat judul kolom berikut tepat pada baris ke-1 di masing-masing sheet:</p>
+                            <div class="grid sm:grid-cols-2 gap-4 mt-3">
+                                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                                    <p class="text-xs font-bold text-blue-400">Sheet: DataSoal</p>
+                                    <p class="text-[11px] text-slate-400 font-mono mt-1 break-all">mapel, kelas, bab, soal, gambar, opsi_a, opsi_b, opsi_c, opsi_d, jawaban</p>
+                                    <span class="text-[10px] text-slate-500 block mt-1 italic">*Kolom gambar opsional (bisa diisi URL gambar atau kosongkan)</span>
+                                </div>
+                                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                                    <p class="text-xs font-bold text-green-400">Sheet: Skor</p>
+                                    <p class="text-[11px] text-slate-400 font-mono mt-1 break-all">tanggal, nama, nisn, kelas, mapel, bab, skor, status</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-blue-500 text-slate-900 font-bold flex items-center justify-center shrink-0">3</div>
+                        <div class="w-full">
+                            <h4 class="font-bold text-white">Pasang Apps Script</h4>
+                            <p class="text-sm text-slate-400 mt-1">Di Spreadsheet Anda, klik menu <b>Ekstensi</b> > <b>Apps Script</b>. Hapus semua kode bawaan lalu paste kode di bawah ini:</p>
+                            
+                            <div class="mt-3 relative">
+                                <pre class="bg-slate-950 p-4 rounded-xl text-xs text-blue-300 font-mono overflow-x-auto max-h-60 border border-slate-800" id="code-snippet">
+function doGet(e) {
+  var action = e.parameter.action;
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheetSoal = ss.getSheetByName("DataSoal");
+  var sheetSkor = ss.getSheetByName("Skor");
+  
+  if (action == "getMetadata") {
+    var data = sheetSoal.getDataRange().getValues();
+    var header = data[0];
+    var listKelas = [];
+    var listMapel = [];
+    var listBab = [];
+    
+    var idxKelas = header.indexOf("kelas");
+    var idxMapel = header.indexOf("mapel");
+    var idxBab = header.indexOf("bab");
+    
+    for (var i = 1; i < data.length; i++) {
+      var k = data[i][idxKelas];
+      var m = data[i][idxMapel];
+      var b = data[i][idxBab];
+      if (k && listKelas.indexOf(k) === -1) listKelas.push(k);
+      if (m && listMapel.indexOf(m) === -1) listMapel.push(m);
+      if (b && listBab.indexOf(b) === -1) listBab.push(b);
+    }
+    
+    // Kirim opsi-opsi unik
+    var result = {
+      kelas: listKelas,
+      mapel: listMapel,
+      bab: listBab,
+      relations: getRelations(data, idxKelas, idxMapel, idxBab)
+    };
+    
+    return ContentService.createTextOutput(JSON.stringify({status: "success", data: result}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  
+  if (action == "getQuestions") {
+    var filterKelas = e.parameter.kelas;
+    var filterBab = e.parameter.bab;
+    var filterMapel = e.parameter.mapel;
+    
+    var data = sheetSoal.getDataRange().getValues();
+    var header = data[0];
+    
+    var idxMapel = header.indexOf("mapel");
+    var idxKelas = header.indexOf("kelas");
+    var idxBab = header.indexOf("bab");
+    var idxSoal = header.indexOf("soal");
+    var idxGambar = header.indexOf("gambar");
+    var idxA = header.indexOf("opsi_a");
+    var idxB = header.indexOf("opsi_b");
+    var idxC = header.indexOf("opsi_c");
+    var idxD = header.indexOf("opsi_d");
+    var idxJawaban = header.indexOf("jawaban");
+    
+    var filtered = [];
+    for (var i = 1; i < data.length; i++) {
+      var r = data[i];
+      if (String(r[idxKelas]).trim() === String(filterKelas).trim() && 
+          String(r[idxBab]).trim() === String(filterBab).trim()) {
+        filtered.push({
+          id: i, // Nomor unik baris sebagai ID
+          mapel: r[idxMapel],
+          kelas: r[idxKelas],
+          bab: r[idxBab],
+          soal: r[idxSoal],
+          gambar: r[idxGambar] || "",
+          opsi_a: r[idxA],
+          opsi_b: r[idxB],
+          opsi_c: r[idxC],
+          opsi_d: r[idxD],
+          jawaban: r[idxJawaban]
+        });
       }
-      const soalAktif = semuaSoal[indexSekarang];
-      document.getElementById("infoMateri").innerText = `${dataSiswa.mapel} / Kelas ${dataSiswa.kelas}`;
-      document.getElementById("infoProgress").innerText = `Soal ${indexSekarang + 1} dari ${semuaSoal.length}`;
-      document.getElementById("progressBar").style.width = ((indexSekarang) / semuaSoal.length) * 100 + "%";
-      document.getElementById("teksSoal").innerText = `${indexSekarang + 1}. ${soalAktif.soal}`;
-      
-      const kontainerImg = document.getElementById("kontainerGambar");
-      const img = document.getElementById("imgSoal");
-      if(soalAktif.gambar) {
-        img.src = soalAktif.gambar;
-        kontainerImg.className = "mt-4 flex justify-start";
-      } else { kontainerImg.className = "hidden"; }
-
-      document.getElementById("teksA").innerText = soalAktif.opsi_a;
-      document.getElementById("teksB").innerText = soalAktif.opsi_b;
-      document.getElementById("teksC").innerText = soalAktif.opsi_c;
-      document.getElementById("teksD").innerText = soalAktif.opsi_d;
     }
-
-    function pilihJawaban(jawabanTerpilih) {
-      const kunci = semuaSoal[indexSekarang].kunci.toString().toUpperCase().trim();
-      if(jawabanTerpilih === kunci) { jumlahBenar++; }
-      indexSekarang++; tampilkanSoal();
-    }
-
-    function selClassUjian() {
-      document.getElementById("progressBar").style.width = "100%";
-      document.getElementById("pageSoal").classList.add("hidden");
-      document.getElementById("pageHasil").classList.remove("hidden");
-      
-      let nilaiAkhir = Math.round((jumlahBenar / semuaSoal.length) * 100);
-      document.getElementById("txtNilai").innerText = nilaiAkhir;
-      document.getElementById("resNama").innerText = dataSiswa.nama;
-      document.getElementById("resMapel").innerText = dataSiswa.mapel;
-      
-      const pesanHtml = document.getElementById("pesanHasil");
-      const btnUlang = document.getElementById("btnUlangi");
-      const msgSelesai = document.getElementById("msgSelesai");
-      
-      if(nilaiAkhir >= 80) {
-        pesanHtml.innerText = "Selamat! Anda berhasil mencapai nilai batas kelulusan.";
-        pesanHtml.className = "text-sm font-semibold text-emerald-600";
-        btnUlang.classList.add("hidden"); msgSelesai.classList.remove("hidden");
-      } else {
-        pesanHtml.innerText = "Nilai Anda belum mencapai batas minimal ketuntasan (80).";
-        pesanHtml.className = "text-sm font-semibold text-amber-600";
-        btnUlang.classList.remove("hidden");
-        btnUlang.innerText = "Nilai Belum Mencapai KKM (80) - Ulangi Ujian";
-        btnUlang.disabled = false;
-        msgSelesai.classList.add("hidden");
+    
+    return ContentService.createTextOutput(JSON.stringify({status: "success", data: filtered}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  
+  if (action == "getScores") {
+    var nisn = e.parameter.nisn;
+    var data = sheetSkor.getDataRange().getValues();
+    var header = data[0];
+    var filtered = [];
+    
+    var idxTime = header.indexOf("tanggal");
+    var idxNama = header.indexOf("nama");
+    var idxNisn = header.indexOf("nisn");
+    var idxKelas = header.indexOf("kelas");
+    var idxMapel = header.indexOf("mapel");
+    var idxBab = header.indexOf("bab");
+    var idxSkor = header.indexOf("skor");
+    var idxStatus = header.indexOf("status");
+    
+    for (var i = 1; i < data.length; i++) {
+      var r = data[i];
+      if (String(r[idxNisn]).trim() === String(nisn).trim()) {
+        filtered.push({
+          timestamp: Utilities.formatDate(new Date(r[idxTime]), "GMT+7", "dd/MM/yyyy HH:mm"),
+          nama: r[idxNama],
+          nisn: r[idxNisn],
+          kelas: r[idxKelas],
+          mapel: r[idxMapel],
+          bab: r[idxBab],
+          skor: r[idxSkor],
+          status: r[idxStatus] || (r[idxSkor] >= 80 ? "Lulus" : "Remedial")
+        });
       }
-      google.script.run.simpanNilai(dataSiswa.nama, dataSiswa.nisn, dataSiswa.kelas, dataSiswa.mapel, nilaiAkhir);
     }
+    
+    return ContentService.createTextOutput(JSON.stringify({status: "success", data: filtered}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
 
-    function ulangiUjian() {
-      const btnUlang = document.getElementById("btnUlangi");
-      btnUlang.innerText = "Memperbarui Soal..."; btnUlang.disabled = true;
-      muatSoalDariBackend();
+function doPost(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheetSkor = ss.getSheetByName("Skor");
+  var postData = JSON.parse(e.postData.contents);
+  
+  if (postData.action == "submitScore") {
+    sheetSkor.appendRow([
+      new Date(),
+      postData.nama,
+      postData.nisn,
+      postData.kelas,
+      postData.mapel,
+      postData.bab,
+      postData.skor,
+      postData.status
+    ]);
+    return ContentService.createTextOutput(JSON.stringify({status: "success"}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function getRelations(data, idxKelas, idxMapel, idxBab) {
+  var rel = {};
+  for (var i = 1; i < data.length; i++) {
+    var k = data[i][idxKelas];
+    var m = data[i][idxMapel];
+    var b = data[i][idxBab];
+    if (k && m && b) {
+      if (!rel[k]) rel[k] = {};
+      if (!rel[k][m]) rel[k][m] = [];
+      if (rel[k][m].indexOf(b) === -1) rel[k][m].push(b);
     }
-  </script>
+  }
+  return rel;
+}</pre>
+                                <button onclick="copyCode()" class="absolute right-4 top-4 bg-slate-800 hover:bg-slate-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition flex items-center gap-1">
+                                    <i class="fa-solid fa-copy"></i> Salin Kode
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-blue-500 text-slate-900 font-bold flex items-center justify-center shrink-0 font-bold">4</div>
+                        <div>
+                            <h4 class="font-bold text-white">Deploy sebagai Aplikasi Web</h4>
+                            <p class="text-sm text-slate-400 mt-1">Di pojok kanan atas editor Apps Script, klik tombol <b>Terapkan (Deploy)</b> > <b>Penerapan baru</b>.</p>
+                            <ul class="list-disc pl-5 mt-2 text-xs text-slate-400 space-y-1">
+                                <li>Pilih jenis: <b>Aplikasi web</b></li>
+                                <li>Jalankan sebagai: <b>Saya (Email anda)</b></li>
+                                <li>Yang memiliki akses: <b>Siapa saja (Anyone)</b></li>
+                                <li>Klik <b>Terapkan</b>, lalu salin URL Aplikasi Web yang diberikan dan simpan di form atas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- UI Logic & Mock Data -->
+    <script>
+        // --- KONFIGURASI BACKEND ---
+        let SCRIPT_URL = localStorage.getItem('SPREADSHEET_WEBAPP_URL') || '';
+        let isDemoMode = !SCRIPT_URL;
+
+        // --- DATABASE CONTOH (Untuk Mode Demo / Fallback) ---
+        const dummyRelations = {
+            "Kelas 7": {
+                "Matematika": ["Bab 1 - Aljabar", "Bab 2 - Himpunan"],
+                "Sains IPA": ["Bab 1 - Sel Tumbuhan", "Bab 2 - Klasifikasi Makhluk Hidup"]
+            },
+            "Kelas 8": {
+                "Bahasa Inggris": ["Bab 1 - Narrative Text", "Bab 2 - Simple Past Tense"]
+            }
+        };
+
+        const dummyQuestions = [
+            // MTK - Aljabar - Kelas 7
+            { id: 1, kelas: "Kelas 7", mapel: "Matematika", bab: "Bab 1 - Aljabar", soal: "Berapakah nilai x dari persamaan sederhana 2x - 4 = 10?", gambar: "", opsi_a: "5", opsi_b: "6", opsi_c: "7", opsi_d: "8", jawaban: "opsi_c" },
+            { id: 2, kelas: "Kelas 7", mapel: "Matematika", bab: "Bab 1 - Aljabar", soal: "Sederhanakan bentuk aljabar berikut: 3a + 5b - a + 2b", gambar: "", opsi_a: "2a + 7b", opsi_b: "4a + 7b", opsi_c: "2a + 3b", opsi_d: "4a + 3b", jawaban: "opsi_a" },
+            { id: 3, kelas: "Kelas 7", mapel: "Matematika", bab: "Bab 1 - Aljabar", soal: "Jika a = 3 dan b = 2, berapakah hasil dari 2a^2 + 3b?", gambar: "", opsi_a: "24", opsi_b: "18", opsi_c: "12", opsi_d: "30", jawaban: "opsi_a" }
+        ];
+        
+        // Buat soal tambahan agar total simulasi mencukupi untuk testing
+        for (let i = 4; i <= 40; i++) {
+            dummyQuestions.push({
+                id: i,
+                kelas: "Kelas 7",
+                mapel: "Matematika",
+                bab: "Bab 1 - Aljabar",
+                soal: "Contoh Soal Simulasi Aljabar Nomor " + i + ": Manakah opsi yang benar jika disesuaikan dengan instruksi?",
+                gambar: "",
+                opsi_a: "Opsi Jawaban A (Benar)",
+                opsi_b: "Opsi Jawaban B",
+                opsi_c: "Opsi Jawaban C",
+                opsi_d: "Opsi Jawaban D",
+                jawaban: "opsi_a"
+            });
+        }
+
+        const dummyScores = [
+            { timestamp: "21/06/2026 09:12", nama: "Budi Santoso", nisn: "009823121", kelas: "Kelas 7", mapel: "Matematika", bab: "Bab 1 - Aljabar", skor: 85, status: "Lulus" },
+            { timestamp: "21/06/2026 10:45", nama: "Budi Santoso", nisn: "009823121", kelas: "Kelas 7", mapel: "Matematika", bab: "Bab 1 - Aljabar", skor: 68, status: "Remedial" }
+        ];
+
+        // --- PROGRAM STATE & VARIABLES ---
+        let selectedQuestions = [];
+        let timerInterval = null;
+        let timeRemaining = 60 * 60; // 60 menit dalam detik
+        let userProfile = { nama: '', nisn: '', kelas: '', mapel: '', bab: '' };
+
+        // --- LIFECYCLE ---
+        window.addEventListener('DOMContentLoaded', () => {
+            updateDemoBadge();
+            loadMetadata();
+        });
+
+        function updateDemoBadge() {
+            const badge = document.getElementById('demo-badge');
+            if (isDemoMode) {
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function scrollToLogin() {
+            document.getElementById('login-card').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- ACTIONS & API CONNECTION ---
+        function saveConfig() {
+            const val = document.getElementById('app-script-url-input').value.trim();
+            if (val) {
+                localStorage.setItem('SPREADSHEET_WEBAPP_URL', val);
+                SCRIPT_URL = val;
+                isDemoMode = false;
+                updateDemoBadge();
+                
+                const successMsg = document.getElementById('save-status-msg');
+                successMsg.classList.remove('hidden');
+                setTimeout(() => successMsg.classList.add('hidden'), 5000);
+                
+                loadMetadata(); // Ambil metadata baru dari live spreadsheet
+            }
+        }
+
+        // Ambil Data Dropdown (Metadata)
+        function loadMetadata() {
+            const selectKelas = document.getElementById('select-kelas');
+            const selectMapel = document.getElementById('select-mapel');
+            
+            selectKelas.innerHTML = '<option value="" disabled selected>Pilih kelas...</option>';
+            selectMapel.innerHTML = '<option value="" disabled selected>Pilih pelajaran...</option>';
+
+            if (isDemoMode) {
+                // Gunakan dummyRelations
+                Object.keys(dummyRelations).forEach(kelas => {
+                    selectKelas.innerHTML += `<option value="${kelas}">${kelas}</option>`;
+                });
+                
+                // Kumpulkan mapel unik
+                let mapels = new Set();
+                Object.keys(dummyRelations).forEach(kelas => {
+                    Object.keys(dummyRelations[kelas]).forEach(mapel => mapels.add(mapel));
+                });
+                mapels.forEach(mapel => {
+                    selectMapel.innerHTML += `<option value="${mapel}">${mapel}</option>`;
+                });
+            } else {
+                // Fetch dari google sheets
+                fetch(`${SCRIPT_URL}?action=getMetadata`)
+                    .then(res => res.json())
+                    .then(response => {
+                        if(response.status === "success") {
+                            const data = response.data;
+                            window.sheetsMetadataRelations = data.relations;
+                            
+                            data.kelas.forEach(kelas => {
+                                selectKelas.innerHTML += `<option value="${kelas}">${kelas}</option>`;
+                            });
+                            data.mapel.forEach(mapel => {
+                                selectMapel.innerHTML += `<option value="${mapel}">${mapel}</option>`;
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Gagal memuat metadata live. Menggunakan fallback demo.", err);
+                    });
+            }
+        }
+
+        // Filter Opsi Bab Berdasarkan Kelas & Mapel yang dipilih
+        function filterBabOptions() {
+            const selectKelas = document.getElementById('select-kelas').value;
+            const selectMapel = document.getElementById('select-mapel').value;
+            const selectBab = document.getElementById('select-bab');
+            
+            selectBab.innerHTML = '<option value="" disabled selected>Pilih bab materi...</option>';
+
+            if (!selectKelas || !selectMapel) return;
+
+            if (isDemoMode) {
+                if (dummyRelations[selectKelas] && dummyRelations[selectKelas][selectMapel]) {
+                    dummyRelations[selectKelas][selectMapel].forEach(bab => {
+                        selectBab.innerHTML += `<option value="${bab}">${bab}</option>`;
+                    });
+                } else {
+                    selectBab.innerHTML = '<option value="" disabled>Materi bab belum tersedia</option>';
+                }
+            } else {
+                const relations = window.sheetsMetadataRelations;
+                if (relations && relations[selectKelas] && relations[selectKelas][selectMapel]) {
+                    relations[selectKelas][selectMapel].forEach(bab => {
+                        selectBab.innerHTML += `<option value="${bab}">${bab}</option>`;
+                    });
+                } else {
+                    selectBab.innerHTML = '<option value="" disabled>Materi bab belum tersedia</option>';
+                }
+            }
+        }
+
+        // Navigasi Tampilan
+        function switchView(viewId) {
+            document.querySelectorAll('.view-section').forEach(view => {
+                view.classList.add('hidden');
+            });
+            document.getElementById(viewId).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goHome() {
+            clearInterval(timerInterval);
+            switchView('view-home');
+        }
+
+        // --- LOGIKA UJIAN ---
+        function startExam(event) {
+            event.preventDefault();
+            userProfile.nama = document.getElementById('input-nama').value.trim();
+            userProfile.nisn = document.getElementById('input-nisn').value.trim();
+            userProfile.kelas = document.getElementById('select-kelas').value;
+            userProfile.mapel = document.getElementById('select-mapel').value;
+            userProfile.bab = document.getElementById('select-bab').value;
+
+            // Set Header Info
+            document.getElementById('quiz-student-info').innerHTML = `${userProfile.nama} <span class="text-sm text-slate-500 font-normal">(NISN: ${userProfile.nisn})</span>`;
+            document.getElementById('quiz-badge-kelas').innerText = userProfile.kelas;
+            document.getElementById('quiz-badge-mapel').innerText = userProfile.mapel;
+            document.getElementById('quiz-badge-bab').innerText = userProfile.bab;
+
+            // Ambil dan olah soal
+            getAndProcessQuestions();
+        }
+
+        function getAndProcessQuestions() {
+            if (isDemoMode) {
+                // Filter dummy questions
+                let filtered = dummyQuestions.filter(q => q.kelas === userProfile.kelas && q.bab === userProfile.bab);
+                setupQuizQuestions(filtered);
+            } else {
+                // Loading State
+                const container = document.getElementById('quiz-questions-container');
+                container.innerHTML = `
+                    <div class="text-center py-16 bg-white rounded-3xl border border-slate-200 shadow-xs">
+                        <i class="fa-solid fa-spinner text-4xl text-blue-500 animate-spin"></i>
+                        <p class="font-bold text-slate-700 mt-4">Mengunduh Bank Soal...</p>
+                        <p class="text-xs text-slate-400 mt-1">Sistem sedang merakit soal khusus untuk kelas dan bab Anda.</p>
+                    </div>
+                `;
+                switchView('view-quiz');
+
+                fetch(`${SCRIPT_URL}?action=getQuestions&kelas=${encodeURIComponent(userProfile.kelas)}&bab=${encodeURIComponent(userProfile.bab)}`)
+                    .then(res => res.json())
+                    .then(response => {
+                        if(response.status === "success") {
+                            setupQuizQuestions(response.data);
+                        } else {
+                            alert("Gagal merakit soal dari database utama.");
+                            goHome();
+                        }
+                    })
+                    .catch(err => {
+                        alert("Koneksi gagal. Silakan periksa kembali URL Aplikasi Web atau gunakan Mode Demo.");
+                        goHome();
+                    });
+            }
+        }
+
+        // Tata Letak Soal & Pengacakan (35 Soal)
+        function setupQuizQuestions(questionsList) {
+            if (questionsList.length === 0) {
+                alert("Bank soal untuk materi bab dan kelas ini belum tersedia.");
+                goHome();
+                return;
+            }
+
+            // Acak Soal (Algoritma Fisher-Yates)
+            let shuffled = [...questionsList];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+
+            // Batasi persis maksimal 35 soal
+            selectedQuestions = shuffled.slice(0, 35);
+            document.getElementById('quiz-total-counter').innerText = selectedQuestions.length;
+
+            renderQuestions();
+            switchView('view-quiz');
+            startTimer();
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('quiz-questions-container');
+            container.innerHTML = "";
+
+            selectedQuestions.forEach((q, index) => {
+                let imgHtml = "";
+                if (q.gambar && q.gambar.trim() !== "") {
+                    imgHtml = `
+                        <div class="my-4 max-h-60 rounded-xl overflow-hidden border border-slate-200">
+                            <img src="${q.gambar}" alt="Gambar Soal ${index + 1}" class="max-w-full max-h-60 object-contain mx-auto">
+                        </div>
+                    `;
+                }
+
+                container.innerHTML += `
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                        <div class="flex items-start gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 font-extrabold flex items-center justify-center shrink-0 text-sm">
+                                ${index + 1}
+                            </span>
+                            <div class="flex-1">
+                                <p class="text-slate-800 font-bold leading-relaxed text-base">${q.soal}</p>
+                                ${imgHtml}
+                                
+                                <div class="mt-6 space-y-3">
+                                    <label class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50/20 cursor-pointer transition text-sm text-slate-700">
+                                        <input type="radio" name="question_${q.id}" value="opsi_a" required class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300">
+                                        <span class="font-semibold text-slate-400">A.</span> ${q.opsi_a}
+                                    </label>
+                                    <label class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50/20 cursor-pointer transition text-sm text-slate-700">
+                                        <input type="radio" name="question_${q.id}" value="opsi_b" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300">
+                                        <span class="font-semibold text-slate-400">B.</span> ${q.opsi_b}
+                                    </label>
+                                    <label class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50/20 cursor-pointer transition text-sm text-slate-700">
+                                        <input type="radio" name="question_${q.id}" value="opsi_c" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300">
+                                        <span class="font-semibold text-slate-400">C.</span> ${q.opsi_c}
+                                    </label>
+                                    <label class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50/20 cursor-pointer transition text-sm text-slate-700">
+                                        <input type="radio" name="question_${q.id}" value="opsi_d" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300">
+                                        <span class="font-semibold text-slate-400">D.</span> ${q.opsi_d}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Timer Logic
+        function startTimer() {
+            clearInterval(timerInterval);
+            timeRemaining = 60 * 60; // Reset ke 60 menit
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    alert("Waktu ujian telah habis!");
+                    submitExam(new Event('submit'));
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            document.getElementById('quiz-timer').innerHTML = `
+                <i class="fa-regular fa-clock"></i> ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}
+            `;
+        }
+
+        // Keluar & Batal
+        function confirmExit() {
+            if (confirm("Apakah Anda yakin ingin membatalkan ulangan ini? Semua progres jawaban akan hilang.")) {
+                goHome();
+            }
+        }
+
+        // --- SUBMIT JAWABAN & PENILAIAN ---
+        function submitExam(event) {
+            if (event) event.preventDefault();
+            clearInterval(timerInterval);
+
+            let totalCorrect = 0;
+            selectedQuestions.forEach(q => {
+                const checkedOption = document.querySelector(`input[name="question_${q.id}"]:checked`);
+                const answerValue = checkedOption ? checkedOption.value : "";
+                
+                if (answerValue === q.jawaban) {
+                    totalCorrect++;
+                }
+            });
+
+            // Kalkulasi Skor Bulat
+            const rawScore = (totalCorrect / selectedQuestions.length) * 100;
+            const finalScore = Math.round(rawScore);
+
+            // Tampilkan Halaman Skor
+            showResultPage(finalScore);
+
+            // Kirim ke Database (Google Sheets)
+            saveScoreToDatabase(finalScore);
+        }
+
+        function showResultPage(score) {
+            document.getElementById('result-score').innerText = score;
+            document.getElementById('res-nama').innerText = userProfile.nama;
+            document.getElementById('res-nisn').innerText = userProfile.nisn;
+            document.getElementById('res-mapel').innerText = userProfile.mapel;
+            document.getElementById('res-bab').innerText = userProfile.bab;
+
+            const iconContainer = document.getElementById('result-icon-container');
+            const title = document.getElementById('result-title');
+            const retryBtn = document.getElementById('btn-retry');
+
+            if (score >= 80) {
+                // LULUS
+                iconContainer.className = "mx-auto w-24 h-24 rounded-full flex items-center justify-center text-4xl shadow-lg mb-6 bg-green-100 text-green-600";
+                iconContainer.innerHTML = '<i class="fa-solid fa-award"></i>';
+                title.innerText = "Hebat! Kamu Lulus";
+                title.className = "text-3xl font-extrabold text-green-600";
+                retryBtn.classList.add('hidden'); // Sembunyikan tombol ulangi karena sudah lulus
+            } else {
+                // REMEDIAL
+                iconContainer.className = "mx-auto w-24 h-24 rounded-full flex items-center justify-center text-4xl shadow-lg mb-6 bg-red-100 text-red-500";
+                iconContainer.innerHTML = '<i class="fa-solid fa-heart-crack animate-bounce"></i>';
+                title.innerText = "Tetap Semangat, Yuk Coba Lagi!";
+                title.className = "text-3xl font-extrabold text-slate-800";
+                retryBtn.classList.remove('hidden'); // Munculkan tombol ulangi
+            }
+
+            switchView('view-result');
+        }
+
+        function retryExam() {
+            getAndProcessQuestions(); // Re-fetch & acak ulang soal
+        }
+
+        function saveScoreToDatabase(score) {
+            const scoreData = {
+                action: "submitScore",
+                nama: userProfile.nama,
+                nisn: userProfile.nisn,
+                kelas: userProfile.kelas,
+                mapel: userProfile.mapel,
+                bab: userProfile.bab,
+                skor: score,
+                status: score >= 80 ? "Lulus" : "Remedial"
+            };
+
+            if (isDemoMode) {
+                // Simulasikan penulisan data di demo
+                dummyScores.unshift({
+                    timestamp: new Date().toLocaleString('id-ID'),
+                    nama: userProfile.nama,
+                    nisn: userProfile.nisn,
+                    kelas: userProfile.kelas,
+                    mapel: userProfile.mapel,
+                    bab: userProfile.bab,
+                    skor: score,
+                    status: score >= 80 ? "Lulus" : "Remedial"
+                });
+                console.log("Mock saved score: ", scoreData);
+            } else {
+                // Fetch Post ke Apps Script
+                fetch(SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify(scoreData)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        console.log("Skor berhasil disimpan di Google Sheets!");
+                    }
+                })
+                .catch(err => console.error("Koneksi Apps Script Gagal saat menyimpan nilai.", err));
+            }
+        }
+
+        // --- PENCARIAN PENGAMATAN ORANG TUA ---
+        function searchParentScores(event) {
+            event.preventDefault();
+            const searchNisn = document.getElementById('parent-search-nisn').value.trim();
+            const tableBody = document.getElementById('parent-table-body');
+            const resultArea = document.getElementById('parent-results');
+            const emptyState = document.getElementById('parent-empty-state');
+
+            tableBody.innerHTML = "";
+            resultArea.classList.add('hidden');
+            emptyState.classList.add('hidden');
+
+            if (isDemoMode) {
+                let filtered = dummyScores.filter(s => s.nisn === searchNisn);
+                if (filtered.length > 0) {
+                    document.getElementById('parent-student-name').innerText = filtered[0].nama;
+                    document.getElementById('parent-student-nisn').innerText = `NISN: ${filtered[0].nisn}`;
+                    
+                    filtered.forEach(row => {
+                        appendParentScoreRow(row);
+                    });
+                    resultArea.classList.remove('hidden');
+                } else {
+                    emptyState.classList.remove('hidden');
+                }
+            } else {
+                // Loading Spinner State
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="p-8 text-center text-slate-500">
+                            <i class="fa-solid fa-spinner text-2xl text-green-500 animate-spin mr-2"></i> Mencari riwayat data...
+                        </td>
+                    </tr>
+                `;
+                resultArea.classList.remove('hidden');
+
+                fetch(`${SCRIPT_URL}?action=getScores&nisn=${searchNisn}`)
+                    .then(res => res.json())
+                    .then(response => {
+                        tableBody.innerHTML = "";
+                        if (response.status === "success" && response.data.length > 0) {
+                            const data = response.data;
+                            document.getElementById('parent-student-name').innerText = data[0].nama;
+                            document.getElementById('parent-student-nisn').innerText = `NISN: ${data[0].nisn}`;
+                            
+                            data.forEach(row => {
+                                appendParentScoreRow(row);
+                            });
+                        } else {
+                            resultArea.classList.add('hidden');
+                            emptyState.classList.remove('hidden');
+                        }
+                    })
+                    .catch(err => {
+                        tableBody.innerHTML = "";
+                        alert("Gagal terhubung ke database. Coba sesaat lagi.");
+                    });
+            }
+        }
+
+        function appendParentScoreRow(row) {
+            const tableBody = document.getElementById('parent-table-body');
+            const statusVal = row.status || (row.skor >= 80 ? 'Lulus' : 'Remedial');
+            const statusClass = statusVal === 'Lulus' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
+
+            tableBody.innerHTML += `
+                <tr class="hover:bg-slate-50/50 transition">
+                    <td class="p-4 font-semibold text-slate-700">${row.timestamp}</td>
+                    <td class="p-4">${row.mapel} <span class="text-xs text-slate-400 block">${row.kelas}</span></td>
+                    <td class="p-4">${row.bab}</td>
+                    <td class="p-4 text-center font-extrabold text-slate-800 text-base">${row.skor}</td>
+                    <td class="p-4 text-center">
+                        <span class="px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${statusClass}">${statusVal}</span>
+                    </td>
+                </tr>
+            `;
+        }
+
+        // --- SISTEM UTILITY ---
+        function copyCode() {
+            const codeText = document.getElementById('code-snippet').innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                alert("Kode Apps Script berhasil disalin!");
+            });
+        }
+    </script>
 </body>
 </html>
