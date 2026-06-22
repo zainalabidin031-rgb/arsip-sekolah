@@ -324,21 +324,41 @@
         function soalBerikutnya() { if (indeksSekarang < daftarSoal.length - 1) { indeksSekarang++; tampilkanSoal(); } }
 
         function kirimKeSpreadsheet() {
-            const nama = document.getElementById('namaSiswa').value;
-            const totalDijawab = statusJawabanSiswa.filter(j => j !== null).length;
-            const totalBenar = statusJawabanSiswa.filter(j => j && j.benar).length;
-            
-            // Rumus Nilai Fix Dibagi 35 Soal
-            const skorAkhir = Math.round((totalBenar / daftarSoal.length) * 100);
+    const nama = document.getElementById('namaSiswa').value;
+    const totalDijawab = statusJawabanSiswa.filter(j => j !== null).length;
+    const totalBenar = statusJawabanSiswa.filter(j => j && j.benar).length;
+    const skorAkhir = Math.round((totalBenar / daftarSoal.length) * 100);
 
-            if (totalDijawab < daftarSoal.length) {
-                const yakin = confirm(`Peringatan: Kamu baru menjawab ${totalDijawab} dari ${daftarSoal.length} soal. Soal kosong dihitung salah. Tetap kirim nilai?`);
-                if (!yakin) return;
-            }
+    if (totalDijawab < daftarSoal.length) {
+        const yakin = confirm(`Peringatan: Kamu baru menjawab ${totalDijawab} dari ${daftarSoal.length} soal. Tetap kirim nilai?`);
+        if (!yakin) return;
+    }
 
-            alert(`Selesai! Skor Akhir ${nama}: ${skorAkhir}\nBenar: ${totalBenar}\nSalah/Kosong: ${daftarSoal.length - totalBenar}\n\nData Anda otomatis terkirim.`);
-            // Logika pengiriman fetch data ke Google Apps Script ditaruh di bawah sini
+    // --- PASTE URL GOOGLE APPS SCRIPT ANDA DI SINI ---
+    const URL_PENGIRIMAN = "PASTE_URL_APPLIKASI_WEB_ANDA_DI_SINI";
+
+    // Proses pengiriman data ke spreadsheet di latar belakang
+    fetch(URL_PENGIRIMAN, {
+        method: "POST",
+        body: JSON.stringify({
+            nama: nama,
+            skor: skorAkhir,
+            benar: totalBenar
+        })
+    })
+    .then(res => res.json())
+    .then(hasil => {
+        if(hasil.status === "sukses") {
+            alert(`Selesai! Skor Akhir ${nama}: ${skorAkhir}\nData berhasil disimpan ke Spreadsheet Guru!`);
+        } else {
+            alert("Aduh, nilai gagal terkirim ke server. Coba lagi.");
         }
+    })
+    .catch(err => {
+        alert("Terjadi gangguan koneksi saat mengirim nilai.");
+        console.error(err);
+    });
+}
     </script>
 </body>
 </html>
