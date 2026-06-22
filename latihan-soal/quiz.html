@@ -320,38 +320,34 @@
         function soalBerikutnya() { if (indeksSekarang < daftarSoal.length - 1) { indeksSekarang++; tampilkanSoal(); } }
 
         function kirimKeSpreadsheet() {
-            const nama = document.getElementById('namaSiswa').value;
-            const totalDijawab = statusJawabanSiswa.filter(j => j !== null).length;
-            const totalBenar = statusJawabanSiswa.filter(j => j && j.booleanBenar).length;
-            const skorAkhir = Math.round((totalBenar / daftarSoal.length) * 100);
+    const nama = document.getElementById('namaSiswa').value;
+    const totalDijawab = statusJawabanSiswa.filter(j => j !== null).length;
+    const totalBenar = statusJawabanSiswa.filter(j => j && j.booleanBenar).length;
+    const skorAkhir = Math.round((totalBenar / daftarSoal.length) * 100);
 
-            if (totalDijawab < daftarSoal.length) {
-                const yakin = confirm(`Peringatan: Kamu baru menjawab ${totalDijawab} dari ${daftarSoal.length} soal. Tetap kirim nilai?`);
-                if (!yakin) return;
-            }
+    if (totalDijawab < daftarSoal.length) {
+        const yakin = confirm(`Peringatan: Kamu baru menjawab ${totalDijawab} dari ${daftarSoal.length} soal. Tetap kirim nilai?`);
+        if (!yakin) return;
+    }
 
-            // GANTI URL DI BAWAH INI DENGAN URL DEPLOYMENT WEB APP SCRIPT ANDA
-            const URL_PENGIRIMAN = "https://script.google.com/macros/s/AKfycbwb_HqmmAdr1FRy9jR5UzIn2Fagu0DbiwwyLQ9h7e5FgYuIGBoYcGIyI1X-Zom2SG-V/exec";
+    // MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI (Ganti teks di dalam tanda kutip bawah ini)
+    const URL_PENGIRIMAN = "https://script.google.com/macros/s/AKfycbwb_HqmmAdr1FRy9jR5UzIn2Fagu0DbiwwyLQ9h7e5FgYuIGBoYcGIyI1X-Zom2SG-V/exec";
 
-            if (URL_PENGIRIMAN === "https://script.google.com/macros/s/AKfycbwb_HqmmAdr1FRy9jR5UzIn2Fagu0DbiwwyLQ9h7e5FgYuIGBoYcGIyI1X-Zom2SG-V/exec") {
-                alert(`Selesai! Skor Akhir ${nama}: ${skorAkhir}\n\n(Catatan: Nilai belum terkirim ke spreadsheet karena URL Web App Anda belum dimasukkan ke dalam kode).`);
-                return;
-            }
-
-            fetch(URL_PENGIRIMAN, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ nama: nama, skor: skorAkhir, benar: totalBenar })
-            })
-            .then(() => {
-                alert(`Selesai! Skor Akhir ${nama}: ${skorAkhir}\nData berhasil disimpan ke Spreadsheet Guru! 🎉`);
-            })
-            .catch(err => {
-                alert("Terjadi gangguan koneksi saat mengirim nilai.");
-                console.error(err);
-            });
-        }
+    // Proses pengiriman langsung tanpa basa-basi pengaman
+    fetch(URL_PENGIRIMAN, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nama: nama, skor: skorAkhir, benar: totalBenar })
+    })
+    .then(() => {
+        alert(`Selesai! Skor Akhir ${nama}: ${skorAkhir}\nData berhasil disimpan ke Spreadsheet Guru! 🎉`);
+    })
+    .catch(err => {
+        alert("Terjadi gangguan koneksi saat mengirim nilai.");
+        console.error(err);
+    });
+}
     </script>
 </body>
 </html>
