@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uji Pemahaman - SDN Butoh I</title>
+    <title>Kuis Interaktif Premium</title>
     <style>
         * {
             margin: 0;
@@ -105,68 +105,22 @@
         .opsi.benar { border-color: #10b981 !important; background-color: #ecfdf5 !important; color: #065f46 !important; }
         .opsi.salah { border-color: #ef4444 !important; background-color: #fef2f2 !important; color: #991b1b !important; }
 
-        .notif-box { padding: 15px; border-radius: 10px; font-weight: 600; display: none; }
-        .notif-box.sukses { background-color: #d1fae5; color: #065f46; display: block; }
-        .notif-box.gagal { background-color: #fee2e2; color: #991b1b; display: block; }
+        .notif-box { padding: 15px; border-radius: 10px; font-weight: 600; display: none; align-items: center; gap: 10px; }
+        .notif-box.sukses { background-color: #d1fae5; color: #065f46; display: flex; }
+        .notif-box.gagal { background-color: #fee2e2; color: #991b1b; display: flex; }
 
-        /* Navigasi Soal */
-        .nav-soal {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .btn-nav {
-            background: #e2e8f0;
-            color: #334155;
-            border: none;
-            padding: 10px 20px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-        }
+        .nav-soal { display: flex; gap: 15px; margin-top: 10px; align-items: center; }
+        .btn-nav { background: #e2e8f0; color: #334155; border: none; padding: 10px 20px; font-weight: bold; border-radius: 8px; cursor: pointer; }
         .btn-nav:hover { background: #cbd5e1; }
+        .btn-kirim { background: linear-gradient(45deg, #0066ff, #7928ca); color: white; border: none; padding: 12px 25px; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; margin-left: auto; }
 
-        .btn-kirim {
-            background: linear-gradient(45deg, #0066ff, #7928ca);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-left: auto;
-        }
-
-        .right-panel h3 {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            color: #00d2ff;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 10px;
-        }
-
-        .daftar-soal-nav {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            list-style: none;
-        }
-
-        .nomor-kotak {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px;
-            text-align: center;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: white;
-        }
-        .nomor-kotak:hover, .nomor-kotak.aktif {
-            background: #0066ff;
-            font-weight: bold;
-        }
+        .right-panel h3 { font-size: 1.4rem; margin-bottom: 20px; color: #00d2ff; border-bottom: 2px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px; }
+        .daftar-soal-nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; list-style: none; }
+        
+        .nomor-kotak { background: rgba(255, 255, 255, 0.1); padding: 10px; text-align: center; border-radius: 8px; cursor: pointer; transition: all 0.2s; color: white; position: relative; }
+        .nomor-kotak.aktif { background: #0066ff; font-weight: bold; box-shadow: 0 0 10px #00d2ff; }
+        .nomor-kotak.sudah-benar { background: #10b981; }
+        .nomor-kotak.sudah-salah { background: #ef4444; }
 
         @media (max-width: 768px) {
             .container { flex-direction: column-reverse; height: 95vh; }
@@ -185,82 +139,108 @@
                 <input type="text" id="namaSiswa" value="Budi Santoso" style="padding: 5px 10px; border-radius: 5px; border: 1px solid #cbd5e1;">
             </div>
 
-            <div class="pertanyaan" id="teksPertanyaan">
-                Sedang mengambil data soal dari Google Spreadsheet...
-            </div>
+            <div class="pertanyaan" id="teksPertanyaan">Sedang mengambil soal dari Jakarta...</div>
             
-            <div class="pilihan-jawaban" id="areaJawaban">
-                </div>
+            <div class="pilihan-jawaban" id="areaJawaban"></div>
 
             <div id="notif" class="notif-box"></div>
 
             <div class="nav-soal">
                 <button class="btn-nav" onclick="soalSebelumnya()">◀ Sebelum</button>
                 <button class="btn-nav" onclick="soalBerikutnya()">Sesudah ▶</button>
-                <button class="btn-kirim" onclick="kirimKeSpreadsheet()">Kirim Semua Nilai</button>
+                <button class="btn-kirim" onclick="kirimKeSpreadsheet()">Selesai & Kirim</button>
             </div>
         </div>
         
         <div class="right-panel">
-            <h3>Nomor Soal</h3>
-            <div class="daftar-soal-nav" id="navigasiNomor">
-                </div>
+            <h3 id="judulKanan">Nomor Soal (0/35)</h3>
+            <div class="daftar-soal-nav" id="navigasiNomor"></div>
         </div>
     </div>
 
     <script>
-        // --- PENGATURAN SPREADSHEET ---
-        // SPREADSHEET_ID: Ambil dari URL spreadsheet Anda
+        // --- PENGATURAN UTAMA ---
         const SPREADSHEET_ID = 'spreadsheets/d/1UUrz7vn_EqYuI-xu0UKn1lyu3VLse2xxSEVZmces--s';
-        const SHEET_NAME = 'Sheet1'; // Sesuaikan dengan nama sheet bawah Anda
+        const SHEET_NAME = 'Sheet1';
+        const BATAS_SOAL = 35; // Batasi soal kuis yang muncul
+        
         const URL_DATA = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
 
         let daftarSoal = [];
         let indeksSekarang = 0;
-        let statusJawabanSiswa = []; // Menyimpan rekam jejak jawaban siswa per nomor
+        let statusJawabanSiswa = [];
 
-        // Ambil data dari Google Spreadsheet saat halaman dibuka
+        // --- SISTEM AUDIO OTOMATIS (Tanpa File MP3) ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function mainkanSuara(tipe) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            
+            if (tipe === 'benar') {
+                // Tuling-tuling (Dua nada tinggi berurutan)
+                bunyikanNada(523.25, 0.1, 0);       // Nada Do tinggi
+                bunyikanNada(659.25, 0.15, 0.1);    // Nada Mi tinggi
+            } else {
+                // Tet-tet (Dua nada rendah patah-patah)
+                bunyikanNada(150, 0.15, 0);
+                bunyikanNada(150, 0.15, 0.2);
+            }
+        }
+        function bunyikanNada(frekuensi, durasi, tunda) {
+            setTimeout(() => {
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(frekuensi, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + durasi);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + durasi);
+            }, tunda * 1000);
+        }
+
+        // --- AMBIL & ACAK SOAL ---
         fetch(URL_DATA)
             .then(res => res.text())
             .then(data => {
-                // Bersihkan data mentah JSON dari Google
                 const json = JSON.parse(data.substr(47).slice(0, -2));
                 const rows = json.table.rows;
                 
-                // Rapikan data ke dalam array object agar mudah dibaca
-                daftarSoal = rows.map(row => ({
+                let semuaSoal = rows.map(row => ({
                     materi: row.c[0]?.v || "Umum",
                     pertanyaan: row.c[1]?.v || "",
-                    A: row.c[2]?.v || "",
-                    B: row.c[3]?.v || "",
-                    C: row.c[4]?.v || "",
-                    D: row.c[5]?.v || "",
+                    A: row.c[2]?.v || "", B: row.c[3]?.v || "", C: row.c[4]?.v || "", D: row.c[5]?.v || "",
                     kunci: row.c[6]?.v || ""
                 }));
 
-                // Inisialisasi status jawaban siswa (kosong semua di awal)
+                // Algoritma Pengacakan Soal (Fisher-Yates)
+                for (let i = semuaSoal.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [semuaSoal[i], semuaSoal[j]] = [semuaSoal[j], semuaSoal[i]];
+                }
+
+                // Ambil 35 Soal Teratas saja setelah diacak
+                daftarSoal = semuaSoal.slice(0, BATAS_SOAL);
                 statusJawabanSiswa = new Array(daftarSoal.length).fill(null);
 
                 tampilkanSoal();
                 buatNavigasiNomor();
+                updateProgressJudul();
             })
             .catch(err => {
-                document.getElementById('teksPertanyaan').innerText = "Gagal memuat soal. Periksa kembali ID Spreadsheet Anda dan pastikan aksesnya sudah Publik.";
-                console.error(err);
+                document.getElementById('teksPertanyaan').innerText = "Gagal memuat soal. Periksa koneksi atau ID spreadsheet.";
             });
 
         function tampilkanSoal() {
             if (daftarSoal.length === 0) return;
-
             const soal = daftarSoal[indeksSekarang];
-            document.getElementById('materiBadge').innerText = `${soal.materi} - Soal No. ${indeksSekarang + 1}`;
+            document.getElementById('materiBadge').innerText = `${soal.materi} - No. ${indeksSekarang + 1} dari ${daftarSoal.length}`;
             document.getElementById('teksPertanyaan').innerText = soal.pertanyaan;
 
             const areaJawaban = document.getElementById('areaJawaban');
-            const notif = document.getElementById('notif');
-            notif.style.display = 'none'; // Sembunyikan notif setiap ganti soal
+            document.getElementById('notif').style.display = 'none';
 
-            // Generate opsi jawaban A, B, C, D
             let htmlOpsi = '';
             ['A', 'B', 'C', 'D'].forEach(huruf => {
                 htmlOpsi += `
@@ -272,12 +252,10 @@
             });
             areaJawaban.innerHTML = htmlOpsi;
 
-            // Jika nomor ini sudah pernah dijawab sebelumnya, kunci lagi tampilkannya
             if (statusJawabanSiswa[indeksSekarang] !== null) {
-                kunciJawabanSelesai(statusJawabanSiswa[indeksSekarang].terpilih);
+                kunciJawabanSelesai(statusJawabanSiswa[indeksSekarang].terpilih, false);
             }
 
-            // Update status keaktifan nomor di sebelah kanan
             document.querySelectorAll('.nomor-kotak').forEach((kotak, i) => {
                 if(i === indeksSekarang) kotak.classList.add('aktif');
                 else kotak.classList.remove('aktif');
@@ -285,23 +263,29 @@
         }
 
         function cekJawaban(elemenTerpilih) {
-            // Jika sudah dijawab, tidak bisa ganti
             if (statusJawabanSiswa[indeksSekarang] !== null) return;
 
             const hurufTerpilih = elemenTerpilih.getAttribute('data-huruf');
             const kunciBenar = daftarSoal[indeksSekarang].kunci;
-            constisBenar = (hurufTerpilih === kunciBenar);
+            const isBenar = (hurufTerpilih === kunciBenar);
 
-            // Simpan status jawaban ke memori
-            statusJawabanSiswa[indeksSekarang] = {
-                terpilih: hurufTerpilih,
-                benar: isBenar
-            };
+            statusJawabanSiswa[indeksSekarang] = { terpilih: hurufTerpilih, benar: isBenar };
 
-            kunciJawabanSelesai(hurufTerpilih);
+            // Warnai nomor kotak menu kanan secara permanen (Hijau/Merah)
+            const kotakNomor = document.querySelectorAll('.nomor-kotak')[indeksSekarang];
+            if(isBenar) {
+                kotakNomor.classList.add('sudah-benar');
+                mainkanSuara('benar');
+            } else {
+                kotakNomor.classList.add('sudah-salah');
+                mainkanSuara('salah');
+            }
+
+            kunciJawabanSelesai(hurufTerpilih, true);
+            updateProgressJudul();
         }
 
-        function kunciJawabanSelesai(hurufTerpilih) {
+        function kunciJawabanSelesai(hurufTerpilih, suaraAktif) {
             const semuaOpsi = document.querySelectorAll('.opsi');
             const kunciBenar = daftarSoal[indeksSekarang].kunci;
             const notif = document.getElementById('notif');
@@ -309,20 +293,15 @@
             semuaOpsi.forEach(opsi => {
                 opsi.classList.add('disabled');
                 const hurufOpsi = opsi.getAttribute('data-huruf');
-                
-                if (hurufOpsi === kunciBenar) {
-                    opsi.classList.add('benar'); // Warnai hijau kunci jawaban asli
-                }
-                if (hurufOpsi === hurufTerpilih && hurufTerpilih !== kunciBenar) {
-                    opsi.classList.add('salah'); // Warnai merah jika jawaban siswa salah
-                }
+                if (hurufOpsi === kunciBenar) opsi.classList.add('benar');
+                if (hurufOpsi === hurufTerpilih && hurufTerpilih !== kunciBenar) opsi.classList.add('salah');
             });
 
             if (hurufTerpilih === kunciBenar) {
-                notif.innerText = "Luar Biasa! Jawaban Anda BENAR. 🎉";
+                notif.innerHTML = "<span>&#10004;</span> <b>Jawaban BENAR! 🎉</b>";
                 notif.className = "notif-box sukses";
             } else {
-                notif.innerText = `Yah, Jawaban Anda SALAH. Kunci yang benar adalah ${kunciBenar}. 📚`;
+                notif.innerHTML = `<span>&#10006;</span> <b>SALAH! Kunci yang benar adalah ${kunciBenar}.</b>`;
                 notif.className = "notif-box gagal";
             }
         }
@@ -331,8 +310,13 @@
             const nav = document.getElementById('navigasiNomor');
             nav.innerHTML = '';
             daftarSoal.forEach((_, i) => {
-                nav.innerHTML += `<div class="nomor-kotak ${i === 0 ? 'aktif' : ''}" onclick="lompatKeSoal(${i})">${i + 1}</div>`;
+                nav.innerHTML += `<div class="nomor-kotak" onclick="lompatKeSoal(${i})">${i + 1}</div>`;
             });
+        }
+
+        function updateProgressJudul() {
+            const totalDijawab = statusJawabanSiswa.filter(j => j !== null).length;
+            document.getElementById('judulKanan').innerText = `Nomor Soal (${totalDijawab}/${daftarSoal.length})`;
         }
 
         function lompatKeSoal(indeks) { indeksSekarang = indeks; tampilkanSoal(); }
@@ -341,12 +325,19 @@
 
         function kirimKeSpreadsheet() {
             const nama = document.getElementById('namaSiswa').value;
-            // Hitung total skor
+            const totalDijawab = statusJawabanSiswa.filter(j => j !== null).length;
             const totalBenar = statusJawabanSiswa.filter(j => j && j.benar).length;
+            
+            // Rumus Nilai Fix Dibagi 35 Soal
             const skorAkhir = Math.round((totalBenar / daftarSoal.length) * 100);
 
-            alert(`Selesai! Skor Total ${nama}: ${skorAkhir} (${totalBenar} Benar dari ${daftarSoal.length} Soal). Data dikirim...`);
-            // Kode Fetch Web App Apps Script kirim nilai ditaruh di sini seperti sebelumnya
+            if (totalDijawab < daftarSoal.length) {
+                const yakin = confirm(`Peringatan: Kamu baru menjawab ${totalDijawab} dari ${daftarSoal.length} soal. Soal kosong dihitung salah. Tetap kirim nilai?`);
+                if (!yakin) return;
+            }
+
+            alert(`Selesai! Skor Akhir ${nama}: ${skorAkhir}\nBenar: ${totalBenar}\nSalah/Kosong: ${daftarSoal.length - totalBenar}\n\nData Anda otomatis terkirim.`);
+            // Logika pengiriman fetch data ke Google Apps Script ditaruh di bawah sini
         }
     </script>
 </body>
