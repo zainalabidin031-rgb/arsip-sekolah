@@ -96,19 +96,6 @@
             transform: translateY(-1px);
         }
 
-        .btn-secondary {
-            background: #e2e8f0 !important;
-            border: none !important;
-            color: var(--text-dark) !important;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-weight: 700;
-        }
-
-        .btn-secondary:hover {
-            background: #cbd5e1 !important;
-        }
-
         .info-badge-box {
             background: #f0f7ff;
             padding: 15px 20px;
@@ -187,20 +174,11 @@
             <div class="card card-custom p-4 p-md-5">
                 <h4 class="text-center mb-4 fw-800" style="letter-spacing: -0.5px;">Cari Rekam Jejak Rapor</h4>
                 
-                <div class="mb-3">
+                <div class="mb-4">
                     <label class="form-label">Masukkan NISN Siswa</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa-solid fa-fingerprint"></i></span>
                         <input type="text" class="form-control" id="nisnInput" placeholder="Contoh: 0051234567">
-                    </div>
-                </div>
-
-                <!-- DIUBAH: Dari type="date" ke type="text" agar format penulisan bebas -->
-                <div class="mb-4">
-                    <label class="form-label">Masukkan Tanggal Lahir</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa-solid fa-calendar-day"></i></span>
-                        <input type="text" class="form-control" id="tanggalLahirInput" placeholder="Contoh: 17-08-2015 atau 17 Juni 2015">
                     </div>
                 </div>
 
@@ -311,31 +289,22 @@ window.addEventListener("load", async () => {
     }
 });
 
+// Pencarian hanya berdasarkan NISN (Kolom indeks 0)
 document.getElementById("btnCari").addEventListener("click", () => {
     const nisn = document.getElementById("nisnInput").value.trim();
-    
-    // DIUBAH: Disamakan huruf kecil/besar (toLowerCase) agar inputan murid lebih fleksibel terhadap kapital
-    const tglLahir = document.getElementById("tanggalLahirInput").value.trim().toLowerCase();
 
     if (!nisn) {
         alert("Silakan masukkan NISN siswa terlebih dahulu.");
         return;
     }
-    if (!tglLahir) {
-        alert("Silakan isi komponen Tanggal Lahir untuk kebutuhan verifikasi data.");
-        return;
-    }
 
-    // DIUBAH: Pengecekan mencakup toLowerCase() agar pencocokan teks di spreadsheet bersifat "case-insensitive"
-    const hasil = semuaData.filter(row => 
-        String(row[0]).trim() === nisn && 
-        String(row[15]).trim().toLowerCase() === tglLahir
-    );
+    // Filter data hanya berdasarkan kecocokan NISN
+    const hasil = semuaData.filter(row => String(row[0]).trim() === nisn);
 
     if (hasil.length === 0) {
         document.getElementById("pesanStatus").innerHTML =
             `<div class="alert alert-danger d-flex align-items-center" role="alert">
-                <i class="fa-solid fa-triangle-exclamation me-2"></i> Berkas tidak ditemukan. Periksa kembali kecocokan NISN & Tanggal Lahir.
+                <i class="fa-solid fa-triangle-exclamation me-2"></i> Berkas tidak ditemukan. Periksa kembali NISN yang Anda masukkan.
             </div>`;
         document.getElementById("hasilArea").style.display = "none";
         return;
@@ -344,10 +313,12 @@ document.getElementById("btnCari").addEventListener("click", () => {
     document.getElementById("pesanStatus").innerHTML = "";
     document.getElementById("hasilArea").style.display = "block";
 
+    // Mapping profil singkat siswa
     document.getElementById("namaSiswa").textContent = hasil[0][1];
     document.getElementById("nisnSiswa").textContent = hasil[0][0];
     document.getElementById("peringkatSiswa").textContent = "Peringkat " + (hasil[0][2] || "-");
 
+    // Ambil opsi Tahun Ajaran secara unik dari kolom indeks 3
     const tahunSelect = document.getElementById("tahunSelect");
     tahunSelect.innerHTML = '<option value="">Pilih Tahun Ajaran</option>';
 
@@ -358,9 +329,9 @@ document.getElementById("btnCari").addEventListener("click", () => {
     document.getElementById("semesterSelect").innerHTML = '<option value="">Pilih Semester</option>';
 });
 
+// Update pilihan semester berdasarkan Tahun Ajaran yang dipilih
 document.getElementById("tahunSelect").addEventListener("change", () => {
     const nisn = document.getElementById("nisnInput").value.trim();
-    const tglLahir = document.getElementById("tanggalLahirInput").value.trim().toLowerCase();
     const tahun = document.getElementById("tahunSelect").value;
     const semesterSelect = document.getElementById("semesterSelect");
 
@@ -368,24 +339,23 @@ document.getElementById("tahunSelect").addEventListener("change", () => {
 
     const data = semuaData.filter(r =>
         String(r[0]).trim() === nisn &&
-        String(r[15]).trim().toLowerCase() === tglLahir &&
         String(r[3]) === tahun
     );
 
+    // Ambil opsi Semester secara unik dari kolom indeks 4
     [...new Set(data.map(x => x[4]))].forEach(semester => {
         semesterSelect.innerHTML += `<option value="${semester}">${semester}</option>`;
     });
 });
 
+// Tampilkan nilai mata pelajaran ke tabel
 document.getElementById("btnTampil").addEventListener("click", () => {
     const nisn = document.getElementById("nisnInput").value.trim();
-    const tglLahir = document.getElementById("tanggalLahirInput").value.trim().toLowerCase();
     const tahun = document.getElementById("tahunSelect").value;
     const semester = document.getElementById("semesterSelect").value;
 
     const row = semuaData.find(r =>
         String(r[0]).trim() === nisn &&
-        String(r[15]).trim().toLowerCase() === tglLahir &&
         String(r[3]) === tahun &&
         String(r[4]) === semester
     );
@@ -395,6 +365,7 @@ document.getElementById("btnTampil").addEventListener("click", () => {
         return;
     }
 
+    // Pemetaan data nilai berdasarkan kolom indeks ke-5 sampai ke-14
     document.getElementById("pai").textContent = row[5] || "0";
     document.getElementById("pkn").textContent = row[6] || "0";
     document.getElementById("bin").textContent = row[7] || "0";
