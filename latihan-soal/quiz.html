@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uji Pemahaman - SDN Butoh I</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #00d2ff 0%, #0066ff 60%, #7928ca 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            height: 85vh;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .left-panel {
+            flex: 2;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .right-panel {
+            flex: 1;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 30px;
+            overflow-y: auto;
+            color: white;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .materi-badge {
+            align-self: flex-start;
+            background: linear-gradient(45deg, #7928ca, #0066ff);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .pertanyaan {
+            font-size: 1.3rem;
+            color: #1e293b;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .pilihan-jawaban {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .opsi {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+            color: #334155;
+            font-weight: 500;
+        }
+
+        .opsi:hover:not(.disabled) {
+            border-color: #0066ff;
+            background-color: #f0f7ff;
+            color: #0066ff;
+        }
+
+        .opsi input {
+            margin-right: 15px;
+            accent-color: #0066ff;
+            scale: 1.2;
+        }
+
+        .opsi.disabled { cursor: not-allowed; opacity: 0.7; }
+        .opsi.benar { border-color: #10b981 !important; background-color: #ecfdf5 !important; color: #065f46 !important; }
+        .opsi.salah { border-color: #ef4444 !important; background-color: #fef2f2 !important; color: #991b1b !important; }
+
+        .notif-box { padding: 15px; border-radius: 10px; font-weight: 600; display: none; }
+        .notif-box.sukses { background-color: #d1fae5; color: #065f46; display: block; }
+        .notif-box.gagal { background-color: #fee2e2; color: #991b1b; display: block; }
+
+        /* Navigasi Soal */
+        .nav-soal {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .btn-nav {
+            background: #e2e8f0;
+            color: #334155;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .btn-nav:hover { background: #cbd5e1; }
+
+        .btn-kirim {
+            background: linear-gradient(45deg, #0066ff, #7928ca);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .right-panel h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #00d2ff;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .daftar-soal-nav {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            list-style: none;
+        }
+
+        .nomor-kotak {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+        }
+        .nomor-kotak:hover, .nomor-kotak.aktif {
+            background: #0066ff;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column-reverse; height: 95vh; }
+            .left-panel, .right-panel { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="left-panel">
+            <span class="materi-badge" id="materiBadge">Memuat Soal...</span>
+            
+            <div style="margin-bottom: 5px;">
+                <label style="font-weight: bold; color: #334155;">Nama Siswa: </label>
+                <input type="text" id="namaSiswa" value="Budi Santoso" style="padding: 5px 10px; border-radius: 5px; border: 1px solid #cbd5e1;">
+            </div>
+
+            <div class="pertanyaan" id="teksPertanyaan">
+                Sedang mengambil data soal dari Google Spreadsheet...
+            </div>
+            
+            <div class="pilihan-jawaban" id="areaJawaban">
+                </div>
+
+            <div id="notif" class="notif-box"></div>
+
+            <div class="nav-soal">
+                <button class="btn-nav" onclick="soalSebelumnya()">◀ Sebelum</button>
+                <button class="btn-nav" onclick="soalBerikutnya()">Sesudah ▶</button>
+                <button class="btn-kirim" onclick="kirimKeSpreadsheet()">Kirim Semua Nilai</button>
+            </div>
+        </div>
+        
+        <div class="right-panel">
+            <h3>Nomor Soal</h3>
+            <div class="daftar-soal-nav" id="navigasiNomor">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // --- PENGATURAN SPREADSHEET ---
+        // SPREADSHEET_ID: Ambil dari URL spreadsheet Anda
+        const SPREADSHEET_ID = 'spreadsheets/d/1UUrz7vn_EqYuI-xu0UKn1lyu3VLse2xxSEVZmces--s';
+        const SHEET_NAME = 'Sheet1'; // Sesuaikan dengan nama sheet bawah Anda
+        const URL_DATA = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+
+        let daftarSoal = [];
+        let indeksSekarang = 0;
+        let statusJawabanSiswa = []; // Menyimpan rekam jejak jawaban siswa per nomor
+
+        // Ambil data dari Google Spreadsheet saat halaman dibuka
+        fetch(URL_DATA)
+            .then(res => res.text())
+            .then(data => {
+                // Bersihkan data mentah JSON dari Google
+                const json = JSON.parse(data.substr(47).slice(0, -2));
+                const rows = json.table.rows;
+                
+                // Rapikan data ke dalam array object agar mudah dibaca
+                daftarSoal = rows.map(row => ({
+                    materi: row.c[0]?.v || "Umum",
+                    pertanyaan: row.c[1]?.v || "",
+                    A: row.c[2]?.v || "",
+                    B: row.c[3]?.v || "",
+                    C: row.c[4]?.v || "",
+                    D: row.c[5]?.v || "",
+                    kunci: row.c[6]?.v || ""
+                }));
+
+                // Inisialisasi status jawaban siswa (kosong semua di awal)
+                statusJawabanSiswa = new Array(daftarSoal.length).fill(null);
+
+                tampilkanSoal();
+                buatNavigasiNomor();
+            })
+            .catch(err => {
+                document.getElementById('teksPertanyaan').innerText = "Gagal memuat soal. Periksa kembali ID Spreadsheet Anda dan pastikan aksesnya sudah Publik.";
+                console.error(err);
+            });
+
+        function tampilkanSoal() {
+            if (daftarSoal.length === 0) return;
+
+            const soal = daftarSoal[indeksSekarang];
+            document.getElementById('materiBadge').innerText = `${soal.materi} - Soal No. ${indeksSekarang + 1}`;
+            document.getElementById('teksPertanyaan').innerText = soal.pertanyaan;
+
+            const areaJawaban = document.getElementById('areaJawaban');
+            const notif = document.getElementById('notif');
+            notif.style.display = 'none'; // Sembunyikan notif setiap ganti soal
+
+            // Generate opsi jawaban A, B, C, D
+            let htmlOpsi = '';
+            ['A', 'B', 'C', 'D'].forEach(huruf => {
+                htmlOpsi += `
+                    <label class="opsi" data-huruf="${huruf}" onclick="cekJawaban(this)">
+                        <input type="radio" name="pilihan" ${statusJawabanSiswa[indeksSekarang]?.terpilih === huruf ? 'checked' : ''}> 
+                        ${huruf}. ${soal[huruf]}
+                    </label>
+                `;
+            });
+            areaJawaban.innerHTML = htmlOpsi;
+
+            // Jika nomor ini sudah pernah dijawab sebelumnya, kunci lagi tampilkannya
+            if (statusJawabanSiswa[indeksSekarang] !== null) {
+                kunciJawabanSelesai(statusJawabanSiswa[indeksSekarang].terpilih);
+            }
+
+            // Update status keaktifan nomor di sebelah kanan
+            document.querySelectorAll('.nomor-kotak').forEach((kotak, i) => {
+                if(i === indeksSekarang) kotak.classList.add('aktif');
+                else kotak.classList.remove('aktif');
+            });
+        }
+
+        function cekJawaban(elemenTerpilih) {
+            // Jika sudah dijawab, tidak bisa ganti
+            if (statusJawabanSiswa[indeksSekarang] !== null) return;
+
+            const hurufTerpilih = elemenTerpilih.getAttribute('data-huruf');
+            const kunciBenar = daftarSoal[indeksSekarang].kunci;
+            constisBenar = (hurufTerpilih === kunciBenar);
+
+            // Simpan status jawaban ke memori
+            statusJawabanSiswa[indeksSekarang] = {
+                terpilih: hurufTerpilih,
+                benar: isBenar
+            };
+
+            kunciJawabanSelesai(hurufTerpilih);
+        }
+
+        function kunciJawabanSelesai(hurufTerpilih) {
+            const semuaOpsi = document.querySelectorAll('.opsi');
+            const kunciBenar = daftarSoal[indeksSekarang].kunci;
+            const notif = document.getElementById('notif');
+
+            semuaOpsi.forEach(opsi => {
+                opsi.classList.add('disabled');
+                const hurufOpsi = opsi.getAttribute('data-huruf');
+                
+                if (hurufOpsi === kunciBenar) {
+                    opsi.classList.add('benar'); // Warnai hijau kunci jawaban asli
+                }
+                if (hurufOpsi === hurufTerpilih && hurufTerpilih !== kunciBenar) {
+                    opsi.classList.add('salah'); // Warnai merah jika jawaban siswa salah
+                }
+            });
+
+            if (hurufTerpilih === kunciBenar) {
+                notif.innerText = "Luar Biasa! Jawaban Anda BENAR. 🎉";
+                notif.className = "notif-box sukses";
+            } else {
+                notif.innerText = `Yah, Jawaban Anda SALAH. Kunci yang benar adalah ${kunciBenar}. 📚`;
+                notif.className = "notif-box gagal";
+            }
+        }
+
+        function buatNavigasiNomor() {
+            const nav = document.getElementById('navigasiNomor');
+            nav.innerHTML = '';
+            daftarSoal.forEach((_, i) => {
+                nav.innerHTML += `<div class="nomor-kotak ${i === 0 ? 'aktif' : ''}" onclick="lompatKeSoal(${i})">${i + 1}</div>`;
+            });
+        }
+
+        function lompatKeSoal(indeks) { indeksSekarang = indeks; tampilkanSoal(); }
+        function soalSebelumnya() { if (indeksSekarang > 0) { indeksSekarang--; tampilkanSoal(); } }
+        function soalBerikutnya() { if (indeksSekarang < daftarSoal.length - 1) { indeksSekarang++; tampilkanSoal(); } }
+
+        function kirimKeSpreadsheet() {
+            const nama = document.getElementById('namaSiswa').value;
+            // Hitung total skor
+            const totalBenar = statusJawabanSiswa.filter(j => j && j.benar).length;
+            const skorAkhir = Math.round((totalBenar / daftarSoal.length) * 100);
+
+            alert(`Selesai! Skor Total ${nama}: ${skorAkhir} (${totalBenar} Benar dari ${daftarSoal.length} Soal). Data dikirim...`);
+            // Kode Fetch Web App Apps Script kirim nilai ditaruh di sini seperti sebelumnya
+        }
+    </script>
+</body>
+</html>
