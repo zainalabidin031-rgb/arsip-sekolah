@@ -335,7 +335,11 @@
     }
 
     // --- PASTE URL GOOGLE APPS SCRIPT ANDA DI SINI ---
-    const URL_PENGIRIMAN = "https://script.google.com/macros/s/AKfycbwb_HqmmAdr1FRy9jR5UzIn2Fagu0DbiwwyLQ9h7e5FgYuIGBoYcGIyI1X-Zom2SG-V/exec";
+    const SPREADSHEET_ID = '1UUrz7vn_EqYuI-xu0UKn1lyu3VLse2xxSEVZmces--s';
+const SHEET_NAME = 'Sheet1';
+const BATAS_SOAL = 35;
+
+const URL_DATA = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
 
     // Proses pengiriman data ke spreadsheet di latar belakang
     fetch(URL_PENGIRIMAN, {
