@@ -116,7 +116,6 @@
             border-left: 4px solid #0077ff;
         }
 
-        /* Styling Tabel Nilai Transparan Modern */
         .nilai-table {
             border-radius: 14px;
             overflow: hidden;
@@ -196,11 +195,12 @@
                     </div>
                 </div>
 
+                <!-- DIUBAH: Dari type="date" ke type="text" agar format penulisan bebas -->
                 <div class="mb-4">
                     <label class="form-label">Masukkan Tanggal Lahir</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa-solid fa-calendar-day"></i></span>
-                        <input type="date" class="form-control" id="tanggalLahirInput">
+                        <input type="text" class="form-control" id="tanggalLahirInput" placeholder="Contoh: 17-08-2015 atau 17 Juni 2015">
                     </div>
                 </div>
 
@@ -284,13 +284,11 @@
 </footer>
 
 <script>
-// KONFIGURASI SPREADSHEET (Tetap Terjaga Asli)
 const SPREADSHEET_ID = "1fmjRjhstWd1n_il7mTQXp6uyLxEUNMdJOIesL8B3UKo";
 const SHEET_NAME = "rapor";
 
 let semuaData = [];
 
-// Tarik data mentah JSON Google Sheet
 async function loadData() {
     const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
     const res = await fetch(url);
@@ -302,7 +300,6 @@ async function loadData() {
     );
 }
 
-// Handler Inisialisasi Pertama
 window.addEventListener("load", async () => {
     try {
         await loadData();
@@ -314,10 +311,11 @@ window.addEventListener("load", async () => {
     }
 });
 
-// Pemrosesan Tombol Pencarian dengan Validasi NISN + Tanggal Lahir
 document.getElementById("btnCari").addEventListener("click", () => {
     const nisn = document.getElementById("nisnInput").value.trim();
-    const tglLahir = document.getElementById("tanggalLahirInput").value.trim();
+    
+    // DIUBAH: Disamakan huruf kecil/besar (toLowerCase) agar inputan murid lebih fleksibel terhadap kapital
+    const tglLahir = document.getElementById("tanggalLahirInput").value.trim().toLowerCase();
 
     if (!nisn) {
         alert("Silakan masukkan NISN siswa terlebih dahulu.");
@@ -328,10 +326,10 @@ document.getElementById("btnCari").addEventListener("click", () => {
         return;
     }
 
-    // MEMVALIDASI DATA GANDA: NISN ada di index 0, Tanggal Lahir diasumsikan berada pada index 15 (Kolom P)
+    // DIUBAH: Pengecekan mencakup toLowerCase() agar pencocokan teks di spreadsheet bersifat "case-insensitive"
     const hasil = semuaData.filter(row => 
         String(row[0]).trim() === nisn && 
-        String(row[15]).trim() === tglLahir
+        String(row[15]).trim().toLowerCase() === tglLahir
     );
 
     if (hasil.length === 0) {
@@ -343,7 +341,6 @@ document.getElementById("btnCari").addEventListener("click", () => {
         return;
     }
 
-    // Tampilkan Area Dashboard Pengolahan Rapor
     document.getElementById("pesanStatus").innerHTML = "";
     document.getElementById("hasilArea").style.display = "block";
 
@@ -351,7 +348,6 @@ document.getElementById("btnCari").addEventListener("click", () => {
     document.getElementById("nisnSiswa").textContent = hasil[0][0];
     document.getElementById("peringkatSiswa").textContent = "Peringkat " + (hasil[0][2] || "-");
 
-    // Suntik Pilihan Tahun Ajaran Secara Unik
     const tahunSelect = document.getElementById("tahunSelect");
     tahunSelect.innerHTML = '<option value="">Pilih Tahun Ajaran</option>';
 
@@ -359,14 +355,12 @@ document.getElementById("btnCari").addEventListener("click", () => {
         tahunSelect.innerHTML += `<option value="${tahun}">${tahun}</option>`;
     });
 
-    // Kosongkan Opsi Semester Sementara
     document.getElementById("semesterSelect").innerHTML = '<option value="">Pilih Semester</option>';
 });
 
-// Update Opsi Semester Berdasarkan Tahun Ajaran yang Dipilih
 document.getElementById("tahunSelect").addEventListener("change", () => {
     const nisn = document.getElementById("nisnInput").value.trim();
-    const tglLahir = document.getElementById("tanggalLahirInput").value.trim();
+    const tglLahir = document.getElementById("tanggalLahirInput").value.trim().toLowerCase();
     const tahun = document.getElementById("tahunSelect").value;
     const semesterSelect = document.getElementById("semesterSelect");
 
@@ -374,7 +368,7 @@ document.getElementById("tahunSelect").addEventListener("change", () => {
 
     const data = semuaData.filter(r =>
         String(r[0]).trim() === nisn &&
-        String(r[15]).trim() === tglLahir &&
+        String(r[15]).trim().toLowerCase() === tglLahir &&
         String(r[3]) === tahun
     );
 
@@ -383,16 +377,15 @@ document.getElementById("tahunSelect").addEventListener("change", () => {
     });
 });
 
-// Eksekusi Tampilkan Nilai Mapel Ke Elemen Tabel Dom
 document.getElementById("btnTampil").addEventListener("click", () => {
     const nisn = document.getElementById("nisnInput").value.trim();
-    const tglLahir = document.getElementById("tanggalLahirInput").value.trim();
+    const tglLahir = document.getElementById("tanggalLahirInput").value.trim().toLowerCase();
     const tahun = document.getElementById("tahunSelect").value;
     const semester = document.getElementById("semesterSelect").value;
 
     const row = semuaData.find(r =>
         String(r[0]).trim() === nisn &&
-        String(r[15]).trim() === tglLahir &&
+        String(r[15]).trim().toLowerCase() === tglLahir &&
         String(r[3]) === tahun &&
         String(r[4]) === semester
     );
@@ -402,7 +395,6 @@ document.getElementById("btnTampil").addEventListener("click", () => {
         return;
     }
 
-    // Pemetaan indeks nilai rapor (Kolom index ke-5 s.d ke-14)
     document.getElementById("pai").textContent = row[5] || "0";
     document.getElementById("pkn").textContent = row[6] || "0";
     document.getElementById("bin").textContent = row[7] || "0";
