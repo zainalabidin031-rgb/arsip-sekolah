@@ -139,7 +139,7 @@
                 <input type="text" id="namaSiswa" value="Budi Santoso" style="padding: 5px 10px; border-radius: 5px; border: 1px solid #cbd5e1;">
             </div>
 
-            <div class="pertanyaan" id="teksPertanyaan">Sedang mengambil soal dari Jakarta...</div>
+            <div class="pertanyaan" id="teksPertanyaan">Sedang mengambil soal dari database...</div>
             
             <div class="pilihan-jawaban" id="areaJawaban"></div>
 
@@ -160,9 +160,10 @@
 
     <script>
         // --- PENGATURAN UTAMA ---
-        const SPREADSHEET_ID = 'spreadsheets/d/1UUrz7vn_EqYuI-xu0UKn1lyu3VLse2xxSEVZmces--s';
+        // SPREADSHEET_ID Sekarang diisi hanya dengan ID yang bersih
+        const SPREADSHEET_ID = '1UUrz7vn_EqYuI-xu0UKn1lyu3VLse2xxSEVZmces--s';
         const SHEET_NAME = 'Sheet1';
-        const BATAS_SOAL = 35; // Batasi soal kuis yang muncul
+        const BATAS_SOAL = 35; 
         
         const URL_DATA = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
 
@@ -170,17 +171,14 @@
         let indeksSekarang = 0;
         let statusJawabanSiswa = [];
 
-        // --- SISTEM AUDIO OTOMATIS (Tanpa File MP3) ---
+        // --- SISTEM AUDIO OTOMATIS ---
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function mainkanSuara(tipe) {
             if (audioCtx.state === 'suspended') audioCtx.resume();
-            
             if (tipe === 'benar') {
-                // Tuling-tuling (Dua nada tinggi berurutan)
-                bunyikanNada(523.25, 0.1, 0);       // Nada Do tinggi
-                bunyikanNada(659.25, 0.15, 0.1);    // Nada Mi tinggi
+                bunyikanNada(523.25, 0.1, 0);       
+                bunyikanNada(659.25, 0.15, 0.1);    
             } else {
-                // Tet-tet (Dua nada rendah patah-patah)
                 bunyikanNada(150, 0.15, 0);
                 bunyikanNada(150, 0.15, 0.2);
             }
@@ -214,13 +212,11 @@
                     kunci: row.c[6]?.v || ""
                 }));
 
-                // Algoritma Pengacakan Soal (Fisher-Yates)
                 for (let i = semuaSoal.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [semuaSoal[i], semuaSoal[j]] = [semuaSoal[j], semuaSoal[i]];
                 }
 
-                // Ambil 35 Soal Teratas saja setelah diacak
                 daftarSoal = semuaSoal.slice(0, BATAS_SOAL);
                 statusJawabanSiswa = new Array(daftarSoal.length).fill(null);
 
@@ -230,6 +226,7 @@
             })
             .catch(err => {
                 document.getElementById('teksPertanyaan').innerText = "Gagal memuat soal. Periksa koneksi atau ID spreadsheet.";
+                console.error(err);
             });
 
         function tampilkanSoal() {
@@ -269,9 +266,8 @@
             const kunciBenar = daftarSoal[indeksSekarang].kunci;
             const isBenar = (hurufTerpilih === kunciBenar);
 
-            statusJawabanSiswa[indeksSekarang] = { terpilih: hurufTerpilih, benar: isBenar };
+            statusJawabanSiswa[indeksSekarang] = { terpilih: hurufTerpilih, booleanBenar: isBenar };
 
-            // Warnai nomor kotak menu kanan secara permanen (Hijau/Merah)
             const kotakNomor = document.querySelectorAll('.nomor-kotak')[indeksSekarang];
             if(isBenar) {
                 kotakNomor.classList.add('sudah-benar');
@@ -324,45 +320,38 @@
         function soalBerikutnya() { if (indeksSekarang < daftarSoal.length - 1) { indeksSekarang++; tampilkanSoal(); } }
 
         function kirimKeSpreadsheet() {
-    const nama = document.getElementById('namaSiswa').value;
-    const totalDijawab = statusJawabanSiswa.filter(j => j !== null).length;
-    const totalBenar = statusJawabanSiswa.filter(j => j && j.benar).length;
-    const skorAkhir = Math.round((totalBenar / daftarSoal.length) * 100);
+            const nama = document.getElementById('namaSiswa').value;
+            const totalDijawab = statusJawabanSiswa.filter(j => j !== null).length;
+            const totalBenar = statusJawabanSiswa.filter(j => j && j.booleanBenar).length;
+            const skorAkhir = Math.round((totalBenar / daftarSoal.length) * 100);
 
-    if (totalDijawab < daftarSoal.length) {
-        const yakin = confirm(`Peringatan: Kamu baru menjawab ${totalDijawab} dari ${daftarSoal.length} soal. Tetap kirim nilai?`);
-        if (!yakin) return;
-    }
+            if (totalDijawab < daftarSoal.length) {
+                const yakin = confirm(`Peringatan: Kamu baru menjawab ${totalDijawab} dari ${daftarSoal.length} soal. Tetap kirim nilai?`);
+                if (!yakin) return;
+            }
 
-    // --- PASTE URL GOOGLE APPS SCRIPT ANDA DI SINI ---
-    const SPREADSHEET_ID = '1UUrz7vn_EqYuI-xu0UKn1lyu3VLse2xxSEVZmces--s';
-const SHEET_NAME = 'Sheet1';
-const BATAS_SOAL = 35;
+            // GANTI URL DI BAWAH INI DENGAN URL DEPLOYMENT WEB APP SCRIPT ANDA
+            const URL_PENGIRIMAN = "https://script.google.com/macros/s/AKfycbwb_HqmmAdr1FRy9jR5UzIn2Fagu0DbiwwyLQ9h7e5FgYuIGBoYcGIyI1X-Zom2SG-V/exec";
 
-const URL_DATA = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+            if (URL_PENGIRIMAN === "https://script.google.com/macros/s/AKfycbwb_HqmmAdr1FRy9jR5UzIn2Fagu0DbiwwyLQ9h7e5FgYuIGBoYcGIyI1X-Zom2SG-V/exec") {
+                alert(`Selesai! Skor Akhir ${nama}: ${skorAkhir}\n\n(Catatan: Nilai belum terkirim ke spreadsheet karena URL Web App Anda belum dimasukkan ke dalam kode).`);
+                return;
+            }
 
-    // Proses pengiriman data ke spreadsheet di latar belakang
-    fetch(URL_PENGIRIMAN, {
-        method: "POST",
-        body: JSON.stringify({
-            nama: nama,
-            skor: skorAkhir,
-            benar: totalBenar
-        })
-    })
-    .then(res => res.json())
-    .then(hasil => {
-        if(hasil.status === "sukses") {
-            alert(`Selesai! Skor Akhir ${nama}: ${skorAkhir}\nData berhasil disimpan ke Spreadsheet Guru!`);
-        } else {
-            alert("Aduh, nilai gagal terkirim ke server. Coba lagi.");
+            fetch(URL_PENGIRIMAN, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nama: nama, skor: skorAkhir, benar: totalBenar })
+            })
+            .then(() => {
+                alert(`Selesai! Skor Akhir ${nama}: ${skorAkhir}\nData berhasil disimpan ke Spreadsheet Guru! 🎉`);
+            })
+            .catch(err => {
+                alert("Terjadi gangguan koneksi saat mengirim nilai.");
+                console.error(err);
+            });
         }
-    })
-    .catch(err => {
-        alert("Terjadi gangguan koneksi saat mengirim nilai.");
-        console.error(err);
-    });
-}
     </script>
 </body>
 </html>
