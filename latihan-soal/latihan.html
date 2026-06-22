@@ -242,6 +242,7 @@ async function loadSoal() {
 
         const kelasSiswa = String(localStorage.getItem("kelas")).trim();
         const mapelSiswa = String(localStorage.getItem("mapel")).trim();
+        const babTerpilih = String(localStorage.getItem("bab")).trim(); // Mengambil data bab yang disimpan dari halaman sebelumnya
 
         // Tampilkan info mapel & kelas di pojok kanan atas kuis
         document.getElementById("metaInfo").innerText = `${mapelSiswa} • Kelas ${kelasSiswa}`;
@@ -249,7 +250,8 @@ async function loadSoal() {
         soalData = data
             .filter(item =>
                 String(item.kelas).trim() === kelasSiswa &&
-                String(item.mapel).trim() === mapelSiswa
+                String(item.mapel).trim() === mapelSiswa &&
+                String(item.bab).trim() === babTerpilih // Menyaring soal agar hanya memuat Bab yang dipilih
             )
             .map(item => {
                 const pilihan = [
@@ -274,8 +276,14 @@ async function loadSoal() {
                 };
             });
 
+        // Mengacak urutan soal sebelum dipotong (supaya yang tampil tidak selalu soal itu-itu saja)
+        soalData.sort(() => Math.random() - 0.5);
+
+        // Membatasi isi array hanya maksimal 35 soal saja
+        soalData = soalData.slice(0, 35);
+
         if (soalData.length === 0) {
-            document.getElementById("soal").innerHTML = "<span style='color:#ef4444;'><i class='fa-solid fa-triangle-exclamation'></i> Belum ada data soal tersedia untuk jenjang Kelas dan Mapel ini.</span>";
+            document.getElementById("soal").innerHTML = "<span style='color:#ef4444;'><i class='fa-solid fa-triangle-exclamation'></i> Belum ada data soal tersedia untuk jenjang Kelas, Mapel, dan Bab ini.</span>";
             document.getElementById("judul").innerText = "Kosong";
             return;
         }
