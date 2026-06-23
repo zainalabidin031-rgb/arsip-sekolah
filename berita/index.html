@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kabar & Berita - SDN Butoh 1 Ngasem</title>
+    <link rel="icon" type="image/png" href="/favicon.png?v=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* RESET & GENERAL STYLES */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Latar belakang bersih */
+            color: #2d3748;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- STICKY NAVBAR (Sama dengan Beranda) --- */
+        .navbar {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 4px 15px rgba(0, 140, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #e6f2ff;
+        }
+        .navbar .flex-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .nav-logo h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: #0077ff; /* Biru Cerah Beranda */
+            line-height: 1;
+        }
+        .nav-logo p {
+            font-size: 11px;
+            color: #718096;
+            margin-top: 3px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+            align-items: center;
+        }
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #0077ff;
+            background-color: #e6f2ff;
+        }
+
+        /* --- HERO BANNER HALAMAN BERITA (Sentuhan Ungu Matang & Biru Muda) --- */
+        .news-hero {
+            background: linear-gradient(135deg, #4c1d95 0%, #0077ff 100%); /* Perpaduan Ungu Matang ke Biru Muda Cerah */
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .news-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+            background-image: radial-gradient(circle, #ffffff 2px, transparent 2px);
+            background-size: 20px 20px;
+        }
+        .news-hero h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+        .news-hero p {
+            font-size: 14px;
+            color: #e0e7ff;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- FILTER KATEGORI BERITA --- */
+        .category-filter {
+            margin: 30px 0;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 30px;
+            border: 1px solid #e2eefe;
+            background-color: #ffffff;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background-color: #4c1d95; /* Ungu Matang */
+            color: #ffffff;
+            border-color: #4c1d95;
+            box-shadow: 0 4px 12px rgba(76, 29, 149, 0.2);
+        }
+
+        /* --- GRID BERITA UTAMA --- */
+        .news-container {
+            padding-bottom: 80px;
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .news-card {
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e2eefe;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .news-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(76, 29, 149, 0.08); /* Efek bayangan ungu lembut */
+            border-color: #c7d2fe;
+        }
+        .news-thumb {
+            width: 100%;
+            height: 200px;
+            background-color: #e6f2ff;
+            overflow: hidden;
+            position: relative;
+        }
+        .news-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .news-card:hover .news-thumb img {
+            transform: scale(1.05);
+        }
+        .news-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .news-tag {
+            font-size: 10px;
+            font-weight: 700;
+            background-color: #eef2ff; /* Ungu muda transparan */
+            color: #4c1d95; /* Ungu matang */
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            align-self: flex-start;
+            letter-spacing: 0.5px;
+        }
+        .news-card h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a202c;
+            margin: 14px 0 10px 0;
+            line-height: 1.4;
+        }
+        .news-card h3 a:hover {
+            color: #0077ff; /* Hover ke biru muda segar */
+        }
+        .news-excerpt {
+            font-size: 13px;
+            color: #718096;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .news-footer {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        .news-date {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .read-more {
+            font-weight: 700;
+            color: #4c1d95;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .read-more:hover {
+            color: #0077ff;
+        }
+
+        /* --- FOOTER (Sama dengan Beranda) --- */
+        footer {
+            background-color: #ffffff;
+            color: #4a5568;
+            padding: 50px 0 30px 0;
+            border-top: 1px solid #e2eefe;
+            font-size: 13px;
+        }
+        .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; color: #4c1d95; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px;}
+        .footer-col p { line-height: 1.6; color: #718096; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { color: #0077ff; font-weight: 600; }
+        .footer-links a:hover { text-decoration: underline; }
+        .footer-bottom { text-align: center; font-size: 12px; color: #a0aec0; border-top: 1px solid #e6f2ff; padding-top: 20px; }
+
+        /* --- RESPONSIVE UNTUK HP --- */
+        @media (max-width: 992px) {
+            .navbar .flex-box { flex-direction: column; gap: 12px; text-align: center; }
+            .nav-links { width: 100%; justify-content: center; padding: 6px 10px; }
+            .news-hero { padding: 40px 0; }
+            .news-hero h2 { font-size: 24px; }
+            .news-grid { grid-template-columns: 1fr; gap: 20px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR RESMI -->
+    <nav class="navbar">
+        <div class="container flex-box">
+            <div class="nav-logo">
+                <img src="../assets/logo.png.png.png" alt="Logo Sekolah" style="width: 42px; height: 42px; object-fit: contain;">
+                <div>
+                    <h1>SDN BUTOH 1 NGASEM</h1>
+                    <p>KABUPATEN BOJONEGORO</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../">Home</a></li>
+                <li><a href="#" class="active">Berita</a></li>
+                <li><a href="../statistik/">Statistik</a></li>
+                <li><a href="../hubungi-kami/">Hubungi</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- HERO SECTION -->
+    <header class="news-hero">
+        <div class="container">
+            <h2>Kabar Pendidikan & Kegiatan Sekolah</h2>
+            <p>Informasi resmi, prestasi, dan transparansi kegiatan belajar mengajar di SDN Butoh 1 Ngasem.</p>
+        </div>
+    </header>
+
+    <!-- KONTEN UTAMA BERITA -->
+    <div class="container news-container">
+        
+        <!-- Filter Kategori Keren -->
+        <div class="category-filter">
+            <button class="filter-btn active">Semua Kabar</button>
+            <button class="filter-btn">Pengumuman</button>
+            <button class="filter-btn">Kegiatan</button>
+            <button class="filter-btn">Prestasi</button>
+        </div>
+
+        <!-- Grid Berita -->
+        <div class="news-grid">
+            
+            <!-- Berita 1 -->
+            <article class="news-card">
+                <div class="news-thumb">
+                    <img src="../assets/naya.jpg" alt="PPDB Sekolah">
+                </div>
+                <div class="news-body">
+                    <span class="news-tag">Pengumuman</span>
+                    <h3><a href="#">Seleksi Penerimaan Murid Baru (SPMB) Tahun Ajaran 2026/2027 Telah Resmi Dibuka</a></h3>
+                    <p class="news-excerpt">SDN Butoh 1 Ngasem secara resmi membuka pendaftaran peserta didik baru. Dapatkan fasilitas ruang belajar digital...</p>
+                    <div class="news-footer">
+                        <span class="news-date"><i class="fa-regular fa-calendar"></i> 19 Juni 2026</span>
+                        <a href="#" class="read-more">Baca <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Berita 2 -->
+            <article class="news-card">
+                <div class="news-thumb">
+                    <img src="../assets/kbr.jpg" alt="Prestasi Siswa">
+                </div>
+                <div class="news-body">
+                    <span class="news-tag">Prestasi</span>
+                    <h3><a href="#">Siswa SDN Butoh 1 Raih Penghargaan Juara di Tingkat Kecamatan Ngasem</a></h3>
+                    <p class="news-excerpt">Kebanggaan luar biasa kembali diukir oleh perwakilan siswa dalam ajang kompetisi bakat dan minat tahun ini...</p>
+                    <div class="news-footer">
+                        <span class="news-date"><i class="fa-regular fa-calendar"></i> 15 Juni 2026</span>
+                        <a href="#" class="read-more">Baca <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Berita 3 -->
+            <article class="news-card">
+                <div class="news-thumb">
+                    <img src="../assets/koptri.jpg" alt="Kegiatan Kelas">
+                </div>
+                <div class="news-body">
+                    <span class="news-tag">Kegiatan</span>
+                    <h3><a href="#">Pemanfaatan Ekosistem Kelas Digital Untuk Efisiensi Ruang Belajar Siswa</a></h3>
+                    <p class="news-excerpt">Melalui penerapan teknologi tablet mandiri, para siswa kini dapat mengakses bank soal latihan secara langsung...</p>
+                    <div class="news-footer">
+                        <span class="news-date"><i class="fa-regular fa-calendar"></i> 10 Juni 2026</span>
+                        <a href="#" class="read-more">Baca <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </div>
+
+    <!-- FOOTER RESMI -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>SDN Butoh 1 Ngasem</h4>
+                    <p>Satuan pendidikan tingkat dasar resmi di bawah naungan Pemerintah Kabupaten Bojonegoro.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Alamat Resmi</h4>
+                    <p>Desa Butoh, Kecamatan Ngasem, Kabupaten Bojonegoro.<br>Email: info@sdnbutoh1ngasem.my.id</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Tautan Cepat</h4>
+                    <ul class="footer-links">
+                        <li><a href="../">Kembali ke Beranda &rarr;</a></li>
+                        <li><a href="https://sdnbutoh1ngasem.my.id/latihan-soal/">Ruang Belajar Mandiri &rarr;</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SDN Butoh 1 Ngasem. All Rights Reserved. | Dinas Pendidikan Kab. Bojonegoro</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
