@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unduh Sertifikat TKA</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6; /* Warna latar belakang halaman default */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px; /* Sedikit lebih membulat */
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1); /* Shadow lebih lembut */
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid #ddd; /* Border tipis untuk container */
+        }
+        h2 {
+            text-align: center;
+            color: #4b0082; /* Warna Ungu Matang untuk Judul */
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd; /* Border input lebih tebal */
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: border-color 0.3s; /* Transisi halus saat fokus */
+        }
+        input[type="text"]:focus, input[type="date"]:focus {
+            border-color: #00bfff; /* Warna Biru Cerah saat fokus */
+            outline: none;
+        }
+        button.btn-check {
+            width: 100%;
+            padding: 14px;
+            background-color: #00bfff; /* Warna Biru Cerah & Segar untuk Tombol Utama */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        button.btn-check:hover {
+            background-color: #009acd; /* Biru sedikit lebih gelap saat hover */
+        }
+        .result-box {
+            display: none; /* Sembunyikan pertama kali */
+            margin-top: 30px;
+            padding: 25px;
+            border-top: 2px dashed #bbb;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        .result-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4b0082; /* Ungu Matang untuk Judul Hasil */
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .data-info {
+            margin-bottom: 20px;
+            font-size: 15px;
+            color: #444;
+            line-height: 1.6;
+        }
+        .data-info p {
+            margin: 8px 0;
+        }
+        .data-info strong {
+            color: #333;
+        }
+        .btn-download {
+            background-color: #6a5acd; /* Warna Ungu Matang (SlateBlue) untuk Tombol Download */
+            width: 100%;
+            padding: 14px;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            display: block; /* Agar link berperilaku seperti block element */
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn-download:hover {
+            background-color: #483d8b; /* Ungu lebih gelap (DarkSlateBlue) saat hover */
+        }
+        .error-msg {
+            color: #d9534f; /* Warna merah gelap untuk error */
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            display: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Cek & Unduh Sertifikat</h2>
+    
+    <!-- Form Input -->
+    <div class="form-group">
+        <label for="nisn">NISN</label>
+        <input type="text" id="nisn" placeholder="Masukkan 10 digit NISN" autocomplete="off">
+    </div>
+    <div class="form-group">
+        <label for="tgl_lahir">Tanggal Lahir</label>
+        <input type="date" id="tgl_lahir">
+    </div>
+    
+    <button class="btn-check" onclick="cekData()">Periksa Data</button>
+    <p class="error-msg" id="error">NISN atau Tanggal Lahir salah/tidak ditemukan!</p>
+
+    <!-- Tempat Muncul Data & Tombol Download -->
+    <div class="result-box" id="resultBox">
+        <div class="result-title">Sertifikat Tersedia!</div>
+        <div class="data-info">
+            <p><strong>Nama:</strong> <span id="resNama"></span></p>
+            <p><strong>NISN:</strong> <span id="resNisn"></span></p>
+            <p><strong>Acara/Prestasi:</strong> <span id="resKet"></span></p>
+        </div>
+        <!-- Link download disamarkan sebagai tombol -->
+        <a id="downloadLink" href="#" download class="btn-download">
+            Unduh Sertifikat (PDF)
+        </a>
+    </div>
+</div>
+
+<script>
+    // 1. Data Dummy (Simulasi Database)
+    // Ganti/tambah data di bawah ini sesuai kebutuhan Anda
+    // Pastikan nama file sertifikat unik dan sulit ditebak!
+    const databaseSiswa = [
+        {
+            nisn: "1234567890",
+            tglLahir: "2008-05-15", // Format: YYYY-MM-DD
+            nama: "Budi Santoso",
+            keterangan: "Lulus Pelatihan Web Developer 2026",
+            fileSertifikat: "cert_budi_xyz_789.pdf" // Ganti dengan nama file sertifikat asli Anda
+        },
+        {
+            nisn: "0987654321",
+            tglLahir: "2007-11-22",
+            nama: "Siti Aminah",
+            keterangan: "Juara 1 Lomba Desain Grafis",
+            fileSertifikat: "cert_siti_abc_123.pdf" // Ganti dengan nama file sertifikat asli Anda
+        }
+    ];
+
+    // 2. Fungsi Logika Pengecekan
+    function cekData() {
+        const inputNisn = document.getElementById('nisn').value.trim();
+        const inputTgl = document.getElementById('tgl_lahir').value;
+        const errorMsg = document.getElementById('error');
+        const resultBox = document.getElementById('resultBox');
+
+        // Cari data yang cocok di "database"
+        const siswa = databaseSiswa.find(s => s.nisn === inputNisn && s.tglLahir === inputTgl);
+
+        if (siswa) {
+            // Jika data cocok, sembunyikan error dan tampilkan box hasil
+            errorMsg.style.display = 'none';
+            resultBox.style.display = 'block';
+
+            // Isi data siswa ke HTML
+            document.getElementById('resNama').innerText = siswa.nama;
+            document.getElementById('resNisn').innerText = siswa.nisn;
+            document.getElementById('resKet').innerText = siswa.keterangan;
+
+            // Pasang link file sertifikat ke tombol download
+            document.getElementById('downloadLink').href = siswa.fileSertifikat;
+        } else {
+            // Jika tidak cocok, sembunyikan box hasil dan tampilkan error
+            resultBox.style.display = 'none';
+            errorMsg.style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
