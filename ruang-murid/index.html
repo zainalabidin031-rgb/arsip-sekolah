@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruang Belajar Murid - SDN Butoh 1 Ngasem</title>
+    <link rel="icon" type="image/png" href="../favicon.png?v=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* RESET & BASE PREMIUM STYLES */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f6f9fc; /* Latar premium soft gray-blue */
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- STICKY NAVBAR (Sama & Match) --- */
+        .navbar {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 119, 255, 0.04);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #e6f2ff;
+        }
+        .navbar .flex-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .nav-logo h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: #0077ff;
+            line-height: 1;
+        }
+        .nav-logo p {
+            font-size: 11px;
+            color: #718096;
+            margin-top: 3px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+            align-items: center;
+        }
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #0077ff;
+            background-color: #e6f2ff;
+        }
+
+        /* --- ULTRA PREMIUM HERO DASHBOARD --- */
+        .dashboard-hero {
+            background: linear-gradient(135deg, #4c1d95 0%, #0077ff 100%);
+            color: white;
+            padding: 50px 0;
+            border-radius: 0 0 30px 30px; /* Lengkungan modern di bawah */
+            box-shadow: 0 10px 30px rgba(76, 29, 149, 0.15);
+            margin-bottom: 40px;
+        }
+        .hero-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .hero-text h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+        .hero-text p {
+            font-size: 15px;
+            color: #e0e7ff;
+        }
+        .student-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* --- SECTION JUDUL PLATFORM --- */
+        .section-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: #1a202c;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title span {
+            font-size: 24px;
+        }
+
+        /* --- 1. SELEKSI KELAS (TOMBOL HORIZONTAL ELEGAN) --- */
+        .class-selector {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        .class-card {
+            background: #ffffff;
+            border: 1px solid #e2eefe;
+            padding: 15px;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+        }
+        .class-card h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #4c1d95;
+            margin-bottom: 2px;
+        }
+        .class-card p {
+            font-size: 11px;
+            color: #a0aec0;
+            font-weight: 600;
+        }
+        /* Efek Aktif / Hover Kelas */
+        .class-card:hover, .class-card.active {
+            background: #4c1d95;
+            border-color: #4c1d95;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(76, 29, 149, 0.2);
+        }
+        .class-card:hover h3, .class-card.active h3 { color: #ffffff; }
+        .class-card:hover p, .class-card.active p { color: #c7d2fe; }
+
+
+        /* --- 2. GRID UTAMA: MAPEL & DETAILS BAB --- */
+        .main-space {
+            display: grid;
+            grid-template-columns: 1fr 2fr; /* Mapel kiri (ramping), Bab kanan (lebar) */
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        /* KOLOM MAPEL */
+        .subject-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .subject-card {
+            background: #ffffff;
+            border: 1px solid #e2eefe;
+            padding: 16px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .subject-icon {
+            font-size: 24px;
+            width: 45px;
+            height: 45px;
+            background: #e6f2ff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .subject-info h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+        .subject-info p {
+            font-size: 11px;
+            color: #718096;
+        }
+        /* Hover Mapel */
+        .subject-card:hover, .subject-card.active {
+            border-color: #0077ff;
+            background: #e6f2ff;
+        }
+        .subject-card.active .subject-icon {
+            background: #0077ff;
+        }
+
+        /* KOLOM DAFTAR BAB DAN JALUR BACA */
+        .chapters-container {
+            background: #ffffff;
+            border: 1px solid #e2eefe;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.01);
+        }
+        .chapter-box {
+            background: #f8fafc;
+            border: 1px solid #edf2f7;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+        .chapter-box:hover {
+            border-color: #c7d2fe;
+            background: #ffffff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+        .chapter-text h5 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 12px;
+            color: #0077ff;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .chapter-text h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a202c;
+        }
+        
+        /* Tombol Aksi Premium (Materi & Latihan) */
+        .action-group {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-materi {
+            background: #eef2ff;
+            color: #4c1d95;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 10px 16px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .btn-materi:hover {
+            background: #4c1d95;
+            color: white;
+        }
+        .btn-latihan {
+            background: #e6f2ff;
+            color: #0077ff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 10px 16px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .btn-latihan:hover {
+            background: #0077ff;
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #ffffff;
+            color: #4a5568;
+            padding: 50px 0 30px 0;
+            border-top: 1px solid #e2eefe;
+            font-size: 13px;
+        }
+        .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; color: #4c1d95; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px;}
+        .footer-col p { line-height: 1.6; color: #718096; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { color: #0077ff; font-weight: 600; }
+        .footer-links a:hover { text-decoration: underline; }
+        .footer-bottom { text-align: center; font-size: 12px; color: #a0aec0; border-top: 1px solid #e6f2ff; padding-top: 20px; }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .class-selector { grid-template-columns: repeat(3, 1fr); }
+            .main-space { grid-template-columns: 1fr; }
+            .hero-flex { flex-direction: column; text-align: center; gap: 15px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container flex-box">
+            <div class="nav-logo">
+                <img src="../assets/logo.png.png.png" alt="Logo Sekolah" style="width: 42px; height: 42px; object-fit: contain;">
+                <div>
+                    <h1>SDN BUTOH 1 NGASEM</h1>
+                    <p>KABUPATEN BOJONEGORO</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../">Home</a></li>
+                <li><a href="../berita/">Berita</a></li>
+                <li><a href="#" class="active">Ruang Murid</a></li>
+                <li><a href="../hubungi-kami/">Hubungi</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <header class="dashboard-hero">
+        <div class="container hero-flex">
+            <div class="hero-text">
+                <h2>Selamat Datang di Ruang Belajar VIP! 👋</h2>
+                <p>Pilih kelas dan mata pelajaranmu untuk memulai petualangan ilmu hari ini.</p>
+            </div>
+            <div class="student-badge">
+                🚀 Mode Belajar Mandiri
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <h3 class="section-title"><span>👨‍🎓</span> Pilih Tingkat Kelas</h3>
+        <section class="class-selector">
+            <div class="class-card active">
+                <h3>Kelas 1</h3>
+                <p>Fase A</p>
+            </div>
+            <div class="class-card">
+                <h3>Kelas 2</h3>
+                <p>Fase A</p>
+            </div>
+            <div class="class-card">
+                <h3>Kelas 3</h3>
+                <p>Fase B</p>
+            </div>
+            <div class="class-card">
+                <h3>Kelas 4</h3>
+                <p>Fase B</p>
+            </div>
+            <div class="class-card">
+                <h3>Kelas 5</h3>
+                <p>Fase C</p>
+            </div>
+            <div class="class-card">
+                <h3>Kelas 6</h3>
+                <p>Fase C</p>
+            </div>
+        </section>
+
+        <section class="main-space">
+            
+            <div>
+                <h3 class="section-title"><span>📚</span> Mata Pelajaran</h3>
+                <div class="subject-list">
+                    
+                    <div class="subject-card active">
+                        <div class="subject-icon">🔢</div>
+                        <div class="subject-info">
+                            <h4>Matematika</h4>
+                            <p>Berhitung & Logika</p>
+                        </div>
+                    </div>
+
+                    <div class="subject-card">
+                        <div class="subject-icon">🇮🇩</div>
+                        <div class="subject-info">
+                            <h4>Bahasa Indonesia</h4>
+                            <p>Membaca & Literasi</p>
+                        </div>
+                    </div>
+
+                    <div class="subject-card">
+                        <div class="subject-icon">🍃</div>
+                        <div class="subject-info">
+                            <h4>IPAS</h4>
+                            <p>Alam & Sosial sekitar</p>
+                        </div>
+                    </div>
+
+                    <div class="subject-card">
+                        <div class="subject-icon">🕌</div>
+                        <div class="subject-info">
+                            <h4>Bahasa Inggris</h4>
+                            <p>English Learning Zone</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+                <h3 class="section-title"><span>🎯</span> Daftar Bab Pembelajaran (Kelas 1 - Matematika)</h3>
+                <div class="chapters-container">
+                    
+                    <div class="chapter-box">
+                        <div class="chapter-text">
+                            <h5>Bagian 1</h5>
+                            <h4>Mengenal Bilangan 1 sampai 10</h4>
+                        </div>
+                        <div class="action-group">
+                            <a href="matematika/bab1-materi.html" class="btn-materi"><i class="fa-solid fa-book-open"></i> Materi</a>
+                            <a href="matematika/bab1-latihan.html" class="btn-latihan"><i class="fa-solid fa-pen-to-square"></i> Latihan</a>
+                        </div>
+                    </div>
+
+                    <div class="chapter-box">
+                        <div class="chapter-text">
+                            <h5>Bagian 2</h5>
+                            <h4>Penjumlahan Sederhana (Kurang dari 10)</h4>
+                        </div>
+                        <div class="action-group">
+                            <a href="#" class="btn-materi"><i class="fa-solid fa-book-open"></i> Materi</a>
+                            <a href="#" class="btn-latihan"><i class="fa-solid fa-pen-to-square"></i> Latihan</a>
+                        </div>
+                    </div>
+
+                    <div class="chapter-box">
+                        <div class="chapter-text">
+                            <h5>Bagian 3</h5>
+                            <h4>Mengenal Bentuk Bangun Datar Dasar</h4>
+                        </div>
+                        <div class="action-group">
+                            <a href="#" class="btn-materi"><i class="fa-solid fa-book-open"></i> Materi</a>
+                            <a href="#" class="btn-latihan"><i class="fa-solid fa-pen-to-square"></i> Latihan</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>SDN Butoh 1 Ngasem</h4>
+                    <p>Satuan pendidikan tingkat dasar resmi di bawah naungan Pemerintah Kabupaten Bojonegoro.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Alamat Resmi</h4>
+                    <p>Desa Butoh, Kecamatan Ngasem, Kabupaten Bojonegoro.<br>Email: info@sdnbutoh1ngasem.my.id</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Tautan Cepat</h4>
+                    <ul class="footer-links">
+                        <li><a href="../">Kembali ke Beranda &rarr;</a></li>
+                        <li><a href="../berita/">Kabar & Berita Sekolah &rarr;</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SDN Butoh 1 Ngasem. All Rights Reserved. | Dinas Pendidikan Kab. Bojonegoro</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
