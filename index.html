@@ -349,95 +349,102 @@
 
         /* --- RESPONSIVE DESIGN UNTUK HP & TABLET --- */
         @media (max-width: 992px) {
-            .navbar .flex-box {
-                flex-direction: column;
-                gap: 12px;
-                text-align: center;
-            }
-            .topbar .flex-box {
-                flex-direction: column;
-                gap: 6px;
-                text-align: center;
-            }
-        
-            .nav-links {
-                flex-direction: row;
-                width: 100%;
-                justify-content: flex-start;
-                overflow-x: auto;
-                padding: 6px 10px;
-                white-space: nowrap;
-                -webkit-overflow-scrolling: touch;
-                position: relative;
-            }
-            .nav-links::-webkit-scrollbar { display: none; }
+    .navbar .flex-box {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+    .topbar .flex-box {
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+    }
 
-            .nav-links li {
-                display: inline-block;
-            }
+    /* --- SAYA RAPIKAN DI SINI AGAR MENU RAPAT & DI TENGAH --- */
+    .nav-links {
+        display: flex; /* Memastikan flex aktif */
+        flex-direction: row;
+        width: 100%;
+        justify-content: center; /* MEMBUAT MENU PAS DI TENGAH LAYAR HP */
+        gap: 6px; /* MERAPATKAN JARAK ANTAR MENU (Aslinya longgar) */
+        overflow-x: auto;
+        padding: 6px 10px;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        position: relative;
+        box-sizing: border-box;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
 
-            .nav-links a, .nav-links .dropbtn {
-                padding: 8px 14px;
-                font-size: 13px;
-            }
+    .nav-links li {
+        display: inline-block;
+    }
 
-            .dropdown-content {
-                position: fixed;
-                left: 5%;
-                right: 5%;
-                width: 90%;
-                margin-top: 12px;
-                box-shadow: 0px 10px 30px rgba(0, 50, 150, 0.25);
-                border: 1px solid #b3d7ff;
-            }
+    /* MENYEMPITKAN UKURAN TOMBOL MENU */
+    .nav-links a, .nav-links .dropbtn {
+        padding: 6px 10px !important; /* Dikecilkan dari 8px 14px agar lebih rapat */
+        font-size: 13px;
+    }
+    /* ------------------------------------------------------ */
 
-            .carousel-wrapper { aspect-ratio: 16/10; }
-            .slide-caption { padding: 20px; }
-            .slide-caption h2 { font-size: 16px; }
-            
-            .metric-grid { 
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px; 
-                padding: 14px;
-                background: #ffffff;
-                border: 1px solid #e2eefe;
-            }
-            .metric-item { 
-                border-right: none; 
-                border-bottom: none;
-                background-color: #f4f8fc;
-                padding: 15px 10px; 
-                border-radius: 10px;
-                border: 1px solid rgba(0, 114, 255, 0.05);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-            }
-            .metric-label { 
-                font-size: 10px; 
-                color: #718096; 
-                letter-spacing: 0.5px;
-                margin-bottom: 2px;
-            }
-            .metric-value { 
-                font-size: 13px;
-                color: #0056cc; 
-                font-weight: 700;
-                margin-top: 2px;
-                text-transform: none;
-            }
+    .dropdown-content {
+        position: fixed;
+        left: 5%;
+        right: 5%;
+        width: 90%;
+        margin-top: 12px;
+        box-shadow: 0px 10px 30px rgba(0, 50, 150, 0.25);
+        border: 1px solid #b3d7ff;
+    }
 
-            .news-grid, .footer-grid { grid-template-columns: 1fr; gap: 20px; }
-            
-            .floating-btn {
-                bottom: 20px;
-                right: 20px;
-                padding: 10px 16px;
-                font-size: 12px;
-                box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
-            }
-        }
+    .carousel-wrapper { aspect-ratio: 16/10; }
+    .slide-caption { padding: 20px; }
+    .slide-caption h2 { font-size: 16px; }
+    
+    .metric-grid { 
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px; 
+        padding: 14px;
+        background: #ffffff;
+        border: 1px solid #e2eefe;
+    }
+    .metric-item { 
+        border-right: none; 
+        border-bottom: none;
+        background-color: #f4f8fc;
+        padding: 15px 10px; 
+        border-radius: 10px;
+        border: 1px solid rgba(0, 114, 255, 0.05);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .metric-label { 
+        font-size: 10px; 
+        color: #718096; 
+        letter-spacing: 0.5px;
+        margin-bottom: 2px;
+    }
+    .metric-value { 
+        font-size: 13px;
+        color: #0056cc; 
+        font-weight: 700;
+        margin-top: 2px;
+        text-transform: none;
+    }
+
+    .news-grid, .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+    
+    .floating-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 16px;
+        font-size: 12px;
+        box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
+    }
+}
+
     </style> </head>
 <body>
 
