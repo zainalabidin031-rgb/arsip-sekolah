@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Sedang Disiapkan - SDN Butoh 1 Ngasem</title>
+    <link rel="icon" type="image/png" href="../favicon.png?v=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2 family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f6f9fc;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .maintenance-card {
+            background: #ffffff;
+            border: 1px solid #e2eefe;
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 119, 255, 0.03);
+        }
+
+        /* ANIMASI ILUSTRASI PREMIUM (ROBOT BELAJAR) */
+        .animation-box {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px auto;
+            background: #e6f2ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-rocket {
+            font-size: 50px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .sparkles {
+            position: absolute;
+            font-size: 20px;
+            color: #ffb703;
+            animation: blink 2s infinite;
+        }
+        .s1 { top: 15px; left: 15px; animation-delay: 0.5s; }
+        .s2 { bottom: 15px; right: 15px; animation-delay: 1s; }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* TEXT STYLES */
+        .badge-dev {
+            display: inline-block;
+            background-color: #eef2ff;
+            color: #4c1d95; /* Ungu Matang */
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a202c;
+            line-height: 1.3;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #718096;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* PREMIUM BUTTON */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #4c1d95 0%, #0077ff 100%);
+            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 14px 28px;
+            border-radius: 14px;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 119, 255, 0.15);
+            transition: all 0.3s;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(76, 29, 149, 0.25);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="maintenance-card">
+        <!-- Area Animasi Mungil -->
+        <div class="animation-box">
+            <span class="sparkles s1">✨</span>
+            <span class="icon-rocket">🚀</span>
+            <span class="sparkles s2">✨</span>
+        </div>
+
+        <!-- Konten Informasi -->
+        <div class="badge-dev">Sedang Disiapkan</div>
+        <h2>Wah, Materinya Sedang Diracik Oleh Bapak/Ibu Guru!</h2>
+        <p>Terima kasih sudah bersemangat belajar. Saat ini halaman materi atau latihan soal yang kamu klik sedang dalam proses pengetikan dan penyusunan agar tampilannya menarik dan mudah kamu pahami. Tunggu sebentar lagi, ya!</p>
+        
+        <!-- Tombol Kembali -->
+        <a href="./" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Ruang Murid
+        </a>
+    </div>
+
+</body>
+</html>
