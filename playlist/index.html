@@ -1,20 +1,169 @@
-<div class="playlist-navigation">
-            <a href="../" class="btn-nav btn-back-music">
-                <i class="fa-solid fa-arrow-left-long"></i> Kembali
-            </a>
-            <a href="materi-selanjutnya.html" class="btn-nav btn-next-music">
-                Lanjut <i class="fa-solid fa-arrow-right-long"></i>
-            </a>
-        </div>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Belajar Audio - SDN Butoh 1 Ngasem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* RESET & BASE STYLES */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    </div> <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19; 
+            color: #f3f4f6;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .playlist-container {
+            width: 100%;
+            max-width: 750px;
+            background: #111827; 
+            border: 1px solid #1f2937;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* HEADER */
+        .playlist-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #1f2937;
+            padding-bottom: 20px;
+        }
+        .playlist-header i {
+            font-size: 28px;
+            color: #38bdf8; 
+        }
+        .playlist-header h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .playlist-header p {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+
+        /* TRACK LIST COMPACT */
+        .track-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; 
+        }
+
+        .track-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto auto; 
+            align-items: center;
+            background: #1f2937;
+            border: 1px solid transparent;
+            padding: 10px 20px;
+            border-radius: 12px;
+            gap: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .track-item:hover {
+            background: #2563eb; 
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .track-number {
+            font-size: 13px;
+            font-weight: 700;
+            color: #6b7280;
+            width: 20px;
+        }
+        .track-item:hover .track-number {
+            color: #ffffff;
+        }
+
+        .track-info {
+            min-width: 0; 
+        }
+        .track-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .track-artist {
+            font-size: 12px;
+            color: #9ca3af;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 2px;
+        }
+        .track-item:hover .track-artist {
+            color: #bfdbfe;
+        }
+
+        /* Mini Player */
+        .audio-player-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        audio {
+            height: 30px; 
+            width: 220px; 
+            border-radius: 30px;
+            background: #f1f5f9;
+        }
+
+        /* Tombol Unduh */
+        .btn-download {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #38bdf8;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-download:hover {
+            background: #ffffff;
+            color: #111827;
+            border-color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        /* TOMBOL NAVIGASI BAWAH */
         .playlist-navigation {
             display: flex;
-            justify-content: flex-end; /* Memposisikan di kanan bawah */
+            justify-content: flex-end; 
             gap: 12px;
             margin-top: 25px;
             padding-top: 20px;
-            border-top: 1px solid #1f2937; /* Garis pembatas tipis atas */
+            border-top: 1px solid #1f2937; 
         }
 
         .btn-nav {
@@ -30,7 +179,6 @@
             text-decoration: none;
         }
 
-        /* Tombol Kembali: Transparan Simpel */
         .btn-nav.btn-back-music {
             background-color: transparent;
             color: #9ca3af;
@@ -42,29 +190,8 @@
             transform: translateX(-3px);
         }
 
-        /* Tombol Lanjut: Biru Neon Menyala */
         .btn-nav.btn-next-music {
             background: linear-gradient(135deg, #2563eb 0%, #38bdf8 100%);
             color: white;
             border: none;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
-        }
-        .btn-nav.btn-next-music:hover {
-            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
-            transform: translateX(3px);
-        }
-
-        /* Responsif HP */
-        @media (max-width: 640px) {
-            .playlist-navigation {
-                justify-content: space-between; /* Menjadi penuh kanan-kiri di layar HP */
-            }
-            .btn-nav {
-                flex: 1;
-                justify-content: center;
-            }
-        }
-    </style>
-
-</body>
-</html>
+            box-shadow
