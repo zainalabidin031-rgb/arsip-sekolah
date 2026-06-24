@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Belajar Audio - SDN Butoh 1 Ngasem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* RESET & BASE STYLES */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19; /* Latar belakang gelap elegan */
+            color: #f3f4f6;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .playlist-container {
+            width: 100%;
+            max-width: 750px;
+            background: #111827; /* Dark panel */
+            border: 1px solid #1f2937;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* HEADER */
+        .playlist-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #1f2937;
+            padding-bottom: 20px;
+        }
+        .playlist-header i {
+            font-size: 28px;
+            color: #38bdf8; /* Light blue neon */
+        }
+        .playlist-header h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .playlist-header p {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+
+        /* TRACK LIST COMPACT */
+        .track-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Jarak antar baris tipis agar muat banyak */
+        }
+
+        .track-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto auto; /* Pembagian kolom presisi */
+            align-items: center;
+            background: #1f2937;
+            border: 1px solid transparent;
+            padding: 10px 20px;
+            border-radius: 12px;
+            gap: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .track-item:hover {
+            background: #2563eb; /* Berubah biru saat disorot */
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Nomer Urut */
+        .track-number {
+            font-size: 13px;
+            font-weight: 700;
+            color: #6b7280;
+            width: 20px;
+        }
+        .track-item:hover .track-number {
+            color: #ffffff;
+        }
+
+        /* Informasi Lagu */
+        .track-info {
+            min-width: 0; /* Mencegah text overflow */
+        }
+        .track-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .track-artist {
+            font-size: 12px;
+            color: #9ca3af;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 2px;
+        }
+        .track-item:hover .track-artist {
+            color: #bfdbfe;
+        }
+
+        /* Mini Player (Kecil tapi Memanjang) */
+        .audio-player-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        audio {
+            height: 30px; /* Membuat ukurannya kecil tipis */
+            width: 220px; /* Desain memanjang kesamping */
+            border-radius: 30px;
+            background: #f1f5f9;
+        }
+        /* Mengubah warna bawaan audio browser jika didukung */
+        audio::-webkit-media-controls-enclosure {
+            background-color: #f1f5f9;
+        }
+
+        /* Tombol Unduh Kanan */
+        .btn-download {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #38bdf8;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-download:hover {
+            background: #ffffff;
+            color: #111827;
+            border-color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        /* Responsif HP */
+        @media (max-width: 640px) {
+            .track-item {
+                grid-template-columns: 1fr auto;
+                gap: 10px;
+                padding: 15px;
+            }
+            .audio-player-wrapper {
+                grid-column: span 2;
+                width: 100%;
+            }
+            audio {
+                width: 100%; /* Di HP, player melebar penuh otomatis */
+            }
+            .track-number { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="playlist-container">
+        
+        <div class="playlist-header">
+            <i class="fa-solid fa-compact-disc fa-spin" style="animation-duration: 8s;"></i>
+            <div>
+                <h2>Audio Learning Hub</h2>
+                <p>Daftar lagu edukasi dan materi listening Bahasa Inggris</p>
+            </div>
+        </div>
+
+        <div class="track-list">
+            
+            <div class="track-item">
+                <div class="track-number">01</div>
+                <div class="track-info">
+                    <div class="track-title">Food and Drinks Song</div>
+                    <div class="track-artist">Vocabulary Section • Unit 4</div>
+                </div>
+                <div class="audio-player-wrapper">
+                    <audio controls src="audio/food-drinks.mp3"></audio> 
+                </div>
+                <a href="audio/food-drinks.mp3" download class="btn-download" title="Unduh Lagu">
+                    <i class="fa-solid fa-cloud-arrow-down"></i>
+                </a>
+            </div>
+
+            <div class="track-item">
+                <div class="track-number">02</div>
+                <div class="track-info">
+                    <div class="track-title">Greetings and Introduction</div>
+                    <div class="track-artist">Listening Practice • Unit 1</div>
+                </div>
+                <div class="audio-player-wrapper">
+                    <audio controls src="audio/greetings.mp3"></audio>
+                </div>
+                <a href="audio/greetings.mp3" download class="btn-download" title="Unduh Lagu">
+                    <i class="fa-solid fa-cloud-arrow-down"></i>
+                </a>
+            </div>
+
+            <div class="track-item">
+                <div class="track-number">03</div>
+                <div class="track-info">
+                    <div class="track-title">Days and Months Rhythm</div>
+                    <div class="track-artist">Fun Learning Game • Unit 2</div>
+                </div>
+                <div class="audio-player-wrapper">
+                    <audio controls src="audio/days-months.mp3"></audio>
+                </div>
+                <a href="audio/days-months.mp3" download class="btn-download" title="Unduh Lagu">
+                    <i class="fa-solid fa-cloud-arrow-down"></i>
+                </a>
+            </div>
+
+            <div class="track-item">
+                <div class="track-number">04</div>
+                <div class="track-info">
+                    <div class="track-title">Our Body Parts Chant</div>
+                    <div class="track-artist">Kosa Kata Anggota Tubuh • Unit 3</div>
+                </div>
+                <div class="audio-player-wrapper">
+                    <audio controls src="audio/body-parts.mp3"></audio>
+                </div>
+                <a href="audio/body-parts.mp3" download class="btn-download" title="Unduh Lagu">
+                    <i class="fa-solid fa-cloud-arrow-down"></i>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
