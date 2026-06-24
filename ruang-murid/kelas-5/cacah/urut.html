@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Mengurutkan Bilangan 6 Digit</title>
+    <style>
+        :root {
+            --biru-cerah: #e0f2fe; /* Latar belakang segar */
+            --biru-aksen: #0284c7; /* Warna elemen pendukung */
+            --ungu-matang: #4c1d95; /* Warna judul utama */
+            --ungu-muda: #6d28d9; /* Warna tombol & highlight */
+            --putih: #ffffff;
+            --teks: #1e1b4b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--biru-cerah);
+            color: var(--teks);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            background: var(--putih);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(76, 29, 149, 0.1);
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--ungu-matang);
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            border-bottom: 4px solid var(--biru-aksen);
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: var(--ungu-muda);
+            margin-top: 30px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .highlight-box {
+            background-color: #f3e8ff;
+            border-left: 5px solid var(--ungu-matang);
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        .tips-box {
+            background-color: #e0f2fe;
+            border-left: 5px solid var(--biru-aksen);
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+            margin: 15px 0;
+        }
+
+        ul, ol {
+            line-height: 1.6;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Animasi Kartu Bilangan Acak */
+        .urutkan-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .card-bilangan {
+            background: linear-gradient(135deg, var(--ungu-muda), var(--ungu-matang));
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(109, 40, 217, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card-bilangan:hover {
+            transform: scale(1.1) rotate(2deg);
+            background: linear-gradient(135deg, var(--biru-aksen), #0369a1);
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
+        }
+
+        /* Soal dan Pembahasan */
+        .soal-card {
+            background: #fdf4ff;
+            border: 1px solid #f3e8ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .soal-title {
+            font-weight: bold;
+            color: var(--ungu-matang);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .pembahasan {
+            background: #ffffff;
+            border-left: 3px solid var(--biru-aksen);
+            margin-top: 12px;
+            padding: 10px 15px;
+        }
+
+        /* Zona Latihan Anak (Warna Hijau Lembut) */
+        .latihan-section {
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        .latihan-section h3 {
+            color: #166534;
+            margin-top: 0;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #bbf7d0;
+            padding-bottom: 10px;
+        }
+
+        .soal-latihan {
+            background: var(--putih);
+            border: 1px solid #dcfce7;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .soal-latihan span {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #14532d;
+            margin-bottom: 10px;
+        }
+
+        .garis-jawab {
+            border-bottom: 2px dashed #cbd5e1;
+            width: 100%;
+            height: 30px;
+            margin-top: 10px;
+        }
+
+        /* Tombol Navigasi */
+        .navigasi {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-kembali {
+            background-color: var(--ungu-muda);
+            color: var(--putih);
+        }
+
+        .btn-kembali:hover {
+            background-color: var(--ungu-matang);
+            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+        }
+
+        .btn-lanjut {
+            background-color: #cbd5e1;
+            color: #334155;
+        }
+
+        .btn-lanjut:hover {
+            background-color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Materi Lanjutan: Mengurutkan Bilangan 6 Digit</h1>
+
+    <h2>1. Cara Mudah Mengurutkan Bilangan Besar</h2>
+    <p>Mengurutkan bilangan artinya menyusun beberapa bilangan acak agar teratur, baik dari yang <b>terkecil ke terbesar</b> maupun sebaliknya dari yang <b>terbesar ke terkecil</b>.</p>
+    
+    <div class="tips-box">
+        🚀 <b>Tips Rahasia Mengurutkan:</b>
+        <ol>
+            <li>Lihat angka pertama dari kiri (Nilai tempat <b>Ratusan Ribuan</b>).</li>
+            <li>Jika angka pertamanya sama besar, bergeserlah ke angka kedua (<b>Puluh Ribuan</b>).</li>
+            <li>Jika masih sama, terus bergeser ke kanan (<b>Ribuan, Ratusan, dst.</b>) hingga kamu menemukan angka yang berbeda nilainya!</li>
+        </ol>
+    </div>
+
+    <p style="text-align: center; font-size: 0.95rem; color: #4b5563;"><i>Arahkan kursor atau ketuk kartu angka di bawah untuk melihat efek gerak animasi!</i></p>
+    <div class="urutkan-container">
+        <div class="card-bilangan">412.500</div>
+        <div class="card-bilangan">125.900</div>
+        <div class="card-bilangan">680.300</div>
+        <div class="card-bilangan">415.200</div>
+    </div>
+
+    <h2>2. Contoh Soal & Pembahasan</h2>
+    
+    <div class="soal-card">
+        <div class="soal-title">Contoh Soal 1: Mengurutkan dari yang Terkecil</div>
+        <p>Urutkan bilangan-bilangan berikut dari yang <b>terkecil ke terbesar</b>: <br><b>235.100, &nbsp; 148.900, &nbsp; 521.000, &nbsp; 235.700</b></p>
+        
+        <div class="pembahasan">
+            <b>Pembahasan:</b>
+            <ul>
+                <li>Bandingkan angka paling depan: <b>1</b>48.900 adalah yang paling kecil karena angka pertamanya 1.</li>
+                <li>Bandingkan <b>2</b>35.100 dan <b>2</b>35.700. Tiga angka depannya sama (235). Maka lihat ratusannya: angka 1 lebih kecil dari 7. Berarti 235.100 lebih kecil dari 235.700.</li>
+                <li>Bilangan terbesar adalah <b>5</b>21.000 karena angka depannya 5.</li>
+            </ul>
+            <p><b>Hasil Urutan Terkecil ke Terbesar:</b> <br><b style="color: var(--ungu-muda);">148.900, &nbsp; 235.100, &nbsp; 235.700, &nbsp; 521.000</b></p>
+        </div>
+    </div>
+
+    <div class="soal-card">
+        <div class="soal-title">Contoh Soal 2: Mengurutkan dari yang Terbesar</div>
+        <p>Urutkan bilangan-bilangan berikut dari yang <b>terbesar ke terkecil</b>: <br><b>874.200, &nbsp; 891.000, &nbsp; 874.500</b></p>
+        
+        <div class="pembahasan">
+            <b>Pembahasan:</b>
+            <ul>
+                <li>Semua bilangan diawali angka 8. Kita lihat angka kedua dari kiri.</li>
+                <li>Angka kedua: 8<b>9</b>1.000 memiliki angka 9, jadi ini yang paling besar.</li>
+                <li>Sisa bilangan: 8<b>7</b>4.200 dan 8<b>7</b>4.500. Angka kedua dan ketiganya sama besar (74). Maka bandingkan ratusannya: angka 5 lebih besar dari 2.</li>
+            </ul>
+            <p><b>Hasil Urutan Terbesar ke Terkecil:</b> <br><b style="color: var(--ungu-muda);">891.000, &nbsp; 874.500, &nbsp; 874.200</b></p>
+        </div>
+    </div>
+
+    <div class="latihan-section">
+        <h3>✏️ Ruang Tantangan: Yuk, Kita Hitung Sendiri!</h3>
+        <p>Urutkan bilangan-bilangan di bawah ini sesuai petunjuk soalnya, ya! Tulis jawabanmu di buku latihan.</p>
+
+        <div class="soal-text-box soal-latihan">
+            <span>Soal Tipe A: Urutkan dari yang TERKECIL ke TERBESAR!</span>
+            1) &nbsp; 320.150, &nbsp; 115.400, &nbsp; 640.200, &nbsp; 320.900
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-text-box soal-latihan">
+            <span>2) &nbsp; 754.300, &nbsp; 751.200, &nbsp; 759.000, &nbsp; 754.100</span>
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-text-box soal-latihan">
+            <span>Soal Tipe B: Urutkan dari yang TERBESAR ke TERKECIL!</span>
+            3) &nbsp; 450.000, &nbsp; 825.000, &nbsp; 210.000, &nbsp; 590.000
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-text-box soal-latihan">
+            <span>4) &nbsp; 618.400, &nbsp; 618.900, &nbsp; 618.100, &nbsp; 618.700</span>
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-text-box soal-latihan">
+            <span>Soal Tantangan Campuran!</span>
+            5) Temukan bilangan yang paling besar saja di antara bilangan berikut: <br>
+            &nbsp; &nbsp; <b>932.400, &nbsp; 935.100, &nbsp; 931.900, &nbsp; 935.800</b>
+            <div class="garis-jawab"></div>
+        </div>
+    </div>
+
+    <div class="navigasi">
+        <a href="../" class="btn btn-kembali">◁ Halaman Sebelumnya (Nilai Tempat)</a>
+        <a href="komposisi.html" class="btn btn-lanjut">Materi Selanjutnya Komposisi dan Dekomposisi Bilangan ▷</a>
+    </div>
+</div>
+
+</body>
+</html>
