@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lembar Latihan Soal Mandiri Matematika</title>
+    <style>
+        :root {
+            --biru-cerah: #e0f2fe; /* Latar belakang segar */
+            --biru-aksen: #0284c7; /* Warna elemen pendukung */
+            --ungu-matang: #4c1d95; /* Warna judul utama */
+            --ungu-muda: #6d28d9; /* Warna tombol & highlight */
+            --putih: #ffffff;
+            --teks: #1e1b4b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--biru-cerah);
+            color: var(--teks);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            background: var(--putih);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(76, 29, 149, 0.1);
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--ungu-matang);
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--biru-aksen);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            border-bottom: 4px solid var(--biru-aksen);
+            padding-bottom: 15px;
+        }
+
+        .petunjuk-box {
+            background-color: #f3e8ff;
+            border-left: 5px solid var(--ungu-matang);
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        /* Desain Kartu Soal */
+        .soal-card {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .soal-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--ungu-muda);
+        }
+
+        .badge-topik {
+            display: inline-block;
+            padding: 5px 12px;
+            background-color: var(--biru-cerah);
+            color: var(--biru-aksen);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .nomor-soal {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--ungu-matang);
+            margin-bottom: 8px;
+        }
+
+        .isi-soal {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* Tempat Menjawab */
+        .tempat-jawab {
+            border-top: 2px dashed #cbd5e1;
+            margin-top: 20px;
+            padding-top: 15px;
+        }
+
+        .label-jawab {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .garis-tulis {
+            height: 40px;
+            width: 100%;
+            background-image: linear-gradient(to right, #cbd5e1 50%, rgba(255,255,255,0) 0%);
+            background-position: bottom;
+            background-size: 10px 2px;
+            background-repeat: repeat-x;
+        }
+
+        /* Tombol Navigasi */
+        .navigasi {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-kembali {
+            background-color: var(--ungu-muda);
+            color: var(--putih);
+        }
+
+        .btn-kembali:hover {
+            background-color: var(--ungu-matang);
+            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+        }
+
+        .btn-lanjut {
+            background-color: #cbd5e1;
+            color: #334155;
+        }
+
+        .btn-lanjut:hover {
+            background-color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📝 Ruang Uji Kemampuan Mandiri</h1>
+    <div class="subtitle">Topik: Bilangan Cacah & Nilai Tempat Ratusan Ribu</div>
+
+    <div class="petunjuk-box">
+        🎯 Petunjuk: Siapkan buku tulismu, baca soal dengan teliti, lalu tuliskan jawaban terbaikmu pada tempat yang disediakan atau di buku latihanmu! Selamat mengerjakan, anak hebat!
+    </div>
+
+    <div class="soal-card">
+        <span class="badge-topik">Sifat Operasi Hitung</span>
+        <div class="nomor-soal">Soal Nomor 1</div>
+        <div class="isi-soal">
+            Hitunglah hasil dari <b>45.000 + 13.000</b>. Kemudian gunakan <b>sifat komutatif (pertukaran)</b> untuk menunjukkan bentuk penjumlahan alternatifnya!
+        </div>
+        <div class="tempat-jawab">
+            <div class="label-jawab">Jawabanmu:</div>
+            <div class="garis-tulis"></div>
+        </div>
+    </div>
+
+    <div class="soal-card">
+        <span class="badge-topik">Sifat Operasi Hitung</span>
+        <div class="nomor-soal">Soal Nomor 2</div>
+        <div class="isi-soal">
+            Sederhanakan dan hitunglah bentuk perkalian berikut menggunakan <b>sifat distributif (penyebaran)</b>: <br>
+            <b>(6 × 10.000) + (6 × 2.000) = ... × ( ... + ... ) = ...</b>
+        </div>
+        <div class="tempat-jawab">
+            <div class="label-jawab">Jawabanmu:</div>
+            <div class="garis-tulis"></div>
+        </div>
+    </div>
+
+    <div class="soal-card">
+        <span class="badge-topik">Pengenalan Bilangan Cacah</span>
+        <div class="nomor-soal">Soal Nomor 3</div>
+        <div class="isi-soal">
+            Sebuah perpustakaan daerah memiliki koleksi sebanyak <b>84.205</b> buku cerita. Tuliskan cara membaca lambang bilangan cacah tersebut menggunakan huruf/kata-kata!
+        </div>
+        <div class="tempat-jawab">
+            <div class="label-jawab">Jawabanmu:</div>
+            <div class="garis-tulis"></div>
+        </div>
+    </div>
+
+    <div class="soal-card">
+        <span class="badge-topik">Nilai Tempat 6 Digit</span>
+        <div class="nomor-soal">Soal Nomor 4</div>
+        <div class="isi-soal">
+            Perhatikan bilangan <b>592.147</b>. Tentukan nilai tempat dan nilai asli dari angka <b>9</b> pada bilangan tersebut!
+        </div>
+        <div class="tempat-jawab">
+            <div class="label-jawab">Jawabanmu:</div>
+            <div class="garis-tulis"></div>
+            <div class="garis-tulis" style="margin-top: 10px;"></div>
+        </div>
+    </div>
+
+    <div class="soal-card">
+        <span class="badge-topik">Nilai Tempat 6 Digit</span>
+        <div class="nomor-soal">Soal Nomor 5</div>
+        <div class="isi-soal">
+            Tentukan lambang bilangan utuh (6 digit) yang terbentuk dari susunan nilai tempat berikut: <br>
+            <i>4 ratusan ribuan, 7 ribuan, 2 puluhan, 8 ratusan, 0 puluh ribuan, dan 5 satuan.</i>
+        </div>
+        <div class="tempat-jawab">
+            <div class="label-jawab">Jawabanmu:</div>
+            <div class="garis-tulis"></div>
+        </div>
+    </div>
+
+    <div class="navigasi">
+        <a href="../" class="btn btn-kembali">◁ Kembali ke Halaman Materi</a>
+        <a href="urut.html" class="btn btn-lanjut">Materi Mengurutkan Bilangan ▷</a>
+    </div>
+</div>
+
+</body>
+</html>
