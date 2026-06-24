@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Belajar Nilai Tempat Bilangan 5 Digit</title>
+    <title>Belajar Nilai Tempat Bilangan 6 Digit (Ratusan Ribu)</title>
     <style>
         :root {
             --biru-cerah: #e0f2fe; /* Latar belakang segar */
@@ -25,7 +25,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             background: var(--putih);
             padding: 40px;
             border-radius: 20px;
@@ -68,11 +68,11 @@
             margin-bottom: 8px;
         }
 
-        /* Struktur Nilai Tempat Interaktif */
+        /* Struktur Nilai Tempat Interaktif dengan Animasi */
         .interactive-place-value {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             margin: 35px 0;
             flex-wrap: wrap;
         }
@@ -80,10 +80,11 @@
         .digit-card {
             background: linear-gradient(135deg, var(--ungu-matang), var(--ungu-muda));
             color: white;
-            padding: 20px;
+            padding: 20px 10px;
             border-radius: 15px;
             text-align: center;
-            min-width: 110px;
+            flex: 1;
+            min-width: 115px;
             box-shadow: 0 8px 15px rgba(76, 29, 149, 0.2);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
@@ -114,7 +115,7 @@
         }
 
         .digit-card .number {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             font-weight: 800;
             display: block;
             margin-bottom: 5px;
@@ -122,11 +123,13 @@
         }
 
         .digit-card .label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             font-weight: 600;
             opacity: 0.9;
+            display: block;
+            min-height: 38px;
         }
 
         .digit-card .val {
@@ -179,6 +182,7 @@
             border: 1px solid #ddd;
             padding: 8px;
             text-align: center;
+            font-size: 0.9rem;
         }
 
         .table-analisis th {
@@ -232,16 +236,16 @@
 <body>
 
 <div class="container">
-    <h1>Materi Lanjutan: Nilai Tempat Bilangan (5 Digit)</h1>
+    <h1>Materi Lanjutan: Nilai Tempat Bilangan 6 Digit (Ratusan Ribu)</h1>
 
-    <!-- Bab 1 -->
-    <h2>1. Memahami Nilai Tempat Bilangan 5 Digit</h2>
-    <p>Setiap angka dalam suatu bilangan memiliki nilai yang berbeda-beda tergantung pada posisinya. Posisi inilah yang disebut dengan <b>Nilai Tempat</b>.</p>
+    <h2>1. Memahami Nilai Tempat Ratusan Ribu</h2>
+    <p>Ketika suatu bilangan mencapai <b>6 digit</b> (berkisar antara <b>100.000</b> sampai <b>999.999</b>), kita memasuki area bilangan <b>Ratusan Ribu</b>. Mengetahui posisi angka menjadi sangat penting agar kita tidak salah membaca jumlahnya!</p>
     
-    <p>Bilangan 5 digit adalah bilangan yang berkisar antara <b>10.000</b> sampai dengan <b>99.999</b>. Pada bilangan 5 digit, susunan nilai tempat dari arah kiri ke kanan adalah:</p>
+    <p>Pada bilangan 6 digit, susunan nilai tempat dari arah kiri (nilai terbesar) ke kanan (nilai terkecil) adalah:</p>
     
     <ul>
-        <li><b>Puluh Ribuan</b> (Nilai tempat tertinggi)</li>
+        <li><b>Ratusan Ribuan</b> (Nilai tempat tertinggi)</li>
+        <li><b>Puluh Ribuan</b></li>
         <li><b>Ribuan</b></li>
         <li><b>Ratusan</b></li>
         <li><b>Puluhan</b></li>
@@ -249,24 +253,28 @@
     </ul>
 
     <div class="highlight-box">
-        💡 <b>Info Seru:</b> Mengapa disebut 5 digit? Karena bilangan tersebut disusun oleh 5 buah angka unik berdampingan!
+        💡 <b>Info Penting:</b> Penulisan tanda titik (.) biasanya diletakkan setelah 3 angka dari belakang untuk memisahkan kelas ribuan dengan kelas satuan, contohnya: <b>358.214</b>.
     </div>
 
-    <!-- Gambar Pendukung Animasi CSS (Hover Effect) -->
     <p style="text-align: center; font-size: 0.95rem; color: #4b5563; margin-top: 25px;">
-        <i>Arahkan kursor atau ketuk kotak angka di bawah ini untuk melihat animasi perubahan fokus nilai tempat bilangan <b>85.241</b>!</i>
+        <i>Arahkan kursor atau ketuk kotak di bawah ini untuk melihat animasi nilai tempat bilangan <b>358.214</b>!</i>
     </p>
 
     <div class="interactive-place-value">
         <div class="digit-card">
-            <span class="number">8</span>
-            <span class="label">Puluh Ribuan</span>
-            <span class="val">80.000</span>
+            <span class="number">3</span>
+            <span class="label">Ratusan Ribuan</span>
+            <span class="val">300.000</span>
         </div>
         <div class="digit-card">
             <span class="number">5</span>
+            <span class="label">Puluh Ribuan</span>
+            <span class="val">50.000</span>
+        </div>
+        <div class="digit-card">
+            <span class="number">8</span>
             <span class="label">Ribuan</span>
-            <span class="val">5.000</span>
+            <span class="val">8.000</span>
         </div>
         <div class="digit-card">
             <span class="number">2</span>
@@ -274,59 +282,50 @@
             <span class="val">200</span>
         </div>
         <div class="digit-card">
-            <span class="number">4</span>
+            <span class="number">1</span>
             <span class="label">Puluhan</span>
-            <span class="val">40</span>
+            <span class="val">10</span>
         </div>
         <div class="digit-card">
-            <span class="number">1</span>
+            <span class="number">4</span>
             <span class="label">Satuan</span>
-            <span class="val">1</span>
+            <span class="val">4</span>
         </div>
     </div>
 
-    <!-- Bab 2 -->
     <h2>2. Contoh Soal & Cara Menjawabnya</h2>
-    <p>Mari pelajari cara membedah nilai tempat melalui 5 variasi soal berikut:</p>
+    <p>Mari uji pemahaman kita dengan mengupas 5 bentuk soal bilangan 6 digit berikut:</p>
 
-    <!-- Soal 1 -->
     <div class="soal-card">
-        <div class="soal-title">Soal 1: Menentukan Nilai Angka Spesifik</div>
-        <p>Pada bilangan <b>63.915</b>, angka berapakah yang menempati nilai tempat <b>Ratusan</b>?</p>
+        <div class="soal-title">Soal 1: Mencari Posisi Nilai Tempat Tertinggi</div>
+        <p>Pada bilangan <b>745.209</b>, angka berapakah yang menempati nilai tempat <b>Ratusan Ribuan</b>?</p>
         <div class="pembahasan">
             <div class="pembahasan-title">Cara Menjawab:</div>
-            <p>Mari kita urutkan nilai tempat dari belakang (kanan):</p>
-            <ul>
-                <li>5 &rarr; Satuan</li>
-                <li>1 &rarr; Puluhan</li>
-                <li><b>9 &rarr; Ratusan</b></li>
-                <li>3 &rarr; Ribuan</li>
-                <li>6 &rarr; Puluh Ribuan</li>
-            </ul>
-            <p>Jadi, angka yang menempati nilai tempat Ratusan adalah <b>9</b>.</p>
+            <p>Nilai tempat Ratusan Ribuan berada pada urutan pertama (paling kiri) pada bilangan 6 digit.</p>
+            <p>Jika diurutkan dari kiri: <b>7 (Ratusan Ribuan)</b>, 4 (Puluh Ribuan), 5 (Ribuan), 2 (Ratusan), 0 (Puluhan), 9 (Satuan).</p>
+            <p>Jadi, angka yang menempati nilai tempat Ratusan Ribuan adalah <b>7</b>.</p>
         </div>
     </div>
 
-    <!-- Soal 2 -->
     <div class="soal-card">
-        <div class="soal-title">Soal 2: Menghitung Nilai dari Suatu Digit</div>
-        <p>Berapakah <b>nilai asli</b> dari angka 4 pada bilangan <b>42.708</b>?</p>
+        <div class="soal-title">Soal 2: Menghitung Nilai Asli Suatu Angka</div>
+        <p>Berapakah <b>nilai asli</b> dari angka 8 pada bilangan <b>281.354</b>?</p>
         <div class="pembahasan">
             <div class="pembahasan-title">Cara Menjawab:</div>
-            <p>Angka 4 berada di posisi paling kiri, yang berarti menempati nilai tempat <b>Puluh Ribuan</b>.</p>
-            <p>Nilai asli = Angka &times; Nilai Tempat = 4 &times; 10.000 = <b>40.000</b>.</p>
+            <p>Pertama, cari posisi angka 8. Angka 8 berada di posisi kedua dari kiri, yang berarti menempati nilai tempat <b>Puluh Ribuan</b>.</p>
+            <p>Nilai asli = Angka &times; Nilai Tempat = 8 &times; 10.000 = <b>80.000</b>.</p>
         </div>
     </div>
 
-    <!-- Soal 3 -->
     <div class="soal-card">
-        <div class="soal-title">Soal 3: Menyusun Bilangan Berdasarkan Nilai Tempat</div>
-        <p>Sebuah bilangan misterius terdiri dari: <i>3 ribuan, 7 puluh ribuan, 0 ratusan, 2 satuan, dan 9 puluhan</i>. Tuliskan bentuk lambang bilangan tersebut!</p>
+        <div class="soal-title">Soal 3: Menyusun Angka Acak Menjadi Bilangan Lengkap</div>
+        <p>Susunlah angka-angka berikut menjadi sebuah bilangan yang utuh: <i>5 ratusan, 9 ratusan ribuan, 2 satuan, 0 puluhan ribuan, 4 puluhan, dan 7 ribuan</i>!</p>
         <div class="pembahasan">
             <div class="pembahasan-title">Cara Menjawab:</div>
-            <p>Susunlah nilai tempat sesuai urutan yang benar dari Puluh Ribuan hingga Satuan:</p>
+            <p>Mari kita kelompokkan ke dalam tabel nilai tempat dari urutan terbesar ke terkecil:</p>
             <table class="table-analisis">
                 <tr>
+                    <th>Ratusan Ribuan</th>
                     <th>Puluh Ribuan</th>
                     <th>Ribuan</th>
                     <th>Ratusan</th>
@@ -334,51 +333,51 @@
                     <th>Satuan</th>
                 </tr>
                 <tr>
-                    <td>7</td>
-                    <td>3</td>
-                    <td>0</td>
                     <td>9</td>
+                    <td>0</td>
+                    <td>7</td>
+                    <td>5</td>
+                    <td>4</td>
                     <td>2</td>
                 </tr>
             </table>
-            <p style="margin-top: 10px;">Gabungkan semua angkanya menjadi: <b>73.092</b>.</p>
+            <p style="margin-top: 10px;">Jika digabungkan dan diberi tanda titik pemisah, hasilnya adalah <b>907.542</b>.</p>
         </div>
     </div>
 
-    <!-- Soal 4 -->
     <div class="soal-card">
-        <div class="soal-title">Soal 4: Bentuk Panjang (Ekspansi) Bilangan</div>
-        <p>Uraikan bilangan <b>19.453</b> berdasarkan nilai tempatnya dalam bentuk penjumlahan panjang!</p>
+        <div class="soal-title">Soal 4: Menuliskan Bentuk Panjang (Ekspansi)</div>
+        <p>Tuliskan bentuk penjumlahan panjang dari bilangan <b>623.481</b>!</p>
         <div class="pembahasan">
             <div class="pembahasan-title">Cara Menjawab:</div>
-            <p>Tentukan nilai masing-masing digit terlebih dahulu:</p>
+            <p>Uraikan nilai setiap angka berdasarkan posisinya:</p>
             <ul>
-                <li>1 bernilai 10.000</li>
-                <li>9 bernilai 9.000</li>
-                <li>4 bernilai 400</li>
-                <li>5 bernilai 50</li>
-                <li>3 bernilai 3</li>
+                <li>6 &rarr; 600.000</li>
+                <li>2 &rarr; 20.000</li>
+                <li>3 &rarr; 3.000</li>
+                <li>4 &rarr; 400</li>
+                <li>8 &rarr; 80</li>
+                <li>1 &rarr; 1</li>
             </ul>
-            <p>Bentuk panjangnya adalah: <b>10.000 + 9.000 + 400 + 50 + 3</b>.</p>
+            <p>Bentuk panjangnya adalah: <b>600.000 + 20.000 + 30.000 + 400 + 80 + 1</b>.</p>
         </div>
     </div>
 
-    <!-- Soal 5 -->
     <div class="soal-card">
-        <div class="soal-title">Soal 5: Analisis Angka Nol</div>
-        <p>Pada bilangan <b>50.321</b>, nilai tempat apakah yang ditempati oleh angka <b>0</b>?</p>
+        <div class="soal-title">Soal 5: Membedakan Dua Angka yang Sama</div>
+        <p>Pada bilangan <b>451.423</b>, terdapat dua angka 4. Jelaskan perbedaan nilai tempat kedua angka 4 tersebut!</p>
         <div class="pembahasan">
             <div class="pembahasan-title">Cara Menjawab:</div>
-            <p>Meskipun angkanya 0 (kosong), posisinya tetap memegang peranan dalam struktur nilai tempat:</p>
-            <p>5 (Puluh Ribuan) &rarr; <b>0 (Ribuan)</b> &rarr; 3 (Ratusan) &rarr; 2 (Puluhan) &rarr; 1 (Satuan).</p>
-            <p>Jadi, angka 0 menempati nilai tempat <b>Ribuan</b>.</p>
+            <ul>
+                <li>Angka 4 yang <b>pertama (paling kiri)</b> menempati nilai tempat <b>Ratusan Ribuan</b> (nilainya 400.000).</li>
+                <li>Angka 4 yang <b>kedua (di tengah)</b> menempati nilai tempat <b>Ratusan</b> (nilainya 400).</li>
+            </ul>
         </div>
     </div>
 
-    <!-- Navigasi -->
     <div class="navigasi">
-        <a href="#" class="btn btn-kembali">◁ Halaman Sebelumnya (Bilangan Cacah)</a>
-        <a href="komposisi.html" class="btn btn-lanjut">Lanjut Komposisi dan Dekomposisi Bilangan ▷</a>
+        <a href="../" class="btn btn-kembali">◁ Halaman Sebelumnya (Bilangan Cacah)</a>
+        <a href="urut.html" class="btn btn-lanjut">Materi Selanjutnya Mengurutkan Bilangan ▷</a>
     </div>
 </div>
 
