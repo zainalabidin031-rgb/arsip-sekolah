@@ -20,7 +20,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f6f9fc; /* Latar premium soft gray-blue */
+            background-color: #f6f9fc;
             color: #2d3748;
             line-height: 1.6;
         }
@@ -36,7 +36,7 @@
             padding: 0 20px;
         }
 
-        /* --- STICKY NAVBAR (Sama & Match) --- */
+        /* --- STICKY NAVBAR --- */
         .navbar {
             background-color: #ffffff;
             padding: 15px 0;
@@ -95,7 +95,7 @@
             background: linear-gradient(135deg, #4c1d95 0%, #0077ff 100%);
             color: white;
             padding: 50px 0;
-            border-radius: 0 0 30px 30px; /* Lengkungan modern di bawah */
+            border-radius: 0 0 30px 30px;
             box-shadow: 0 10px 30px rgba(76, 29, 149, 0.15);
             margin-bottom: 40px;
         }
@@ -140,7 +140,7 @@
             font-size: 24px;
         }
 
-        /* --- 1. SELEKSI KELAS (TOMBOL HORIZONTAL ELEGAN) --- */
+        /* --- 1. SELEKSI KELAS --- */
         .class-selector {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -169,7 +169,6 @@
             color: #a0aec0;
             font-weight: 600;
         }
-        /* Efek Aktif / Hover Kelas */
         .class-card:hover, .class-card.active {
             background: #4c1d95;
             border-color: #4c1d95;
@@ -179,13 +178,13 @@
         .class-card:hover h3, .class-card.active h3 { color: #ffffff; }
         .class-card:hover p, .class-card.active p { color: #c7d2fe; }
 
-
         /* --- 2. GRID UTAMA: MAPEL & DETAILS BAB --- */
         .main-space {
             display: grid;
-            grid-template-columns: 1fr 2fr; /* Mapel kiri (ramping), Bab kanan (lebar) */
+            grid-template-columns: 1fr 2fr; /* Sisi kiri 1 bagian, Kanan materi 2 bagian */
             gap: 30px;
             margin-bottom: 80px;
+            align-items: start;
         }
 
         /* KOLOM MAPEL */
@@ -225,7 +224,6 @@
             font-size: 11px;
             color: #718096;
         }
-        /* Hover Mapel */
         .subject-card:hover, .subject-card.active {
             border-color: #0077ff;
             background: #e6f2ff;
@@ -234,7 +232,7 @@
             background: #0077ff;
         }
 
-        /* KOLOM DAFTAR BAB DAN JALUR BACA */
+        /* KOLOM DAFTAR BAB */
         .chapters-container {
             background: #ffffff;
             border: 1px solid #e2eefe;
@@ -273,7 +271,6 @@
             color: #1a202c;
         }
         
-        /* Tombol Aksi Premium (Materi & Latihan) */
         .action-group {
             display: flex;
             gap: 10px;
@@ -373,39 +370,34 @@
         
         <h3 class="section-title"><span>👨‍🎓</span> Pilih Tingkat Kelas</h3>
         <section class="class-selector">
-    <!-- Kelas 1 dihapus kata active-nya agar lampunya mati -->
-    <div class="class-card" onclick="window.location.href='../'">
-        <h3>Kelas 1</h3>
-        <p>Fase A</p>
-    </div>
-    
-    <!-- Kelas 2 DITAMBAH kata active agar lampunya menyala ungu -->
-    <div class="class-card" onclick="window.location.href='../kelas-2/'">
-        <h3>Kelas 2</h3>
-        <p>Fase A</p>
-    </div>
-    
-    <!-- Kelas lainnya biarkan saja standar -->
-    <div class="class-card" onclick="window.location.href='../kelas-3/'">
-        <h3>Kelas 3</h3>
-        <p>Fase B</p>
-    </div>
-
-    <div class="class-card" onclick="window.location.href='../kelas-4/'">
-        <h3>Kelas 4</h3>
-        <p>Fase B</p>
-    </div>
-    
-    <div class="class-card active" onclick="window.location.href='#'">
-        <h3>Kelas 5</h3><p>Fase C</p>
-    </div>
-    <div class="class-card" onclick="window.location.href='../kelas-6/'">
-        <h3>Kelas 6</h3><p>Fase C</p>
-    </div>
-</section>
+            <div class="class-card" onclick="window.location.href='../'">
+                <h3>Kelas 1</h3>
+                <p>Fase A</p>
+            </div>
+            <div class="class-card" onclick="window.location.href='../kelas-2/'">
+                <h3>Kelas 2</h3>
+                <p>Fase A</p>
+            </div>
+            <div class="class-card" onclick="window.location.href='../kelas-3/'">
+                <h3>Kelas 3</h3>
+                <p>Fase B</p>
+            </div>
+            <div class="class-card" onclick="window.location.href='../kelas-4/'">
+                <h3>Kelas 4</h3>
+                <p>Fase B</p>
+            </div>
+            <div class="class-card active" onclick="window.location.href='#'">
+                <h3>Kelas 5</h3><p>Fase C</p>
+            </div>
+            <div class="class-card" onclick="window.location.href='../kelas-6/'">
+                <h3>Kelas 6</h3><p>Fase C</p>
+            </div>
+        </section>
         
+        <!-- BAGIAN UTAMA SEJAJAR (GRID MURNI) -->
         <section class="main-space">
             
+            <!-- KOLOM KIRI: MATA PELAJARAN -->
             <div>
                 <h3 class="section-title"><span>📚</span> Mata Pelajaran</h3>
                 <div class="subject-list">
@@ -434,18 +426,19 @@
                         </div>
                     </div>
 
-                    <div class="subject-card">
+                    <!-- FITUR LINK BAHASA INGGRIS YANG SUDAH AMAN & FLEX -->
+                    <a href="bahasa-inggris/food-drinks.html" class="subject-card" style="display: flex;">
                         <div class="subject-icon">📖</div> 
                         <div class="subject-info"> 
-                        <div class="onclick="window.location.href='bhs-inggris.html'">
                             <h4>Bahasa Inggris</h4>
                             <p>English Learning Zone</p>
                         </div>
-                    </div>
+                    </a>
 
                 </div>
             </div>
 
+            <!-- KOLOM KANAN: DAFTAR BAB PEMBELAJARAN -->
             <div>
                 <h3 class="section-title"><span>🎯</span> Daftar Bab Pembelajaran (Kelas 1 - Matematika)</h3>
                 <div class="chapters-container">
