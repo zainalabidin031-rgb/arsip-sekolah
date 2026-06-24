@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Komposisi Bilangan 6 Digit</title>
+    <style>
+        :root {
+            --biru-cerah: #e0f2fe; /* Latar belakang segar */
+            --biru-aksen: #0284c7; /* Warna elemen pendukung */
+            --ungu-matang: #4c1d95; /* Warna judul utama */
+            --ungu-muda: #6d28d9; /* Warna tombol & highlight */
+            --putih: #ffffff;
+            --teks: #1e1b4b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--biru-cerah);
+            color: var(--teks);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            background: var(--putih);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(76, 29, 149, 0.1);
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--ungu-matang);
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            border-bottom: 4px solid var(--biru-aksen);
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: var(--ungu-muda);
+            margin-top: 30px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .highlight-box {
+            background-color: #f3e8ff;
+            border-left: 5px solid var(--ungu-matang);
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        ul, ol {
+            line-height: 1.6;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Blok Animasi Kartu Komposisi */
+        .komposisi-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0;
+        }
+
+        .blok-gabung {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .mini-card {
+            background: var(--biru-cerah);
+            color: var(--biru-aksen);
+            border: 2px dashed var(--biru-aksen);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .panah-animasi {
+            font-size: 1.5rem;
+            color: var(--ungu-muda);
+            animation: bounce 1s infinite alternate;
+        }
+
+        .hasil-card {
+            background: linear-gradient(135deg, var(--ungu-matang), var(--ungu-muda));
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(76, 29, 149, 0.3);
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(5px); }
+        }
+
+        /* Soal dan Pembahasan */
+        .soal-card {
+            background: #fdf4ff;
+            border: 1px solid #f3e8ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .soal-title {
+            font-weight: bold;
+            color: var(--ungu-matang);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .pembahasan {
+            background: #ffffff;
+            border-left: 3px solid var(--biru-aksen);
+            margin-top: 12px;
+            padding: 10px 15px;
+        }
+
+        /* Zona Latihan Anak (Warna Hijau Lembut) */
+        .latihan-section {
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        .latihan-section h3 {
+            color: #166534;
+            margin-top: 0;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #bbf7d0;
+            padding-bottom: 10px;
+        }
+
+        .soal-latihan {
+            background: var(--putih);
+            border: 1px solid #dcfce7;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .soal-latihan span {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #14532d;
+            margin-bottom: 10px;
+        }
+
+        .garis-jawab {
+            border-bottom: 2px dashed #cbd5e1;
+            width: 100%;
+            height: 35px;
+            margin-top: 10px;
+        }
+
+        /* Tombol Navigasi */
+        .navigasi {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-kembali {
+            background-color: var(--ungu-muda);
+            color: var(--putih);
+        }
+
+        .btn-kembali:hover {
+            background-color: var(--ungu-matang);
+            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+        }
+
+        .btn-lanjut {
+            background-color: #cbd5e1;
+            color: #334155;
+        }
+
+        .btn-lanjut:hover {
+            background-color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Materi Lanjutan: Komposisi Bilangan 6 Digit</h1>
+
+    <h2>1. Apa itu Komposisi Bilangan?</h2>
+    <p><b>Komposisi bilangan</b> adalah proses menyusun atau menggabungkan nilai-nilai tempat angka yang terpisah menjadi satu kesatuan lambang bilangan yang utuh.</p>
+    
+    <p>Kebalikan dari komposisi adalah <i>dekomposisi</i>, yaitu menguraikan bilangan utuh menjadi pecahan nilai tempatnya.</p>
+
+    <div class="highlight-box">
+        🔑 <b>Kunci Utama:</b> Saat menyusun bilangan, perhatikan jumlah angka nol (0) pada tiap nilai tempat agar posisinya tidak tertukar atau bergeser!
+    </div>
+
+    <div class="komposisi-visual">
+        <div class="blok-gabung">
+            <div class="mini-card">500.000</div>
+            <div class="mini-card">+</div>
+            <div class="mini-card">40.000</div>
+            <div class="mini-card">+</div>
+            <div class="mini-card">2.000</div>
+            <div class="mini-card">+</div>
+            <div class="mini-card">800</div>
+            <div class="mini-card">+</div>
+            <div class="mini-card">30</div>
+            <div class="mini-card">+</div>
+            <div class="mini-card">6</div>
+        </div>
+        <div class="panah-animasi">👇 digabungkan menjadi 👇</div>
+        <div class="hasil-card">542.836</div>
+    </div>
+
+    <h2>2. Contoh Soal & Cara Mengerjakannya</h2>
+    <p>Mari pelajari 3 variasi pengerjaan komposisi bilangan di bawah ini:</p>
+
+    <div class="soal-card">
+        <div class="soal-title">Contoh Soal 1: Menyusun dari Bentuk Nilai Angka</div>
+        <p>Bentuk lambang bilangan dari penjumlahan panjang: <br><b>700.000 + 30.000 + 9.000 + 400 + 50 + 1</b> adalah...</p>
+        <div class="pembahasan">
+            <b>Cara Mengerjakan:</b>
+            <p>Tuliskan angka paling depan dari masing-masing nilai tempat secara berurutan:</p>
+            <ul>
+                <li>700.000 &rarr; ambil angka <b>7</b></li>
+                <li>30.000 &rarr; ambil angka <b>3</b></li>
+                <li>9.000 &rarr; ambil angka <b>9</b></li>
+                <li>400 &rarr; ambil angka <b>4</b></li>
+                <li>50 &rarr; ambil angka <b>5</b></li>
+                <li>1 &rarr; ambil angka <b>1</b></li>
+            </ul>
+            <p>Gabungkan semua angka tersebut: <b>739.451</b>.</p>
+        </div>
+    </div>
+
+    <div class="soal-card">
+        <div class="soal-title">Contoh Soal 2: Komposisi dengan Angka Hilang (Jebakan Nol)</div>
+        <p>Susunlah nilai-nilai berikut menjadi sebuah bilangan utuh: <br><b>400.000 + 5.000 + 200 + 9</b></p>
+        <div class="pembahasan">
+            <b>Cara Mengerjakan:</b>
+            <p>Hati-hati! Perhatikan nilai tempat yang tidak tertulis (artinya bernilai 0):</p>
+            <ul>
+                <li>Ratusan ribuan: 400.000 (&rarr; <b>4</b>)</li>
+                <li>Puluh ribuan: <i>Tidak ada!</i> (&rarr; <b>0</b>)</li>
+                <li>Ribuan: 5.000 (&rarr; <b>5</b>)</li>
+                <li>Ratusan: 200 (&rarr; <b>2</b>)</li>
+                <li>Puluhan: <i>Tidak ada!</i> (&rarr; <b>0</b>)</li>
+                <li>Satuan: 9 (&rarr; <b>9</b>)</li>
+            </ul>
+            <p>Jika disusun dengan benar, hasilnya adalah: <b>405.209</b>.</p>
+        </div>
+    </div>
+
+    <div class="soal-card">
+        <div class="soal-title">Contoh Soal 3: Menyusun dari Teks Nilai Tempat Acak</div>
+        <p>Tentukan bilangan yang terbentuk dari gabungan: <br><b>8 ratusan + 2 ratusan ribuan + 6 satuan + 3 puluh ribuan</b></p>
+        <div class="pembahasan">
+            <b>Cara Mengerjakan:</b>
+            <p>Urutkan terlebih dahulu nama nilai tempatnya dari posisi tertinggi (Ratusan Ribuan) ke terendah (Satuan):</p>
+            <ol>
+                <li>Ratusan Ribuan &rarr; <b>2</b> (dari 2 ratusan ribuan)</li>
+                <li>Puluh Ribuan &rarr; <b>3</b> (dari 3 puluh ribuan)</li>
+                <li>Ribuan &rarr; <b>0</b> (karena tidak disebutkan)</li>
+                <li>Ratusan &rarr; <b>8</b> (dari 8 ratusan)</li>
+                <li>Puluhan &rarr; <b>0</b> (karena tidak disebutkan)</li>
+                <li>Satuan &rarr; <b>6</b> (dari 6 satuan)</li>
+            </ol>
+            <p>Gabungkan urutan angkanya: <b>230.806</b>.</p>
+        </div>
+    </div>
+
+
+    <div class="latihan-section">
+        <h3>✏️ Ruang Tantangan: Yuk, Kita Hitung Sendiri!</h3>
+        <p>Tuliskan lambang bilangan utuh yang terbentuk dari soal-soal komposisi di bawah ini pada buku tugasmu!</p>
+
+        <div class="soal-latihan">
+            <span>Soal 1: Susunlah menjadi bilangan yang lengkap!</span>
+            1) &nbsp; 800.000 + 60.000 + 4.000 + 200 + 70 + 5 = ............................
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 2: Perhatikan angka nol yang tersembunyi!</span>
+            2) &nbsp; 100.000 + 40.000 + 800 + 30 + 2 = ............................
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 3: Jangan terjebak, teliti jumlah angkanya!</span>
+            3) &nbsp; 900.000 + 7.000 + 50 = ............................
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 4: Susun berdasarkan nama nilai tempatnya!</span>
+            4) &nbsp; 3 ratusan ribuan + 5 puluh ribuan + 2 ribuan + 9 ratusan + 1 puluhan + 4 satuan = ............................
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 5: Tantangan Ekstra! Urutannya sengaja diacak, susun dengan teliti!</span>
+            5) &nbsp; 6 satuan + 4 ratusan ribuan + 8 ribuan + 7 puluhan = ............................
+            <div class="garis-jawab"></div>
+        </div>
+    </div>
+
+
+    <div class="navigasi">
+        <a href="/urut.html" class="btn btn-kembali">◁ Halaman Sebelumnya (Mengurutkan Bilangan)</a>
+        <a href="/dekomposisi.html" class="btn btn-lanjut">Materi Selanjutnya KPK dan FPB ▷</a>
+    </div>
+</div>
+
+</body>
+</html>
