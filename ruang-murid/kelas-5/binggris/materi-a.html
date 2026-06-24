@@ -1,0 +1,68 @@
+<!-- ... batas akhir </section> percakapan ... -->
+
+        <!-- TOMBOL NAVIGASI BACK & NEXT -->
+        <div class="navigation-wrapper">
+            <a href="../" class="btn-nav btn-back-page">
+                <i class="fa-solid fa-chevron-left"></i> Back
+            </a>
+            <a href="dalam-pengembangan.html" class="btn-nav btn-next-page">
+                Next <i class="fa-solid fa-chevron-right"></i>
+            </a>
+        </div>
+
+    </div> <!-- Batas akhir .container -->
+
+    <!-- TAMBAHKAN KODE CSS BERIKUT DI DALAM TAG <style> ANDA -->
+    <style>
+        .navigation-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 40px;
+            margin-bottom: -20px;
+        }
+
+        .btn-nav {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        /* Tombol Back: Warna Elegan Abu Soft */
+        .btn-nav.btn-back-page {
+            background-color: #ffffff;
+            color: #718096;
+            border: 1px solid #edf2f7;
+        }
+        .btn-nav.btn-back-page:hover {
+            background-color: #edf2f7;
+            color: #2d3748;
+            transform: translateX(-3px);
+        }
+
+        /* Tombol Next: Gradasi Premium Ungu-Biru */
+        .btn-nav.btn-next-page {
+            background: linear-gradient(135deg, #4c1d95 0%, #0077ff 100%);
+            color: white;
+            border: none;
+        }
+        .btn-nav.btn-next-page:hover {
+            box-shadow: 0 6px 20px rgba(0, 119, 255, 0.2);
+            transform: translateX(3px);
+        }
+
+        @media (max-width: 480px) {
+            .navigation-wrapper {
+                justify-content: space-between; /* Di HP otomatis membagi kanan-kiri agar jempol mudah meraih */
+                width: 100%;
+            }
+        }
+    </style>
