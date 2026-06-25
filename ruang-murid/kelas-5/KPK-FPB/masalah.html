@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penerapan KPK dan FPB dalam Kehidupan Sehari-hari</title>
+    <style>
+        :root {
+            --biru-cerah: #e0f2fe; /* Latar belakang segar */
+            --biru-aksen: #0284c7; /* Warna elemen pendukung */
+            --ungu-matang: #4c1d95; /* Warna judul utama */
+            --ungu-muda: #6d28d9; /* Warna tombol & highlight */
+            --putih: #ffffff;
+            --teks: #1e1b4b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--biru-cerah);
+            color: var(--teks);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            background: var(--putih);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(76, 29, 149, 0.1);
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--ungu-matang);
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            border-bottom: 4px solid var(--biru-aksen);
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: var(--ungu-muda);
+            margin-top: 30px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .highlight-box {
+            background-color: #f3e8ff;
+            border-left: 5px solid var(--ungu-matang);
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        ul, ol {
+            line-height: 1.6;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Blok Animasi Visual */
+        .fpb-visual-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            background: #faf5ff;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px dashed var(--ungu-muda);
+        }
+
+        .baris-faktor {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .label-angka {
+            font-weight: bold;
+            color: var(--ungu-matang);
+            min-width: 120px;
+        }
+
+        .badge-angka {
+            background: white;
+            color: var(--teks);
+            border: 1px solid #cbd5e1;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .badge-angka.sama {
+            background: #cbd5e1;
+            color: var(--teks);
+        }
+
+        .badge-angka.terbesar {
+            background: var(--biru-aksen);
+            color: white;
+            border-color: var(--biru-aksen);
+            transform: scale(1.15);
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1.1); }
+            to { transform: scale(1.2); }
+        }
+
+        /* Soal dan Pembahasan */
+        .soal-card {
+            background: #fdf4ff;
+            border: 1px solid #f3e8ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .soal-title {
+            font-weight: bold;
+            color: var(--ungu-matang);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .pembahasan {
+            background: #ffffff;
+            border-left: 3px solid var(--biru-aksen);
+            margin-top: 12px;
+            padding: 10px 15px;
+        }
+
+        /* Zona Latihan Anak (Warna Hijau Lembut) */
+        .latihan-section {
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        .latihan-section h3 {
+            color: #166534;
+            margin-top: 0;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #bbf7d0;
+            padding-bottom: 10px;
+        }
+
+        .soal-latihan {
+            background: var(--putih);
+            border: 1px solid #dcfce7;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .soal-latihan span {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #14532d;
+            margin-bottom: 10px;
+        }
+
+        .garis-jawab {
+            border-bottom: 2px dashed #cbd5e1;
+            width: 100%;
+            height: 35px;
+            margin-top: 10px;
+        }
+
+        /* Tombol Navigasi */
+        .navigasi {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-kembali {
+            background-color: var(--ungu-muda);
+            color: var(--putih);
+        }
+
+        .btn-kembali:hover {
+            background-color: var(--ungu-matang);
+            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+        }
+
+        .btn-lanjut {
+            background-color: #cbd5e1;
+            color: #334155;
+        }
+
+        .btn-lanjut:hover {
+            background-color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Penerapan KPK & FPB dalam Kehidupan Sehari-hari</h1>
+
+    <h2>1. Bagaimana Cara Membedakan Soal Cerita KPK dan FPB?</h2>
+    <p>Dalam kehidupan sehari-hari, matematika sering digunakan untuk menyelesaikan berbagai masalah. Tantangan terbesar adalah menentukan kapan kita harus menggunakan <b>KPK</b> dan kapan menggunakan <b>FPB</b>. Yuk, kita pelajari kata kuncinya!</p>
+    
+    <div class="highlight-box">
+        <b>Tips Rahasia:</b> Cari kata kunci yang ada di dalam soal cerita untuk menentukan rumus yang tepat secara cepat!
+    </div>
+
+    <ol>
+        <li><b>Gunakan KPK</b> jika soal membahas tentang <b>waktu, kegiatan yang berulang, atau berbarengan</b>. Kata kuncinya: <i>setiap... sekali, bersama-sama, bersamaan, bertemu lagi.</i></li>
+        <li><b>Gunakan FPB</b> jika soal membahas tentang <b>pembagian barang atau pengelompokan sama rata</b>. Kata kuncinya: <i>paling banyak, sama rata, sama banyak, jumlah yang sama.</i></li>
+    </ol>
+
+    <div class="fpb-visual-container">
+        <p style="margin: 0 0 10px 0; font-weight: bold; color: var(--teks);">Visualisasi Perbedaan Konsep Kasus:</p>
+        <div class="baris-faktor">
+            <div class="label-angka">Masalah KPK :</div>
+            <div class="badge-angka">Lampu Berkedip</div>
+            <div class="badge-angka">Jadwal Ronda</div>
+            <div class="badge-angka">Bus Berangkat Bersama</div>
+            <div class="badge-angka terbesar">WAKTU ⏰</div>
+        </div>
+        <div class="baris-faktor" style="margin-top: 10px;">
+            <div class="label-angka">Masalah FPB :</div>
+            <div class="badge-angka">Bagi Permen</div>
+            <div class="badge-angka">Bikin Parcel</div>
+            <div class="badge-angka">Potong Pita Sama Panjang</div>
+            <div class="badge-angka terbesar">BAGI ADIL 🎁</div>
+        </div>
+        <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: var(--biru-aksen); font-weight: bold;">Ingat: KPK mencari waktu pertemuan di masa depan, FPB membagi barang yang ada saat ini!</p>
+    </div>
+
+    <h2>2. Contoh Soal Cerita & Pembahasannya</h2>
+
+    <div class="soal-card">
+        <div class="soal-title">Contoh Soal 1: Penerapan KPK (Kasus Jadwal Bersama)</div>
+        <p>Lampu A menyala setiap <b>6 detik</b> sekali, sedangkan lampu B menyala setiap <b>8 detik</b> sekali. Jika kedua lampu menyala bersamaan pada detik ke-0, pada detik keberapa kedua lampu akan menyala bersamaan untuk yang kedua kalinya?</p>
+        <div class="pembahasan">
+            <b>Cara Mengerjakan:</b>
+            <p>Kata kunci "menyala bersamaan" menandakan kita harus mencari <b>KPK</b> dari 6 dan 8.</p>
+            <ul>
+                <li>Kelipatan 6 = 6, 12, 18, <b>24</b>, 30, 36</li>
+                <li>Kelipatan 8 = 8, 16, <b>24</b>, 32, 40</li>
+            </ul>
+            <p>Kelipatan persekutuan terkecil (KPK) yang sama adalah 24.</p>
+            <p><b>Jadi, kedua lampu akan menyala bersamaan lagi pada detik ke:</b> 24.</p>
+        </div>
+    </div>
+
+    <div class="soal-card">
+        <div class="soal-title">Contoh Soal 2: Penerapan FPB (Kasus Membagi Parcel/Bungkusan)</div>
+        <p>Beni memiliki <b>12 buku tulis</b> dan <b>18 pensil</b>. Ia ingin membagikan alat tulis tersebut kepada teman-temannya dalam bentuk paket hadiah. Setiap paket berisi buku dan pensil dengan jumlah yang sama banyak. Berapa paling banyak paket yang bisa dibuat Beni?</p>
+        <div class="pembahasan">
+            <b>Cara Mengerjakan:</b>
+            <p>Kata kunci "paling banyak" dan "jumlah yang sama banyak" menandakan kita harus mencari <b>FPB</b> dari 12 dan 18.</p>
+            <ul>
+                <li>Faktor dari 12 = 1, 2, 3, 4, <b>6</b>, 12</li>
+                <li>Faktor dari 18 = 1, 2, 3, <b>6</b>, 9, 18</li>
+            </ul>
+            <p>Faktor persekutuan terbesar (FPB) dari 12 dan 18 adalah 6.</p>
+            <p><b>Jadi, paket paling banyak yang bisa dibuat oleh Beni adalah:</b> 6 paket.</p>
+        </div>
+    </div>
+
+
+    <div class="latihan-section">
+        <h3>✏️ Ruang Tantangan: Yuk, Kita Selesaikan Masalah Ini!</h3>
+        <p>Bacalah soal cerita di bawah ini dengan teliti, tentukan menggunakan KPK atau FPB, lalu hitunglah jawabannya!</p>
+
+        <div class="soal-latihan">
+            <span>Soal 1: Masalah Jadwal Les</span>
+            1) Ali les matematika setiap <b>3 hari</b> sekali. Budi les matematika setiap <b>4 hari</b> sekali. Jika mereka les bersama pada hari Senin, berapa hari lagi mereka akan les bersama-sama untuk yang kedua kalinya?
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 2: Masalah Berbagi Makanan Kue</span>
+            2) Nenek mempunyai <b>20 kue lapis</b> dan <b>30 kue sus</b>. Nenek ingin menghidangkan kue-kue tersebut di atas beberapa piring dengan jumlah sama rata. Berapa piring paling banyak yang harus disiapkan Nenek?
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 3: Masalah Kunjungan Perpustakaan</span>
+            3) Sila berkunjung ke perpustakaan setiap <b>5 hari</b> sekali, sedangkan Roni setiap <b>10 hari</b> sekali. Pada tanggal 1 Juni mereka pergi ke perpustakaan bersama. Pada tanggal berapakah mereka akan bertemu kembali di perpustakaan?
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 4: Masalah Menghias Kamar</span>
+            4) Sasa mempunyai <b>15 balon merah</b> dan <b>25 balon putih</b> untuk menghias dekorasi ulang tahun adiknya. Balon tersebut akan diikat menjadi beberapa kelompok dengan komposisi warna sama banyak. Berapa jumlah kelompok balon maksimal yang bisa dibuat?
+            <div class="garis-jawab"></div>
+        </div>
+    </div>
+
+
+    <div class="navigasi">
+        <a href="/" class="btn btn-kembali">◁ Halaman Sebelumnya (Dasar FPB)</a>
+        <a href="evaluasi.html" class="btn btn-lanjut">Materi Selanjutnya (Ujian Evaluasi Bab) ▷</a>
+    </div>
+</div>
+
+</body>
+</html>
