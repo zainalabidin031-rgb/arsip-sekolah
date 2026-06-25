@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Menentukan FPB (Faktor Persekutuan Terbesar)</title>
+    <style>
+        :root {
+            --biru-cerah: #e0f2fe; /* Latar belakang segar */
+            --biru-aksen: #0284c7; /* Warna elemen pendukung */
+            --ungu-matang: #4c1d95; /* Warna judul utama */
+            --ungu-muda: #6d28d9; /* Warna tombol & highlight */
+            --putih: #ffffff;
+            --teks: #1e1b4b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--biru-cerah);
+            color: var(--teks);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            background: var(--putih);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(76, 29, 149, 0.1);
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--ungu-matang);
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            border-bottom: 4px solid var(--biru-aksen);
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: var(--ungu-muda);
+            margin-top: 30px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .highlight-box {
+            background-color: #f3e8ff;
+            border-left: 5px solid var(--ungu-matang);
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        ul, ol {
+            line-height: 1.6;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Blok Animasi Visual FPB */
+        .fpb-visual-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            background: #faf5ff;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px dashed var(--ungu-muda);
+        }
+
+        .baris-faktor {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .label-angka {
+            font-weight: bold;
+            color: var(--ungu-matang);
+            min-width: 120px;
+        }
+
+        .badge-angka {
+            background: white;
+            color: var(--teks);
+            border: 1px solid #cbd5e1;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .badge-angka.sama {
+            background: #cbd5e1;
+            color: var(--teks);
+        }
+
+        .badge-angka.terbesar {
+            background: var(--biru-aksen);
+            color: white;
+            border-color: var(--biru-aksen);
+            transform: scale(1.15);
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1.1); }
+            to { transform: scale(1.2); }
+        }
+
+        /* Soal dan Pembahasan */
+        .soal-card {
+            background: #fdf4ff;
+            border: 1px solid #f3e8ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .soal-title {
+            font-weight: bold;
+            color: var(--ungu-matang);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .pembahasan {
+            background: #ffffff;
+            border-left: 3px solid var(--biru-aksen);
+            margin-top: 12px;
+            padding: 10px 15px;
+        }
+
+        /* Zona Latihan Anak (Warna Hijau Lembut) */
+        .latihan-section {
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        .latihan-section h3 {
+            color: #166534;
+            margin-top: 0;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #bbf7d0;
+            padding-bottom: 10px;
+        }
+
+        .soal-latihan {
+            background: var(--putih);
+            border: 1px solid #dcfce7;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .soal-latihan span {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #14532d;
+            margin-bottom: 10px;
+        }
+
+        .garis-jawab {
+            border-bottom: 2px dashed #cbd5e1;
+            width: 100%;
+            height: 35px;
+            margin-top: 10px;
+        }
+
+        /* Tombol Navigasi */
+        .navigasi {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-kembali {
+            background-color: var(--ungu-muda);
+            color: var(--putih);
+        }
+
+        .btn-kembali:hover {
+            background-color: var(--ungu-matang);
+            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+        }
+
+        .btn-lanjut {
+            background-color: #cbd5e1;
+            color: #334155;
+        }
+
+        .btn-lanjut:hover {
+            background-color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Materi Lanjutan: Menentukan FPB</h1>
+
+    <h2>1. Apa itu FPB?</h2>
+    <p><b>FPB</b> singkatan dari <b>Faktor Persekutuan Terbesar</b>. Sederhananya, FPB adalah angka pembagi terbesar yang <b>sama</b> yang dapat membagi habis dua bilangan atau lebih tanpa sisa.</p>
+    
+    <p>Cara dasar untuk mencari FPB adalah:</p>
+    <ol>
+        <li>Tuliskan semua faktor pembagi dari masing-masing bilangan.</li>
+        <li>Cari angka pembagi yang kembar/sama (persekutuan).</li>
+        <li>Pilih angka kembar yang nilainya <b>paling besar</b>!</li>
+    </ol>
+
+    <div class="fpb-visual-container">
+        <p style="margin: 0 0 10px 0; font-weight: bold; color: var(--teks);">Visualisasi Mencari FPB dari 12 dan 18:</p>
+        <div class="baris-faktor">
+            <div class="label-angka">Faktor 12 :</div>
+            <div class="badge-angka sama">1</div>
+            <div class="badge-angka sama">2</div>
+            <div class="badge-angka sama">3</div>
+            <div class="badge-angka">4</div>
+            <div class="badge-angka terbesar">6</div>
+            <div class="badge-angka">12</div>
+        </div>
+        <div class="baris-faktor" style="margin-top: 10px;">
+            <div class="label-angka">Faktor 18 :</div>
+            <div class="badge-angka sama">1</div>
+            <div class="badge-angka sama">2</div>
+            <div class="badge-angka sama">3</div>
+            <div class="badge-angka terbesar">6</div>
+            <div class="badge-angka">9</div>
+            <div class="badge-angka">18</div>
+        </div>
+        <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: var(--biru-aksen); font-weight: bold;">Angka kembar yang ada: 1, 2, 3, dan 6. Yang nilainya paling besar adalah 6! Jadi FPB = 6.</p>
+    </div>
+
+    <h2>2. Contoh Soal & Cara Mengerjakannya</h2>
+
+    <div class="soal-card">
+        <div class="soal-title">Contoh Soal 1: FPB Dua Bilangan Kecil</div>
+        <p>Tentukan FPB dari bilangan <b>8</b> dan <b>20</b>!</p>
+        <div class="pembahasan">
+            <b>Cara Mengerjakan:</b>
+            <p>Langkah 1: Daftarkan semua faktor pembagi (angka perkaliannya).</p>
+            <ul>
+                <li>Faktor 8 = <b>1</b>, <b>2</b>, <b>4</b>, 8</li>
+                <li>Faktor 20 = <b>1</b>, <b>2</b>, <b>4</b>, 5, 10, 20</li>
+            </ul>
+            <p>Langkah 2: Cari faktor yang sama. Angka yang sama adalah 1, 2, dan 4.</p>
+            <p>Langkah 3: Pilih yang nilainya paling besar, yaitu 4.</p>
+            <p><b>Jadi, FPB dari 8 dan 20 adalah:</b> 4.</p>
+        </div>
+    </div>
+
+    <div class="soal-card">
+        <div class="soal-title">Contoh Soal 2: FPB di Mana Bilangan Satu Membagi Habis Bilangan Lain</div>
+        <p>Tentukan FPB dari bilangan <b>7</b> dan <b>14</b>!</p>
+        <div class="pembahasan">
+            <b>Cara Mengerjakan:</b>
+            <ul>
+                <li>Faktor 7 = 1, <b>7</b></li>
+                <li>Faktor 14 = 1, 2, <b>7</b>, 14</li>
+            </ul>
+            <p>Faktor kembar terbesar yang membagi keduanya adalah 7.</p>
+            <p><b>Jadi, FPB dari 7 dan 14 adalah:</b> 7.</p>
+        </div>
+    </div>
+
+    <div class="soal-card">
+        <div class="soal-title">Contoh Soal 3: Soal Cerita FPB (Membagi Keranjang/Plastik Sama Rata)</div>
+        <p>Ibu memiliki <b>15 buah jeruk</b> dan <b>25 buah mangga</b>. Ibu ingin memasukkan buah-buah tersebut ke dalam beberapa kantong plastik dengan jumlah yang sama rata. Berapa kantong plastik paling banyak yang harus Ibu siapkan?</p>
+        <div class="pembahasan">
+            <b>Cara Mengerjakan:</b>
+            <p>Kata kunci "membagi sama rata" atau "paling banyak" menandakan kita harus mencari FPB dari 15 dan 25.</p>
+            <ul>
+                <li>Faktor 15 = 1, 3, <b>5</b>, 15</li>
+                <li>Faktor 25 = 1, <b>5</b>, 25</li>
+            </ul>
+            <p>Faktor persekutuan terbesar (FPB) dari 15 dan 25 adalah 5.</p>
+            <p><b>Jadi, kantong plastik paling banyak yang harus disiapkan Ibu adalah:</b> 5 buah kantong plastik.</p>
+        </div>
+    </div>
+
+
+    <div class="latihan-section">
+        <h3>✏️ Ruang Tantangan: Yuk, Kita Hitung Sendiri!</h3>
+        <p>Carilah nilai FPB dari soal-soal di bawah ini dengan teliti pada buku latihanmu!</p>
+
+        <div class="soal-latihan">
+            <span>Soal 1: Latihan FPB Dasar</span>
+            1) Tentukan nilai FPB dari bilangan <b>9</b> dan <b>15</b>!
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 2: Faktor Genap</span>
+            2) Cari nilai FPB dari bilangan <b>16</b> dan <b>24</b>!
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 3: Bilangan Puluhan</span>
+            3) Berapakah FPB dari bilangan <b>20</b> dan <b>30</b>?
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 4: Pasangan Unik</span>
+            4) Tentukan FPB dari bilangan <b>12</b> dan <b>15</b>!
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 5: Soal Cerita Pembagian Alat Tulis</span>
+            5) Kakak memiliki <b>18 pensil</b> dan <b>12 penggaris</b>. Kakak akan membagikannya kepada beberapa anak panti asuhan secara adil dan sama banyak. Berapa jumlah anak maksimal yang bisa menerima pembagian paket alat tulis tersebut?
+            <div class="garis-jawab"></div>
+        </div>
+    </div>
+
+
+    <div class="navigasi">
+        <a href="/" class="btn btn-kembali">◁ Halaman Sebelumnya (Menentukan KPK)</a>
+        <a href="masalah.html" class="btn btn-lanjut">Materi Selanjutnya (Pecahan Senilai) ▷</a>
+    </div>
+</div>
+
+</body>
+</html>
