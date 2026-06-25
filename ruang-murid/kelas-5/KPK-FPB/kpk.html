@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Menentukan KPK (Kelipatan Persekutuan Terkecil)</title>
+    <style>
+        :root {
+            --biru-cerah: #e0f2fe; /* Latar belakang segar */
+            --biru-aksen: #0284c7; /* Warna elemen pendukung */
+            --ungu-matang: #4c1d95; /* Warna judul utama */
+            --ungu-muda: #6d28d9; /* Warna tombol & highlight */
+            --putih: #ffffff;
+            --teks: #1e1b4b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--biru-cerah);
+            color: var(--teks);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            background: var(--putih);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(76, 29, 149, 0.1);
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--ungu-matang);
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            border-bottom: 4px solid var(--biru-aksen);
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: var(--ungu-muda);
+            margin-top: 30px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .highlight-box {
+            background-color: #f3e8ff;
+            border-left: 5px solid var(--ungu-matang);
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        ul, ol {
+            line-height: 1.6;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Blok Animasi Visual KPK */
+        .kpk-visual-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            background: #faf5ff;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px dashed var(--ungu-muda);
+        }
+
+        .baris-kelipatan {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .label-angka {
+            font-weight: bold;
+            color: var(--ungu-matang);
+            min-width: 120px;
+        }
+
+        .badge-angka {
+            background: white;
+            color: var(--teks);
+            border: 1px solid #cbd5e1;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .badge-angka.sama {
+            background: var(--biru-aksen);
+            color: white;
+            border-color: var(--biru-aksen);
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1.05); }
+            to { transform: scale(1.15); }
+        }
+
+        /* Soal dan Pembahasan */
+        .soal-card {
+            background: #fdf4ff;
+            border: 1px solid #f3e8ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .soal-title {
+            font-weight: bold;
+            color: var(--ungu-matang);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .pembahasan {
+            background: #ffffff;
+            border-left: 3px solid var(--biru-aksen);
+            margin-top: 12px;
+            padding: 10px 15px;
+        }
+
+        /* Zona Latihan Anak (Warna Hijau Lembut) */
+        .latihan-section {
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        .latihan-section h3 {
+            color: #166534;
+            margin-top: 0;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #bbf7d0;
+            padding-bottom: 10px;
+        }
+
+        .soal-latihan {
+            background: var(--putih);
+            border: 1px solid #dcfce7;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .soal-latihan span {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #14532d;
+            margin-bottom: 10px;
+        }
+
+        .garis-jawab {
+            border-bottom: 2px dashed #cbd5e1;
+            width: 100%;
+            height: 35px;
+            margin-top: 10px;
+        }
+
+        /* Tombol Navigasi */
+        .navigasi {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-kembali {
+            background-color: var(--ungu-muda);
+            color: var(--putih);
+        }
+
+        .btn-kembali:hover {
+            background-color: var(--ungu-matang);
+            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+        }
+
+        .btn-lanjut {
+            background-color: #cbd5e1;
+            color: #334155;
+        }
+
+        .btn-lanjut:hover {
+            background-color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Materi Lanjutan: Menentukan KPK</h1>
+
+    <h2>1. Apa itu KPK?</h2>
+    <p><b>KPK</b> singkatan dari <b>Kelipatan Persekutuan Terkecil</b>. Sederhananya, KPK adalah angka kelipatan terkecil yang <b>sama</b> yang dimiliki oleh dua bilangan atau lebih.</p>
+    
+    <p>Cara paling dasar untuk mencari KPK adalah:</p>
+    <ol>
+        <li>Tuliskan deretan angka kelipatan dari masing-masing bilangan.</li>
+        <li>Cari angka-angka yang sama (persekutuan).</li>
+        <li>Pilih angka sama yang <b>paling kecil</b> atau pertama kali muncul!</li>
+    </ol>
+
+    <div class="kpk-visual-container">
+        <p style="margin: 0 0 10px 0; font-weight: bold; color: var(--teks);">Visualisasi Mencari KPK dari 3 dan 4:</p>
+        <div class="baris-kelipatan">
+            <div class="label-angka">Kelipatan 3 :</div>
+            <div class="badge-angka">3</div>
+            <div class="badge-angka">6</div>
+            <div class="badge-angka">9</div>
+            <div class="badge-angka sama">12</div>
+            <div class="badge-angka">15</div>
+            <div class="badge-angka">18</div>
+            <div class="badge-angka">21</div>
+            <div class="badge-angka">24</div>
+        </div>
+        <div class="baris-kelipatan" style="margin-top: 10px;">
+            <div class="label-angka">Kelipatan 4 :</div>
+            <div class="badge-angka">4</div>
+            <div class="badge-angka">8</div>
+            <div class="badge-angka sama">12</div>
+            <div class="badge-angka">16</div>
+            <div class="badge-angka">20</div>
+            <div class="badge-angka">24</div>
+        </div>
+        <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: var(--biru-aksen); font-weight: bold;">Angka 12 adalah angka sama yang paling pertama muncul! Jadi KPK = 12.</p>
+    </div>
+
+    <h2>2. Contoh Soal & Cara Mengerjakannya</h2>
+
+    <div class="soal-card">
+        <div class="soal-title">Contoh Soal 1: KPK Dua Bilangan Kecil</div>
+        <p>Tentukan KPK dari bilangan <b>4</b> dan <b>6</b>!</p>
+        <div class="pembahasan">
+            <b>Cara Mengerjakan:</b>
+            <p>Langkah 1: Daftarkan kelipatan masing-masing angka.</p>
+            <ul>
+                <li>Kelipatan 4 = 4, 8, <b>12</b>, 16, 20, 24, ...</li>
+                <li>Kelipatan 6 = 6, <b>12</b>, 18, 24, 30, ...</li>
+            </ul>
+            <p>Langkah 2: Cari kelipatan yang sama. Angka yang sama adalah 12, 24, dst.</p>
+            <p>Langkah 3: Ambil yang paling kecil, yaitu 12.</p>
+            <p><b>Jadi, KPK dari 4 dan 6 adalah:</b> 12.</p>
+        </div>
+    </div>
+
+    <div class="soal-card">
+        <div class="soal-title">Contoh Soal 2: KPK di Mana Bilangan Satu Kelipatan dari Bilangan Lain</div>
+        <p>Tentukan KPK dari bilangan <b>5</b> dan <b>10</b>!</p>
+        <div class="pembahasan">
+            <b>Cara Mengerjakan:</b>
+            <ul>
+                <li>Kelipatan 5 = 5, <b>10</b>, 15, 20, ...</li>
+                <li>Kelipatan 10 = <b>10</b>, 20, 30, ...</li>
+            </ul>
+            <p>Angka kembar pertama yang langsung bertemu adalah 10.</p>
+            <p><b>Jadi, KPK dari 5 dan 10 adalah:</b> 10.</p>
+        </div>
+    </div>
+
+    <div class="soal-card">
+        <div class="soal-title">Contoh Soal 3: Soal Cerita KPK (Jadwal Bersama)</div>
+        <p>Ali berlatih renang setiap <b>3 hari sekali</b>, sedangkan Budi berlatih setiap <b>5 hari sekali</b>. Jika hari ini mereka berlatih bersama, berapa hari lagi mereka akan berlatih bersama untuk kedua kalinya?</p>
+        <div class="pembahasan">
+            <b>Cara Mengerjakan:</b>
+            <p>Kata kunci "bertemu bersama lagi" menandakan kita harus mencari KPK dari 3 dan 5.</p>
+            <ul>
+                <li>Kelipatan 3 = 3, 6, 9, 12, <b>15</b>, 18, ...</li>
+                <li>Kelipatan 5 = 5, 10, <b>15</b>, 20, ...</li>
+            </ul>
+            <p>KPK dari 3 dan 5 adalah 15.</p>
+            <p><b>Jadi, mereka akan berlatih bersama lagi:</b> 15 hari lagi.</p>
+        </div>
+    </div>
+
+
+    <div class="latihan-section">
+        <h3>✏️ Ruang Tantangan: Yuk, Kita Hitung Sendiri!</h3>
+        <p>Carilah nilai KPK dari soal-soal di bawah ini dengan teliti pada buku latihanmu!</p>
+
+        <div class="soal-latihan">
+            <span>Soal 1: Tantangan Dasar</span>
+            1) Tentukan nilai KPK dari bilangan <b>2</b> dan <b>5</b>!
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 2: Angka Berdekatan</span>
+            2) Cari nilai KPK dari bilangan <b>6</b> dan <b>8</b>!
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 3: Kelipatan Ganda</span>
+            3) Berapakah KPK dari bilangan <b>4</b> dan <b>8</b>?
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 4: Bilangan Ganjil</span>
+            4) Tentukan KPK dari bilangan <b>7</b> dan <b>3</b>!
+            <div class="garis-jawab"></div>
+        </div>
+
+        <div class="soal-latihan">
+            <span>Soal 5: Soal Cerita Lampu Berkedip</span>
+            5) Lampu A menyala setiap <b>4 detik sekali</b> dan Lampu B menyala setiap <b>5 detik sekali</b>. Jika kedua lampu menyala bersamaan pada detik ke-0, pada detik berapakah kedua lampu itu akan menyala bersama-sama lagi?
+            <div class="garis-jawab"></div>
+        </div>
+    </div>
+
+
+    <div class="navigasi">
+        <a href="/" class="btn btn-kembali">◁ Halaman Sebelumnya (Kelipatan & Faktor)</a>
+        <a href="fpb.html" class="btn btn-lanjut">Materi Selanjutnya (Menentukan FPB) ▷</a>
+    </div>
+</div>
+
+</body>
+</html>
