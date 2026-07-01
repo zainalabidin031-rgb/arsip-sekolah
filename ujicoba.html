@@ -646,7 +646,24 @@
             </div>
         </div>
     </footer>
-<p>Website ini telah dilihat sebanyak <span id="visits">0</span> kali.</p>
+<p style="font-family: sans-serif; color: #555; text-align: center;">
+  Website ini telah dikunjungi sebanyak 
+  <strong id="visitor-count" style="color: #007bff; font-size: 1.2em;">0</strong> kali.
+</p>
+
+<script>
+  // Mengambil domain website secara otomatis sebagai ID unik
+  const siteKey = window.location.hostname.replace(/\./g, '-');
+  
+  fetch(`https://countapi.mileshilliard.com/api/v1/hit/${siteKey}`)
+    .then(response => response.json())
+    .then(data => {
+      if(data && data.value) {
+        document.getElementById('visitor-count').innerText = data.value;
+      }
+    })
+    .catch(error => console.error('Gagal memuat jumlah pengunjung:', error));
+</script>
     <a href="https://sdnbutoh1ngasem.my.id/latihan-soal/" class="floating-btn">
         <i class="fa-solid fa-laptop-code"></i> Ruang Belajar
     </a>
