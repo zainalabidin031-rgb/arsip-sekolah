@@ -57,15 +57,20 @@
             gap: 15px;
         }
 
-        .custom-logo {
-            font-weight: 800;
-            font-size: 1.5rem;
-            color: var(--ungu-matang);
-            border: 3px solid var(--biru-matang);
-            padding: 5px 12px;
-            border-radius: 12px;
-            background: #fff;
-        }
+        /* Hapus .custom-logo yang lama, ganti dengan ini */
+.school-logo {
+    height: 50px;        /* Mengunci tinggi gambar agar pas dengan tinggi teks */
+    width: auto;         /* Lebar otomatis supaya tidak gepeng */
+    object-fit: contain; /* Menjaga logo tetap proporsional */
+    display: block;
+}
+
+/* Biar rapi saat dibuka di HP */
+@media (max-width: 968px) {
+    .school-logo {
+        height: 40px;    /* Sedikit mengecil di layar HP */
+    }
+}
 
         .brand-text h1 {
             font-size: 1.8rem;
