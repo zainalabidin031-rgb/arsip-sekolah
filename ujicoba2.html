@@ -17,88 +17,72 @@
         }
 
         :root {
-            --biru-matang: #0D47A1;    /* Biru dalam profesional */
-            --biru-terang: #00B0FF;    /* Biru aksen */
-            --ungu-matang: #311B92;    /* Ungu gelap premium */
+            --biru-matang: #0D47A1;
+            --biru-terang: #00B0FF;
+            --ungu-matang: #311B92;
             --teks-gelap: #1A237E;
             --putih: #FFFFFF;
-            --abu-bg: #E3F2FD;
         }
 
         body {
             background-color: #EBF3F9;
             color: #333;
             overflow-x: hidden;
-            padding-bottom: 50px;
+            padding: 10px;
         }
 
-        /* --- CONTAINER UTAMA (Bingkai Luar Seperti Mockup) --- */
         .page-wrapper {
             max-width: 1440px;
             margin: 0 auto;
             background: var(--putih);
             box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
         }
 
-        /* --- TOP BAR / HEADER --- */
+        /* --- HEADER & NAVIGATION --- */
         header {
-            padding: 25px 50px;
+            padding: 25px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
-            z-index: 10;
             background: var(--putih);
+            gap: 20px;
         }
 
         .brand-container {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
-        /* Logo Pohon & Buku Khas */
         .custom-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             font-weight: 800;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--ungu-matang);
             border: 3px solid var(--biru-matang);
-            padding: 5px 15px;
+            padding: 5px 12px;
             border-radius: 12px;
-            position: relative;
-        }
-        .custom-logo::before {
-            content: "🌳";
-            font-size: 1.2rem;
-            position: absolute;
-            top: -20px;
+            background: #fff;
         }
 
         .brand-text h1 {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--ungu-matang);
             line-height: 1.1;
         }
 
         .brand-text p {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--biru-matang);
-            letter-spacing: 0.5px;
         }
 
-        /* Menu Navigasi Samping Atas */
         .nav-wrapper {
             background: #F5F9FC;
-            padding: 15px 35px;
+            padding: 12px 30px;
             border-radius: 50px 0 0 50px;
-            box-shadow: -5px 5px 15px rgba(0,0,0,0.03);
             border: 1px solid #E1EBF2;
         }
 
@@ -123,122 +107,83 @@
             border-radius: 6px;
         }
 
-        /* --- GRID UTAMA (2 KOLOM) --- */
+        /* --- GRID LAYOUT --- */
         .content-grid {
             display: grid;
-            grid-template-columns: 1.9fr 1.1fr;
-            position: relative;
+            grid-template-columns: 1.8fr 1.2fr;
         }
 
-        /* --- KOLOM KIRI (HERO & BANNER BESAR) --- */
+        /* --- KOLOM KIRI --- */
         .left-column {
-            position: relative;
-            padding-bottom: 60px;
+            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
         }
 
         .hero-banner {
-            height: 520px;
-            margin-left: 50px;
+            height: 480px;
+            margin-left: 40px;
             border-radius: 24px;
-            background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.1)), 
+            background: linear-gradient(to right, rgba(0,0,0,0.65), rgba(0,0,0,0.2)), 
                         url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=1200') center center/cover;
             position: relative;
             color: var(--putih);
-            padding: 80px 60px;
+            padding: 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            z-index: 2;
             overflow: hidden;
         }
 
-        /* Aksen Geometris Gelombang Sesuai Gambar */
-        .hero-banner::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 45%;
-            height: 100%;
-            background: rgba(49, 27, 146, 0.4);
-            transform: skewX(-15deg);
-            margin-left: -10%;
-            z-index: -1;
-        }
-
         .hero-banner h2 {
-            font-size: 2.8rem;
+            font-size: 2.4rem;
             font-weight: 800;
             line-height: 1.2;
-            max-width: 550px;
             margin-bottom: 15px;
-            letter-spacing: -0.5px;
         }
 
         .hero-banner p {
             font-size: 1rem;
             max-width: 480px;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
             opacity: 0.9;
-            line-height: 1.5;
         }
 
-        .hero-btns {
+        .hero-buttons {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
-        .btn-blue {
-            background: var(--biru-terang);
-            color: white;
+        .btn-blue, .btn-outline {
             text-decoration: none;
-            padding: 12px 25px;
+            padding: 12px 22px;
             border-radius: 6px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            text-align: center;
         }
 
-        .btn-outline {
-            border: 2px solid white;
-            color: white;
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            background: rgba(0,0,0,0.2);
-        }
+        .btn-blue { background: var(--biru-terang); color: white; }
+        .btn-outline { border: 2px solid white; color: white; background: rgba(0,0,0,0.2); }
 
-        /* LENGKUNGAN WAVE DI BAWAH BANNER UTAMA */
         .wave-container {
-            position: absolute;
-            bottom: -2px;
-            left: 50px;
-            width: calc(100% - 50px);
+            width: calc(100% - 40px);
+            margin-left: 40px;
+            margin-top: -30px;
+            position: relative;
+            z-index: 2;
             line-height: 0;
-            z-index: 3;
         }
-        .wave-container svg {
-            width: 100%;
-            height: 70px;
-        }
+        .wave-container svg { width: 100%; height: 50px; }
 
-        /* --- BERITA TERBARU (BAWAH KIRI) --- */
-        .recent-news {
-            padding: 40px 50px;
-        }
-
-        .recent-news h3 {
-            font-size: 1.5rem;
-            color: var(--ungu-matang);
-            margin-bottom: 20px;
-            font-weight: 800;
-        }
-
+        .recent-news { padding: 30px 40px; }
+        .recent-news h3 { font-size: 1.4rem; color: var(--ungu-matang); margin-bottom: 20px; font-weight: 800; }
+        
         .news-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 15px;
         }
 
         .news-item {
@@ -246,69 +191,58 @@
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #E2E8F0;
+            height: 120px;
         }
 
         .news-thumb {
-            height: 140px;
+            height: 100%;
             background: #ccc url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=400') center center/cover;
         }
 
-        /* --- KOLOM KANAN (SIDEBAR SANGAT KANAN) --- */
+        /* --- KOLOM KANAN --- */
         .right-column {
             background: #F0F6FA;
             padding: 0 30px 40px 30px;
             border-left: 1px solid #E1E8EE;
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 25px;
         }
 
-        /* Foto Besar Siswa SD di Kanan */
         .student-showcase {
             width: 100%;
-            height: 320px;
+            height: 300px;
             background: url('https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=600') center center/cover;
             border-radius: 0 0 20px 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            position: relative;
         }
 
-        .features-section h3 {
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            color: #333;
-            margin-bottom: 15px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-        }
-
-        /* Grid 4 Kartu Fitur Warna Berbeda */
+        .features-section h3 { font-size: 1.1rem; color: #333; margin-bottom: 12px; font-weight: 800; }
+        
         .features-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
-        .feat-card {
-            padding: 15px 10px;
-            border-radius: 10px;
-            color: white;
-            text-align: center;
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             gap: 8px;
         }
 
-        .feat-card span { font-size: 1.4rem; }
-        .f1 { background-color: #0D47A1; } /* Biru */
-        .f2 { background-color: #E65100; } /* Oranye */
-        .f3 { background-color: #880E4F; } /* Magenta/Pink Tua */
-        .f4 { background-color: #1B5E20; } /* Hijau */
+        .feat-card {
+            padding: 12px 5px;
+            border-radius: 8px;
+            color: white;
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
 
-        /* Bagian Kontak Bawah Samping */
+        .feat-card span { font-size: 1.2rem; }
+        .f1 { background-color: #0D47A1; }
+        .f2 { background-color: #E65100; }
+        .f3 { background-color: #880E4F; }
+        .f4 { background-color: #1B5E20; }
+
         .contact-box {
             background: var(--putih);
             padding: 20px;
@@ -316,19 +250,75 @@
             border: 1px solid #E2E8F0;
             font-size: 0.85rem;
         }
+        .contact-box h4 { color: var(--biru-matang); margin-bottom: 8px; }
 
-        .contact-box h4 {
-            color: var(--biru-matang);
-            margin-bottom: 10px;
-        }
+        /* ========================================================
+           KODE RESPONSIF (OTOMATIS AKTIF SAAT DIBUKA DI HP / TABLET)
+           ======================================================== */
+        @media (max-width: 968px) {
+            body { padding: 0; }
+            .page-wrapper { border-radius: 0; }
 
-        /* --- RESPONSIVE ADJUSTMENT --- */
-        @media (max-width: 1024px) {
-            .content-grid { grid-template-columns: 1fr; }
-            .hero-banner { margin-right: 50px; }
-            .wave-container { width: calc(100% - 100px); }
-            .right-column { border-left: none; padding-top: 40px; }
-            .student-showcase { border-radius: 20px; }
+            /* Header Menyusun Vertikal di HP */
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+            }
+            .nav-wrapper {
+                width: 100%;
+                border-radius: 20px;
+                padding: 10px 15px;
+            }
+            nav ul {
+                justify-content: space-between;
+                gap: 10px;
+            }
+            nav ul a { font-size: 0.8rem; }
+
+            /* Grid Berubah Jadi 1 Kolom Saja */
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Perbaikan Kolom Kiri di HP */
+            .hero-banner {
+                margin-left: 20px;
+                margin-right: 20px;
+                padding: 40px 20px;
+                height: auto;
+                min-height: 380px;
+            }
+            .hero-banner h2 { font-size: 1.8rem; }
+            .wave-container {
+                width: calc(100% - 40px);
+                margin-left: 20px;
+            }
+
+            /* Perbaikan Berita di HP (Menjadi 1 Baris Penuh per Berita) */
+            .recent-news { padding: 30px 20px; }
+            .news-grid { grid-template-columns: 1fr; gap: 10px; }
+            .news-item { height: 150px; }
+
+            /* Perbaikan Kolom Kanan di HP */
+            .right-column {
+                border-left: none;
+                padding: 20px;
+                background: #F4F8FA;
+            }
+            .student-showcase {
+                border-radius: 20px;
+                height: 220px;
+            }
+            /* Grid Fitur Sekolah Menjadi 2x2 di HP Agar Tidak Terpotong */
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .feat-card {
+                padding: 15px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
