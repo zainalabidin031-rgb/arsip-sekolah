@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SDN Butoh 1 Ngasem - Bojonegoro</title>
+    <title>SDN Butoh 1 Ngasem - Kabupaten Bojonegoro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -17,316 +17,396 @@
         }
 
         :root {
-            --biru-matang: #0F4C81;     /* Biru solid, dalam, dan profesional */
-            --ungu-matang: #3B1E54;     /* Ungu gelap premium */
+            --biru-matang: #0D47A1;    /* Biru dalam profesional */
+            --biru-terang: #00B0FF;    /* Biru aksen */
+            --ungu-matang: #311B92;    /* Ungu gelap premium */
+            --teks-gelap: #1A237E;
             --putih: #FFFFFF;
-            --abu-terang: #F4F7F9;
-            --teks-gelap: #1A1A1A;
+            --abu-bg: #E3F2FD;
         }
 
         body {
-            background-color: var(--abu-terang);
-            color: var(--teks-gelap);
+            background-color: #EBF3F9;
+            color: #333;
             overflow-x: hidden;
+            padding-bottom: 50px;
         }
 
-        /* --- HEADER & BRANDING --- */
-        header {
-            background: var(--putih);
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .header-container {
-            max-width: 1300px;
+        /* --- CONTAINER UTAMA (Bingkai Luar Seperti Mockup) --- */
+        .page-wrapper {
+            max-width: 1440px;
             margin: 0 auto;
+            background: var(--putih);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* --- TOP BAR / HEADER --- */
+        header {
+            padding: 25px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+            background: var(--putih);
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
             gap: 20px;
         }
 
-        .logo-section {
+        /* Logo Pohon & Buku Khas */
+        .custom-logo {
             display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-placeholder {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--ungu-matang), var(--biru-matang));
-            border-radius: 12px;
-            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: white;
             font-weight: 800;
-            font-size: 1.4rem;
+            font-size: 1.8rem;
+            color: var(--ungu-matang);
+            border: 3px solid var(--biru-matang);
+            padding: 5px 15px;
+            border-radius: 12px;
+            position: relative;
+        }
+        .custom-logo::before {
+            content: "🌳";
+            font-size: 1.2rem;
+            position: absolute;
+            top: -20px;
         }
 
         .brand-text h1 {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 800;
             color: var(--ungu-matang);
-            line-height: 1.2;
+            line-height: 1.1;
         }
 
         .brand-text p {
-            font-size: 1rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--biru-matang);
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Menu Navigasi Samping Atas */
+        .nav-wrapper {
+            background: #F5F9FC;
+            padding: 15px 35px;
+            border-radius: 50px 0 0 50px;
+            box-shadow: -5px 5px 15px rgba(0,0,0,0.03);
+            border: 1px solid #E1EBF2;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 20px;
             align-items: center;
         }
 
         nav ul a {
             text-decoration: none;
-            color: var(--teks-gelap);
+            color: #555;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: color 0.3s;
+            font-size: 0.9rem;
         }
 
-        nav ul a:hover {
-            color: var(--biru-matang);
-        }
-
-        .btn-join {
+        .btn-news {
             background: var(--biru-matang);
-            color: var(--putih) !important;
-            padding: 10px 22px;
-            border-radius: 8px;
+            color: white !important;
+            padding: 8px 18px;
+            border-radius: 6px;
         }
 
-        /* --- MAIN LAYOUT (2 KOLOM) --- */
-        .main-wrapper {
-            max-width: 1300px;
-            margin: 40px auto;
-            padding: 0 20px;
+        /* --- GRID UTAMA (2 KOLOM) --- */
+        .content-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
+            grid-template-columns: 1.9fr 1.1fr;
+            position: relative;
         }
 
-        /* --- KOLOM UTAMA (KIRI) --- */
-        .hero-card {
-            background: linear-gradient(135deg, rgba(59, 30, 84, 0.9), rgba(15, 76, 129, 0.85)), 
-                        url('https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1000') center center/cover;
-            border-radius: 24px;
-            padding: 60px;
-            color: var(--putih);
+        /* --- KOLOM KIRI (HERO & BANNER BESAR) --- */
+        .left-column {
             position: relative;
-            overflow: hidden;
-            min-height: 450px;
+            padding-bottom: 60px;
+        }
+
+        .hero-banner {
+            height: 520px;
+            margin-left: 50px;
+            border-radius: 24px;
+            background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.1)), 
+                        url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=1200') center center/cover;
+            position: relative;
+            color: var(--putih);
+            padding: 80px 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            z-index: 2;
+            overflow: hidden;
         }
 
-        /* Efek Gelombang bawah Hero */
-        .hero-card::after {
+        /* Aksen Geometris Gelombang Sesuai Gambar */
+        .hero-banner::before {
             content: "";
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
-            width: 100%;
-            height: 60px;
-            background: var(--putih);
-            clip-path: ellipse(60% 100% at 50% 100%);
+            width: 45%;
+            height: 100%;
+            background: rgba(49, 27, 146, 0.4);
+            transform: skewX(-15deg);
+            margin-left: -10%;
+            z-index: -1;
         }
 
-        .hero-card h2 {
+        .hero-banner h2 {
             font-size: 2.8rem;
             font-weight: 800;
             line-height: 1.2;
-            margin-bottom: 20px;
             max-width: 550px;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
         }
 
-        .hero-card p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            max-width: 500px;
+        .hero-banner p {
+            font-size: 1rem;
+            max-width: 480px;
+            margin-bottom: 35px;
             opacity: 0.9;
+            line-height: 1.5;
         }
 
         .hero-btns {
             display: flex;
             gap: 15px;
-            z-index: 2;
         }
 
-        .btn-main {
-            background: var(--biru-matang);
-            color: var(--putih);
-            padding: 12px 28px;
-            border-radius: 8px;
+        .btn-blue {
+            background: var(--biru-terang);
+            color: white;
             text-decoration: none;
-            font-weight: 600;
-        }
-
-        /* --- KOLOM SISI / SIDEBAR (KANAN) --- */
-        .sidebar-card {
-            background: var(--putih);
-            border-radius: 24px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-            border-top: 6px solid var(--biru-matang);
-        }
-
-        .sidebar-image {
-            width: 100%;
-            height: 200px;
-            background: url('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=500') center center/cover;
-            border-radius: 14px;
-            margin-bottom: 25px;
-        }
-
-        .features-title {
-            font-size: 1.2rem;
+            padding: 12px 25px;
+            border-radius: 6px;
             font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .btn-outline {
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            background: rgba(0,0,0,0.2);
+        }
+
+        /* LENGKUNGAN WAVE DI BAWAH BANNER UTAMA */
+        .wave-container {
+            position: absolute;
+            bottom: -2px;
+            left: 50px;
+            width: calc(100% - 50px);
+            line-height: 0;
+            z-index: 3;
+        }
+        .wave-container svg {
+            width: 100%;
+            height: 70px;
+        }
+
+        /* --- BERITA TERBARU (BAWAH KIRI) --- */
+        .recent-news {
+            padding: 40px 50px;
+        }
+
+        .recent-news h3 {
+            font-size: 1.5rem;
             color: var(--ungu-matang);
             margin-bottom: 20px;
-        }
-
-        .feature-item {
-            background: var(--abu-terang);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            border-left: 4px solid var(--ungu-matang);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        /* --- BERITA TERBARU (BAWAH) --- */
-        .news-section {
-            grid-column: 1 / -1;
-            margin-top: 20px;
-        }
-
-        .news-section h3 {
-            font-size: 1.6rem;
-            color: var(--ungu-matang);
-            margin-bottom: 20px;
+            font-weight: 800;
         }
 
         .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
 
-        .news-card {
-            background: var(--putih);
-            border-radius: 16px;
+        .news-item {
+            background: #F8FAFC;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            border: 1px solid #E2E8F0;
         }
 
-        .news-img {
-            height: 180px;
-            background: #ccc url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=500') center center/cover;
+        .news-thumb {
+            height: 140px;
+            background: #ccc url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=400') center center/cover;
         }
 
-        .news-body {
-            padding: 20px;
+        /* --- KOLOM KANAN (SIDEBAR SANGAT KANAN) --- */
+        .right-column {
+            background: #F0F6FA;
+            padding: 0 30px 40px 30px;
+            border-left: 1px solid #E1E8EE;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
-        .news-body h4 {
+        /* Foto Besar Siswa SD di Kanan */
+        .student-showcase {
+            width: 100%;
+            height: 320px;
+            background: url('https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=600') center center/cover;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .features-section h3 {
             font-size: 1.1rem;
+            text-transform: uppercase;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        /* Grid 4 Kartu Fitur Warna Berbeda */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .feat-card {
+            padding: 15px 10px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feat-card span { font-size: 1.4rem; }
+        .f1 { background-color: #0D47A1; } /* Biru */
+        .f2 { background-color: #E65100; } /* Oranye */
+        .f3 { background-color: #880E4F; } /* Magenta/Pink Tua */
+        .f4 { background-color: #1B5E20; } /* Hijau */
+
+        /* Bagian Kontak Bawah Samping */
+        .contact-box {
+            background: var(--putih);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            font-size: 0.85rem;
+        }
+
+        .contact-box h4 {
             color: var(--biru-matang);
             margin-bottom: 10px;
         }
 
-        /* --- RESPONSIF (UNTUK HP) --- */
-        @media (max-width: 968px) {
-            .main-wrapper {
-                grid-template-columns: 1fr;
-            }
-            .hero-card {
-                padding: 40px 30px;
-            }
-            .hero-card h2 {
-                font-size: 2rem;
-            }
+        /* --- RESPONSIVE ADJUSTMENT --- */
+        @media (max-width: 1024px) {
+            .content-grid { grid-template-columns: 1fr; }
+            .hero-banner { margin-right: 50px; }
+            .wave-container { width: calc(100% - 100px); }
+            .right-column { border-left: none; padding-top: 40px; }
+            .student-showcase { border-radius: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-container">
-            <div class="logo-section">
-                <div class="logo-placeholder">B1N</div>
+    <div class="page-wrapper">
+        
+        <header>
+            <div class="brand-container">
+                <div class="custom-logo">B1N</div>
                 <div class="brand-text">
                     <h1>SDN BUTOH 1 NGASEM</h1>
                     <p>KABUPATEN BOJONEGORO</p>
                 </div>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="#">Beranda</a></li>
-                    <li><a href="#">Akademik</a></li>
-                    <li><a href="#">Fasilitas</a></li>
-                    <li><a class="btn-join" href="#">Hubungi Kami</a></li>
-                </ul>
-            </nav>
+            <div class="nav-wrapper">
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Academic</a></li>
+                        <li><a href="#">Facilities</a></li>
+                        <li><a class="btn-news" href="#">News</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div class="content-grid">
+            
+            <div class="left-column">
+                <div class="hero-banner">
+                    <h2>LEARN. GROW. THRIVE. <br>A VIBRANT LEARNING COMMUNITY IN BOJONEGORO</h2>
+                    <p>Empowering students with knowledge, character, and skills for a bright future. Experience modern education with tradition.</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn-blue">EXPLORE OUR PROGRAMS</a>
+                        <a href="#" class="btn-outline">VISIT CAMPUS</a>
+                    </div>
+                </div>
+
+                <div class="wave-container">
+                    <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+                        <path d="M0,80 C150,150 350,0 500,80 L500,150 L0,150 Z" style="stroke: none; fill: #ffffff;"></path>
+                    </svg>
+                </div>
+
+                <div class="recent-news">
+                    <h3>RECENT NEWS</h3>
+                    <div class="news-grid">
+                        <div class="news-item"><div class="news-thumb"></div></div>
+                        <div class="news-item"><div class="news-thumb" style="background-image:url('https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=400')"></div></div>
+                        <div class="news-item"><div class="news-thumb" style="background-image:url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=400')"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div class="student-showcase"></div>
+                
+                <div class="features-section">
+                    <h3>School Features</h3>
+                    <div class="features-grid">
+                        <div class="feat-card f1"><span>🎓</span>ACADEMIC EXCELLENCE</div>
+                        <div class="feat-card f2"><span>💡</span>CREATIVE LEARNING</div>
+                        <div class="feat-card f3"><span>💜</span>HOLISTIC EDUCATION</div>
+                        <div class="feat-card f4"><span>🏢</span>ACTIVE CAMPUS</div>
+                    </div>
+                </div>
+
+                <div class="contact-box">
+                    <h4>SCHOOL CONTACT</h4>
+                    <p>📍 SDN Butoh 1 Ngasem, Bojonegoro</p>
+                    <p>📞 (0271) 123-456</p>
+                    <p>🌐 www.sdnbutoh1ngasem.sch.id</p>
+                </div>
+            </div>
+
         </div>
-    </header>
-
-    <div class="main-wrapper">
-        
-        <main class="hero-card">
-            <h2>LEARN. GROW. THRIVE. A VIBRANT LEARNING COMMUNITY</h2>
-            <p>Empowering students with knowledge, character, and skills for a bright future. Experience modern education with tradition.</p>
-            <div class="hero-btns">
-                <a href="#" class="btn-main">Jelajahi Program</a>
-            </div>
-        </main>
-
-        <aside class="sidebar-card">
-            <div class="sidebar-image"></div>
-            <h3 class="features-title">Keunggulan Sekolah</h3>
-            <div class="feature-item">🎓 Academic Excellence</div>
-            <div class="feature-item">💡 Creative Learning</div>
-            <div class="feature-item">🎨 Holistic Education</div>
-        </aside>
-
-        <section class="news-section">
-            <h3>Berita Terbaru</h3>
-            <div class="news-grid">
-                <div class="news-card">
-                    <div class="news-img"></div>
-                    <div class="news-body">
-                        <h4>Kegiatan Belajar Mengajar Interaktif Berbasis Digital</h4>
-                        <p>Siswa-siswi SDN Butoh 1 Ngasem mulai menerapkan metode belajar modern...</p>
-                    </div>
-                </div>
-                <div class="news-card">
-                    <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=500');"></div>
-                    <div class="news-body">
-                        <h4>Prestasi Gemilang di Tingkat Kabupaten</h4>
-                        <p>Bangga! Perwakilan siswa berhasil membawa pulang piala dalam kompetisi sains...</p>
-                    </div>
-                </div>
-                <div class="news-card">
-                    <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=500');"></div>
-                    <div class="news-body">
-                        <h4>Penerimaan Peserta Didik Baru (PPDB)</h4>
-                        <p>Informasi pendaftaran dan persyaratan lengkap bagi calon siswa baru tahun ajaran ini...</p>
-                    </div>
-                </div>
-            </div>
-        </section>
 
     </div>
 
