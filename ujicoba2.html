@@ -384,6 +384,31 @@
             .features-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .feat-card { padding: 15px; font-size: 0.8rem; }
         }
+        /* --- CSS TOMBOL LIHAT SEMUA BERITA --- */
+.more-news-wrapper {
+    display: flex;
+    justify-content: center;  /* Membawa tombol ke posisi tengah */
+    margin-top: 30px;         /* Memberi jarak aman dari kotak berita di atasnya */
+}
+
+.btn-more-news {
+    display: inline-block;
+    text-decoration: none;
+    background-color: var(--biru-matang);
+    color: white;
+    padding: 12px 30px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 50px;       /* Membuat tombol berbentuk kapsul/oval modern */
+    box-shadow: 0 4px 10px rgba(13, 71, 161, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-more-news:hover {
+    background-color: var(--ungu-matang); /* Berubah ungu saat disentuh kursor */
+    transform: translateY(-2px);          /* Efek sedikit melompat naik */
+    box-shadow: 0 6px 15px rgba(49, 27, 146, 0.3);
+}
     </style>
 </head>
 <body>
@@ -464,7 +489,9 @@
                                     <span class="btn-read-more">Baca Selengkapnya &rarr;</span>
                                 </div>
                             </div>
-                        </a>
+                        </a></div> <div class="more-news-wrapper">
+                        <a href="berita.html" class="btn-more-news">Lihat Semua Berita &rarr;</a>
+                    </div>
                         
                     </div>
                 </div>
