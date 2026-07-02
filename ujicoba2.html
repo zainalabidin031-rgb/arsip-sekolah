@@ -106,18 +106,43 @@
             color: var(--biru-terang);
         }
 
-        /* --- GRID LAYOUT --- */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1.8fr 1.2fr;
-        }
+      /* --- KUNCI GRID LAYOUT (ANTI COPOK / TURUN) --- */
+.content-grid {
+    display: flex;             /* Berubah dari grid ke flex agar lebih stabil */
+    width: 100%;
+    align-items: flex-start;
+}
 
-        /* --- KOLOM KIRI --- */
-        .left-column {
-            padding-bottom: 40px;
-            display: flex;
-            flex-direction: column;
-        }
+/* Kolom Kiri dipatok 65% */
+.left-column {
+    width: 65%;
+    flex-shrink: 0;            /* Mencegah kolom kiri menciut */
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Kolom Kanan dipatok 35% */
+.right-column {
+    width: 35%;
+    flex-shrink: 0;            /* Mencegah kolom kanan menciut */
+    background: #F0F6FA;
+    padding: 0 30px 40px 30px;
+    border-left: 1px solid #E1E8EE;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Saat dibuka di HP baru boleh turun ke bawah */
+@media (max-width: 968px) {
+    .content-grid {
+        flex-direction: column; /* Di HP otomatis berbaris ke bawah */
+    }
+    .left-column, .right-column {
+        width: 100%;           /* Di HP ukurannya penuh 100% */
+    }
+}
 
         .hero-banner {
             height: 480px;
