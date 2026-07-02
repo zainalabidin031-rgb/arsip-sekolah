@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SDN Butoh 1 Ngasem - Kabupaten Bojonegoro</title>
+    <title>SDN Butoh 1 Ngasem - Bojonegoro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- RESET & VARIABEL WARNA --- */
         * {
             margin: 0;
             padding: 0;
@@ -18,270 +17,246 @@
         }
 
         :root {
-            --biru-segar: #00A3FF;       /* Biru cerah segar */
-            --ungu-matang: #4A148C;      /* Ungu matang/tua premium */
-            --ungu-muda: #7B1FA2;        /* Ungu aksen */
+            --biru-matang: #0F4C81;     /* Biru solid, dalam, dan profesional */
+            --ungu-matang: #3B1E54;     /* Ungu gelap premium */
             --putih: #FFFFFF;
-            --abu-terang: #F5F6FA;
-            --teks-gelap: #2D3436;
+            --abu-terang: #F4F7F9;
+            --teks-gelap: #1A1A1A;
         }
 
         body {
+            background-color: var(--abu-terang);
             color: var(--teks-gelap);
-            background-color: var(--putih);
-            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* --- NAVBAR / NAVIGASI --- */
+        /* --- HEADER & BRANDING --- */
         header {
-            background-color: rgba(255, 255, 255, 0.95);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            backdrop-filter: blur(10px);
+            background: var(--putih);
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
-        .nav-container {
-            max-width: 1200px;
+        .header-container {
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .brand {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .brand .title {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--ungu-matang);
-            letter-spacing: -0.5px;
-        }
-
-        .brand .subtitle {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--biru-segar);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: -2px;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--ungu-matang);
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--biru-segar);
-        }
-
-        .btn-cta {
-            background: linear-gradient(135deg, var(--biru-segar), var(--ungu-muda));
-            color: var(--putih) !important;
-            padding: 10px 20px;
-            border-radius: 50px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-        }
-
-        .btn-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 163, 255, 0.4);
-        }
-
-        /* --- HERO SECTION (Gaya Stanford OHS) --- */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 80px;
-            background: linear-gradient(135deg, rgba(74, 20, 140, 0.95), rgba(0, 163, 255, 0.85)), 
-                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1920') no-repeat center center/cover;
-            color: var(--putih);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Aksen Geometris Estetik */
-        .hero::before {
-            content: '';
-            position: absolute;
-            bottom: -50px;
-            right: -50px;
-            width: 300px;
-            height: 300px;
-            background: var(--biru-segar);
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.5;
-        }
-
-        .hero-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            width: 100%;
-        }
-
-        .hero-content {
-            max-width: 700px;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 10px;
-            letter-spacing: -1px;
-        }
-
-        .hero-content h2 {
-            font-size: 1.8rem;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 25px;
-        }
-
-        .hero-content p {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 35px;
-            max-width: 600px;
-        }
-
-        .hero-buttons {
-            display: flex;
+            flex-wrap: wrap;
             gap: 20px;
         }
 
-        .btn-primary {
-            background-color: var(--biru-segar);
-            color: var(--putih);
-            text-decoration: none;
-            padding: 15px 35px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: background 0.3s, transform 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 163, 255, 0.3);
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        .btn-primary:hover {
-            background-color: #008be0;
-            transform: translateY(-3px);
+        .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--ungu-matang), var(--biru-matang));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.4rem;
         }
 
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--putih);
-            text-decoration: none;
-            padding: 15px 35px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1rem;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            transition: background 0.3s, border 0.3s;
-        }
-
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: var(--putih);
-        }
-
-        /* --- FITUR / KEUNGGULAN SECTION --- */
-        .features {
-            padding: 100px 20px;
-            background-color: var(--abu-terang);
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 2.2rem;
+        .brand-text h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
             color: var(--ungu-matang);
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            font-size: 1rem;
             font-weight: 700;
+            color: var(--biru-matang);
+            letter-spacing: 1px;
         }
 
-        .section-title p {
-            color: #777;
-            margin-top: 10px;
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
         }
 
-        .grid-features {
-            max-width: 1200px;
-            margin: 0 auto;
+        nav ul a {
+            text-decoration: none;
+            color: var(--teks-gelap);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav ul a:hover {
+            color: var(--biru-matang);
+        }
+
+        .btn-join {
+            background: var(--biru-matang);
+            color: var(--putih) !important;
+            padding: 10px 22px;
+            border-radius: 8px;
+        }
+
+        /* --- MAIN LAYOUT (2 KOLOM) --- */
+        .main-wrapper {
+            max-width: 1300px;
+            margin: 40px auto;
+            padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: 2fr 1fr;
             gap: 30px;
         }
 
-        .card {
-            background-color: var(--putih);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-top: 4px solid var(--ungu-matang);
+        /* --- KOLOM UTAMA (KIRI) --- */
+        .hero-card {
+            background: linear-gradient(135deg, rgba(59, 30, 84, 0.9), rgba(15, 76, 129, 0.85)), 
+                        url('https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1000') center center/cover;
+            border-radius: 24px;
+            padding: 60px;
+            color: var(--putih);
+            position: relative;
+            overflow: hidden;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(74, 20, 140, 0.1);
-            border-top-color: var(--biru-segar);
+        /* Efek Gelombang bawah Hero */
+        .hero-card::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: var(--putih);
+            clip-path: ellipse(60% 100% at 50% 100%);
         }
 
-        .card-icon {
-            font-size: 2rem;
+        .hero-card h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
             margin-bottom: 20px;
-            color: var(--biru-segar);
+            max-width: 550px;
         }
 
-        .card h3 {
-            font-size: 1.3rem;
+        .hero-card p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 500px;
+            opacity: 0.9;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            z-index: 2;
+        }
+
+        .btn-main {
+            background: var(--biru-matang);
+            color: var(--putih);
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* --- KOLOM SISI / SIDEBAR (KANAN) --- */
+        .sidebar-card {
+            background: var(--putih);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            border-top: 6px solid var(--biru-matang);
+        }
+
+        .sidebar-image {
+            width: 100%;
+            height: 200px;
+            background: url('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=500') center center/cover;
+            border-radius: 14px;
+            margin-bottom: 25px;
+        }
+
+        .features-title {
+            font-size: 1.2rem;
+            font-weight: 700;
             color: var(--ungu-matang);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        /* --- RESPONSIVE DESIGN (Biar Bagus di HP) --- */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none; /* Menyembunyikan menu di HP untuk kesederhanaan template */
-            }
-            
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
+        .feature-item {
+            background: var(--abu-terang);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--ungu-matang);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
 
-            .hero-content h2 {
-                font-size: 1.4rem;
-            }
+        /* --- BERITA TERBARU (BAWAH) --- */
+        .news-section {
+            grid-column: 1 / -1;
+            margin-top: 20px;
+        }
 
-            .hero-buttons {
-                flex-direction: column;
-            }
+        .news-section h3 {
+            font-size: 1.6rem;
+            color: var(--ungu-matang);
+            margin-bottom: 20px;
+        }
 
-            .btn-primary, .btn-secondary {
-                text-align: center;
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .news-card {
+            background: var(--putih);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+
+        .news-img {
+            height: 180px;
+            background: #ccc url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=500') center center/cover;
+        }
+
+        .news-body {
+            padding: 20px;
+        }
+
+        .news-body h4 {
+            font-size: 1.1rem;
+            color: var(--biru-matang);
+            margin-bottom: 10px;
+        }
+
+        /* --- RESPONSIF (UNTUK HP) --- */
+        @media (max-width: 968px) {
+            .main-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .hero-card {
+                padding: 40px 30px;
+            }
+            .hero-card h2 {
+                font-size: 2rem;
             }
         }
     </style>
@@ -289,59 +264,71 @@
 <body>
 
     <header>
-        <div class="nav-container">
-            <div class="brand">
-                <span class="title">SDN Butoh 1</span>
-                <span class="subtitle">Kabupaten Bojonegoro</span>
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo-placeholder">B1N</div>
+                <div class="brand-text">
+                    <h1>SDN BUTOH 1 NGASEM</h1>
+                    <p>KABUPATEN BOJONEGORO</p>
+                </div>
             </div>
-            <ul class="nav-links">
-                <li><a href="#home">Beranda</a></li>
-                <li><a href="#tentang">Tentang Kami</a></li>
-                <li><a href="#akademik">Akademik</a></li>
-                <li><a href="#fasilitas">Fasilitas</a></li>
-                <li><a class="btn-cta" href="#daftar">PPDB Online</a></li>
-            </ul>
+            <nav>
+                <ul>
+                    <li><a href="#">Beranda</a></li>
+                    <li><a href="#">Akademik</a></li>
+                    <li><a href="#">Fasilitas</a></li>
+                    <li><a class="btn-join" href="#">Hubungi Kami</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <section class="hero" id="home">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1>SDN Butoh 1 Ngasem</h1>
-                <h2>Kabupaten Bojonegoro</h2>
-                <p>Membentuk generasi cerdas, berkarakter mulia, dan siap menyongsong masa depan cerah dengan landasan teknologi serta kearifan lokal.</p>
-                <div class="hero-buttons">
-                    <a href="#jelajah" class="btn-primary">Jelajahi Program</a>
-                    <a href="#kontak" class="btn-secondary">Hubungi Kami</a>
+    <div class="main-wrapper">
+        
+        <main class="hero-card">
+            <h2>LEARN. GROW. THRIVE. A VIBRANT LEARNING COMMUNITY</h2>
+            <p>Empowering students with knowledge, character, and skills for a bright future. Experience modern education with tradition.</p>
+            <div class="hero-btns">
+                <a href="#" class="btn-main">Jelajahi Program</a>
+            </div>
+        </main>
+
+        <aside class="sidebar-card">
+            <div class="sidebar-image"></div>
+            <h3 class="features-title">Keunggulan Sekolah</h3>
+            <div class="feature-item">🎓 Academic Excellence</div>
+            <div class="feature-item">💡 Creative Learning</div>
+            <div class="feature-item">🎨 Holistic Education</div>
+        </aside>
+
+        <section class="news-section">
+            <h3>Berita Terbaru</h3>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-img"></div>
+                    <div class="news-body">
+                        <h4>Kegiatan Belajar Mengajar Interaktif Berbasis Digital</h4>
+                        <p>Siswa-siswi SDN Butoh 1 Ngasem mulai menerapkan metode belajar modern...</p>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=500');"></div>
+                    <div class="news-body">
+                        <h4>Prestasi Gemilang di Tingkat Kabupaten</h4>
+                        <p>Bangga! Perwakilan siswa berhasil membawa pulang piala dalam kompetisi sains...</p>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=500');"></div>
+                    <div class="news-body">
+                        <h4>Penerimaan Peserta Didik Baru (PPDB)</h4>
+                        <p>Informasi pendaftaran dan persyaratan lengkap bagi calon siswa baru tahun ajaran ini...</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="features" id="jelajah">
-        <div class="section-title">
-            <h2>Mengapa Pilih SDN Butoh 1 Ngasem?</h2>
-            <p>Kami berkomitmen memberikan pendidikan tingkat dasar terbaik untuk buah hati Anda.</p>
-        </div>
-        
-        <div class="grid-features">
-            <div class="card">
-                <div class="card-icon">🎓</div>
-                <h3>Kurikulum Modern</h3>
-                <p>Pembelajaran interaktif yang berfokus pada pengembangan kreativitas, logika berpikir, dan kemandirian anak sejak dini.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🏢</div>
-                <h3>Fasilitas Lengkap</h3>
-                <p>Ruang kelas yang nyaman, perpustakaan digital, serta area bermain dan olahraga yang aman untuk mendukung potensi siswa.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🌟</div>
-                <h3>Ekstrakurikuler</h3>
-                <p>Berbagai pilihan kegiatan mulai dari Pramuka, seni, hingga klub sains untuk mengasah minat dan bakat unik anak.</p>
-            </div>
-        </div>
-    </section>
+    </div>
 
 </body>
 </html>
