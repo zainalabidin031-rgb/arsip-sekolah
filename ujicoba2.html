@@ -105,14 +105,13 @@
             color: var(--biru-terang);
         }
 
-        /* --- KUNCI GRID LAYOUT (ANTI COPOK / TURUN) --- */
+        /* --- KUNCI GRID LAYOUT --- */
         .content-grid {
             display: flex;
             width: 100%;
             align-items: flex-start;
         }
 
-        /* Kolom Kiri dipatok 65% */
         .left-column {
             width: 65%;
             flex-shrink: 0;
@@ -121,7 +120,6 @@
             flex-direction: column;
         }
 
-        /* Kolom Kanan dipatok 35% */
         .right-column {
             width: 35%;
             flex-shrink: 0;
@@ -133,7 +131,6 @@
             gap: 25px;
         }
 
-        /* Saat dibuka di HP baru boleh turun ke bawah */
         @media (max-width: 968px) {
             .content-grid {
                 flex-direction: column;
@@ -143,19 +140,47 @@
             }
         }
 
-        .hero-banner {
-            height: 480px;
+        /* --- MODIFIKASI HERO BANNER SLIDER --- */
+        .slider-container {
+            position: relative;
             margin-left: 40px;
             border-radius: 24px;
-            background: linear-gradient(to right, rgba(0,0,0,0.65), rgba(0,0,0,0.2)), 
-                        url('https://drive.google.com/thumbnail?id=1mkN8HtQTblnStg6mq-9mncCYc0E501T3&sz=w1200') center center/cover;
+            overflow: hidden;
+            height: 480px;
+        }
+
+        .hero-slider {
+            display: flex;
+            width: 300%; /* Total 300% karena ada 3 gambar */
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .hero-banner {
+            width: 33.333%; /* Tiap slide mengambil 1/3 dari total lebar */
+            height: 100%;
+            background-position: center center;
+            background-size: cover;
             position: relative;
             color: var(--putih);
             padding: 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            overflow: hidden;
+        }
+
+        /* Overlay gelap agar teks tetap mudah dibaca di setiap gambar */
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
 
         .hero-banner h2 {
@@ -194,6 +219,30 @@
 
         .btn-blue { background: var(--biru-terang); color: white; }
         .btn-outline { border: 2px solid white; color: white; background: rgba(0,0,0,0.2); }
+
+        /* Tombol Navigasi Slider (Kiri & Kanan) */
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            transition: background 0.3s;
+        }
+        .slider-nav:hover { background: rgba(255, 255, 255, 0.4); }
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
 
         .wave-container {
             width: calc(100% - 40px);
@@ -346,12 +395,14 @@
 
             .school-logo { height: 40px; }
 
-            .hero-banner {
+            .slider-container {
                 margin-left: 20px;
                 margin-right: 20px;
-                padding: 40px 20px;
                 height: auto;
                 min-height: 380px;
+            }
+            .hero-banner {
+                padding: 40px 20px;
             }
             .hero-banner h2 { font-size: 1.8rem; }
             .wave-container {
@@ -372,7 +423,6 @@
             .feat-card { padding: 15px; font-size: 0.8rem; }
         }
 
-        /* --- CSS TOMBOL LIHAT SEMUA BERITA --- */
         .more-news-wrapper {
             display: flex;
             justify-content: center;
@@ -427,12 +477,43 @@
         <div class="content-grid">
             
             <div class="left-column">
-                <div class="hero-banner">
-                    <h2>BELAJAR, MAJU & BERKEMBANG <br>BERSAMA SDN BUTOH 1</h2>
-                    <p>Memberdayakan siswa dengan pengetahuan, karakter, dan keterampilan demi masa depan yang cerah.</p>
-                    <div class="hero-buttons">
-                        <a href="#" class="btn-blue">Belajar Mandiri</a>
-                        <a href="#" class="btn-outline">Uji Kemampuan</a>
+                <div class="slider-container">
+                    <button class="slider-nav prev-btn" onclick="moveSlide(-1)">&#10094;</button>
+                    <button class="slider-nav next-btn" onclick="moveSlide(1)">&#10095;</button>
+                    
+                    <div class="hero-slider" id="heroSlider">
+                        
+                        <div class="hero-banner" style="background-image: url('https://drive.google.com/thumbnail?id=1mkN8HtQTblnStg6mq-9mncCYc0E501T3&sz=w1200');">
+                            <div class="hero-content">
+                                <h2>BELAJAR, MAJU & BERKEMBANG <br>BERSAMA SDN BUTOH 1</h2>
+                                <p>Memberdayakan siswa dengan pengetahuan, karakter, dan keterampilan demi masa depan yang cerah.</p>
+                                <div class="hero-buttons">
+                                    <a href="#" class="btn-blue">Belajar Mandiri</a>
+                                    <a href="#" class="btn-outline">Uji Kemampuan</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hero-banner" style="background-image: url('https://drive.google.com/thumbnail?id=1SqzOJ1jP_VA0MF9289uZJPcLqKhenXkI&sz=w1200');">
+                            <div class="hero-content">
+                                <h2>UKIR PRESTASI TIADA HENTI <br>DI BIDANG AKADEMIK</h2>
+                                <p>Mendukung potensi terbaik anak didik dalam meraih impian dan menjuarai berbagai kompetisi.</p>
+                                <div class="hero-buttons">
+                                    <a href="#" class="btn-blue">Lihat Prestasi</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hero-banner" style="background-image: url('https://drive.google.com/thumbnail?id=1_6pKu56KYy8Wns_OHAOg__tdcjY7yumf&sz=w1200');">
+                            <div class="hero-content">
+                                <h2>PENCERDASAN BERBASIS DIGITAL <br>UNTUK GENERASI MODERN</h2>
+                                <p>Fasilitas belajar interaktif demi menghadapi tantangan di era perkembangan teknologi.</p>
+                                <div class="hero-buttons">
+                                    <a href="#" class="btn-blue">Fasilitas Sekolah</a>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -479,10 +560,14 @@
                             </div>
                         </a>
 
-                    </div> <div class="more-news-wrapper">
+                    </div> 
+                    <div class="more-news-wrapper">
                         <a href="berita.html" class="btn-more-news">Lihat Semua Berita &rarr;</a>
                     </div>
-                </div> </div> <div class="right-column">
+                </div> 
+            </div> 
+            
+            <div class="right-column">
                 <div class="student-showcase"></div>
 
                 <div class="features-section">
@@ -512,5 +597,45 @@
                     <p>📞 info@sdnbutoh1ngasem.my.id</p>
                     <p>🌐 http://sdnbutoh1ngasem.my.id</p>
                 </div>
-            </div> </div> </div> </body>
+            </div> 
+        </div> 
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-banner');
+        const totalSlides = slides.length;
+        const sliderElement = document.getElementById('heroSlider');
+
+        function showSlide(index) {
+            if (index >= totalSlides) {
+                currentSlide = 0;
+            } else if (index < 0) {
+                currentSlide = totalSlides - 1;
+            } else {
+                currentSlide = index;
+            }
+            // Menggeser posisi slider berdasarkan persentase total slide
+            const offset = -(currentSlide * (100 / totalSlides));
+            sliderElement.style.transform = `translateX(${offset}%)`;
+        }
+
+        function moveSlide(direction) {
+            showSlide(currentSlide + direction);
+            resetTimer(); // Reset auto-slide jika tombol diklik manual
+        }
+
+        // Jalankan Otomatis Bergerak Setiap 5 Detik
+        let autoSlideInterval = setInterval(() => {
+            moveSlide(1);
+        }, 5000);
+
+        function resetTimer() {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(() => {
+                moveSlide(1);
+            }, 5000);
+        }
+    </script>
+</body>
 </html>
