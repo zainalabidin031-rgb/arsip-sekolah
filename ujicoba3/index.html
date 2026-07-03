@@ -3,118 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SDN BUTOH 1 NGASEM - KAB. BOJONEGORO</title>
+    <title>SPMB - Dinas Pendidikan Kota Surabaya</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-100 text-gray-800">
 
-    <div class="bg-blue-900 text-white text-xs py-2 px-4 sm:px-8 flex justify-between items-center border-b border-blue-800">
-        <div class="flex items-center space-x-4">
-            <span><i class="fas fa-phone mr-1"></i> +62 812-5989-6163</span>
-            <span class="hidden md:inline"><i class="fas fa-envelope mr-1"></i> sdnbutohsatu@gmail.com</span>
-        </div>
-        <div class="flex space-x-3">
-            <a href="#" class="hover:underline">Tentang Kami</a>
-            <span>|</span>
-            <a href="#" class="hover:underline">Bantuan</a>
-        </div>
-    </div>
-
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-md">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
+    <header class="bg-white border-b border-gray-200 py-4 px-6 shadow-xs">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-4">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Lambang_Kota_Surabaya.svg" alt="Logo Surabaya" class="h-16 w-auto">
                 <div>
-                    <h1 class="font-bold text-blue-900 text-base sm:text-lg tracking-tight leading-tight">SPMB ONLINE</h1>
+                    <h1 class="text-xl font-bold text-gray-900 tracking-tight leading-none">SPMB SURABAYA</h1>
+                    <p class="text-xs text-red-600 font-semibold mt-1">Sistem Penerimaan Murid Baru Online</p>
                     <p class="text-xs text-gray-500 font-medium">Dinas Pendidikan Kota Surabaya</p>
                 </div>
             </div>
             
-            <nav class="hidden md:flex space-x-6 font-semibold text-sm text-gray-600">
-                <a href="#" class="text-blue-600 hover:text-blue-800 border-b-2 border-blue-600 pb-1">Beranda</a>
-                <a href="#" class="hover:text-blue-600 transition">Statistik</a>
-                <a href="#" class="hover:text-blue-600 transition">Informasi</a>
-                <a href="#" class="hover:text-blue-600 transition">Ruang Belajar</a>
-                <a href="#" class="hover:text-blue-600 transition">Portal Guru</a>
-            </nav>
-
-            <div class="hidden md:block">
-                <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-5 py-2.5 rounded-lg shadow transition">
-                    <i class="fas fa-sign-in-alt mr-2"></i>Masuk
-                </a>
+            <div class="text-center md:text-right bg-gray-50 border border-gray-200 rounded-lg p-3 text-xs">
+                <div class="font-bold text-gray-700"><i class="far fa-clock mr-1 text-red-500"></i> Sistem Online</div>
+                <div class="text-gray-500 mt-0.5">Tahun Ajaran 2026/2027</div>
             </div>
-
-            <button class="md:hidden text-gray-600 focus:outline-none text-2xl">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
     </header>
 
-    <section class="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white py-16 px-4 sm:px-8 text-center relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-        <div class="max-w-4xl mx-auto relative z-10">
-            <span class="bg-blue-500/30 text-blue-200 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Tahun Ajaran 2026 / 2027</span>
-            <h2 class="text-3xl sm:text-5xl font-extrabold mt-4 mb-4 tracking-tight leading-tight">
-                SD Negeri Butoh 1 Ngasem <br class="hidden sm:inline">Kabupaten Bojonegoro
-            </h2>
-            <p class="text-blue-100 text-base sm:text-lg max-w-2xl mx-auto mb-8 font-light">
-                Selamat datang di portal digital terintegrasi SDN Butoh 1 Ngasem.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <a href="#pilih-jenjang" class="w-full sm:w-auto bg-yellow-500 hover:bg-yellow-400 text-blue-950 font-bold px-8 py-3.5 rounded-lg shadow-lg text-center transition">
-                    Saya siap
-                </a>
-                <a href="#" class="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white font-medium px-8 py-3.5 rounded-lg backdrop-blur-sm border border-white/20 text-center transition">
-                    <i class="fas fa-download mr-2"></i>Unduh Panduan (PDF)
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <main id="pilih-jenjang" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="text-center mb-12">
-            <h3 class="text-2xl sm:text-3xl font-bold text-gray-900">Pilih Jenjang Pendidikan</h3>
-            <p class="text-gray-500 mt-2">Silahkan pilih apa yang ingin anda akses</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 hover:shadow-md transition flex flex-col justify-between">
-                <div>
-                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">
-                        SD
-                    </div>
-                    <h4 class="text-xl font-bold text-gray-900 mb-2">Sekolah Dasar (SD)</h4>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                        Dinas Pendidikan Kabupaten Bojonegoro.
-                    </p>
-                    <div class="space-y-2 border-t border-gray-100 pt-4 mb-6 text-sm text-gray-500">
-                        <div class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Jalur Zonasi</div>
-                        <div class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Jalur Afirmasi (Inklusi & Mitra Warga)</div>
-                        <div class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Jalur Perpindahan Tugas Orang Tua</div>
-                    </div>
+    <div class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
+        
+        <aside class="lg:col-span-1 space-y-4">
+            <div class="bg-white rounded-lg shadow-xs border border-gray-200 overflow-hidden">
+                <div class="bg-red-600 text-white font-bold text-sm px-4 py-3 uppercase tracking-wider">
+                    <i class="fas fa-bars mr-2"></i> Menu Utama
                 </div>
-                <a href="#" class="w-full bg-gray-900 hover:bg-gray-800 text-white font-semibold py-3 px-4 rounded-xl text-center transition shadow-sm">
-                    Masuk PPDB SD <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                </a>
+                <nav class="divide-y divide-gray-100 text-sm">
+                    <a href="#" class="block px-4 py-3 bg-red-50 text-red-700 font-semibold border-l-4 border-red-600"><i class="fas fa-home w-5"></i> Beranda</a>
+                    <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 transition"><i class="fas fa-calendar-alt w-5 text-gray-400"></i> Jadwal PPDB</a>
+                    <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 transition"><i class="fas fa-file-alt w-5 text-gray-400"></i> Aturan & Prosedur</a>
+                    <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 transition"><i class="fas fa-search-location w-5 text-gray-400"></i> Cek Lokasi Rumah</a>
+                    <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 transition"><i class="fas fa-chart-bar w-5 text-gray-400"></i> Statistik Pendaftaran</a>
+                </nav>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 hover:shadow-md transition flex flex-col justify-between">
-                <div>
-                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">
-                        SMP
-                    </div>
-                    <h4 class="text-xl font-bold text-gray-900 mb-2">Sekolah Menengah Pertama (SMP)</h4>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                        Pendaftaran calon peserta didik baru untuk jenjang Sekolah Menengah Pertama Negeri di wilayah Kota Surabaya.
-                    </p>
-                    <div class="space-y-2 border-t border-gray-100 pt-4 mb-6 text-sm text-gray-500">
-                        <div class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Jalur Zonasi % Jalur Prestasi</div>
-                        <div class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Jalur Afirmasi Kategori Keluarga Miskin</div>
-                        <div class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Jalur Perpindahan Tugas Orang Tua</div>
-                    </div>
-                </div>
-                <a href="#" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl text-center transition shadow-sm">
-                    Masuk PPDB SMP <i class="fas fa-arrow-
+            <div class="bg-white rounded-lg shadow-xs border border-gray-200 p-4">
+                <h3 class="font-bold text-sm text-gray-900 border-b pb-2 mb-3"><i class="fas fa-lock mr-2 text-gray-500"></i> Portal Masuk</h3>
+                <button class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold text-xs py-2.5 px-4 rounded shadow-xs uppercase tracking-wide transition mb-2">
+                    Masuk PIN / Pendaftaran
+                </button>
+                <button class="w-full bg-gray-800 hover:bg-gray-900 text-white font-semibold text-xs py-2.5 px-4 rounded shadow-xs uppercase tracking-wide transition">
+                    Login Operator
