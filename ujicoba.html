@@ -3,691 +3,514 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SDN Butoh 1 Ngasem - Kab. Bojonegoro</title>
-    <link rel="icon" type="image/png" href="/favicon.png?v=1">
+    <title>SDN Butoh 1 Ngasem - Kabupaten Bojonegoro</title>
+    
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* RESET & GENERAL STYLES */
-        *, *::before, *::after {
-            box-sizing: border-box;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --biru-matang: #0D47A1;
+            --biru-terang: #00B0FF;
+            --ungu-matang: #311B92;
+            --teks-gelap: #1A237E;
+            --putih: #FFFFFF;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f6ff; /* Latar belakang abu kebiruan segar */
-            color: #2d3748;
+            background-color: #EBF3F9;
+            color: #333;
+            overflow-x: hidden;
+            padding: 20px 10px;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .container {
-            max-width: 1200px;
+        .page-wrapper {
+            max-width: 1440px;
             margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* --- TOP BAR DESKTOP --- */
-        .topbar {
-            background-color: #0056cc; /* Biru gelap pengimbang */
-            color: white;
-            font-size: 11px;
-            padding: 8px 0;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-        .topbar .flex-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .topbar a {
-            color: #00c6ff;
-            font-weight: 700;
-        }
-
-        /* --- STICKY NAVBAR --- */
-        .navbar {
-            background-color: #ffffff;
-            padding: 15px 0;
-            box-shadow: 0 4px 15px rgba(0, 140, 255, 0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #e6f2ff;
-        }
-        .navbar .flex-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .nav-logo h1 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 22px;
-            font-weight: 800;
-            color: #0077ff; /* Biru Cerah */
-            line-height: 1;
-        }
-        .nav-logo p {
-            font-size: 11px;
-            color: #718096;
-            margin-top: 3px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .nav-links a, .nav-links .dropbtn {
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
-            color: #4a5568;
-            padding: 8px 16px;
-            border-radius: 6px;
-            transition: all 0.2s;
-            background: none;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .nav-links a:hover, .nav-links a.active, .nav-links .dropbtn:hover {
-            color: #0077ff;
-            background-color: #e6f2ff;
-        }
-
-        /* DROPDOWN SYSTEM */
-        .dropdown { position: relative; }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: #ffffff;
-            min-width: 180px;
-            box-shadow: 0px 8px 24px rgba(0, 140, 255, 0.15);
-            border-radius: 8px;
-            padding: 6px 0;
-            margin-top: 8px;
-            z-index: 999;
-            border: 1px solid #e6f2ff;
-        }
-        .dropdown-content a {
-            color: #4a5568 !important;
-            padding: 10px 16px !important;
-            display: block;
-            font-size: 13px !important;
-            font-weight: 500 !important;
-            text-align: left;
-            border-radius: 0 !important;
-        }
-        .dropdown-content a:hover {
-            background-color: #e6f2ff !important;
-            color: #0077ff !important;
-        }
-        .show-dropdown { display: block !important; }
-
-        /* --- HERO BANNER CAROUSEL --- */
-        .hero-section {
-            background-color: #ffffff;
-            padding: 25px 0;
-        }
-        .carousel-wrapper {
-            position: relative;
+            background: var(--putih);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,114,255, 0.08);
-            aspect-ratio: 21/9;
-            background-color: #1a202c;
-        }
-        .slide { display: none; width: 100%; height: 100%; position: relative; }
-        .slide.active { display: block; animation: fadeIn 0.8s ease-in-out; }
-        
-        .slide img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-        
-        .slide-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
-        }
-        .slide-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 40px;
-            color: white;
-            z-index: 10;
-        }
-        .slide-badge {
-            background: linear-gradient(135deg, #0072ff 0%, #00c6ff 100%);
-            color: white;
-            font-size: 10px;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
-            margin-bottom: 12px;
-        }
-        .slide-caption h2 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 28px;
-            font-weight: 800;
-            line-height: 1.3;
-            max-width: 850px;
         }
 
-        /* --- DATA METRIK SEKOLAH --- */
-        .metric-section { padding: 15px 0; }
-        .metric-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 14px;
-            border: 1px solid #e2eefe;
-            box-shadow: 0 4px 20px rgba(0, 114, 255, 0.02);
-            text-align: center;
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--putih);
+            gap: 20px;
         }
-        .metric-item { 
-            border-right: 1px solid #e6f2ff; 
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .school-logo {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .brand-text h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--ungu-matang);
+            line-height: 1.1;
+        }
+
+        .brand-text p {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--biru-matang);
+        }
+
+        .nav-wrapper {
+            background: #F5F9FC;
+            padding: 12px 30px;
+            border-radius: 50px 0 0 50px;
+            border: 1px solid #E1EBF2;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav ul a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        nav ul a:hover {
+            color: var(--biru-terang);
+        }
+
+        /* --- KUNCI GRID LAYOUT (ANTI COPOK / TURUN) --- */
+        .content-grid {
+            display: flex;
+            width: 100%;
+            align-items: flex-start;
+        }
+
+        /* Kolom Kiri dipatok 65% */
+        .left-column {
+            width: 65%;
+            flex-shrink: 0;
+            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Kolom Kanan dipatok 35% */
+        .right-column {
+            width: 35%;
+            flex-shrink: 0;
+            background: #F0F6FA;
+            padding: 0 30px 40px 30px;
+            border-left: 1px solid #E1E8EE;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* Saat dibuka di HP baru boleh turun ke bawah */
+        @media (max-width: 968px) {
+            .content-grid {
+                flex-direction: column;
+            }
+            .left-column, .right-column {
+                width: 100%;
+            }
+        }
+
+        .hero-banner {
+            height: 480px;
+            margin-left: 40px;
+            border-radius: 24px;
+            background: linear-gradient(to right, rgba(0,0,0,0.65), rgba(0,0,0,0.2)), 
+                        url('https://drive.google.com/thumbnail?id=1mkN8HtQTblnStg6mq-9mncCYc0E501T3&sz=w1200') center center/cover;
+            position: relative;
+            color: var(--putih);
+            padding: 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            overflow: hidden;
         }
-        .metric-item:last-child { border: none; }
-        .metric-label { font-size: 11px; font-weight: 700; color: #8da2bb; text-transform: uppercase; letter-spacing: 1px; }
-        .metric-value { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 19px; font-weight: 800; color: #0072ff; margin-top: 5px; }
-        .metric-icon-inline { display: none; } /* Hanya muncul di HP */
 
-        /* --- LAYOUT KONTEN BERITA --- */
-        .main-content { padding: 40px 0 60px 0; }
-        .content-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #e6f2ff;
-            padding-bottom: 15px;
-            margin-bottom: 30px;
-        }
-        .content-title {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 22px;
+        .hero-banner h2 {
+            font-size: 2.4rem;
             font-weight: 800;
-            color: #1a202c;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            line-height: 1.2;
+            margin-bottom: 15px;
         }
-        .content-title::before {
-            content: '';
-            width: 4px;
-            height: 24px;
-            background: linear-gradient(#0072ff, #00c6ff);
-            border-radius: 2px;
-            display: inline-block;
-        }
-        .view-all { font-size: 13px; font-weight: 700; color: #0072ff; }
-        .view-all:hover { text-decoration: underline; }
 
+        .hero-banner p {
+            font-size: 1rem;
+            max-width: 480px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-blue, .btn-outline {
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .btn-blue:hover, .btn-outline:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-blue { background: var(--biru-terang); color: white; }
+        .btn-outline { border: 2px solid white; color: white; background: rgba(0,0,0,0.2); }
+
+        .wave-container {
+            width: calc(100% - 40px);
+            margin-left: 40px;
+            margin-top: -30px;
+            position: relative;
+            z-index: 2;
+            line-height: 0;
+        }
+        .wave-container svg { width: 100%; height: 50px; }
+
+        /* --- DESAIN BERITA --- */
+        .recent-news { padding: 30px 40px; }
+        .recent-news h3 { font-size: 1.4rem; color: var(--ungu-matang); margin-bottom: 20px; font-weight: 800; }
+        
         .news-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            gap: 20px;
         }
-        .news-card {
-            background: #ffffff;
-            border-radius: 14px;
-            border: 1px solid #e2eefe;
+
+        .news-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+        }
+
+        .news-item {
+            background: #FFFFFF;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.01);
-            transition: all 0.3s;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 114, 255, 0.08);
-            border-color: #b3d7ff;
+
+        .news-link:hover .news-item {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
         }
-        .news-thumb { width: 100%; height: 180px; background-color: #e6f2ff; overflow: hidden; }
-        .news-thumb img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .news-body { padding: 20px; }
-        .news-tag {
-            font-size: 10px;
-            font-weight: 700;
-            background-color: #e6f2ff;
-            color: #0072ff;
-            padding: 3px 8px;
-            border-radius: 4px;
-            text-transform: uppercase;
+
+        .news-thumb {
+            height: 150px;
+            background: #ccc center center/cover;
         }
-        .news-card h3 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 15px;
-            font-weight: 700;
-            color: #1a202c;
-            margin: 12px 0 8px 0;
+
+        .news-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .news-content h4 {
+            font-size: 0.95rem;
+            color: var(--ungu-matang);
+            margin-bottom: 8px;
             line-height: 1.4;
+            font-weight: 700;
         }
-        .news-date { font-size: 11px; color: #8da2bb; display: flex; align-items: center; gap: 5px; }
 
-        /* --- FOOTER RESMI --- */
-        footer {
-            background-color: #ffffff;
-            color: #4a5568;
-            padding: 50px 0 30px 0;
-            border-top: 1px solid #e2eefe;
-            font-size: 13px;
+        .news-content p {
+            font-size: 0.8rem;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            flex-grow: 1;
         }
-        .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 40px; }
-        .footer-col h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; color: #0072ff; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px;}
-        .footer-col p { line-height: 1.6; color: #718096; }
-        .footer-links { list-style: none; }
-        .footer-links li { margin-bottom: 8px; }
-        .footer-links a { color: #0072ff; font-weight: 600; }
-        .footer-links a:hover { text-decoration: underline; }
-        .footer-bottom { text-align: center; font-size: 12px; color: #a0aec0; border-top: 1px solid #e6f2ff; padding-top: 20px; }
 
-        /* --- TOMBOL RUANG BELAJAR MELAYANG --- */
-        .floating-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, #0072ff 0%, #00c6ff 100%);
-            color: white !important;
-            padding: 12px 22px;
-            border-radius: 50px;
-            box-shadow: 0 8px 25px rgba(0, 114, 255, 0.4);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 13px;
+        .btn-read-more {
+            font-size: 0.8rem;
+            color: var(--biru-matang);
+            font-weight: 700;
+            margin-top: auto;
+        }
+
+        .news-link:hover .btn-read-more {
+            color: var(--biru-terang);
+        }
+
+        .student-showcase {
+            width: 100%;
+            height: 300px;
+            background: url('https://drive.google.com/thumbnail?id=14qm2NSgGXPMRPtvzQs9HHFSizYEjlVvI&sz=w1200') center center/cover;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .features-section h3 { font-size: 1.1rem; color: #333; margin-bottom: 12px; font-weight: 800; }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .feat-card {
+            padding: 12px 5px;
+            border-radius: 8px;
+            color: white;
+            text-align: center;
+            font-size: 0.7rem;
             font-weight: 700;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 8px;
-            z-index: 99999;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .feat-card span { font-size: 1.2rem; }
+        .f1 { background-color: #0D47A1; }
+        .f2 { background-color: #E65100; }
+        .f3 { background-color: #880E4F; }
+        .f4 { background-color: #1B5E20; }
+
+        .contact-box {
+            background: var(--putih);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            font-size: 0.85rem;
+        }
+        .contact-box h4 { color: var(--biru-matang); margin-bottom: 8px; }
+        .contact-box p { margin-bottom: 5px; }
+
+        /* --- RESPONSIVE CODE --- */
+        @media (max-width: 968px) {
+            body { padding: 0; }
+            .page-wrapper { border-radius: 0; }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+            }
+            .nav-wrapper {
+                width: 100%;
+                border-radius: 20px;
+                padding: 10px 15px;
+            }
+            nav ul {
+                justify-content: space-between;
+                gap: 10px;
+            }
+            nav ul a { font-size: 0.8rem; }
+
+            .school-logo { height: 40px; }
+
+            .hero-banner {
+                margin-left: 20px;
+                margin-right: 20px;
+                padding: 40px 20px;
+                height: auto;
+                min-height: 380px;
+            }
+            .hero-banner h2 { font-size: 1.8rem; }
+            .wave-container {
+                width: calc(100% - 40px);
+                margin-left: 20px;
+            }
+
+            .recent-news { padding: 30px 20px; }
+            .news-grid { grid-template-columns: 1fr; gap: 15px; }
+
+            .right-column {
+                border-left: none;
+                padding: 20px;
+                background: #F4F8FA;
+            }
+            .student-showcase { border-radius: 20px; height: 220px; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .feat-card { padding: 15px; font-size: 0.8rem; }
+        }
+
+        /* --- CSS TOMBOL LIHAT SEMUA BERITA --- */
+        .more-news-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn-more-news {
+            display: inline-block;
+            text-decoration: none;
+            background-color: var(--biru-matang);
+            color: white;
+            padding: 12px 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(13, 71, 161, 0.2);
             transition: all 0.3s ease;
-            animation: floatPulse 2s infinite;
         }
 
-        .floating-btn:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 12px 30px rgba(0, 114, 255, 0.6);
+        .btn-more-news:hover {
+            background-color: var(--ungu-matang);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(49, 27, 146, 0.3);
         }
-
-        @keyframes floatPulse {
-            0% { box-shadow: 0 8px 25px rgba(0, 114, 255, 0.3); }
-            50% { box-shadow: 0 8px 35px rgba(0, 114, 255, 0.6); }
-            100% { box-shadow: 0 8px 25px rgba(0, 114, 255, 0.3); }
-        }
-
-        /* ANIMASI SLIDER */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* --- RESPONSIVE DESIGN UNTUK HP & TABLET --- */
-        @media (max-width: 992px) {
-    .navbar .flex-box {
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-    }
-    .topbar .flex-box {
-        flex-direction: column;
-        gap: 6px;
-        text-align: center;
-    }
-
-    /* --- SAYA RAPIKAN DI SINI AGAR MENU RAPAT & DI TENGAH --- */
-    .nav-links {
-        display: flex; /* Memastikan flex aktif */
-        flex-direction: row;
-        width: 100%;
-        justify-content: center; /* MEMBUAT MENU PAS DI TENGAH LAYAR HP */
-        gap: 6px; /* MERAPATKAN JARAK ANTAR MENU (Aslinya longgar) */
-        overflow-x: auto;
-        padding: 6px 10px;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-        position: relative;
-        box-sizing: border-box;
-    }
-    .nav-links::-webkit-scrollbar { display: none; }
-
-    .nav-links li {
-        display: inline-block;
-    }
-
-    /* MENYEMPITKAN UKURAN TOMBOL MENU */
-    .nav-links a, .nav-links .dropbtn {
-        padding: 6px 10px !important; /* Dikecilkan dari 8px 14px agar lebih rapat */
-        font-size: 13px;
-    }
-    /* ------------------------------------------------------ */
-
-    .dropdown-content {
-        position: fixed;
-        left: 5%;
-        right: 5%;
-        width: 90%;
-        margin-top: 12px;
-        box-shadow: 0px 10px 30px rgba(0, 50, 150, 0.25);
-        border: 1px solid #b3d7ff;
-    }
-
-    .carousel-wrapper { aspect-ratio: 16/10; }
-    .slide-caption { padding: 20px; }
-    .slide-caption h2 { font-size: 16px; }
-    
-    .metric-grid { 
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px; 
-        padding: 14px;
-        background: #ffffff;
-        border: 1px solid #e2eefe;
-    }
-    .metric-item { 
-        border-right: none; 
-        border-bottom: none;
-        background-color: #f4f8fc;
-        padding: 15px 10px; 
-        border-radius: 10px;
-        border: 1px solid rgba(0, 114, 255, 0.05);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    .metric-label { 
-        font-size: 10px; 
-        color: #718096; 
-        letter-spacing: 0.5px;
-        margin-bottom: 2px;
-    }
-    .metric-value { 
-        font-size: 13px;
-        color: #0056cc; 
-        font-weight: 700;
-        margin-top: 2px;
-        text-transform: none;
-    }
-
-    .news-grid, .footer-grid { grid-template-columns: 1fr; gap: 20px; }
-    
-    .floating-btn {
-        bottom: 20px;
-        right: 20px;
-        padding: 10px 16px;
-        font-size: 12px;
-        box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
-    }
-}
-
-    </style> </head>
-    
-</script>
+    </style>
+</head>
 <body>
 
-    <div class="topbar">
-        <div class="container flex-box">
-            <div>Dinas Pendidikan Kabupaten Bojonegoro</div>
-            <div>
-                <i class="fa-regular fa-calendar-alt"></i> Juni 2026 &nbsp;|&nbsp; 
-                <a href="https://sdnbutoh1ngasem.my.id/latihan-soal/">Ruang Belajar Mandiri <i class="fa-solid fa-external-link-alt"></i></a>
-            </div>
-        </div>
-    </div>
-
-    <nav class="navbar">
-        <div class="container flex-box">
-            <div class="nav-logo">
-                <img src="assets/logo.png.png.png" alt="Logo Sekolah" style="width: 42px; height: 42px; object-fit: contain;">
-                <div>
+    <div class="page-wrapper">
+        
+        <header>
+            <div class="brand-container">
+                <img src="assets/logosekolah300px.png.png" alt="Logo SDN Butoh 1 Ngasem" class="school-logo">
+                <div class="brand-text">
                     <h1>SDN BUTOH 1 NGASEM</h1>
                     <p>KABUPATEN BOJONEGORO</p>
                 </div>
             </div>
-            
-            <ul class="nav-links">
-                <li><a href="#" class="active">Home</a></li>
-                <li><a href="statistik/">Statistik</a></li>
-                <li class="dropdown">
-                    <button class="dropbtn" onclick="toggleDropdown(event, 'infoDropdown')">
-                        Informasi <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i>
-                    </button>
-                    <div class="dropdown-content" id="infoDropdown">
-                        <a href="berita/">📰 Berita</a>
-                        <a href="smpb/">🎓 SPMB 2026/2027</a>
-                        <a href="mutasi/">✈️ Pindah Sekolah</a>
-                        <a href="statistik/">📊 Alumni</a>
-                    </div>
-                </li>
-
-                <li class="dropdown">
-                    <button class="dropbtn" onclick="toggleDropdown(event, 'otherDropdown')">
-                        Portal <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i>
-                    </button>
-                    <div class="dropdown-content" id="otherDropdown">
-                        <a href="portal-siswa/">👨‍🎓 Portal Siswa</a>
-                        <a href="portal-orangtua/">👨‍👩‍👦 Portal Orangtua</a>
-                        <a href="portal-guru/">👨‍🏫 Portal Guru</a>
-                        <a href="hubungi-kami/">📞 Hubungi Kami</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    
-    <header class="hero-section">
-        <div class="container">
-            <div class="carousel-wrapper">
-                <div class="slide active">
-                    <img src="assets/koptri.jpg" alt="Slide 1">
-                    <div class="slide-overlay"></div>
-                    <div class="slide-caption">
-                        <span class="slide-badge">Fokus Utama</span>
-                        <h2>Implementasi Kurikulum Merdeka Melalui Ekosistem Digitalisasi Pendidikan Mandiri</h2>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="assets/naya.jpg" alt="Slide 2">
-                    <div class="slide-overlay"></div>
-                    <div class="slide-caption">
-                        <span class="slide-badge">Pendaftaran</span>
-                        <h2>Penerimaan Peserta Didik Baru (PPDB) Tahun Ajaran 2026/2027 Telah Dibuka</h2>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="assets/kbr.jpg" alt="Slide 3">
-                    <div class="slide-overlay"></div>
-                    <div class="slide-caption">
-                        <span class="slide-badge">Fasilitas</span>
-                        <h2>Ruang Kelas Berbasis Teknologi Nyaman Untuk Kenyamanan Belajar Siswa</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    
-<div style="max-width: 600px; margin: 0 auto 5px auto; padding: 0; text-align: center;">
-    
-    <span style="font-family: Arial, sans-serif; font-size: 14px; color: #333; font-weight: bold; display: block; margin-bottom: 10px;">
-        Mars Semangat Belajar - SDN Butoh 1 Ngasem
-    </span>
-
-    <div style="display: flex; height: 30px; width: 100%; justify-content: center; align-items: center; margin-bottom: 0;">
-        <audio controls style="transform: scale(0.8); transform-origin: center center;">
-            <source src="/Mars SDN Butoh 1 Ngasem.mp3" type="audio/mpeg">
-        </audio>
-    </div>
-</div>
-
-<section class="metric-section" style="margin-top: 5px; padding-top: 0;">
-    <div class="container">
-        <div class="metric-grid">
-            <div class="metric-item">
-                <div class="metric-label">Status</div>
-                <div class="metric-value">Akreditasi B</div>
-            </div>
-            <div class="metric-item">
-                <div class="metric-label">Siswa</div>
-                <div class="metric-value">83 Anak</div>
-            </div>
-            <div class="metric-item">
-                <div class="metric-label">Guru & Staf</div>
-                <div class="metric-value">9 Orang</div>
-            </div>
-            <div class="metric-item">
-                <div class="metric-label">Rombel</div>
-                <div class="metric-value">6 Kelas</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div style="max-width: 1000px; margin: 20px auto 0 auto; text-align: center;">
-    <div style="background: #f8f9fa; padding: 8px 12px; border-radius: 6px; border: 1px solid #e2e8f0; display: block;">
-        <span style="font-size: 11px; color: #718096; text-transform: uppercase; display: block; margin-bottom: 3px; font-weight: 600; font-family: Arial, sans-serif;">Statistik Web</span>
-        <span style="font-weight: bold; font-size: 14px; color: #2d3748; display: block; font-family: Arial, sans-serif;">
-            👥 1,254 Hits
-
-            <div style="text-align: center; margin-top: 20px;">
-  <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fgjbae1212%2Fhit-counter"/>
-</div>
-        </span>
-    </div>
-</div>
-    
-    <main class="main-content">
-        <div class="container">
-            <div class="content-header">
-                <div class="content-title">Kabar Terkini Sekolah</div>
-                <a href="berita/" class="view-all">Semua Kabar &rarr;</a>
-            </div>
-
-            <div class="news-grid">
-                <article class="news-card">
-                <div class="news-thumb">
-                    <img src="https://lh3.googleusercontent.com/d/14y36sHLOmNPLKNk2LKBtzbrfV45SPwsj" alt="4di">
-                </div>
-                <div class="news-body">
-                    <span class="news-tag">Pengumuman</span>
-                    <h3><a href="berita/masuk/">Kapan anak sekolah SD masuk lagi? ini jadwal ajaran baru Tahun 2026/2027</a></h3>
-                    <p class="news-excerpt">Masa libur sekolah segera berakhir. Para siswa Sekolah Dasar (SD) akan kembali memulai kegiatan belajar mengajar pada tahun ajaran baru 2026/2027...</p>
-                    <div class="news-footer">
-                        <span class="news-date"><i class="fa-regular fa-calendar"></i> 1 Juli 2026</span>
-                        <a href="masuk27/" class="read-more">Baca <i class="fa-solid fa-arrow-right-long"></i></a>
-                    </div>
-                </div>
-            </article>
-                
-                <article class="news-card">
-                    <div class="news-thumb"><img src="/assets/naya.jpg" alt="PPDB"></div>
-                    <div class="news-body">
-                        <span class="news-tag">Pengumuman</span>
-                        <h3>Seleksi Penerimaan Murid Baru (SPMB) Tahun Ajaran 2026/2027 Telah Dibuka</h3>
-                        <p class="news-excerpt">SDN Butoh 1 Ngasem secara resmi mengumumkan pembukaan Jalur Pendaftaran Murid Baru (SPMB) atau PPDB untuk Tahun Ajaran 2026/2027...</p>
-                    <div class="news-footer">
-                        <div class="news-date"><i class="fa-regular fa-calendar"></i> 19 Juni 2026</div>
-                    </div>
-                </article>
-
-                <article class="news-card">
-                    <div class="news-thumb"><img src="/assets/kbr.jpg" alt="Prestasi"></div>
-                    <div class="news-body">
-                        <span class="news-tag">Prestasi</span>
-                        <h3>Siswa SDN Butoh 1 Raih Prestasi di Tingkat Kecamatan</h3>
-                        <div class="news-date"><i class="fa-regular fa-calendar"></i> 15 Juni 2026</div>
-                    </div>
-                </article>
-                
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>SDN Butoh 1 Ngasem</h4>
-                    <p>Satuan pendidikan tingkat dasar resmi di bawah naungan Pemerintah Kabupaten Bojonegoro.</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Alamat</h4>
-                    <p>Desa Butoh, Kecamatan Ngasem, Kabupaten Bojonegoro.<br>Email: info@sdnbutoh1ngasem.my.id</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Masuk Ruang Belajar</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://sdnbutoh1ngasem.my.id/latihan-soal/">Ruang Belajar Mandiri &rarr;</a></li>
+            <div class="nav-wrapper">
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="hubungi-kami/">Contact</a></li>
+                        <li><a href="statistik/">Statistic</a></li>
+                        <li><a href="portal-siswa/">Academic</a></li>
+                        <li><a href="berita/">News</a></li>
                     </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div class="content-grid">
+            
+            <div class="left-column">
+                <div class="hero-banner">
+                    <h2>BELAJAR, MAJU & BERKEMBANG <br>BERSAMA SDN BUTOH 1</h2>
+                    <p>Memberdayakan siswa dengan pengetahuan, karakter, dan keterampilan demi masa depan yang cerah.</p>
+                    <div class="hero-buttons">
+                        <a href="ruang-murid/" class="btn-blue">Belajar Mandiri</a>
+                        <a href="latihan-soal/" class="btn-outline">Uji Kemampuan</a>
+                    </div>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 SDN Butoh 1 Ngasem. All Rights Reserved. | Dinas Pendidikan Kab. Bojonegoro</p>
-            </div>
-        </div>
 
-    <a href="https://sdnbutoh1ngasem.my.id/latihan-soal/" class="floating-btn">
-        <i class="fa-solid fa-laptop-code"></i> Ruang Belajar
-    </a>
+                <div class="wave-container">
+                    <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+                        <path d="M0,80 C150,150 350,0 500,80 L500,150 L0,150 Z" style="stroke: none; fill: #ffffff;"></path>
+                    </svg>
+                </div>
 
-    <script>
-    </footer>
-        // Logika Slider Otomatis
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
-        setInterval(nextSlide, 5000);
+                <div class="recent-news">
+                    <h3>BERITA TERKINI</h3>
+                    <div class="news-grid">
+                        
+                        <a href="detail-berita-1.html" class="news-link">
+                            <div class="news-item">
+                                <div class="news-thumb" style="background-image: url('https://drive.google.com/thumbnail?id=1SqzOJ1jP_VA0MF9289uZJPcLqKhenXkI&sz=w1200');"></div>
+                                <div class="news-content">
+                                    <h4>Siswa SDN Butoh 1 Ngasem Raih Juara Lomba Matematika</h4>
+                                    <p>Prestasi gemilang kembali diukir oleh siswa kami dalam ajang kompetisi sains tingkat kabupaten...</p>
+                                    <span class="btn-read-more">Baca Selengkapnya &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
 
-        // Logika Dropdown Ganda
-        function toggleDropdown(event, id) {
-            event.stopPropagation();
-            const dropdowns = ['infoDropdown', 'otherDropdown'];
-            dropdowns.forEach(dropdownId => {
-                const el = document.getElementById(dropdownId);
-                if (dropdownId === id) {
-                    el.classList.toggle("show-dropdown");
-                } else {
-                    el.classList.remove("show-dropdown");
-                }
-            });
-        }
+                        <a href="detail-berita-2.html" class="news-link">
+                            <div class="news-item">
+                                <div class="news-thumb" style="background-image: url('https://drive.google.com/thumbnail?id=1jOk85UNr9EE0eCVgWXSkG7o68hdJy8Qv&sz=w1200');"></div>
+                                <div class="news-content">
+                                    <h4>Kegiatan Parenting Wali Murid Semester Ganjil</h4>
+                                    <p>Meningkatkan sinergi dan kolaborasi pendidikan anak antara pihak sekolah dengan orang tua di rumah...</p>
+                                    <span class="btn-read-more">Baca Selengkapnya &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
 
-        window.onclick = function(event) {
-            if (!event.target.matches('.dropbtn') && !event.target.closest('.dropbtn')) {
-                const info = document.getElementById("infoDropdown");
-                const other = document.getElementById("otherDropdown");
-                if (info) info.classList.remove('show-dropdown');
-                if (other) other.classList.remove('show-dropdown');
-            }
-        }
-    </script>        
-</body>
+                        <a href="detail-berita-3.html" class="news-link">
+                            <div class="news-item">
+                                <div class="news-thumb" style="background-image: url('https://drive.google.com/thumbnail?id=1_6pKu56KYy8Wns_OHAOg__tdcjY7yumf&sz=w1200');"></div>
+                                <div class="news-content">
+                                    <h4>Penerapan Pembelajaran Berbasis Digital</h4>
+                                    <p>SDN Butoh 1 Ngasem mulai mengadopsi metode belajar modern dan interaktif menggunakan perangkat digital...</p>
+                                    <span class="btn-read-more">Baca Selengkapnya &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div> <div class="more-news-wrapper">
+                        <a href="berita/" class="btn-more-news">Lihat Semua Berita &rarr;</a>
+                    </div>
+                </div> </div> <div class="right-column">
+                <div class="student-showcase"></div>
+
+                <div class="features-section">
+                    <h3>School Features</h3>
+                    <div class="features-grid">
+                        <a href="portal-murid/" style="text-decoration: none; color: inherit;">
+                            <div class="feat-card f1"><span>🎓</span>PORTAL MURID</div>
+                        </a>
+
+                        <a href="portal-orangtua/" style="text-decoration: none; color: inherit;">
+                            <div class="feat-card f2"><span>💡</span>PORTAL ORANGTUA</div>
+                        </a>
+
+                        <a href="portal-guru/" style="text-decoration: none; color: inherit;">
+                            <div class="feat-card f3"><span>💜</span>PORTAL GURU</div>
+                        </a>
+
+                        <a href="https://wa.me/628998490088" target="_blank" style="text-decoration: none; color: inherit;">
+                            <div class="feat-card f4"><span>🏢</span>HUBUNGI KAMI</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-box">
+                    <h4>HUBUNGI KAMI</h4>
+                    <p>📍 SDN Butoh 1 Ngasem, Bojonegoro</p>
+                    <p>📞 info@sdnbutoh1ngasem.my.id</p>
+                    <p>🌐 http://sdnbutoh1ngasem.my.id</p>
+                </div>
+            </div> </div> </div> </body>
 </html>
