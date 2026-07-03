@@ -59,7 +59,6 @@
             gap: 15px;
         }
 
-        /* Desain Khusus Logo Gambar */
         .school-logo {
             height: 50px;
             width: auto;
@@ -106,43 +105,43 @@
             color: var(--biru-terang);
         }
 
-      /* --- KUNCI GRID LAYOUT (ANTI COPOK / TURUN) --- */
-.content-grid {
-    display: flex;             /* Berubah dari grid ke flex agar lebih stabil */
-    width: 100%;
-    align-items: flex-start;
-}
+        /* --- KUNCI GRID LAYOUT (ANTI COPOK / TURUN) --- */
+        .content-grid {
+            display: flex;
+            width: 100%;
+            align-items: flex-start;
+        }
 
-/* Kolom Kiri dipatok 65% */
-.left-column {
-    width: 65%;
-    flex-shrink: 0;            /* Mencegah kolom kiri menciut */
-    padding-bottom: 40px;
-    display: flex;
-    flex-direction: column;
-}
+        /* Kolom Kiri dipatok 65% */
+        .left-column {
+            width: 65%;
+            flex-shrink: 0;
+            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+        }
 
-/* Kolom Kanan dipatok 35% */
-.right-column {
-    width: 35%;
-    flex-shrink: 0;            /* Mencegah kolom kanan menciut */
-    background: #F0F6FA;
-    padding: 0 30px 40px 30px;
-    border-left: 1px solid #E1E8EE;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
+        /* Kolom Kanan dipatok 35% */
+        .right-column {
+            width: 35%;
+            flex-shrink: 0;
+            background: #F0F6FA;
+            padding: 0 30px 40px 30px;
+            border-left: 1px solid #E1E8EE;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
 
-/* Saat dibuka di HP baru boleh turun ke bawah */
-@media (max-width: 968px) {
-    .content-grid {
-        flex-direction: column; /* Di HP otomatis berbaris ke bawah */
-    }
-    .left-column, .right-column {
-        width: 100%;           /* Di HP ukurannya penuh 100% */
-    }
-}
+        /* Saat dibuka di HP baru boleh turun ke bawah */
+        @media (max-width: 968px) {
+            .content-grid {
+                flex-direction: column;
+            }
+            .left-column, .right-column {
+                width: 100%;
+            }
+        }
 
         .hero-banner {
             height: 480px;
@@ -206,7 +205,7 @@
         }
         .wave-container svg { width: 100%; height: 50px; }
 
-        /* --- DESAIN BERITA BARU (LENGKAP DENGAN TEKS) --- */
+        /* --- DESAIN BERITA --- */
         .recent-news { padding: 30px 40px; }
         .recent-news h3 { font-size: 1.4rem; color: var(--ungu-matang); margin-bottom: 20px; font-weight: 800; }
         
@@ -242,7 +241,7 @@
 
         .news-thumb {
             height: 150px;
-            background: #ccc url('https://drive.google.com/thumbnail?id=1SqzOJ1jP_VA0MF9289uZJPcLqKhenXkI&sz=w1200') center center/cover;
+            background: #ccc center center/cover;
         }
 
         .news-content {
@@ -277,16 +276,6 @@
 
         .news-link:hover .btn-read-more {
             color: var(--biru-terang);
-        }
-
-        /* --- KOLOM KANAN --- */
-        .right-column {
-            background: #F0F6FA;
-            padding: 0 30px 40px 30px;
-            border-left: 1px solid #E1E8EE;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
         }
 
         .student-showcase {
@@ -357,8 +346,6 @@
 
             .school-logo { height: 40px; }
 
-            .content-grid { grid-template-columns: 1fr; }
-
             .hero-banner {
                 margin-left: 20px;
                 margin-right: 20px;
@@ -384,31 +371,32 @@
             .features-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .feat-card { padding: 15px; font-size: 0.8rem; }
         }
+
         /* --- CSS TOMBOL LIHAT SEMUA BERITA --- */
-.more-news-wrapper {
-    display: flex;
-    justify-content: center;  /* Membawa tombol ke posisi tengah */
-    margin-top: 30px;         /* Memberi jarak aman dari kotak berita di atasnya */
-}
+        .more-news-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
 
-.btn-more-news {
-    display: inline-block;
-    text-decoration: none;
-    background-color: var(--biru-matang);
-    color: white;
-    padding: 12px 30px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    border-radius: 50px;       /* Membuat tombol berbentuk kapsul/oval modern */
-    box-shadow: 0 4px 10px rgba(13, 71, 161, 0.2);
-    transition: all 0.3s ease;
-}
+        .btn-more-news {
+            display: inline-block;
+            text-decoration: none;
+            background-color: var(--biru-matang);
+            color: white;
+            padding: 12px 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(13, 71, 161, 0.2);
+            transition: all 0.3s ease;
+        }
 
-.btn-more-news:hover {
-    background-color: var(--ungu-matang); /* Berubah ungu saat disentuh kursor */
-    transform: translateY(-2px);          /* Efek sedikit melompat naik */
-    box-shadow: 0 6px 15px rgba(49, 27, 146, 0.3);
-}
+        .btn-more-news:hover {
+            background-color: var(--ungu-matang);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(49, 27, 146, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -460,7 +448,7 @@
                         
                         <a href="detail-berita-1.html" class="news-link">
                             <div class="news-item">
-                                <div class="news-thumb"></div>
+                                <div class="news-thumb" style="background-image: url('https://drive.google.com/thumbnail?id=1SqzOJ1jP_VA0MF9289uZJPcLqKhenXkI&sz=w1200');"></div>
                                 <div class="news-content">
                                     <h4>Siswa SDN Butoh 1 Ngasem Raih Juara Lomba Matematika</h4>
                                     <p>Prestasi gemilang kembali diukir oleh siswa kami dalam ajang kompetisi sains tingkat kabupaten...</p>
@@ -482,41 +470,40 @@
 
                         <a href="detail-berita-3.html" class="news-link">
                             <div class="news-item">
-                                <div class="news-thumb" style="background-image: url('https://drive.google.com/thumbnail?id=1_6pKu56KYy8Wns_OHAOg__tdcjY7yumf=w1200');"></div>
+                                <div class="news-thumb" style="background-image: url('https://drive.google.com/thumbnail?id=1_6pKu56KYy8Wns_OHAOg__tdcjY7yumf&sz=w1200');"></div>
                                 <div class="news-content">
                                     <h4>Penerapan Pembelajaran Berbasis Digital</h4>
                                     <p>SDN Butoh 1 Ngasem mulai mengadopsi metode belajar modern dan interaktif menggunakan perangkat digital...</p>
                                     <span class="btn-read-more">Baca Selengkapnya &rarr;</span>
                                 </div>
                             </div>
-                        </a></div> <div class="more-news-wrapper">
+                        </a>
+
+                    </div> <div class="more-news-wrapper">
                         <a href="berita.html" class="btn-more-news">Lihat Semua Berita &rarr;</a>
                     </div>
-                        
-                    </div>
-                </div>
-            </div> <div class="right-column">
+                </div> </div> <div class="right-column">
                 <div class="student-showcase"></div>
 
                 <div class="features-section">
                     <h3>School Features</h3>
-                   <div class="features-grid">
-    <a href="login-murid.html" style="text-decoration: none; color: inherit;">
-        <div class="feat-card f1"><span>🎓</span>PORTAL MURID</div>
-    </a>
+                    <div class="features-grid">
+                        <a href="login-murid.html" style="text-decoration: none; color: inherit;">
+                            <div class="feat-card f1"><span>🎓</span>PORTAL MURID</div>
+                        </a>
 
-    <a href="login-ortu.html" style="text-decoration: none; color: inherit;">
-        <div class="feat-card f2"><span>💡</span>PORTAL ORANG TUA</div>
-    </a>
+                        <a href="login-ortu.html" style="text-decoration: none; color: inherit;">
+                            <div class="feat-card f2"><span>💡</span>PORTAL ORANG TUA</div>
+                        </a>
 
-    <a href="login-guru.html" style="text-decoration: none; color: inherit;">
-        <div class="feat-card f3"><span>💜</span>PORTAL GURU</div>
-    </a>
+                        <a href="login-guru.html" style="text-decoration: none; color: inherit;">
+                            <div class="feat-card f3"><span>💜</span>PORTAL GURU</div>
+                        </a>
 
-    <a href="https://wa.me/628123456789" target="_blank" style="text-decoration: none; color: inherit;">
-        <div class="feat-card f4"><span>🏢</span>HUBUNGI KAMI</div>
-    </a>
-</div>
+                        <a href="https://wa.me/628123456789" target="_blank" style="text-decoration: none; color: inherit;">
+                            <div class="feat-card f4"><span>🏢</span>HUBUNGI KAMI</div>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="contact-box">
@@ -525,7 +512,5 @@
                     <p>📞 info@sdnbutoh1ngasem.my.id</p>
                     <p>🌐 http://sdnbutoh1ngasem.my.id</p>
                 </div>
-            </div>
-
-        </div> </div> </body>
+            </div> </div> </div> </body>
 </html>
