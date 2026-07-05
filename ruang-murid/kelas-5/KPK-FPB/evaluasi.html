@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uji Pemahaman KPK dan FPB</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+    padding:15px;
+    color:#333;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.header{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.header h1{
+    color:#1565c0;
+    margin-bottom:5px;
+}
+
+.header p{
+    color:#666;
+}
+
+.soal{
+    margin-bottom:20px;
+    padding:15px;
+    background:#f8fbff;
+    border-radius:12px;
+    border-left:5px solid #2196f3;
+}
+
+.soal p{
+    margin-bottom:10px;
+    font-weight:bold;
+    line-height:1.5;
+}
+
+select{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:15px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.btn-hitung{
+    background:#1565c0;
+    color:white;
+}
+
+.btn-home{
+    background:#4caf50;
+    color:white;
+    text-decoration:none;
+    display:block;
+    text-align:center;
+}
+
+.hasil{
+    margin-top:20px;
+    padding:20px;
+    background:#e8f5e9;
+    border-radius:15px;
+    text-align:center;
+    display:none;
+}
+
+.hasil h2{
+    color:#2e7d32;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+<h1>📝 Uji Pemahaman</h1>
+<p>KPK dan FPB Kelas 5 SD Semester 1</p>
+</div>
+
+<div id="soal-container"></div>
+
+<button class="btn-hitung" onclick="cekJawaban()">Selesai & Lihat Skor</button>
+
+<div class="hasil" id="hasil"></div>
+
+<a href="index.html" class="btn-home">🏠 Kembali ke Beranda</a>
+
+</div>
+
+<script>
+
+const soal = [
+
+{
+t:"1. FPB dari 4 dan 8 adalah ...",
+o:["2","4","8","12"],
+j:"4"
+},
+
+{
+t:"2. KPK dari 2 dan 3 adalah ...",
+o:["5","6","8","9"],
+j:"6"
+},
+
+{
+t:"3. FPB dari 6 dan 9 adalah ...",
+o:["1","2","3","6"],
+j:"3"
+},
+
+{
+t:"4. KPK dari 4 dan 6 adalah ...",
+o:["8","10","12","24"],
+j:"12"
+},
+
+{
+t:"5. FPB dari 8 dan 12 adalah ...",
+o:["2","4","6","8"],
+j:"4"
+},
+
+{
+t:"6. KPK dari 5 dan 10 adalah ...",
+o:["10","15","20","25"],
+j:"10"
+},
+
+{
+t:"7. FPB dari 15 dan 20 adalah ...",
+o:["5","10","15","20"],
+j:"5"
+},
+
+{
+t:"8. KPK dari 6 dan 8 adalah ...",
+o:["12","18","24","48"],
+j:"24"
+},
+
+{
+t:"9. FPB dari 18 dan 24 adalah ...",
+o:["4","6","8","12"],
+j:"6"
+},
+
+{
+t:"10. KPK dari 9 dan 12 adalah ...",
+o:["18","24","36","48"],
+j:"36"
+},
+
+{
+t:"11. FPB dari 21 dan 28 adalah ...",
+o:["3","5","7","14"],
+j:"7"
+},
+
+{
+t:"12. KPK dari 8 dan 15 adalah ...",
+o:["30","40","60","120"],
+j:"60"
+},
+
+{
+t:"13. FPB dari 24 dan 36 adalah ...",
+o:["6","8","12","18"],
+j:"12"
+},
+
+{
+t:"14. KPK dari 14 dan 21 adalah ...",
+o:["42","63","84","98"],
+j:"42"
+},
+
+{
+t:"15. FPB dari 30 dan 45 adalah ...",
+o:["5","10","15","20"],
+j:"15"
+},
+
+{
+t:"16. Ani menabung setiap 4 hari sekali dan Budi setiap 6 hari sekali. Mereka menabung bersama hari ini. Mereka akan menabung bersama lagi setelah ... hari.",
+o:["10","12","18","24"],
+j:"12"
+},
+
+{
+t:"17. Lampu merah berkedip setiap 8 detik dan lampu hijau setiap 12 detik. Keduanya berkedip bersama lagi setelah ... detik.",
+o:["24","36","48","96"],
+j:"24"
+},
+
+{
+t:"18. Ibu membeli 24 apel dan 36 jeruk untuk dibagikan sama banyak. Jumlah paket terbanyak yang bisa dibuat adalah ...",
+o:["6","8","12","18"],
+j:"12"
+},
+
+{
+t:"19. Roni latihan sepak bola setiap 5 hari dan Doni setiap 10 hari. Mereka akan latihan bersama lagi setelah ... hari.",
+o:["5","10","15","20"],
+j:"10"
+},
+
+{
+t:"20. Pak Guru mempunyai 18 pensil dan 30 penghapus. Banyak paket terbanyak yang dapat dibuat sama banyak adalah ...",
+o:["3","6","9","12"],
+j:"6"
+},
+
+{
+t:"21. FPB digunakan untuk menyelesaikan masalah tentang ...",
+o:["Pembagian sama banyak","Perulangan waktu","Kelipatan","Jadwal bersama"],
+j:"Pembagian sama banyak"
+},
+
+{
+t:"22. KPK digunakan untuk menyelesaikan masalah tentang ...",
+o:["Pembagian barang","Faktor","Peristiwa yang terjadi bersama lagi","Membagi kelompok"],
+j:"Peristiwa yang terjadi bersama lagi"
+},
+
+{
+t:"23. Jika dua bilangan adalah 12 dan 18, maka FPB-nya adalah ...",
+o:["3","6","9","12"],
+j:"6"
+},
+
+{
+t:"24. Jika dua bilangan adalah 10 dan 15, maka KPK-nya adalah ...",
+o:["20","25","30","45"],
+j:"30"
+},
+
+{
+t:"25. Ayah mengganti air kolam setiap 14 hari dan membersihkan taman setiap 21 hari. Kedua kegiatan dilakukan bersama hari ini. Mereka akan dilakukan bersama lagi setelah ... hari.",
+o:["21","28","35","42"],
+j:"42"
+}
+
+];
+
+const container=document.getElementById("soal-container");
+
+soal.forEach((s,i)=>{
+
+container.innerHTML+=`
+<div class="soal">
+<p>${s.t}</p>
+
+<select id="s${i}">
+<option value="">-- Pilih Jawaban --</option>
+${s.o.map(x=>`<option value="${x}">${x}</option>`).join("")}
+</select>
+
+</div>
+`;
+
+});
+
+function cekJawaban(){
+
+let benar=0;
+
+soal.forEach((s,i)=>{
+
+let j=document.getElementById("s"+i).value;
+
+if(j===s.j){
+benar++;
+}
+
+});
+
+let nilai=Math.round((benar/soal.length)*100);
+
+document.getElementById("hasil").style.display="block";
+
+document.getElementById("hasil").innerHTML=`
+<h2>🎉 Hasil Uji Pemahaman</h2>
+<p><b>Jawaban Benar:</b> ${benar} dari ${soal.length}</p>
+<p><b>Skor:</b> ${nilai}</p>
+`;
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+}
+</script>
+
+</body>
+</html>
