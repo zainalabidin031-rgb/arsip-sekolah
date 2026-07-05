@@ -129,40 +129,66 @@
         .badge.alfa  { background-color: #fee2e2; color: #b91c1c; }
 
         /* --- RESPONSIVE MOBILE FORM-FACTOR --- */
+       /* --- RESPONSIVE MOBILE FORM-FACTOR MAMPAT & HEMAT RUANG --- */
         @media (max-width: 768px) {
-            header h1 { font-size: 1.6rem; }
-            .filter-panel { padding: 15px; }
-            .filter-group { min-width: 100%; }
-            .table-panel { padding: 12px; border: none; }
+            header { padding: 25px 0; margin-bottom: 15px; }
+            header h1 { font-size: 1.4rem; }
+            header p { font-size: 0.85rem; }
             
-            /* Pembongkaran Tabel Menjadi Mode Kartu Vertikal */
+            .filter-panel { padding: 12px; gap: 10px; margin-bottom: 15px; }
+            .filter-group { min-width: 100%; }
+            .filter-group select { padding: 8px 12px; font-size: 0.9rem; }
+            
+            .table-panel { padding: 0px; border: none; background: transparent; box-shadow: none; }
+            
+            /* Pembongkaran Tabel Menjadi Mode Kartu Ringkas */
             table, thead, tbody, th, td, tr { display: block; width: 100%; }
             thead tr { position: absolute; top: -9999px; left: -9999px; }
+            
+            /* Kartu dibuat lebih mampat */
             tr {
-                margin-bottom: 15px;
+                background: #ffffff;
+                margin-bottom: 8px; /* Jarak antar kartu dipersempit */
                 border: 1px solid #e2e8f0;
-                border-radius: 12px;
-                overflow: hidden;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+                border-radius: 10px;
+                padding: 10px 12px; /* Padding dalam kartu diperkecil */
+                box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+                position: relative;
             }
+            
+            /* Mengatur ulang posisi baris data di dalam kartu */
             td {
-                border: none;
-                border-bottom: 1px solid #f1f5f9;
-                padding: 10px 16px 10px 40% !important;
-                text-align: right !important;
+                border: none !important;
+                padding: 3px 0 !important; /* Jarak vertikal antar teks sangat rapat */
+                text-align: left !important;
+                font-size: 0.88rem !important;
+                position: relative;
+                display: flex;
+                align-items: center;
             }
-            td:last-child { border-bottom: none; }
+            
+            /* Menghilangkan format label bawaan yang bikin panjang ke bawah */
             td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 16px;
-                top: 10px;
-                width: 35%;
-                text-align: left;
+                content: attr(data-label) ": ";
                 font-weight: 700;
-                color: #475569;
+                color: #64748b;
+                width: 90px; /* Lebar label dikunci agar rapi sejajar */
+                flex-shrink: 0;
+                display: inline-block;
+                font-size: 0.8rem;
             }
-            .badge { display: inline-block; }
+            
+            /* Modifikasi khusus elemen di dalam kartu agar hemat tempat */
+            td[data-label="Nama Siswa"] {
+                font-size: 0.95rem !important;
+                color: #1e3a8a;
+                margin-bottom: 2px;
+            }
+            
+            .badge {
+                padding: 2px 8px;
+                font-size: 0.75rem;
+            }
         }
     </style>
 </head>
@@ -254,7 +280,7 @@
             const bulanTerpilih = document.getElementById("bulanFilter").value;
             const tbody = document.getElementById("absenTableBody");
             
-            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#1e3a8a; font-weight:600; padding:30px;"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data dari Google Sheets...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#1e3a8a; font-weight:600; padding:30px;"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data dari server...</td></tr>`;
             
             try {
                 const urlDenganFilter = `${WEB_APP_URL}?semester=${encodeURIComponent(semesterTerpilih)}&bulan=${encodeURIComponent(bulanTerpilih)}`;
