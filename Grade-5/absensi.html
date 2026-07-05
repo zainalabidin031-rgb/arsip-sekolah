@@ -223,23 +223,21 @@
             "Semester 2": ["Januari", "Februari", "Maret", "April", "Mei", "Juni"]
         };
 
-        // Fungsi ambil data dengan mode 'cors' agar tidak diblokir browser
         async function ambilDataDariSheets() {
             const tbody = document.getElementById("absenTableBody");
             tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#1e3a8a; font-weight:600; padding:30px;"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data absensi dari Google Sheets...</td></tr>`;
             
             try {
-                // Menambahkan header pencarian agar Google merespon dengan bersih
                 const response = await fetch(WEB_APP_URL, { method: 'GET', redirect: 'follow' });
                 dataSpreadsheet = await response.json();
                 
-                // Cek isi data di console browser untuk memastikan data masuk
-                console.log("Data Berhasil Diterima:", dataSpreadsheet);
+                // Menampilkan data asli ke konsol browser untuk pemeriksaan mandiri jika diperlukan
+                console.log("Data diterima dari Google:", dataSpreadsheet);
                 
                 updateBulanOptions(); 
             } catch (error) {
                 console.error("Error Fetch Data:", error);
-                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#b91c1c; font-weight:600; padding:30px;"><i class="fa-solid fa-circle-xmark"></i> Gagal memuat data otomatis. Hubungi admin kelas.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#b91c1c; font-weight:600; padding:30px;"><i class="fa-solid fa-circle-xmark"></i> Gagal memuat data online. Hubungi admin kelas.</td></tr>`;
             }
         }
 
@@ -266,11 +264,21 @@
             
             tbody.innerHTML = "";
             
-            // Proses penyaringan super aman (mengabaikan huruf besar/kecil dan spasi gaib)
+            if (!dataSpreadsheet || dataSpreadsheet.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8; font-weight:500; padding:30px;">Gagal memuat atau data di Spreadsheet kosong.</td></tr>`;
+                return;
+            }
+
+            // FILTER DENGAN DETEKSI OTOMATIS (Aman dari variasi nama kolom)
             const hasilFilter = dataSpreadsheet.filter(row => {
-                const rowSemester = row.Semester ? row.Semester.toString().trim().toLowerCase() : '';
-                const rowBulan = row.Bulan ? row.Bulan.toString().trim().toLowerCase() : '';
-                return rowSemester === semesterTerpilih && rowBulan === bulanTerpilih;
+                // Mencari kunci kolom secara fleksibel (misal: semester, Semester, SEMESTER)
+                const keySemester = Object.keys(row).find(k => k.toLowerCase() === 'semester');
+                const keyBulan = Object.keys(row).find(k => k.toLowerCase() === 'bulan');
+
+                const valSemester = keySemester && row[keySemester] ? row[keySemester].toString().trim().toLowerCase() : '';
+                const valBulan = keyBulan && row[keyBulan] ? row[keyBulan].toString().trim().toLowerCase() : '';
+
+                return valSemester === semesterTerpilih && valBulan === bulanTerpilih;
             });
             
             if(hasilFilter.length === 0) {
@@ -278,16 +286,21 @@
                 return;
             }
 
+            // RENDERING DENGAN DETEKSI KUNCI OTOMATIS
             hasilFilter.forEach(item => {
-                let tr = document.createElement("tr");
-                
-                // Proteksi jika data kosong agar tidak merusak tampilan web
-                let tgl = item.Tanggal || '-';
-                let nama = item.nama_siswa || '-';
-                let statusText = item.Status || 'Hadir';
-                let statusKelas = statusText.toString().trim().toLowerCase();
-                let ket = item.Keterangan || '-';
+                // Otomatis mencari kolom terlepas dari huruf besar/kecil atau garis bawah
+                const kTanggal = Object.keys(item).find(k => k.toLowerCase() === 'tanggal');
+                const kNama = Object.keys(item).find(k => k.toLowerCase().replace('_', '') === 'namasiswa');
+                const kStatus = Object.keys(item).find(k => k.toLowerCase() === 'status');
+                const kKet = Object.keys(item).find(k => k.toLowerCase() === 'keterangan');
 
+                let tgl = kTanggal ? item[kTanggal] : '-';
+                let nama = kNama ? item[kNama] : '-';
+                let statusText = kStatus ? item[kStatus] : 'Hadir';
+                let statusKelas = statusText.toString().trim().toLowerCase();
+                let ket = kKet ? item[kKet] : '-';
+
+                let tr = document.createElement("tr");
                 tr.innerHTML = `
                     <td data-label="Tanggal">${tgl}</td>
                     <td data-label="Nama Siswa"><strong>${nama}</strong></td>
