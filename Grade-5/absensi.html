@@ -216,24 +216,30 @@
         // 2. TARUH URL WEB APP SCRIPT ANDA DI SINI
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxQ3y1Mr1CztkCc1PiFVggLEOp9bmbefehlm-9TqvRqs7EytcDVql4UPV6mQFSMYBvr/exec";
 
-        let dataSpreadsheet = []; // Tempat menampung data dari Google Sheet
+        let dataSpreadsheet = []; 
 
         const bulanPerSemester = {
             "Semester 1": ["Juli", "Agustus", "September", "Oktober", "November", "Desember"],
             "Semester 2": ["Januari", "Februari", "Maret", "April", "Mei", "Juni"]
         };
 
-        // Fungsi mengambil data asli dari Google Sheets saat halaman dimuat
+        // Fungsi ambil data dengan mode 'cors' agar tidak diblokir browser
         async function ambilDataDariSheets() {
             const tbody = document.getElementById("absenTableBody");
             tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#1e3a8a; font-weight:600; padding:30px;"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data absensi dari Google Sheets...</td></tr>`;
             
             try {
-                const response = await fetch(WEB_APP_URL);
+                // Menambahkan header pencarian agar Google merespon dengan bersih
+                const response = await fetch(WEB_APP_URL, { method: 'GET', redirect: 'follow' });
                 dataSpreadsheet = await response.json();
-                updateBulanOptions(); // Setelah data dapat, update tampilan filter
+                
+                // Cek isi data di console browser untuk memastikan data masuk
+                console.log("Data Berhasil Diterima:", dataSpreadsheet);
+                
+                updateBulanOptions(); 
             } catch (error) {
-                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#b91c1c; font-weight:600; padding:30px;"><i class="fa-solid fa-circle-xmark"></i> Gagal mengambil data. Pastikan izin akses Web App sudah benar.</td></tr>`;
+                console.error("Error Fetch Data:", error);
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#b91c1c; font-weight:600; padding:30px;"><i class="fa-solid fa-circle-xmark"></i> Gagal memuat data otomatis. Hubungi admin kelas.</td></tr>`;
             }
         }
 
@@ -254,40 +260,44 @@
         }
 
         function filterData() {
-    const semesterTerpilih = document.getElementById("semesterFilter").value;
-    const bulanTerpilih = document.getElementById("bulanFilter").value;
-    const tbody = document.getElementById("absenTableBody");
-    
-    tbody.innerHTML = "";
-    
-    // 1. Proses penyaringan (Mencocokkan kolom 'Semester' dan 'Bulan' dari spreadsheet)
-    const hasilFilter = dataSpreadsheet.filter(row => {
-        return row.Semester === semesterTerpilih && row.Bulan === bulanTerpilih;
-    });
-    
-    if(hasilFilter.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8; font-weight:500; padding:30px;">Tidak ada data absensi pada bulan ini.</td></tr>`;
-        return;
-    }
+            const semesterTerpilih = document.getElementById("semesterFilter").value.trim().toLowerCase();
+            const bulanTerpilih = document.getElementById("bulanFilter").value.trim().toLowerCase();
+            const tbody = document.getElementById("absenTableBody");
+            
+            tbody.innerHTML = "";
+            
+            // Proses penyaringan super aman (mengabaikan huruf besar/kecil dan spasi gaib)
+            const hasilFilter = dataSpreadsheet.filter(row => {
+                const rowSemester = row.Semester ? row.Semester.toString().trim().toLowerCase() : '';
+                const rowBulan = row.Bulan ? row.Bulan.toString().trim().toLowerCase() : '';
+                return rowSemester === semesterTerpilih && rowBulan === bulanTerpilih;
+            });
+            
+            if(hasilFilter.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8; font-weight:500; padding:30px;">Tidak ada data absensi pada bulan ini.</td></tr>`;
+                return;
+            }
 
-    // 2. Proses menampilkan data (nama_siswa menggunakan huruf kecil sesuai spreadsheet kamu)
-    hasilFilter.forEach(item => {
-        let tr = document.createElement("tr");
-        
-        // Memastikan status diubah ke huruf kecil hanya untuk keperluan warna badge CSS
-        let statusKelas = item.Status ? item.Status.toLowerCase() : 'hadir'; 
+            hasilFilter.forEach(item => {
+                let tr = document.createElement("tr");
+                
+                // Proteksi jika data kosong agar tidak merusak tampilan web
+                let tgl = item.Tanggal || '-';
+                let nama = item.nama_siswa || '-';
+                let statusText = item.Status || 'Hadir';
+                let statusKelas = statusText.toString().trim().toLowerCase();
+                let ket = item.Keterangan || '-';
 
-        tr.innerHTML = `
-            <td data-label="Tanggal">${item.Tanggal}</td>
-            <td data-label="Nama Siswa"><strong>${item.nama_siswa}</strong></td>
-            <td data-label="Status"><span class="badge ${statusKelas}">${item.Status || 'Hadir'}</span></td>
-            <td data-label="Keterangan" style="color:#64748b;">${item.Keterangan || '-'}</td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
+                tr.innerHTML = `
+                    <td data-label="Tanggal">${tgl}</td>
+                    <td data-label="Nama Siswa"><strong>${nama}</strong></td>
+                    <td data-label="Status"><span class="badge ${statusKelas}">${statusText}</span></td>
+                    <td data-label="Keterangan" style="color:#64748b;">${ket}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
 
-        // Pemicu pertama diubah untuk mengambil data online, bukan data offline lagi
         window.onload = function() {
             ambilDataDariSheets();
         };
