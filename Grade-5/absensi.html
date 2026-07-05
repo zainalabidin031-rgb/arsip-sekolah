@@ -192,7 +192,16 @@
                     </select>
             </div>
         </div>
-
+        
+        </div>  <div style="display: flex; gap: 10px; margin-bottom: 15px; padding: 0 12px;">
+        <button onclick="tampilkanRiwayatHarian()" style="padding: 10px 16px; background-color: #1e3a8a; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif;">
+            <i class="fa-solid fa-list"></i> Lihat Riwayat Harian
+        </button>
+        <button onclick="tampilkanRekapBulanan()" style="padding: 10px 16px; background-color: #6b21a2; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif;">
+            <i class="fa-solid fa-chart-pie"></i> Lihat Rekap Bulanan
+        </button>
+        </div>
+    
         <div class="table-panel">
             <div class="table-responsive">
                 <table>
@@ -221,7 +230,9 @@
             "Semester 2": ["Januari", "Februari", "Maret", "April", "Mei", "Juni"]
         };
 
-        // Fungsi memperbarui pilihan menu bulan di HTML
+        // Tempat menyimpan data mentah yang didapat dari Google Sheets pada bulan terpilih
+        let dataBulanIni = [];
+
         function updateBulanOptions() {
             const semester = document.getElementById("semesterFilter").value;
             const bulanFilter = document.getElementById("bulanFilter");
@@ -235,11 +246,9 @@
                 bulanFilter.appendChild(option);
             });
             
-            // Langsung ambil data ke spreadsheet setiap kali filter berubah
             ambilDataDariSheets();
         }
 
-        // Fungsi utama: Meminta data yang sudah difilter oleh Google Sheets
         async function ambilDataDariSheets() {
             const semesterTerpilih = document.getElementById("semesterFilter").value;
             const bulanTerpilih = document.getElementById("bulanFilter").value;
@@ -248,38 +257,14 @@
             tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#1e3a8a; font-weight:600; padding:30px;"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data dari Google Sheets...</td></tr>`;
             
             try {
-                // Mengirimkan parameter bulan dan semester langsung lewat URL (Query Parameter)
                 const urlDenganFilter = `${WEB_APP_URL}?semester=${encodeURIComponent(semesterTerpilih)}&bulan=${encodeURIComponent(bulanTerpilih)}`;
-                
                 const response = await fetch(urlDenganFilter, { method: 'GET', redirect: 'follow' });
-                const dataHasilFilter = await response.json();
                 
-                tbody.innerHTML = ""; // Bersihkan teks loading
+                // Simpan data ke variabel global agar bisa dipakai untuk rekap nanti
+                dataBulanIni = await response.json();
                 
-                if(!dataHasilFilter || dataHasilFilter.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8; font-weight:500; padding:30px;">Tidak ada data absensi pada bulan ini.</td></tr>`;
-                    return;
-                }
-
-                // Tampilkan data bersih yang dikirim oleh Google Sheets
-                dataHasilFilter.forEach(item => {
-                    let tr = document.createElement("tr");
-                    
-                    // Otomatis membaca nama kolom dalam huruf kecil tanpa lambang (_)
-                    let tgl = item.tanggal || '-';
-                    let nama = item.namasiswa || '-';
-                    let statusText = item.status || 'Hadir';
-                    let statusKelas = statusText.toString().trim().toLowerCase();
-                    let ket = item.keterangan || '-';
-
-                    tr.innerHTML = `
-                        <td data-label="Tanggal">${tgl}</td>
-                        <td data-label="Nama Siswa"><strong>${nama}</strong></td>
-                        <td data-label="Status"><span class="badge ${statusKelas}">${statusText}</span></td>
-                        <td data-label="Keterangan" style="color:#64748b;">${ket}</td>
-                    `;
-                    tbody.appendChild(tr);
-                });
+                // Tampilan awal: Langsung tampilkan riwayat harian seperti biasa
+                tampilkanRiwayatHarian();
 
             } catch (error) {
                 console.error("Error Fetch:", error);
@@ -287,7 +272,115 @@
             }
         }
 
-        // Pemicu pertama saat halaman dibuka
+        // FUNGSI 1: Menampilkan Riwayat Harian (Sama seperti sebelumnya)
+        function tampilkanRiwayatHarian() {
+            const tbody = document.getElementById("absenTableBody");
+            
+            // Ubah Judul Kolom Tabel Menjadi Mode Harian
+            document.querySelector("table thead").innerHTML = `
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Nama Siswa</th>
+                    <th>Status</th>
+                    <th>Keterangan</th>
+                </tr>
+            `;
+
+            tbody.innerHTML = "";
+            
+            if(!dataBulanIni || dataBulanIni.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8; font-weight:500; padding:30px;">Tidak ada data absensi pada bulan ini.</td></tr>`;
+                return;
+            }
+
+            dataBulanIni.forEach(item => {
+                let tr = document.createElement("tr");
+                let tgl = item.tanggal || '-';
+                let nama = item.namasiswa || '-';
+                let statusText = item.status || 'Hadir';
+                let statusKelas = statusText.toString().trim().toLowerCase();
+                let ket = item.keterangan || '-';
+
+                tr.innerHTML = `
+                    <td data-label="Tanggal">${tgl}</td>
+                    <td data-label="Nama Siswa"><strong>${nama}</strong></td>
+                    <td data-label="Status"><span class="badge ${statusKelas}">${statusText}</span></td>
+                    <td data-label="Keterangan" style="color:#64748b;">${ket}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // FUNGSI 2: MENGHITUNG OTOMATIS REKAP BULANAN KHUSUS SISWA YANG TIDAK HADIR
+        function tampilkanRekapBulanan() {
+            const tbody = document.getElementById("absenTableBody");
+            
+            // Ubah Judul Kolom Tabel Menjadi Mode Rekap Total
+            document.querySelector("table thead").innerHTML = `
+                <tr>
+                    <th>Nama Siswa</th>
+                    <th style="text-align:center;">Sakit (S)</th>
+                    <th style="text-align:center;">Izin (I)</th>
+                    <th style="text-align:center;">Alfa (A)</th>
+                </tr>
+            `;
+
+            tbody.innerHTML = "";
+
+            if(!dataBulanIni || dataBulanIni.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8; font-weight:500; padding:30px;">Tidak ada data rekap untuk bulan ini.</td></tr>`;
+                return;
+            }
+
+            // Wadah menampung hitungan per anak
+            let rekapSiswa = {};
+
+            // Mulai menghitung data dari Google Sheets
+            dataBulanIni.forEach(item => {
+                let nama = item.namasiswa;
+                let status = item.status ? item.status.toString().trim().toLowerCase() : 'hadir';
+
+                // Jika nama anak belum terdaftar di wadah hitung, buatkan template awalnya
+                if (!rekapSiswa[nama]) {
+                    rekapSiswa[nama] = { sakit: 0, izin: 0, alfa: 0 };
+                }
+
+                // Tambahkan angka +1 sesuai status absennya
+                if (status === 'sakit') rekapSiswa[nama].sakit++;
+                if (status === 'izin') rekapSiswa[nama].izin++;
+                if (status === 'alfa' || status === 'tanpa keterangan') rekapSiswa[nama].alfa++;
+            });
+
+            // Ambil semua nama anak yang berhasil dihitung
+            const daftarNama = Object.keys(rekapSiswa);
+
+            // Filter agar hanya memunculkan anak yang punya catatan ketidakhadiran saja (S/I/A > 0)
+            const siswaAbsen = daftarNama.filter(nama => {
+                return rekapSiswa[nama].sakit > 0 || rekapSiswa[nama].izin > 0 || rekapSiswa[nama].alfa > 0;
+            });
+
+            if(siswaAbsen.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#15803d; font-weight:600; padding:30px;"><i class="fa-solid fa-circle-check"></i> Luar Biasa! Semua siswa hadir 100% (Nihil Absen) pada bulan ini.</td></tr>`;
+                return;
+            }
+
+            // Render/Tampilkan hasilnya ke tabel HTML
+            siswaAbsen.forEach(nama => {
+                let tr = document.createElement("tr");
+                let s = rekapSiswa[nama].sakit;
+                let i = rekapSiswa[nama].izin;
+                let a = rekapSiswa[nama].alfa;
+
+                tr.innerHTML = `
+                    <td data-label="Nama Siswa"><strong>${nama}</strong></td>
+                    <td data-label="Sakit (S)" style="text-align:center; font-weight:bold; color:#a16207;">${s > 0 ? s + ' Hari' : '-'}</td>
+                    <td data-label="Izin (I)" style="text-align:center; font-weight:bold; color:#0369a1;">${i > 0 ? i + ' Hari' : '-'}</td>
+                    <td data-label="Alfa (A)" style="text-align:center; font-weight:bold; color:#b91c1c;">${a > 0 ? a + ' Hari' : '-'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
         window.onload = function() {
             updateBulanOptions();
         };
