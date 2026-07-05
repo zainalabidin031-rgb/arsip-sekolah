@@ -214,10 +214,10 @@
             </div>
             
             <div class="filter-group">
-                <label for="bulanFilter"><i class="fa-solid fa-calendar-week"></i> Pilih Bulan</label>
-                <select id="bulanFilter" onchange="filterData()">
-                    </select>
-            </div>
+    <label for="bulanFilter"><i class="fa-solid fa-calendar-week"></i> Pilih Bulan</label>
+    <select id="bulanFilter" onchange="ambilDataDariSheets()">
+        </select>
+</div>
 
             <div class="filter-group">
                 <label for="tanggalFilter"><i class="fa-solid fa-calendar-day"></i> Pilih Tanggal (Opsional)</label>
@@ -286,22 +286,30 @@
             const bulanTerpilih = document.getElementById("bulanFilter").value;
             const tbody = document.getElementById("absenTableBody");
             
-            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#1e3a8a; font-weight:600; padding:30px;"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data dari server...</td></tr>`;
+            // Pengaman: Kosongkan data bulan sebelumnya sebelum mengambil data baru
+            dataBulanIni = []; 
+            
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#1e3a8a; font-weight:600; padding:30px;"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data baru dari Google Sheets...</td></tr>`;
             
             try {
-                const urlDenganFilter = `${WEB_APP_URL}?semester=${encodeURIComponent(semesterTerpilih)}&bulan=${encodeURIComponent(bulanTerpilih)}`;
-                const response = await fetch(urlDenganFilter, { method: 'GET', redirect: 'follow' });
+                // FITUR ANTI-CACHE: Menambahkan tanda waktu (_=...) agar Google selalu mengirimkan data paling update/realtime
+                const timestamp = new Date().getTime();
+                const urlDenganFilter = `${WEB_APP_URL}?semester=${encodeURIComponent(semesterTerpilih)}&bulan=${encodeURIComponent(bulanTerpilih)}&_=${timestamp}`;
                 
+                console.log("Memanggil URL:", urlDenganFilter); // Untuk cek di console browser jika perlu
+                
+                const response = await fetch(urlDenganFilter, { method: 'GET', redirect: 'follow' });
                 dataBulanIni = await response.json();
                 
-                // ISI OTOMATIS FILTER TANGGAL BERDASARKAN DATA YANG MASUK
+                // Perbarui pilihan tanggal sesuai data bulan yang baru masuk
                 updateTanggalOptions();
                 
+                // Tampilkan riwayat harian
                 tampilkanRiwayatHarian();
 
             } catch (error) {
                 console.error("Error Fetch:", error);
-                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#b91c1c; font-weight:600; padding:30px;"><i class="fa-solid fa-circle-xmark"></i> Gagal memuat data. Hubungi wali kelas.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#b91c1c; font-weight:600; padding:30px;"><i class="fa-solid fa-circle-xmark"></i> Gagal memuat data. Hubungi admin kelas.</td></tr>`;
             }
         }
 
