@@ -254,33 +254,38 @@
         }
 
         function filterData() {
-            const semesterTerpilih = document.getElementById("semesterFilter").value;
-            const bulanTerpilih = document.getElementById("bulanFilter").value;
-            const tbody = document.getElementById("absenTableBody");
-            
-            tbody.innerHTML = "";
-            
-            const hasilFilter = dataSpreadsheet.filter(row => {
-                // Sesuai dengan nama kolom di spreadsheet (huruf kecil karena dikonversi oleh Apps Script)
-                return row.semester === semesterTerpilih && row.bulan === bulanTerpilih;
-            });
-            
-            if(hasilFilter.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8; font-weight:500; padding:30px;">Tidak ada data absensi pada bulan ini.</td></tr>`;
-                return;
-            }
+    const semesterTerpilih = document.getElementById("semesterFilter").value;
+    const bulanTerpilih = document.getElementById("bulanFilter").value;
+    const tbody = document.getElementById("absenTableBody");
+    
+    tbody.innerHTML = "";
+    
+    // 1. Proses penyaringan (Mencocokkan kolom 'Semester' dan 'Bulan' dari spreadsheet)
+    const hasilFilter = dataSpreadsheet.filter(row => {
+        return row.Semester === semesterTerpilih && row.Bulan === bulanTerpilih;
+    });
+    
+    if(hasilFilter.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8; font-weight:500; padding:30px;">Tidak ada data absensi pada bulan ini.</td></tr>`;
+        return;
+    }
 
-            hasilFilter.forEach(item => {
-                let tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td data-label="Tanggal">${item.tanggal}</td>
-                    <td data-label="Nama Siswa"><strong>${item.nama_siswa}</strong></td>
-                    <td data-label="Status"><span class="badge ${item.status.toLowerCase()}">${item.status}</span></td>
-                    <td data-label="Keterangan" style="color:#64748b;">${item.keterangan || '-'}</td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
+    // 2. Proses menampilkan data (nama_siswa menggunakan huruf kecil sesuai spreadsheet kamu)
+    hasilFilter.forEach(item => {
+        let tr = document.createElement("tr");
+        
+        // Memastikan status diubah ke huruf kecil hanya untuk keperluan warna badge CSS
+        let statusKelas = item.Status ? item.Status.toLowerCase() : 'hadir'; 
+
+        tr.innerHTML = `
+            <td data-label="Tanggal">${item.Tanggal}</td>
+            <td data-label="Nama Siswa"><strong>${item.nama_siswa}</strong></td>
+            <td data-label="Status"><span class="badge ${statusKelas}">${item.Status || 'Hadir'}</span></td>
+            <td data-label="Keterangan" style="color:#64748b;">${item.Keterangan || '-'}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
 
         // Pemicu pertama diubah untuk mengambil data online, bukan data offline lagi
         window.onload = function() {
