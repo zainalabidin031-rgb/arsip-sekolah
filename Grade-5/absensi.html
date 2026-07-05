@@ -212,27 +212,35 @@
     </div>
 
     <script>
-        // Contoh Data Mentah dari Spreadsheet
-        const dataSpreadsheet = [
-            { tanggal: "2026-07-20", nama: "Achmat Juli Setyawan", bulan: "Juli", semester: "Semester 1", status: "Hadir", ket: "-" },
-            { tanggal: "2026-07-21", nama: "Achmat Juli Setyawan", bulan: "Juli", semester: "Semester 1", status: "Sakit", ket: "Demam" },
-            { tanggal: "2026-08-03", nama: "Natasya Syabila Azzahra", bulan: "Agustus", semester: "Semester 1", status: "Izin", ket: "Acara Keluarga" },
-            { tanggal: "2026-11-12", nama: "Ahmad Noval Nugroho", bulan: "November", semester: "Semester 1", status: "Alfa", ket: "Tanpa Keterangan" },
-            { tanggal: "2027-01-05", nama: "Achmat Juli Setyawan", bulan: "Januari", semester: "Semester 2", status: "Hadir", ket: "-" },
-            { tanggal: "2027-02-10", nama: "Tri Nurdiani", bulan: "Februari", semester: "Semester 2", status: "Hadir", ket: "-" }
-        ];
+        // 2. TARUH URL WEB APP SCRIPT ANDA DI SINI
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxQ3y1Mr1CztkCc1PiFVggLEOp9bmbefehlm-9TqvRqs7EytcDVql4UPV6mQFSMYBvr/exec";
+
+        let dataSpreadsheet = []; // Tempat menampung data dari Google Sheet
 
         const bulanPerSemester = {
             "Semester 1": ["Juli", "Agustus", "September", "Oktober", "November", "Desember"],
             "Semester 2": ["Januari", "Februari", "Maret", "April", "Mei", "Juni"]
         };
 
-        // Fungsi mengatur pilihan bulan berdasarkan semester yang dipilih parent
+        // Fungsi mengambil data asli dari Google Sheets saat halaman dimuat
+        async function ambilDataDariSheets() {
+            const tbody = document.getElementById("absenTableBody");
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#1e3a8a; font-weight:600; padding:30px;"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data absensi dari Google Sheets...</td></tr>`;
+            
+            try {
+                const response = await fetch(WEB_APP_URL);
+                dataSpreadsheet = await response.json();
+                updateBulanOptions(); // Setelah data dapat, update tampilan filter
+            } catch (error) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#b91c1c; font-weight:600; padding:30px;"><i class="fa-solid fa-circle-xmark"></i> Gagal mengambil data. Pastikan izin akses Web App sudah benar.</td></tr>`;
+            }
+        }
+
         function updateBulanOptions() {
             const semester = document.getElementById("semesterFilter").value;
             const bulanFilter = document.getElementById("bulanFilter");
             
-            bulanFilter.innerHTML = ""; // Reset
+            bulanFilter.innerHTML = "";
             
             bulanPerSemester[semester].forEach(bln => {
                 let option = document.createElement("option");
@@ -241,19 +249,18 @@
                 bulanFilter.appendChild(option);
             });
             
-            filterData(); // Jalankan filter otomatis setelah opsi berubah
+            filterData();
         }
 
-        // Fungsi memfilter dan merender data ke tabel HTML
         function filterData() {
             const semesterTerpilih = document.getElementById("semesterFilter").value;
             const bulanTerpilih = document.getElementById("bulanFilter").value;
             const tbody = document.getElementById("absenTableBody");
             
-            tbody.innerHTML = ""; // Bersihkan baris lama
+            tbody.innerHTML = "";
             
-            // Lakukan Filter Data
             const hasilFilter = dataSpreadsheet.filter(row => {
+                // Sesuai dengan nama kolom di spreadsheet (huruf kecil karena dikonversi oleh Apps Script)
                 return row.semester === semesterTerpilih && row.bulan === bulanTerpilih;
             });
             
@@ -262,24 +269,21 @@
                 return;
             }
 
-            // Render Data ke elemen tabel HTML
             hasilFilter.forEach(item => {
                 let tr = document.createElement("tr");
-                
-                // Menghubungkan data-label untuk struktur responsif HP memanjang kebawah
                 tr.innerHTML = `
                     <td data-label="Tanggal">${item.tanggal}</td>
-                    <td data-label="Nama Siswa"><strong>${item.nama}</strong></td>
+                    <td data-label="Nama Siswa"><strong>${item.nama_siswa}</strong></td>
                     <td data-label="Status"><span class="badge ${item.status.toLowerCase()}">${item.status}</span></td>
-                    <td data-label="Keterangan" style="color:#64748b;">${item.ket}</td>
+                    <td data-label="Keterangan" style="color:#64748b;">${item.keterangan || '-'}</td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        // Inisialisasi awal saat halaman pertama kali dibuka
+        // Pemicu pertama diubah untuk mengambil data online, bukan data offline lagi
         window.onload = function() {
-            updateBulanOptions();
+            ambilDataDariSheets();
         };
     </script>
 </body>
