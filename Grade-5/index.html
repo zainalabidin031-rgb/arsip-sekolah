@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelas 5 - SDN Butoh 1 Ngasem</title>
-    <link rel="icon" type="image/png" href="/favicon.png?v=1">
+    <title>Halaman Utama Kelas 5 - SDN Butoh 1 Ngasem</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        /* --- CORE CONFIGURATION --- */
+        /* --- RESET & DASAR --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -19,262 +18,355 @@
         }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* Putih bersih minimalis */
+            background-color: #f8fafc;
             color: #1e293b;
-            line-height: 1.5;
-            padding-bottom: 40px;
+            line-height: 1.6;
         }
-
-        /* --- HP FRIENDLY CONTAINER --- */
         .container {
             width: 100%;
-            max-width: 800px; /* Lebar maksimal diatur pas untuk fokus membaca */
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 16px;
+            padding: 0 20px;
         }
 
-        /* --- PREMIUM & COMPACT HEADER --- */
-        header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 100%); /* Biru Matang ke Violet */
-            border-radius: 16px;
-            padding: 32px 24px;
-            text-align: center;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.1);
-        }
-        header h1 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.8rem; /* Ukuran pas, tidak kebesaran */
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: -0.5px;
-            margin-bottom: 6px;
-        }
-        header p {
-            font-size: 0.95rem;
-            color: #e2e8f0;
-            font-weight: 500;
-            opacity: 0.9;
-        }
-
-        /* --- CARD STYLE (BERKELAS) --- */
-        .section-card {
+        /* --- WEBSITE NAVIGATION BAR --- */
+        nav {
             background-color: #ffffff;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .section-card h2 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #1e3a8a; /* Biru Matang */
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .section-card h2 i {
-            color: #7c3aed; /* Aksentuasi Violet */
-        }
-
-        /* --- NOTIFIKASI / PENGUMUMAN RINGKAS --- */
-        .alert-box {
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            border-left: 4px solid transparent;
-        }
-        .alert-box.danger {
-            background-color: #fef2f2;
-            color: #991b1b;
-            border-left-color: #ef4444;
-        }
-        .alert-box.info {
-            background-color: #eff6ff;
-            color: #1e40af;
-            border-left-color: #3b82f6;
-        }
-        .alert-box strong {
-            display: block;
-            margin-bottom: 2px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 700;
-        }
-
-        /* --- JADWAL LIST MODEL (SANGAT COCOK UNTUK HP) --- */
-        .schedule-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .schedule-item {
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
-            background-color: #f8fafc;
-            border-radius: 10px;
-            border: 1px solid #f1f5f9;
+            height: 70px;
         }
-        .schedule-day {
-            font-weight: 700;
-            color: #0f172a;
-            font-size: 0.95rem;
-            width: 80px;
+        .logo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #1e3a8a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .schedule-detail {
-            font-size: 0.9rem;
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
             color: #475569;
-            text-align: right;
-            flex: 1;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #1e3a8a;
         }
 
-        /* --- MATERIAL GRID FOR MOBILE --- */
-        .subject-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* 2 Kolom rapi di HP */
-            gap: 12px;
-        }
-        .subject-card {
-            background-color: #ffffff;
-            border: 1px solid #e2e8f0;
-            padding: 16px;
-            border-radius: 12px;
+        /* --- HERO SECTION WITH FOTO BANNER --- */
+        .hero {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(124, 58, 237, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            color: #ffffff;
+            padding: 80px 0;
             text-align: center;
-            transition: transform 0.2s;
+            border-radius: 0 0 24px 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.15);
         }
-        .subject-card:active {
-            transform: scale(0.98); /* Efek umpan balik saat ditekan di HP */
+        .hero h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
-        .subject-card i {
-            font-size: 1.5rem;
+        .hero p {
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* --- SECTION TITLE --- */
+        .section-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.4rem;
             color: #1e3a8a;
-            margin-bottom: 8px;
-        }
-        .subject-card h3 {
-            font-size: 0.9rem;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-weight: 700;
-            color: #0f172a;
+        }
+
+        /* --- MENU KOTAK WARNA-WARNI (AKSES CEPAT) --- */
+        .grid-menu {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        .menu-box {
+            color: #ffffff;
+            padding: 24px 16px;
+            border-radius: 16px;
+            text-align: center;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .menu-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .menu-box i {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .menu-box span {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            display: block;
+        }
+        /* Variasi Warna Solid Berkelas */
+        .box-blue    { background-color: #1d4ed8; } /* Biru Matang */
+        .box-purple  { background-color: #6b21a2; } /* Ungu Matang */
+        .box-emerald { background-color: #047857; } /* Hijau Emerald */
+        .box-orange  { background-color: #ea580c; } /* Oranye Semangat */
+
+        /* --- TABEL JADWAL BERKOLOM (HP-FRIENDLY) --- */
+        .table-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto; /* Memungkinkan geser di HP */
+            -webkit-overflow-scrolling: touch;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        th, td {
+            padding: 16px;
+            text-align: center;
+            font-size: 0.95rem;
+            min-width: 120px; /* Menjaga agar kolom tidak gepeng di HP */
+        }
+        th {
+            background-color: #1e3a8a;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+        }
+        td {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+            font-weight: 500;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:nth-child(even) td {
+            background-color: #f8fafc;
+        }
+
+        /* --- PENGUMUMAN RINGKAS --- */
+        .alert-announcement {
+            background-color: #fff1f2;
+            border-left: 5px solid #e11d48;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .alert-announcement i {
+            font-size: 1.5rem;
+            color: #e11d48;
+        }
+        .alert-announcement h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.05rem;
+            color: #991b1b;
+            margin-bottom: 4px;
+        }
+        .alert-announcement p {
+            font-size: 0.95rem;
+            color: #7f1d1d;
         }
 
         /* --- FOOTER --- */
         footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            padding: 30px 0;
             text-align: center;
-            padding: 24px 16px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #64748b;
-            font-weight: 500;
         }
 
-        /* --- RESPONSIVE ADJUSTMENT FOR TINY PHONES --- */
-        @media (max-width: 480px) {
-            header h1 { font-size: 1.5rem; }
-            .subject-grid { grid-template-columns: 1fr; } /* Menjadi 1 kolom jika layar HP terlalu kecil */
-            .schedule-item { flex-direction: column; align-items: flex-start; gap: 4px; }
-            .schedule-detail { text-align: left; }
+        /* --- RESPONSIVE UNTUK LAYOUT HP --- */
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Menyembunyikan menu atas di HP demi kebersihan layar */
+            .hero { padding: 50px 0; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 0.95rem; }
+            .grid-menu { grid-template-columns: repeat(2, 1fr); } /* Menjadi 2 kolom di HP */
+            .menu-box { padding: 20px 12px; }
         }
     </style>
 </head>
 <body>
 
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i> SDN Butoh 1 Ngasem
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Beranda</a></li>
+                <li><a href="#jadwal">Jadwal</a></li>
+                <li><a href="#materi">Materi</a></li>
+                <li><a href="#">Galeri</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="container">
+            <h1>Portal Resmi Kelas 5</h1>
+            <p>Ruang informasi akademis terpadu, jadwal kegiatan, dan media belajar mandiri siswa berbasis digital.</p>
+        </div>
+    </div>
+
     <div class="container">
         
-        <header>
-            <h1>Ruang Digital Kelas 5</h1>
-            <p>SDN Butoh 1 Ngasem • Bojonegoro</p>
-        </header>
-
-        <div class="section-card">
-            <h2><i class="fa-solid fa-bullhorn"></i> Pengumuman Kelas</h2>
-            
-            <div class="alert-box danger">
-                <strong><i class="fa-solid fa-triangle-exclamation"></i> INFO PENTING STS</strong>
-                Pelaksanaan STS dimulai besok pukul 07.15 WIB. Wajib membawa papan jalan dan alat tulis sendiri.
-            </div>
-            
-            <div class="alert-box info">
-                <strong><i class="fa-solid fa-circle-info"></i> Projek P5 Pekan Ini</strong>
-                Harap membawa botol plastik bekas bersih pada hari Sabtu untuk kegiatan prakarya.
+        <div class="alert-announcement">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <div>
+                <h3>Pengumuman Penting Pekan Ini</h3>
+                <p>Pelaksanaan Sumatif Tengah Semester (STS) Ganjil dimulai hari Senin depan pukul 07.15 WIB. Pastikan siswa membawa perlengkapan alat tulis masing-masing.</p>
             </div>
         </div>
 
-        <div class="section-card">
-            <h2><i class="fa-solid fa-calendar-day"></i> Jadwal Pelajaran</h2>
-            <div class="schedule-list">
-                <div class="schedule-item">
-                    <span class="schedule-day">Senin</span>
-                    <span class="schedule-detail">Upacara, PPKn, Bahasa Indonesia</span>
-                </div>
-                <div class="schedule-item">
-                    <span class="schedule-day">Selasa</span>
-                    <span class="schedule-detail">Matematika, IPAS</span>
-                </div>
-                <div class="schedule-item">
-                    <span class="schedule-day">Rabu</span>
-                    <span class="schedule-detail">PJOK, Bahasa Inggris</span>
-                </div>
-                <div class="schedule-item">
-                    <span class="schedule-day">Kamis</span>
-                    <span class="schedule-detail">Pendidikan Agama, Seni Rupa</span>
-                </div>
-                <div class="schedule-item">
-                    <span class="schedule-day">Jumat</span>
-                    <span class="schedule-detail">Matematika Lanjutan, P5</span>
-                </div>
+        <h2 class="section-title"><i class="fa-solid fa-layer-group"></i> Akses Fitur Utama</h2>
+        <div class="grid-menu" id="materi">
+            <a href="#" class="menu-box box-blue">
+                <i class="fa-solid fa-book"></i>
+                <span>Mata Pelajaran</span>
+            </a>
+            <a href="#" class="menu-box box-purple">
+                <i class="fa-solid fa-folder-open"></i>
+                <span>Daftar Materi</span>
+            </a>
+            <a href="#" class="menu-box box-emerald">
+                <i class="fa-solid fa-list-ol"></i>
+                <span>Daftar BAB</span>
+            </a>
+            <a href="#" class="menu-box box-orange">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span>Buku Digital</span>
+            </a>
+        </div>
+
+        <h2 class="section-title" id="jadwal"><i class="fa-solid fa-calendar-days"></i> Jadwal Pelajaran Berkolom</h2>
+        <div class="table-card">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Waktu</th>
+                            <th>Senin</th>
+                            <th>Selasa</th>
+                            <th>Rabu</th>
+                            <th>Kamis</th>
+                            <th>Jumat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>07:00 - 09:00</strong></td>
+                            <td>Upacara & PPKn</td>
+                            <td>Matematika</td>
+                            <td>PJOK</td>
+                            <td>Agama Islam</td>
+                            <td>Matematika</td>
+                        </tr>
+                        <tr>
+                            <td><strong>09:00 - 09:30</strong></td>
+                            <td colspan="5" style="background-color: #f1f5f9; font-weight: bold; color: #64748b;">ISTIRAHAT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>09:30 - 12:00</strong></td>
+                            <td>B. Indonesia</td>
+                            <td>IPAS</td>
+                            <td>B. Inggris</td>
+                            <td>Seni Budaya</td>
+                            <td>Projek P5</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <div class="section-card" style="border-top: 3px solid #7c3aed;">
-            <h2><i class="fa-solid fa-file-pen"></i> Jadwal Ujian (STS)</h2>
-            <div class="schedule-list">
-                <div class="schedule-item">
-                    <span class="schedule-day" style="color: #7c3aed;">23 Maret</span>
-                    <span class="schedule-detail">Bahasa Indonesia & Pendidikan Agama</span>
-                </div>
-                <div class="schedule-item">
-                    <span class="schedule-day" style="color: #7c3aed;">24 Maret</span>
-                    <span class="schedule-detail">Matematika & Pendidikan Pancasila</span>
-                </div>
-                <div class="schedule-item">
-                    <span class="schedule-day" style="color: #7c3aed;">25 Maret</span>
-                    <span class="schedule-detail">IPAS & Bahasa Jawa</span>
-                </div>
+        <h2 class="section-title"><i class="fa-solid fa-file-signature"></i> Jadwal Sumatif Tengah Semester (STS)</h2>
+        <div class="table-card" style="border-top: 3px solid #6b21a2;">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="background-color: #6b21a2;">Sesi Ujian</th>
+                            <th style="background-color: #6b21a2;">Senin, 23 Maret</th>
+                            <th style="background-color: #6b21a2;">Selasa, 24 Maret</th>
+                            <th style="background-color: #6b21a2;">Rabu, 25 Maret</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Sesi I (07:30 - 09:00)</strong></td>
+                            <td>Bahasa Indonesia</td>
+                            <td>Matematika</td>
+                            <td>IPAS</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sesi II (09:30 - 11:00)</strong></td>
+                            <td>Pendidikan Agama</td>
+                            <td>Pendidikan Pancasila</td>
+                            <td>Bahasa Jawa</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-
-        <div class="section-card">
-            <h2><i class="fa-solid fa-book-bookmark"></i> Ruang Belajar</h2>
-            <div class="subject-grid">
-                <div class="subject-card">
-                    <i class="fa-solid fa-calculator"></i>
-                    <h3>Matematika</h3>
-                </div>
-                <div class="subject-card">
-                    <i class="fa-solid fa-earth-asia" style="color: #7c3aed;"></i>
-                    <h3>IPAS</h3>
-                </div>
-                <div class="subject-card">
-                    <i class="fa-solid fa-language"></i>
-                    <h3>B. Indonesia</h3>
-                </div>
-                <div class="subject-card">
-                    <i class="fa-solid fa-palette" style="color: #7c3aed;"></i>
-                    <h3>Seni Budaya</h3>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2026 SDN Butoh 1 Ngasem, Bojonegoro.</p>
-            <p style="font-size: 0.75rem; margin-top: 4px; color: #94a3b8;">Dikembangkan untuk kemudahan akses via smartphone.</p>
-        </footer>
 
     </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Portal Resmi Kelas 5 - SDN Butoh 1 Ngasem, Bojonegoro.</p>
+        </div>
+    </footer>
 
 </body>
 </html>
