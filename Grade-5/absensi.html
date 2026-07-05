@@ -128,8 +128,8 @@
         .badge.izin  { background-color: #e0f2fe; color: #0369a1; }
         .badge.alfa  { background-color: #fee2e2; color: #b91c1c; }
 
-        /* --- RESPONSIVE MOBILE FORM-FACTOR --- */
        /* --- RESPONSIVE MOBILE FORM-FACTOR MAMPAT & HEMAT RUANG --- */
+        /* --- RESPONSIVE MOBILE FORM-FACTOR MAMPAT & FIX OVERLAP --- */
         @media (max-width: 768px) {
             header { padding: 25px 0; margin-bottom: 15px; }
             header h1 { font-size: 1.4rem; }
@@ -142,16 +142,18 @@
             .table-panel { padding: 0px; border: none; background: transparent; box-shadow: none; }
             
             /* Pembongkaran Tabel Menjadi Mode Kartu Ringkas */
-            table, thead, tbody, th, td, tr { display: block; width: 100%; }
-            thead tr { position: absolute; top: -9999px; left: -9999px; }
+            table, tbody, td, tr { display: block; width: 100%; }
+            
+            /* FIX: Menghapus total judul kolom asli agar tidak tumpang tindih di HP */
+            thead { display: none !important; }
             
             /* Kartu dibuat lebih mampat */
             tr {
                 background: #ffffff;
-                margin-bottom: 8px; /* Jarak antar kartu dipersempit */
+                margin-bottom: 8px; 
                 border: 1px solid #e2e8f0;
                 border-radius: 10px;
-                padding: 10px 12px; /* Padding dalam kartu diperkecil */
+                padding: 10px 12px; 
                 box-shadow: 0 2px 4px rgba(0,0,0,0.02);
                 position: relative;
             }
@@ -159,10 +161,9 @@
             /* Mengatur ulang posisi baris data di dalam kartu */
             td {
                 border: none !important;
-                padding: 3px 0 !important; /* Jarak vertikal antar teks sangat rapat */
+                padding: 3px 0 !important; 
                 text-align: left !important;
                 font-size: 0.88rem !important;
-                position: relative;
                 display: flex;
                 align-items: center;
             }
@@ -172,7 +173,7 @@
                 content: attr(data-label) ": ";
                 font-weight: 700;
                 color: #64748b;
-                width: 90px; /* Lebar label dikunci agar rapi sejajar */
+                width: 90px; 
                 flex-shrink: 0;
                 display: inline-block;
                 font-size: 0.8rem;
