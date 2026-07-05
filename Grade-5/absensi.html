@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absensi Siswa - Kelas 5</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- DESIGN SYSTEM INDUK --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- HEADER PORTAL --- */
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #6b21a2 100%);
+            color: #ffffff;
+            padding: 40px 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        header p { font-size: 0.95rem; color: #f1f5f9; opacity: 0.9; }
+
+        /* --- PANEL FILTER BERKELAS --- */
+        .filter-panel {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 200px;
+        }
+        .filter-group label {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #475569;
+        }
+        .filter-group select {
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: #1e293b;
+            font-weight: 500;
+            outline: none;
+            background-color: #f8fafc;
+            transition: border-color 0.2s;
+        }
+        .filter-group select:focus {
+            border-color: #1d4ed8;
+        }
+
+        /* --- TABEL ABSENSI --- */
+        .table-panel {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            margin-bottom: 40px;
+        }
+        .table-responsive { width: 100%; }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        th, td { padding: 14px; text-align: left; font-size: 0.95rem; }
+        th {
+            background-color: #1e3a8a;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+        }
+        td { border-bottom: 1px solid #e2e8f0; font-weight: 500; }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) td { background-color: #f8fafc; }
+
+        /* --- BADGE STATUS --- */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge.hadir { background-color: #dcfce7; color: #15803d; }
+        .badge.sakit { background-color: #fef9c3; color: #a16207; }
+        .badge.izin  { background-color: #e0f2fe; color: #0369a1; }
+        .badge.alfa  { background-color: #fee2e2; color: #b91c1c; }
+
+        /* --- RESPONSIVE MOBILE FORM-FACTOR --- */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.6rem; }
+            .filter-panel { padding: 15px; }
+            .filter-group { min-width: 100%; }
+            .table-panel { padding: 12px; border: none; }
+            
+            /* Pembongkaran Tabel Menjadi Mode Kartu Vertikal */
+            table, thead, tbody, th, td, tr { display: block; width: 100%; }
+            thead tr { position: absolute; top: -9999px; left: -9999px; }
+            tr {
+                margin-bottom: 15px;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+            }
+            td {
+                border: none;
+                border-bottom: 1px solid #f1f5f9;
+                padding: 10px 16px 10px 40% !important;
+                text-align: right !important;
+            }
+            td:last-child { border-bottom: none; }
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 16px;
+                top: 10px;
+                width: 35%;
+                text-align: left;
+                font-weight: 700;
+                color: #475569;
+            }
+            .badge { display: inline-block; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1><i class="fa-solid fa-clipboard-user"></i> Rekap Absensi Siswa</h1>
+            <p>SDN Butoh 1 Ngasem • Silakan gunakan filter untuk melihat riwayat absen</p>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="filter-panel">
+            <div class="filter-group">
+                <label for="semesterFilter"><i class="fa-solid fa-graduation-cap"></i> Pilih Semester</label>
+                <select id="semesterFilter" onchange="updateBulanOptions()">
+                    <option value="Semester 1">Semester 1 (Juli - Desember)</option>
+                    <option value="Semester 2">Semester 2 (Januari - Juni)</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="bulanFilter"><i class="fa-solid fa-calendar-week"></i> Pilih Bulan</label>
+                <select id="bulanFilter" onchange="filterData()">
+                    </select>
+            </div>
+        </div>
+
+        <div class="table-panel">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Nama Siswa</th>
+                            <th>Status</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="absenTableBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Contoh Data Mentah dari Spreadsheet
+        const dataSpreadsheet = [
+            { tanggal: "2026-07-20", nama: "Achmat Juli Setyawan", bulan: "Juli", semester: "Semester 1", status: "Hadir", ket: "-" },
+            { tanggal: "2026-07-21", nama: "Achmat Juli Setyawan", bulan: "Juli", semester: "Semester 1", status: "Sakit", ket: "Demam" },
+            { tanggal: "2026-08-03", nama: "Natasya Syabila Azzahra", bulan: "Agustus", semester: "Semester 1", status: "Izin", ket: "Acara Keluarga" },
+            { tanggal: "2026-11-12", nama: "Ahmad Noval Nugroho", bulan: "November", semester: "Semester 1", status: "Alfa", ket: "Tanpa Keterangan" },
+            { tanggal: "2027-01-05", nama: "Achmat Juli Setyawan", bulan: "Januari", semester: "Semester 2", status: "Hadir", ket: "-" },
+            { tanggal: "2027-02-10", nama: "Tri Nurdiani", bulan: "Februari", semester: "Semester 2", status: "Hadir", ket: "-" }
+        ];
+
+        const bulanPerSemester = {
+            "Semester 1": ["Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+            "Semester 2": ["Januari", "Februari", "Maret", "April", "Mei", "Juni"]
+        };
+
+        // Fungsi mengatur pilihan bulan berdasarkan semester yang dipilih parent
+        function updateBulanOptions() {
+            const semester = document.getElementById("semesterFilter").value;
+            const bulanFilter = document.getElementById("bulanFilter");
+            
+            bulanFilter.innerHTML = ""; // Reset
+            
+            bulanPerSemester[semester].forEach(bln => {
+                let option = document.createElement("option");
+                option.value = bln;
+                option.text = bln;
+                bulanFilter.appendChild(option);
+            });
+            
+            filterData(); // Jalankan filter otomatis setelah opsi berubah
+        }
+
+        // Fungsi memfilter dan merender data ke tabel HTML
+        function filterData() {
+            const semesterTerpilih = document.getElementById("semesterFilter").value;
+            const bulanTerpilih = document.getElementById("bulanFilter").value;
+            const tbody = document.getElementById("absenTableBody");
+            
+            tbody.innerHTML = ""; // Bersihkan baris lama
+            
+            // Lakukan Filter Data
+            const hasilFilter = dataSpreadsheet.filter(row => {
+                return row.semester === semesterTerpilih && row.bulan === bulanTerpilih;
+            });
+            
+            if(hasilFilter.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8; font-weight:500; padding:30px;">Tidak ada data absensi pada bulan ini.</td></tr>`;
+                return;
+            }
+
+            // Render Data ke elemen tabel HTML
+            hasilFilter.forEach(item => {
+                let tr = document.createElement("tr");
+                
+                // Menghubungkan data-label untuk struktur responsif HP memanjang kebawah
+                tr.innerHTML = `
+                    <td data-label="Tanggal">${item.tanggal}</td>
+                    <td data-label="Nama Siswa"><strong>${item.nama}</strong></td>
+                    <td data-label="Status"><span class="badge ${item.status.toLowerCase()}">${item.status}</span></td>
+                    <td data-label="Keterangan" style="color:#64748b;">${item.ket}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Inisialisasi awal saat halaman pertama kali dibuka
+        window.onload = function() {
+            updateBulanOptions();
+        };
+    </script>
+</body>
+</html>
