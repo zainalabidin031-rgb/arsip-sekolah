@@ -6,7 +6,7 @@
     <title>Kelas 5 - SDN Butoh 1 Ngasem</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
@@ -16,8 +16,8 @@
         }
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #0f172a; /* Gelap elegan */
-            color: #f8fafc;
+            background-color: #f8fafc; /* Latar belakang putih bersih sedikit keabu-abuan agar tidak silau */
+            color: #0f172a; /* Teks gelap agar sangat kontras dan mudah dibaca */
             margin: 0;
             padding: 0;
             line-height: 1.6;
@@ -30,29 +30,30 @@
             padding: 20px;
         }
 
-        /* --- HEADER & BANNER --- */
+        /* --- HEADER BANNER CERAH & SEMANGAT --- */
         header {
-            background: linear-gradient(135deg, #0ea5e9 0%, #4c1d95 100%); /* Biru Cerah ke Ungu Matang */
+            background: linear-gradient(135deg, #1d4ed8 0%, #6b21a2 100%); /* Biru Matang Ke Ungu Matang */
             border-radius: 20px;
-            padding: 40px;
+            padding: 50px 40px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(76, 29, 149, 0.3);
+            box-shadow: 0 10px 25px rgba(29, 78, 216, 0.2);
             margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         header h1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin: 0 0 10px 0;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: #ffffff;
+            font-weight: 700;
         }
         header p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin: 0;
-            color: #e2e8f0;
-            font-weight: 500;
+            color: #f1f5f9;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         /* --- LAYOUT GRID UTAMA --- */
@@ -74,96 +75,114 @@
             vertical-align: top;
         }
 
-        /* --- BAGIAN KARTU / PANEL --- */
+        /* --- PANEL PUTIH BERSIH --- */
         .panel {
-            background-color: #1e293b; /* Abu-abu gelap kontras */
+            background-color: #ffffff; /* Putih Bersih */
             border-radius: 20px;
-            padding: 30px;
+            padding: 35px;
             margin-bottom: 30px;
-            border: 1px solid #334155;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
         .panel h2 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             margin-top: 0;
             margin-bottom: 25px;
-            color: #0ea5e9; /* Biru Cerah */
-            border-left: 6px solid #4c1d95; /* Ungu Matang */
+            color: #1d4ed8; /* Biru Matang */
+            border-left: 6px solid #6b21a2; /* Ungu Matang */
             padding-left: 15px;
             text-transform: uppercase;
+            font-weight: 700;
         }
 
-        /* --- FITUR PENGUMUMAN BESAR (MADING) --- */
+        /* --- FITUR PENGUMUMAN BESAR & KONTRAS (MADING) --- */
         .pengumuman-box {
-            background: linear-gradient(to right, #3b0764, #1e1b4b);
-            border-left: 8px solid #0ea5e9;
-            padding: 25px;
+            background-color: #f0fdf4; /* Hijau segar/muda untuk info positif */
+            border-left: 8px solid #16a34a;
+            padding: 30px;
             border-radius: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .pengumuman-box.penting {
+            background-color: #fff1f2; /* Merah muda untuk info sangat penting */
+            border-left-color: #e11d48;
+        }
+        .pengumuman-box.info-p5 {
+            background-color: #fbf2ff; /* Ungu muda */
+            border-left-color: #6b21a2;
         }
         .pengumuman-box h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.3rem;
-            color: #38bdf8;
+            margin: 0 0 12px 0;
+            font-size: 1.4rem;
+            color: #0f172a;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-weight: 700;
         }
         .pengumuman-box p {
             margin: 0;
-            font-size: 1.1rem;
-            color: #e2e8f0;
+            font-size: 1.15rem;
+            color: #334155;
+            font-weight: 500;
         }
 
         /* --- TABEL JADWAL BESAR & JELAS --- */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
-            margin-bottom: 20px;
         }
         table {
             width: 100%;
-            border-collapse: collapse;
-            background-color: #0f172a;
+            border-collapse: separate;
+            border-spacing: 0;
             border-radius: 12px;
             overflow: hidden;
+            border: 2px solid #e2e8f0;
         }
         th, td {
-            padding: 15px;
+            padding: 18px;
             text-align: center;
-            border-bottom: 1px solid #334155;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
         th {
-            background-color: #4c1d95; /* Ungu Matang */
+            background-color: #1d4ed8; /* Biru Matang */
             color: #ffffff;
             font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            font-size: 0.95rem;
+            font-size: 1rem;
             letter-spacing: 0.5px;
+        }
+        td {
+            color: #334155;
+            font-weight: 600;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
         }
         tr:last-child td {
             border-bottom: none;
         }
         tr:nth-child(even) td {
-            background-color: #1e293b;
+            background-color: #f8fafc; /* Selingan abu-abu super terang */
         }
         .hari-kolom {
-            font-weight: 600;
-            color: #0ea5e9;
+            font-weight: 700;
+            color: #6b21a2; /* Ungu Matang */
             text-align: left;
             width: 25%;
+            background-color: #ffffff !important;
         }
 
-        /* --- RUANG BELAJAR MODERN --- */
+        /* --- RUANG BELAJAR CERAH --- */
         .grid-belajar {
             display: table;
             width: 100%;
             border-collapse: separate;
-            border-spacing: 15px;
-            margin: -15px;
+            border-spacing: 20px;
+            margin: -20px;
         }
         .row-belajar {
             display: table-row;
@@ -171,48 +190,51 @@
         .kartu-belajar {
             display: table-cell;
             width: 50%;
-            background: #1e293b;
-            border: 2px solid #334155;
-            padding: 25px;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            padding: 30px;
             border-radius: 15px;
             text-align: center;
             vertical-align: top;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
         }
         .kartu-belajar:hover {
-            border-color: #0ea5e9;
-            background-color: #1e293b;
+            border-color: #1d4ed8;
             transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(29, 78, 216, 0.1);
         }
         .kartu-belajar .icon-mapel {
-            font-size: 2.5rem;
-            color: #0ea5e9;
+            font-size: 3rem;
+            color: #1d4ed8;
             margin-bottom: 15px;
         }
         .kartu-belajar h3 {
             margin: 0 0 10px 0;
-            font-size: 1.25rem;
-            color: #f1f5f9;
+            font-size: 1.4rem;
+            color: #0f172a;
+            font-weight: 700;
         }
         .kartu-belajar p {
             margin: 0;
-            font-size: 0.95rem;
-            color: #94a3b8;
+            font-size: 1rem;
+            color: #475569;
         }
 
         /* --- FOOTER --- */
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 40px 20px;
             margin-top: 50px;
-            background-color: #1e293b;
-            border-top: 1px solid #334155;
+            background-color: #ffffff;
+            border-top: 2px solid #e2e8f0;
             border-radius: 20px 20px 0 0;
         }
         footer p {
             margin: 0;
-            color: #94a3b8;
-            font-size: 0.95rem;
+            color: #475569;
+            font-size: 1rem;
+            font-weight: 600;
         }
 
         /* --- RESPONSIVE UNTUK HP --- */
@@ -229,7 +251,6 @@
             }
             .kartu-belajar {
                 margin-bottom: 20px !important;
-                padding: 25px !important;
             }
             .main-layout {
                 border-spacing: 0 !important;
@@ -242,7 +263,7 @@
     <div class="wrapper">
         
         <header>
-            <h1>Portal Kelas 5 Digital</h1>
+            <h1>Portal Digital Kelas 5</h1>
             <p>SDN Butoh 1 Ngasem • Kabupaten Bojonegoro</p>
         </header>
 
@@ -295,27 +316,27 @@
                 <div class="panel">
                     <h2><i class="fa-solid fa-file-signature"></i> Jadwal Sumatif Tengah Semester (STS)</h2>
                     <div class="table-responsive">
-                        <table style="border: 2px solid #0ea5e9;">
+                        <table style="border: 2px solid #6b21a2;">
                             <thead>
                                 <tr>
-                                    <th style="text-align: left; background-color: #0ea5e9;">Hari & Tanggal</th>
-                                    <th style="background-color: #0ea5e9;">Mata Pelajaran I</th>
-                                    <th style="background-color: #0ea5e9;">Mata Pelajaran II</th>
+                                    <th style="text-align: left; background-color: #6b21a2;">Hari & Tanggal</th>
+                                    <th style="background-color: #6b21a2;">Mata Pelajaran I</th>
+                                    <th style="background-color: #6b21a2;">Mata Pelajaran II</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="hari-kolom" style="color:#38bdf8;">Senin, 23 Maret</td>
+                                    <td class="hari-kolom" style="color:#1d4ed8;">Senin, 23 Maret</td>
                                     <td>Bahasa Indonesia</td>
                                     <td>Pendidikan Agama</td>
                                 </tr>
                                 <tr>
-                                    <td class="hari-kolom" style="color:#38bdf8;">Selasa, 24 Maret</td>
+                                    <td class="hari-kolom" style="color:#1d4ed8;">Selasa, 24 Maret</td>
                                     <td>Matematika</td>
                                     <td>Pendidikan Pancasila</td>
                                 </tr>
                                 <tr>
-                                    <td class="hari-kolom" style="color:#38bdf8;">Rabu, 25 Maret</td>
+                                    <td class="hari-kolom" style="color:#1d4ed8;">Rabu, 25 Maret</td>
                                     <td>IPAS</td>
                                     <td>Bahasa Jawa</td>
                                 </tr>
@@ -334,7 +355,7 @@
                                 <p>E-Modul operasi hitung pecahan, desimal, dan bangun ruang.</p>
                             </div>
                             <div class="kartu-belajar">
-                                <div class="icon-mapel"><i class="fa-solid fa-flask"></i></div>
+                                <div class="icon-mapel" style="color: #6b21a2;"><i class="fa-solid fa-flask"></i></div>
                                 <h3>IPAS</h3>
                                 <p>Eksplorasi materi ekosistem alam dan struktur tubuh manusia.</p>
                             </div>
@@ -344,27 +365,27 @@
 
             </div> <div class="sidebar-column">
                 
-                <div class="panel" style="border: 2px solid #4c1d95;">
-                    <h2><i class="fa-solid fa-circle-exclamation"></i> Pengumuman & Mading</h2>
+                <div class="panel" style="border: 2px solid #1d4ed8;">
+                    <h2><i class="fa-solid fa-circle-exclamation"></i> Pengumuman Penting</h2>
                     
-                    <div class="pengumuman-box">
-                        <h3><i class="fa-solid fa-triangle-exclamation"></i> PENTING, INFO STS!</h3>
+                    <div class="pengumuman-box penting">
+                        <h3><i class="fa-solid fa-triangle-exclamation" style="color: #e11d48;"></i> PENTING, INFO STS!</h3>
                         <p>Pelaksanaan STS dimulai besok Pukul 07.15 WIB. Anak-anak wajib membawa papan ujian (papan jalan) dan alat tulis lengkap!</p>
                     </div>
 
-                    <div class="pengumuman-box" style="border-left-color: #4c1d95;">
-                        <h3><i class="fa-solid fa-shirt"></i> Tata Tertib Seragam</h3>
+                    <div class="pengumuman-box">
+                        <h3><i class="fa-solid fa-shirt" style="color: #16a34a;"></i> Tata Tertib Seragam</h3>
                         <p>Gunakan atribut seragam lengkap (dasi, sabuk, kaos kaki logo sekolah) sesuai jadwal harian masing-masing.</p>
                     </div>
 
-                    <div class="pengumuman-box" style="border-left-color: #a855f7;">
-                        <h3><i class="fa-solid fa-palette"></i> Tugas Projek P5</h3>
+                    <div class="pengumuman-box info-p5">
+                        <h3><i class="fa-solid fa-palette" style="color: #6b21a2;"></i> Tugas Projek P5</h3>
                         <p>Pengumpulan bahan prakarya dari botol plastik bekas paling lambat hari Sabtu ini pada jam ekstrakurikuler.</p>
                     </div>
                 </div>
 
             </div> </div> <footer>
-            <p>&copy; 2026 Portal Resmi Kelas 5 - SDN Butoh 1 Ngasem, Bojonegoro.<br>Modern, Disiplin, dan Berprestasi.</p>
+            <p>&copy; 2026 Portal Resmi Kelas 5 - SDN Butoh 1 Ngasem, Bojonegoro.<br>Cerdas, Berkarakter, dan Berprestasi.</p>
         </footer>
 
     </div> </body>
