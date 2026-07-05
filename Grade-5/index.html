@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelas 5 - SDN Butoh 1 Ngasem</title>
+    <style>
+        /* Gaya Umum */
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial', sans-serif;
+            background-color: #f0fdf4; /* Hijau sangat muda */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header / Banner Sekolah */
+        header {
+            background: linear-gradient(135deg, #22c55e, #15803d); /* Gradasi Hijau */
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            margin: 5px 0 0 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fef08a; /* Kuning cerah */
+        }
+
+        /* Navigasi */
+        nav {
+            background-color: #fef08a;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        nav a {
+            color: #166534;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 20px;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #166534;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Wadah Utama */
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        /* Bagian Kiri (Konten Utama) */
+        main {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 3px solid #bbf7d0;
+        }
+
+        /* Bagian Kanan (Sidebar Info) */
+        aside {
+            background: #dcfce7;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 3px dashed #22c55e;
+            align-self: start;
+        }
+
+        h2 {
+            color: #15803d;
+            border-bottom: 2px solid #22c55e;
+            padding-bottom: 5px;
+        }
+
+        /* Kartu Ruang Belajar */
+        .grid-belajar {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .kartu-belajar {
+            background: #ffedd5; /* Oranye muda */
+            border: 2px solid #f97316;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .kartu-belajar:hover {
+            transform: translateY(-5px);
+        }
+
+        .kartu-belajar h3 {
+            margin: 0 0 10px 0;
+            color: #ea580c;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #15803d;
+            color: white;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsif untuk HP */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .grid-belajar {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>KELAS 5 SERU & HEBAT</h1>
+        <p>SDN Butoh 1 Ngasem • Kabupaten Bojonegoro</p>
+    </header>
+
+    <nav>
+        <a href="#Beranda">🏠 Beranda</a>
+        <a href="#Belajar">📚 Ruang Belajar</a>
+        <a href="#Mading">📌 Mading</a>
+        <a href="#Galeri">📸 Galeri Kelas</a>
+    </nav>
+
+    <div class="container">
+        
+        <main id="Beranda">
+            <h2>👋 Halo, Selamat Datang di Kelas 5!</h2>
+            <p>Ini adalah halaman resmi kreasi kelas 5 SDN Butoh 1 Ngasem. Di sini kita bisa melihat pengumuman kelas, jadwal pelajaran, dan belajar materi seru bersama-sama. Tetap semangat dan raih cita-citamu!</p>
+            
+            <br>
+
+            <h2 id="Belajar">🚀 Ruang Belajar Mandiri</h2>
+            <p>Pilih mata pelajaran yang ingin kamu pelajari hari ini:</p>
+            <div class="grid-belajar">
+                <div class="kartu-belajar">
+                    <h3>📐 Matematika</h3>
+                    <p>Belajar pecahan, bangun ruang, dan hitungan seru!</p>
+                </div>
+                <div class="kartu-belajar" style="background:#e0f2fe; border-color:#0284c7;">
+                    <h3 style="color:#0369a1;">🔬 IPAS</h3>
+                    <p style="color:#333;">Melihat ekosistem dan indahnya alam Indonesia.</p>
+                </div>
+                <div class="kartu-belajar" style="background:#f3e8ff; border-color:#9333ea;">
+                    <h3 style="color:#6b21a8;">🇮🇩 Bahasa Indonesia</h3>
+                    <p style="color:#333;">Membaca cerita pendek dan belajar menulis puisi.</p>
+                </div>
+                <div class="kartu-belajar" style="background:#fee2e2; border-color:#dc2626;">
+                    <h3 style="color:#991b1b;">🎨 Seni Budaya</h3>
+                    <p style="color:#333;">Kreasi menggambar dan mengenal lagu daerah.</p>
+                </div>
+            </div>
+        </main>
+
+        <aside id="Mading">
+            <h2>📌 Mading Kelas 5</h2>
+            <ul>
+                <li><strong>Senin:</strong> Memakai seragam Merah Putih rapi.</li>
+                <li><strong>Kamis:</strong> Jangan lupa bawa alat gambar!</li>
+                <li><strong>Sabtu:</strong> Kegiatan Pramuka seru.</li>
+            </ul>
+            <p style="background: white; padding: 10px; border-radius: 8px; border-left: 5px solid #22c55e;">
+                📢 <strong>Info Guru:</strong> Tugas matematika halaman 45 dikumpulkan besok pagi ya!
+            </p>
+        </aside>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Kelas 5 SDN Butoh 1 Ngasem, Bojonegoro. Dibuat dengan Semangat! 💪</p>
+    </footer>
+
+</body>
+</html>
