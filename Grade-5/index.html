@@ -261,15 +261,100 @@
         }
 
         /* --- RESPONSIVE OPTIMIZATION (MOBILE PRIMER) --- */
-        @media (max-width: 768px) {
-            .nav-links { display: none; } /* Sembunyikan menu link atas di HP agar minimalis */
-            .hero { padding: 45px 0; border-radius: 0 0 16px 16px; }
-            .hero h1 { font-size: 1.65rem; }
-            .hero p { font-size: 0.9rem; padding: 0 10px; }
-            .grid-menu { grid-template-columns: repeat(2, 1fr); gap: 12px; } /* Kotak jadi 2x2 di HP */
-            .table-panel { padding: 14px; }
-            th, td { padding: 12px; font-size: 0.9rem; }
-        }
+       @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero { padding: 45px 0; border-radius: 0 0 16px 16px; }
+    .hero h1 { font-size: 1.65rem; }
+    .hero p { font-size: 0.9rem; padding: 0 10px; }
+    .grid-menu { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .table-panel { padding: 12px; }
+
+    /* =================================================== */
+    /* TRIK SAKTI: MENGUBAH TABEL MENJADI KARTU MEMANJANG DI HP */
+    /* =================================================== */
+    .table-responsive {
+        overflow-x: visible; /* Matikan scroll ke samping */
+    }
+    
+    table, thead, tbody, th, td, tr { 
+        display: block; /* Paksa semua elemen tabel menjadi susunan vertikal */
+        width: 100% !important;
+    }
+    
+    thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px; /* Sembunyikan header tabel asli di HP */
+    }
+    
+    tr {
+        margin-bottom: 20px;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+    
+    td { 
+        border: none;
+        border-bottom: 1px solid #f1f5f9; 
+        position: relative;
+        padding: 12px 16px 12px 45% !important; /* Beri ruang di kiri untuk nama Hari/Piket */
+        text-align: left !important; /* Teks rata kiri agar rapi di HP */
+        font-size: 0.95rem;
+    }
+    
+    td:last-child {
+        border-bottom: none;
+    }
+
+    /* Label data di sebelah kiri menggunakan bantuan atribut 'data-label' */
+    td::before { 
+        position: absolute;
+        top: 12px;
+        left: 16px;
+        width: 35%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+        font-weight: 700;
+        color: #1e3a8a; /* Warna teks penanda di kiri */
+        content: attr(data-label); /* Mengambil teks dari atribut HTML */
+    }
+
+    /* Warna penanda khusus untuk Jadwal Piket */
+    #piket-tabel td::before {
+        color: #6b21a2;
+    }
+
+    /* Gaya khusus untuk baris waktu / info sesi utama di HP */
+    .time-cell {
+        background-color: #f8fafc !important;
+        color: #0f172a !important;
+        font-size: 1rem !important;
+        border-bottom: 2px solid #e2e8f0 !important;
+        padding-left: 16px !important;
+    }
+    .time-cell::before {
+        display: none; /* Sembunyikan label kiri khusus untuk baris waktu */
+    }
+
+    /* Gaya khusus untuk baris Istirahat di HP */
+    .break-row {
+        background-color: #f1f5f9 !important;
+        padding: 12px 16px !important;
+        text-align: center !important;
+        font-weight: bold;
+    }
+    .break-row::before {
+        display: none;
+    }
+    
+    /* Sembunyikan catatan kaki piket jika di HP agar tidak terlalu penuh */
+    .note-row {
+        display: none;
+    }
+}
     </style>
 </head>
 <body>
@@ -357,26 +442,25 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="time-cell">07:00 - 09:15</td>
-                            <td>Upacara & PPKn</td>
-                            <td>PJOK (Olahraga)</td>
-                            <td>Matematika</td>
-                            <td>Pendidikan Agama</td>
-                            <td>Doa Bersama</td>
-                            <td>Senam Bersama</td>
+                            <td class="time-cell">Sesi 1 (07:00 - 09:15)</td>
+                            <td data-label="Senin">Upacara & PPKn</td>
+                            <td data-label="Selasa">PJOK (Olahraga)</td>
+                            <td data-label="Rabu">Matematika</td>
+                            <td data-label="Kamis">Pendidikan Agama</td>
+                            <td data-label="Jumat">Doa Bersama</td>
+                            <td data-label="Sabtu">Senam Bersama</td>
                         </tr>
                         <tr>
-                            <td class="time-cell">09:15 - 10:00</td>
-                            <td colspan="6" style="background-color: #f1f5f9; font-weight: bold; color: #64748b; letter-spacing: 1px;">ISTIRAHAT / MBG</td>
+                            <td colspan="7" class="break-row">ISTIRAHAT / MBG (09:15 - 10:00)</td>
                         </tr>
                         <tr>
-                            <td class="time-cell">10:00 - 12:10</td>
-                            <td>B. Indonesia & Seni</td>
-                            <td>B. Indonesia & Seni</td>
-                            <td>IPA & Sosial</td>
-                            <td>IPA & Sosial</td>
-                            <td>Bahasa Jawa</td>
-                            <td>B. Inggris & Literasi Digital</td>
+                            <td class="time-cell">Sesi 2 (10:00 - 12:10)</td>
+                            <td data-label="Senin">B. Indonesia & Seni</td>
+                            <td data-label="Selasa">B. Indonesia & Seni</td>
+                            <td data-label="Rabu">IPA & Sosial</td>
+                            <td data-label="Kamis">IPA & Sosial</td>
+                            <td data-label="Jumat">Bahasa Jawa</td>
+                            <td data-label="Sabtu">B. Inggris & Literasi Digital</td>
                         </tr>
                     </tbody>
                 </table>
@@ -386,56 +470,56 @@
         <h2 class="section-title"><i class="fa-solid fa-file-invoice"></i> Jadwal Piket Kelas</h2>
         <div class="table-panel" style="border-top: 3px solid #6b21a2;">
             <div class="table-responsive">
-                <table>
+                <table id="piket-tabel">
                     <thead>
                         <tr>
-                            <th style="background-color: #6b21a2;">Piket</th>
-                            <th style="background-color: #6b21a2;">Senin</th>
-                            <th style="background-color: #6b21a2;">Selasa</th>
-                            <th style="background-color: #6b21a2;">Rabu</th>
-                            <th style="background-color: #6b21a2;">Kamis</th>
-                            <th style="background-color: #6b21a2;">Jumat</th>
-                            <th style="background-color: #6b21a2;">Sabtu</th>
+                            <th>Piket</th>
+                            <th>Senin</th>
+                            <th>Selasa</th>
+                            <th>Rabu</th>
+                            <th>Kamis</th>
+                            <th>Jumat</th>
+                            <th>Sabtu</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td class="time-cell" style="color:#6b21a2;">Anggota 1</td>
-                            <td>Achmat Juli Setyawan</td>
-                            <td>Natasya Syabila Azzahra</td>
-                            <td>Ahmad Noval Nugroho</td>
-                            <td>Tri Nurdiani</td>
-                            <td>Mochammad Noer Azzam</td>
-                            <td>Muhammad David AufalMarom</td>
+                            <td data-label="Senin">Achmat Juli Setyawan</td>
+                            <td data-label="Selasa">Natasya Syabila Azzahra</td>
+                            <td data-label="Rabu">Ahmad Noval Nugroho</td>
+                            <td data-label="Kamis">Tri Nurdiani</td>
+                            <td data-label="Jumat">Mochammad Noer Azzam</td>
+                            <td data-label="Sabtu">Muhammad David AufalMarom</td>
                         </tr>
                         <tr>
                             <td class="time-cell" style="color:#6b21a2;">Anggota 2</td>
-                            <td>Ahmad Syahrul Dermawan</td>
-                            <td>Afifa Refanda Oktavia</td>
-                            <td>Farel Galih Revander</td>
-                            <td>Tri Nurdiana</td>
-                            <td>Muhamad Adi Nur Mahendra</td>
-                            <td>Ramadhani Rizki Hermawan</td>
+                            <td data-label="Senin">Ahmad Syahrul Dermawan</td>
+                            <td data-label="Selasa">Afifa Refanda Oktavia</td>
+                            <td data-label="Rabu">Farel Galih Revander</td>
+                            <td data-label="Kamis">Tri Nurdiana</td>
+                            <td data-label="Jumat">Muhamad Adi Nur Mahendra</td>
+                            <td data-label="Sabtu">Ramadhani Rizki Hermawan</td>
                         </tr>
                         <tr>
                             <td class="time-cell" style="color:#6b21a2;">Anggota 3</td>
-                            <td>MUHAMMAD ALFIAN HIDAYATULLOH</td>
-                            <td>Yuda Setya Anggara Putra</td>
-                            <td>Rosalina Ayu Kirana Putri</td>
-                            <td>Rosalina Ayu Kirana Putri</td>
-                            <td>Afifa Refanda Oktavia</td>
-                            <td>Natasya Syabila Azzahra</td>
+                            <td data-label="Senin">MUHAMMAD ALFIAN HIDAYATULLOH</td>
+                            <td data-label="Selasa">Yuda Setya Anggara Putra</td>
+                            <td data-label="Rabu">Rosalina Ayu Kirana Putri</td>
+                            <td data-label="Kamis">Rosalina Ayu Kirana Putri</td>
+                            <td data-label="Jumat">Afifa Refanda Oktavia</td>
+                            <td data-label="Sabtu">Natasya Syabila Azzahra</td>
                         </tr>
                         <tr>
                             <td class="time-cell" style="color:#6b21a2;">Anggota 4</td>
-                            <td>MUHAMMAD FAJAR IBRAHIM</td>
-                            <td>Rosalina Ayu Kirana Putri</td>
-                            <td>Tri Nurdiana</td>
-                            <td>Achmat Juli Setyawan</td>
-                            <td>Tri Nurdiani</td>
-                            <td>Ahmad Noval Nugroho</td>
+                            <td data-label="Senin">MUHAMMAD FAJAR IBRAHIM</td>
+                            <td data-label="Selasa">Rosalina Ayu Kirana Putri</td>
+                            <td data-label="Rabu">Tri Nurdiana</td>
+                            <td data-label="Kamis">Achmat Juli Setyawan</td>
+                            <td data-label="Jumat">Tri Nurdiani</td>
+                            <td data-label="Sabtu">Ahmad Noval Nugroho</td>
                         </tr>
-                        <tr style="background-color: #f8fafc;">
+                        <tr class="note-row">
                             <td colspan="7" style="font-size: 0.85rem; color: #64748b; text-align: center; font-weight: 500; padding: 8px;">
                                 <i class="fa-solid fa-clock"></i> Harap datang pukul 06.00 WIB bagi siswa yang terjadwal piket.
                             </td>
