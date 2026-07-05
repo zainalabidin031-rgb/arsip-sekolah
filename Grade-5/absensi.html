@@ -198,7 +198,7 @@
     <header>
         <div class="container">
             <h1><i class="fa-solid fa-clipboard-user"></i> Rekap Absensi Siswa</h1>
-            <p>SDN Butoh 1 Ngasem • Silakan gunakan filter untuk melihat riwayat absen</p>
+            <p>Kelas 5 • SDN Butoh 1 Ngasem</p>
         </div>
     </header>
 
@@ -289,7 +289,7 @@
             // Pengaman: Kosongkan data bulan sebelumnya sebelum mengambil data baru
             dataBulanIni = []; 
             
-            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#1e3a8a; font-weight:600; padding:30px;"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data baru dari Google Sheets...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#1e3a8a; font-weight:600; padding:30px;"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data baru dari Server...</td></tr>`;
             
             try {
                 // FITUR ANTI-CACHE: Menambahkan tanda waktu (_=...) agar Google selalu mengirimkan data paling update/realtime
@@ -309,7 +309,7 @@
 
             } catch (error) {
                 console.error("Error Fetch:", error);
-                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#b91c1c; font-weight:600; padding:30px;"><i class="fa-solid fa-circle-xmark"></i> Gagal memuat data. Hubungi admin kelas.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#b91c1c; font-weight:600; padding:30px;"><i class="fa-solid fa-circle-xmark"></i> Gagal memuat data. Hubungi wali kelas.</td></tr>`;
             }
         }
 
