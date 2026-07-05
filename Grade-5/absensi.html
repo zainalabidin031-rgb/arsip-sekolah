@@ -218,6 +218,12 @@
                 <select id="bulanFilter" onchange="filterData()">
                     </select>
             </div>
+
+            <div class="filter-group">
+                <label for="tanggalFilter"><i class="fa-solid fa-calendar-day"></i> Pilih Tanggal (Opsional)</label>
+                <select id="tanggalFilter" onchange="tampilkanRiwayatHarian()">
+                    </select>
+            </div>
         </div>
         
         </div>  <div style="display: flex; gap: 10px; margin-bottom: 15px; padding: 0 12px;">
@@ -257,7 +263,6 @@
             "Semester 2": ["Januari", "Februari", "Maret", "April", "Mei", "Juni"]
         };
 
-        // Tempat menyimpan data mentah yang didapat dari Google Sheets pada bulan terpilih
         let dataBulanIni = [];
 
         function updateBulanOptions() {
@@ -287,23 +292,49 @@
                 const urlDenganFilter = `${WEB_APP_URL}?semester=${encodeURIComponent(semesterTerpilih)}&bulan=${encodeURIComponent(bulanTerpilih)}`;
                 const response = await fetch(urlDenganFilter, { method: 'GET', redirect: 'follow' });
                 
-                // Simpan data ke variabel global agar bisa dipakai untuk rekap nanti
                 dataBulanIni = await response.json();
                 
-                // Tampilan awal: Langsung tampilkan riwayat harian seperti biasa
+                // ISI OTOMATIS FILTER TANGGAL BERDASARKAN DATA YANG MASUK
+                updateTanggalOptions();
+                
                 tampilkanRiwayatHarian();
 
             } catch (error) {
                 console.error("Error Fetch:", error);
-                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#b91c1c; font-weight:600; padding:30px;"><i class="fa-solid fa-circle-xmark"></i> Gagal memuat data. Hubungi admin kelas.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#b91c1c; font-weight:600; padding:30px;"><i class="fa-solid fa-circle-xmark"></i> Gagal memuat data. Hubungi wali kelas.</td></tr>`;
             }
         }
 
-        // FUNGSI 1: Menampilkan Riwayat Harian (Sama seperti sebelumnya)
+        // FUNGSI BARU: Mengumpulkan semua tanggal unik pada bulan tersebut untuk dijadikan opsi filter
+        function updateTanggalOptions() {
+            const tglFilter = document.getElementById("tanggalFilter");
+            tglFilter.innerHTML = '<option value="semua">-- Semua Tanggal --</option>';
+            
+            if (!dataBulanIni || dataBulanIni.length === 0) return;
+
+            // Mengambil daftar tanggal unik dan mengurutkannya
+            let daftarTanggal = [];
+            dataBulanIni.forEach(item => {
+                if (item.tanggal && !daftarTanggal.includes(item.tanggal)) {
+                    daftarTanggal.push(item.tanggal);
+                }
+            });
+            daftarTanggal.sort();
+
+            // Masukkan tanggal-tanggal tersebut ke dalam dropdown HTML
+            daftarTanggal.forEach(tgl => {
+                let option = document.createElement("option");
+                option.value = tgl;
+                option.text = tgl; // Menampilkan format YYYY-MM-DD
+                tglFilter.appendChild(option);
+            });
+        }
+
+        // FUNGSI 1: Menampilkan Riwayat Harian (Sekarang Mendukung Filter Tanggal)
         function tampilkanRiwayatHarian() {
             const tbody = document.getElementById("absenTableBody");
+            const tanggalTerpilih = document.getElementById("tanggalFilter").value;
             
-            // Ubah Judul Kolom Tabel Menjadi Mode Harian
             document.querySelector("table thead").innerHTML = `
                 <tr>
                     <th>Tanggal</th>
@@ -320,7 +351,13 @@
                 return;
             }
 
-            dataBulanIni.forEach(item => {
+            // FILTER TAHAP KEDUA: Berdasarkan tanggal yang dipilih di HTML
+            let dataTerfilter = dataBulanIni;
+            if (tanggalTerpilih !== "semua") {
+                dataTerfilter = dataBulanIni.filter(item => item.tanggal === tanggalTerpilih);
+            }
+
+            dataTerfilter.forEach(item => {
                 let tr = document.createElement("tr");
                 let tgl = item.tanggal || '-';
                 let nama = item.namasiswa || '-';
@@ -338,11 +375,10 @@
             });
         }
 
-        // FUNGSI 2: MENGHITUNG OTOMATIS REKAP BULANAN KHUSUS SISWA YANG TIDAK HADIR
+        // FUNGSI 2: Rekap Bulanan Tetap Menghitung Seluruh Bulan (Tidak Terpengaruh Filter Tanggal)
         function tampilkanRekapBulanan() {
             const tbody = document.getElementById("absenTableBody");
             
-            // Ubah Judul Kolom Tabel Menjadi Mode Rekap Total
             document.querySelector("table thead").innerHTML = `
                 <tr>
                     <th>Nama Siswa</th>
@@ -359,29 +395,22 @@
                 return;
             }
 
-            // Wadah menampung hitungan per anak
             let rekapSiswa = {};
 
-            // Mulai menghitung data dari Google Sheets
             dataBulanIni.forEach(item => {
                 let nama = item.namasiswa;
                 let status = item.status ? item.status.toString().trim().toLowerCase() : 'hadir';
 
-                // Jika nama anak belum terdaftar di wadah hitung, buatkan template awalnya
                 if (!rekapSiswa[nama]) {
                     rekapSiswa[nama] = { sakit: 0, izin: 0, alfa: 0 };
                 }
 
-                // Tambahkan angka +1 sesuai status absennya
                 if (status === 'sakit') rekapSiswa[nama].sakit++;
                 if (status === 'izin') rekapSiswa[nama].izin++;
                 if (status === 'alfa' || status === 'tanpa keterangan') rekapSiswa[nama].alfa++;
             });
 
-            // Ambil semua nama anak yang berhasil dihitung
             const daftarNama = Object.keys(rekapSiswa);
-
-            // Filter agar hanya memunculkan anak yang punya catatan ketidakhadiran saja (S/I/A > 0)
             const siswaAbsen = daftarNama.filter(nama => {
                 return rekapSiswa[nama].sakit > 0 || rekapSiswa[nama].izin > 0 || rekapSiswa[nama].alfa > 0;
             });
@@ -391,7 +420,6 @@
                 return;
             }
 
-            // Render/Tampilkan hasilnya ke tabel HTML
             siswaAbsen.forEach(nama => {
                 let tr = document.createElement("tr");
                 let s = rekapSiswa[nama].sakit;
