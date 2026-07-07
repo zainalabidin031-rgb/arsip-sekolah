@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mata di Tanah Melus - SDN Butoh 1</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --biru-matang: #0D47A1;
+            --biru-terang: #00B0FF;
+            --ungu-matang: #311B92;
+            --putih: #FFFFFF;
+            --abu-bg: #EBF3F9;
+            --teks-utama: #2D3748;
+        }
+
+        body {
+            background-color: var(--abu-bg);
+            color: var(--teks-utama);
+            padding: 15px 10px;
+            line-height: 1.6;
+        }
+
+        .page-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--putih);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 25px 20px;
+        }
+
+        /* --- HEADER CERITA --- */
+        .story-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .story-badge {
+            display: inline-block;
+            background: #EBF8FF;
+            color: #2B6CB0;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .story-header h1 {
+            font-size: 1.6rem;
+            color: var(--ungu-matang);
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .story-header .meta {
+            font-size: 0.85rem;
+            color: #718096;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        /* --- STYLING GAMBAR UTAMA --- */
+        .story-image-container {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .story-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* --- KONTEN TEKS --- */
+        .story-content {
+            border-top: 2px solid #E2E8F0;
+            padding-top: 20px;
+        }
+
+        .story-content p {
+            font-size: 0.95rem;
+            margin-bottom: 18px;
+            text-align: justify;
+            color: #334155;
+        }
+
+        .story-content p em {
+            font-style: italic;
+        }
+
+        /* --- TOMBOL NAVIGASI BAWAH --- */
+        .navigation-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 2px solid #E2E8F0;
+            padding-top: 20px;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+        .btn-nav {
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-back {
+            background-color: #EDF2F7;
+            color: #4A5568;
+        }
+
+        .btn-back:hover {
+            background-color: #E2E8F0;
+        }
+
+        .btn-quiz {
+            background-color: #E65100; /* Warna Oranye Kontras untuk Kuis */
+            color: var(--putih);
+        }
+
+        .btn-quiz:hover {
+            background-color: #BF360C;
+        }
+
+        /* --- RESPONSIVE DI HP --- */
+        @media (max-width: 480px) {
+            .story-header h1 { font-size: 1.3rem; }
+            .story-content p { font-size: 0.9rem; margin-bottom: 15px; }
+            .btn-nav { padding: 10px 15px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper">
+        
+        <div class="story-header">
+            <span class="story-badge">Petualangan & Budaya</span>
+            <h1>Mata di Tanah Melus</h1>
+            <div class="meta">Karya: Okky Madasari • Pendamping Literasi Kelas 5 SD</div>
+        </div>
+
+        <div class="story-image-container">
+            <img src="https://drive.google.com/thumbnail?id=1hx8cRuFeGx6yJl09vhhqSzsMvgj50W69&sz=w1200" alt="Gambar Cerita">
+        </div>
+
+        <div class="story-content">
+            <p><em>Mata di Tanah Melus</em> menceritakan kisah seorang anak perempuan bernama Mata yang pergi berlibur bersama keluarganya ke Pulau Timor, Nusa Tenggara Timur. Perjalanan itu awalnya terasa menyenangkan karena Mata ingin melihat tempat-tempat baru dan mengenal budaya yang berbeda.</p>
+
+            <p>Namun, saat berada di sana, Mata tiba-tiba terpisah dari keluarganya. Dalam kebingungannya, ia memasuki sebuah tempat yang asing dan bertemu dengan anak-anak dari Suku Melus. Mereka menyambut Mata dengan baik dan membantunya beradaptasi. Mata pun mulai mengenal kehidupan mereka yang sederhana, dekat dengan alam, serta sangat menghormati adat dan tradisi yang diwariskan oleh leluhur.</p>
+
+            <p>Selama tinggal bersama mereka, Mata belajar banyak hal. Ia melihat bagaimana masyarakat Melus hidup saling membantu, menjaga hutan, dan menghargai setiap makhluk hidup. Pengalaman itu membuat Mata sadar bahwa setiap daerah di Indonesia memiliki budaya yang unik dan patut dihormati.</p>
+
+            <p>Meskipun merasa nyaman bersama teman-teman barunya, Mata tetap ingin kembali bertemu keluarganya. Bersama anak-anak Melus, ia berusaha mencari jalan keluar dari berbagai rintangan yang dihadapinya. Dalam perjalanan itu, Mata belajar untuk tetap tenang, berani, dan percaya kepada orang-orang yang ingin menolongnya.</p>
+
+            <p>Setelah melalui berbagai pengalaman, Mata akhirnya berhasil kembali bertemu dengan keluarganya. Liburan yang semula hanya ingin diisi dengan jalan-jalan berubah menjadi sebuah petualangan yang memberikan banyak pelajaran berharga. Mata pulang dengan pengalaman baru, lebih menghargai keberagaman budaya Indonesia, lebih peduli terhadap alam, dan semakin memahami pentingnya persahabatan, keberanian, serta rasa saling menghormati.</p>
+
+            <p>Kisah <em>Mata di Tanah Melus</em> mengajarkan bahwa keberanian, rasa ingin tahu, dan sikap menghargai perbedaan dapat membawa seseorang memperoleh pengalaman yang sangat berharga. Selain itu, cerita ini juga mengingatkan pembaca bahwa kekayaan budaya dan alam Indonesia harus dijaga agar tetap lestari untuk generasi mendatang.</p>
+        </div>
+
+        <div class="navigation-box">
+            <a href="daftar-buku.html" class="btn-nav btn-back">
+                &larr; Daftar Buku
+            </a>
+            
+            <a href="uji-pemahaman-melus.html" class="btn-nav btn-quiz">
+                ✏️ Uji Pemahaman
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>
