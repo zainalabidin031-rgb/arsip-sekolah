@@ -65,51 +65,54 @@
         }
 
         async function muatDataNilai() {
-            try {
-                // Panggil API Apps Script dengan membawa nama sheet
-                const respon = await fetch(`${urlAPI}?sheet=${encodeURIComponent(namaMapel)}`);
-                const dataSiswa = await respon.json();
+    try {
+        // Tambahkan properti { mode: 'cors' } untuk izin keamanan browser
+        const respon = await fetch(`${urlAPI}?sheet=${encodeURIComponent(namaMapel)}`, {
+            method: 'GET',
+            mode: 'cors'
+        });
+        
+        const dataSiswa = await respon.json();
 
-                if (dataSiswa.error || dataSiswa.length === 0) {
-                    document.getElementById("table-body").innerHTML = `<tr><td colspan="100%" class="loading" style="color:red;">❌ Data Sheet tidak ditemukan atau kosong.</td></tr>`;
-                    return;
-                }
-
-                // Buat Header Tabel secara Otomatis berdasarkan kolom di Excel
-                const strukturKolom = Object.keys(dataSiswa[0]);
-                let headerHtml = "";
-                strukturKolom.forEach(kolom => {
-                    headerHtml += `<th>${kolom}</th>`;
-                });
-                document.getElementById("table-header").innerHTML = headerHtml;
-
-                // Isi Data Baris Tabel
-                let bodyHtml = "";
-                dataSiswa.forEach(siswa => {
-                    bodyHtml += `<tr>`;
-                    strukturKolom.forEach(kolom => {
-                        let nilaiCell = siswa[kolom] !== "" ? siswa[kolom] : "-";
-                        
-                        // Beri warna pembeda jika kolomnya JML atau RATA2
-                        if(kolom === "JML" || kolom === "RATA2") {
-                            // Jika rata-rata berupa angka desimal, kita bulatkan 1 angka di belakang koma
-                            if(kolom === "RATA2" && !isNaN(nilaiCell)) {
-                                nilaiCell = Number(nilaiCell).toFixed(1);
-                            }
-                            bodyHtml += `<td class="bg-highlight">${nilaiCell}</td>`;
-                        } else {
-                            bodyHtml += `<td>${nilaiCell}</td>`;
-                        }
-                    });
-                    bodyHtml += `</tr>`;
-                });
-                
-                document.getElementById("table-body").innerHTML = bodyHtml;
-
-            } catch (error) {
-                document.getElementById("table-body").innerHTML = `<tr><td colspan="100%" class="loading" style="color:red;">❌ Gagal memuat data. Pastikan status Deploy Apps Script sudah "Anyone".</td></tr>`;
-            }
+        if (dataSiswa.error || dataSiswa.length === 0) {
+            document.getElementById("table-body").innerHTML = `<tr><td colspan="100%" class="loading" style="color:red;">❌ Data Sheet tidak ditemukan atau kosong.</td></tr>`;
+            return;
         }
+
+        // Buat Header Tabel secara Otomatis
+        const strukturKolom = Object.keys(dataSiswa[0]);
+        let headerHtml = "";
+        strukturKolom.forEach(kolom => {
+            headerHtml += `<th>${kolom}</th>`;
+        });
+        document.getElementById("table-header").innerHTML = headerHtml;
+
+        // Isi Data Baris Tabel
+        let bodyHtml = "";
+        dataSiswa.forEach(siswa => {
+            bodyHtml += `<tr>`;
+            strukturKolom.forEach(kolom => {
+                let nilaiCell = siswa[kolom] !== "" ? siswa[kolom] : "-";
+                
+                if(kolom === "JML" || kolom === "RATA2") {
+                    if(kolom === "RATA2" && !isNaN(nilaiCell) && nilaiCell !== "-") {
+                        nilaiCell = Number(nilaiCell).toFixed(1);
+                    }
+                    bodyHtml += `<td class="bg-highlight">${nilaiCell}</td>`;
+                } else {
+                    bodyHtml += `<td>${nilaiCell}</td>`;
+                }
+            });
+            bodyHtml += `</tr>`;
+        });
+        
+        document.getElementById("table-body").innerHTML = bodyHtml;
+
+    } catch (error) {
+        console.error(error); // Untuk cek detail error di inspect element
+        document.getElementById("table-body").innerHTML = `<tr><td colspan="100%" class="loading" style="color:red;">❌ Gagal memuat data. Periksa kembali URL API di dalam kode HTML.</td></tr>`;
+    }
+}
     </script>
 </body>
 </html>
