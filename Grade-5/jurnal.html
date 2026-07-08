@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jurnal Harian Pembelajaran</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #EBF3F9; color: #2D3748; padding: 20px 10px; }
+        .wrapper { max-width: 600px; margin: 0 auto; background: #FFF; border-radius: 16px; padding: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+        h1 { font-size: 1.5rem; color: #311B92; font-weight: 800; text-align: center; margin-bottom: 20px; border-bottom: 2px solid #E2E8F0; padding-bottom: 10px; }
+        .jurnal-item { border-left: 4px solid #0D47A1; background: #F8FAFC; padding: 12px 15px; margin-bottom: 15px; border-radius: 0 12px 12px 0; }
+        .tanggal-jam { font-size: 0.8rem; font-weight: 700; color: #718096; margin-bottom: 4px; }
+        .mapel { font-size: 1.05rem; font-weight: 800; color: #0D47A1; margin-bottom: 6px; }
+        .materi { font-size: 0.95rem; font-weight: 600; color: #1A202C; margin-bottom: 4px; }
+        .catatan { font-size: 0.85rem; color: #4A5568; font-style: italic; background: #EDF2F7; padding: 6px 10px; border-radius: 6px; margin-top: 6px; }
+        .btn-admin { display: inline-flex; align-items: center; background: #4A5568; color: white; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-top: 10px; transition: 0.2s; }
+        .btn-admin:hover { background: #1A202C; }
+        .loading { text-align: center; color: #718096; font-size: 0.9rem; padding: 20px; }
+        .btn-kembali { display: block; text-align: center; text-decoration: none; background: #EDF2F7; color: #4A5568; padding: 10px; border-radius: 30px; font-weight: 700; font-size: 0.85rem; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <h1>📖 Jurnal Pembelajaran Kelas 5</h1>
+        <div id="konten-jurnal"><div class="loading">Memuat data jurnal harian...</div></div>
+        <a href="daftar-buku.html" class="btn-kembali"> Kembali ke Utama</a>
+    </div>
+
+    <script>
+        // MASUKKAN URL WEB APP GOOGLE APPS SCRIPT KAMU DI SINI
+        const urlAPI = "https://script.google.com/macros/s/AKfycbyOQA-L4BNcUaGj9LG2y-gOIKQUyp_sRHkggvvCdJtvwMgLQuZaXrZALfNAaBxn5RN11w/exec";
+
+        async function ambilJurnal() {
+            try {
+                const respon = await fetch(urlAPI);
+                const data = await respon.json();
+                const listJurnal = data.jurnal;
+                let html = "";
+
+                if(listJurnal.length === 0) {
+                    html = "<div class='loading'>Belum ada rekaman jurnal pembelajaran.</div>";
+                } else {
+                    // Tampilkan dari data teratas/terbaru
+                    listJurnal.reverse().forEach(item => {
+                        // Memformat tanggal mentah dari Google Sheets agar rapi dibaca
+                        let tglObj = new Date(item.Tanggal);
+                        let tglFormat = isNaN(tglObj) ? item.Tanggal : tglObj.toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
+
+                        html += `
+                            <div class="jurnal-item">
+                                <div class="tanggal-jam">📅 ${tglFormat} | ⏰ Jam Ke: ${item.Jam_Ke}</div>
+                                <div class="mapel">${item.Mapel}</div>
+                                <div class="materi">📌 Materi: ${item.Materi}</div>
+                                <div class="catatan">💬 Catatan: ${item.Catatan}</div>
+                        `;
+                        // Cek jika ada link RPP / Administrasi guru
+                        if(item.Link_Administrasi && item.Link_Administrasi.trim() !== "") {
+                            html += `<a href="${item.Link_Administrasi}" target="_blank" class="btn-admin">📂 Lihat RPP & Administrasi</a>`;
+                        }
+                        html += `</div>`;
+                    });
+                }
+                document.getElementById("konten-jurnal").innerHTML = html;
+            } catch (error) {
+                document.getElementById("konten-jurnal").innerHTML = "<div class='loading' style='color:red;'>Gagal memuat data jurnal harian.</div>";
+            }
+        }
+        ambilJurnal();
+    </script>
+</body>
+</html>
