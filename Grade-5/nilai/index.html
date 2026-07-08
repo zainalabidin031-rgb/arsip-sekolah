@@ -1,4 +1,162 @@
-<!-- CONTOH UNTUK BEBERAPA KOTAK MAPEL DI DALAM GRID -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Rekap Nilai Siswa - Kelas 5</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --bg-utama: #F0F4F8;
+            --teks-gelap: #1E293B;
+            --putih: #FFFFFF;
+        }
+
+        body {
+            background-color: var(--bg-utama);
+            color: var(--teks-gelap);
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* --- HEADER DASHBOARD --- */
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 1.8rem;
+            color: #0F172A;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .dashboard-header p {
+            font-size: 0.95rem;
+            color: #64748B;
+            font-weight: 500;
+        }
+
+        /* --- GRID KOTAK WARNA WARNI --- */
+        .grid-mapel {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        /* --- STYLING KOTAK / KARTU MAPEL --- */
+        .card-mapel {
+            background: var(--putih);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-mapel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Variasi Background Halus & Border Kiri Tebal */
+        .card-agama { border-left: 6px solid #4CAF50; background: linear-gradient(135deg, #FFFFFF, #E8F5E9); }
+        .card-pancasila { border-left: 6px solid #E53935; background: linear-gradient(135deg, #FFFFFF, #FFEBEE); }
+        .card-indonesia { border-left: 6px solid #FB8C00; background: linear-gradient(135deg, #FFFFFF, #FFF3E0); }
+        .card-matematika { border-left: 6px solid #1E88E5; background: linear-gradient(135deg, #FFFFFF, #E3F2FD); }
+        .card-ipas { border-left: 6px solid #00ACC1; background: linear-gradient(135deg, #FFFFFF, #E0F7FA); }
+        .card-pjok { border-left: 6px solid #8E24AA; background: linear-gradient(135deg, #FFFFFF, #F3E5F5); }
+        .card-seni { border-left: 6px solid #D81B60; background: linear-gradient(135deg, #FFFFFF, #FCE4EC); }
+        .card-inggris { border-left: 6px solid #3949AB; background: linear-gradient(135deg, #FFFFFF, #E8EAF6); }
+        .card-jawa { border-left: 6px solid #7CB342; background: linear-gradient(135deg, #FFFFFF, #F1F8E9); }
+        .card-digital { border-left: 6px solid #00897B; background: linear-gradient(135deg, #FFFFFF, #E0F2F1); }
+
+        .card-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .icon-box {
+            padding: 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mapel-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #334155;
+            line-height: 1.4;
+        }
+
+        .action-text {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #64748B;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: auto;
+        }
+
+        .card-mapel:hover .action-text {
+            color: #0F172A;
+        }
+
+        /* --- RESPONSIVE SCREEN --- */
+        @media (max-width: 600px) {
+            body { padding: 20px 10px; }
+            .dashboard-header h1 { font-size: 1.4rem; }
+            .grid-mapel { grid-template-columns: 1fr; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="dashboard-header">
+            <h1>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"></path></svg>
+                E-Rapor & Rekap Nilai Harian
+            </h1>
+            <p>Pilih Mata Pelajaran Untuk Melihat Nilai Ulangan Siswa Kelas 5</p>
+        </div>
+
+       <!-- CONTOH UNTUK BEBERAPA KOTAK MAPEL DI DALAM GRID -->
 <div class="grid-mapel">
 
     <!-- Contoh Pancasila -->
@@ -44,3 +202,8 @@
         <div class="action-text">Buka Rapor &rarr;</div>
     </a>
 </div>
+    
+    </div>
+
+</body>
+</html>
