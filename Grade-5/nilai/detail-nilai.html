@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekap Nilai Real-time</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #F0F4F8; color: #1E293B; padding: 20px 10px; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h1 { font-size: 1.4rem; color: #0F172A; font-weight: 800; margin-bottom: 5px; text-align: center; }
+        h2 { font-size: 1.1rem; color: #0D47A1; text-align: center; margin-bottom: 20px; font-weight: 700; }
+        
+        /* Pembungkus Tabel Biar Bisa Digeser di HP (Responsive) */
+        .table-responsive { width: 100%; overflow-x: auto; border: 1px solid #E2E8F0; border-radius: 8px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; min-width: 600px; }
+        th { background-color: #0D47A1; color: white; padding: 12px 10px; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; }
+        td { padding: 10px; border-bottom: 1px solid #E2E8F0; color: #334155; }
+        tr:nth-child(even) { background-color: #F8FAFC; }
+        tr:hover { background-color: #F1F5F9; }
+        
+        /* Highlight khusus kolom total & rata-rata */
+        .bg-highlight { font-weight: 700; background-color: #E3F2FD !important; color: #0D47A1; }
+        
+        .loading { text-align: center; padding: 30px; color: #64748B; font-weight: 600; }
+        .btn-kembali { display: inline-block; text-decoration: none; background: #64748B; color: white; padding: 8px 20px; border-radius: 30px; font-weight: 700; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="judul-mapel">Rekap Nilai Siswa</h1>
+        <h2>Mata Pelajaran Kelas 5 SD</h2>
+        
+        <div class="table-responsive">
+            <table id="tabel-nilai">
+                <thead>
+                    <tr id="table-header">
+                        <!-- Header akan diisi otomatis oleh JavaScript -->
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <tr>
+                        <td colspan="100%" class="loading">⏳ Menghubungkan ke Database...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <a href="index-nilai.html" class="btn-kembali">&larr; Kembali ke Dashboard</a>
+    </div>
+
+    <script>
+        // 1. PASTE URL WEB APP GOOGLE APPS SCRIPT KAMU DI SINI
+        const urlAPI = "URL_WEB_APP_KAMU_DISINI";
+
+        // 2. Ambil parameter nama mapel/sheet dari URL browser
+        const urlParams = new URLSearchParams(window.location.search);
+        const namaMapel = urlParams.get('mapel');
+        
+        if(namaMapel) {
+            document.getElementById('judul-mapel').innerText = "Rekap Nilai " + namaMapel;
+            muatDataNilai();
+        }
+
+        async function muatDataNilai() {
+            try {
+                // Panggil API Apps Script dengan membawa nama sheet
+                const respon = await fetch(`${urlAPI}?sheet=${encodeURIComponent(namaMapel)}`);
+                const dataSiswa = await respon.json();
+
+                if (dataSiswa.error || dataSiswa.length === 0) {
+                    document.getElementById("table-body").innerHTML = `<tr><td colspan="100%" class="loading" style="color:red;">❌ Data Sheet tidak ditemukan atau kosong.</td></tr>`;
+                    return;
+                }
+
+                // Buat Header Tabel secara Otomatis berdasarkan kolom di Excel
+                const strukturKolom = Object.keys(dataSiswa[0]);
+                let headerHtml = "";
+                strukturKolom.forEach(kolom => {
+                    headerHtml += `<th>${kolom}</th>`;
+                });
+                document.getElementById("table-header").innerHTML = headerHtml;
+
+                // Isi Data Baris Tabel
+                let bodyHtml = "";
+                dataSiswa.forEach(siswa => {
+                    bodyHtml += `<tr>`;
+                    strukturKolom.forEach(kolom => {
+                        let nilaiCell = siswa[kolom] !== "" ? siswa[kolom] : "-";
+                        
+                        // Beri warna pembeda jika kolomnya JML atau RATA2
+                        if(kolom === "JML" || kolom === "RATA2") {
+                            // Jika rata-rata berupa angka desimal, kita bulatkan 1 angka di belakang koma
+                            if(kolom === "RATA2" && !isNaN(nilaiCell)) {
+                                nilaiCell = Number(nilaiCell).toFixed(1);
+                            }
+                            bodyHtml += `<td class="bg-highlight">${nilaiCell}</td>`;
+                        } else {
+                            bodyHtml += `<td>${nilaiCell}</td>`;
+                        }
+                    });
+                    bodyHtml += `</tr>`;
+                });
+                
+                document.getElementById("table-body").innerHTML = bodyHtml;
+
+            } catch (error) {
+                document.getElementById("table-body").innerHTML = `<tr><td colspan="100%" class="loading" style="color:red;">❌ Gagal memuat data. Pastikan status Deploy Apps Script sudah "Anyone".</td></tr>`;
+            }
+        }
+    </script>
+</body>
+</html>
