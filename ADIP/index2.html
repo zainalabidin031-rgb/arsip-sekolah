@@ -1,0 +1,514 @@
+# Let's see what went wrong when replacing "Pertemuan" with "Ulangan" in the text.
+# The user probably made a typo or replaced a keyword critical to JavaScript or CSS.
+# Let's provide a modified script with "Pertemuan" safely replaced by "Ulangan" (e.g., "Total Ulangan").
+
+html_with_ulangan = """<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Perkembangan Belajar | Privat Adip</title>
+    <style>
+        :root {
+            --primary-color: #2b5c8f;
+            --secondary-color: #4a90e2;
+            --background-color: #f4f7f9;
+            --card-color: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+            --danger-color: #e74c3c;
+            --border-radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-main);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Header Profil */
+        .header-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 24px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 20px rgba(43, 92, 143, 0.15);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 12px;
+            font-weight: bold;
+        }
+
+        .student-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .student-meta {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* Ringkasan Statistik */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-card {
+            background-color: var(--card-color);
+            padding: 16px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            text-align: center;
+        }
+
+        .stat-val {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Filter Area */
+        .filter-container {
+            background-color: var(--card-color);
+            padding: 12px 16px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 14px;
+            border-radius: 10px;
+            border: 1px solid #dcdde1;
+            background-color: #f8f9fa;
+            color: var(--text-main);
+            outline: none;
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+        }
+
+        /* Daftar Nilai */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-left: 4px;
+            margin-bottom: -8px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .history-item {
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .history-details {
+            flex: 1;
+            padding-right: 12px;
+        }
+
+        .materi-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .sub-materi {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .timestamp {
+            font-size: 11px;
+            color: #a0aab2;
+            font-weight: 500;
+        }
+
+        .score-badge {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .score-high { background-color: rgba(46, 204, 113, 0.15); color: #27ae60; }
+        .score-mid { background-color: rgba(241, 196, 15, 0.15); color: #d35400; }
+        .score-low { background-color: rgba(231, 76, 60, 0.15); color: #c0392b; }
+
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 10px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Header Profil Anak -->
+        <div class="header-card">
+            <div class="avatar">👦</div>
+            <div class="student-name" id="studentName">Nama Murid</div>
+            <div class="student-meta" id="studentMeta">NISN: - | Kelas: -</div>
+        </div>
+
+        <!-- Filter Bulan -->
+        <div class="filter-container">
+            <label class="filter-label" for="monthFilter">📅 Pilih Periode Bulan:</label>
+            <select class="filter-select" id="monthFilter" onchange="filterByMonth()">
+                <option value="all">Semua Bulan (Tampilkan Semua)</option>
+            </select>
+        </div>
+
+        <!-- Ringkasan Statistik -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-val" id="avgScore">0</div>
+                <div class="stat-label">Rata-rata Nilai</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val" id="totalSessions">0</div>
+                <div class="stat-label">Total Ulangan</div>
+            </div>
+        </div>
+
+        <!-- Judul Riwayat -->
+        <div class="section-header">
+            <div class="section-title">Riwayat Perkembangan Belajar</div>
+        </div>
+
+        <!-- Daftar Nilai -->
+        <div class="history-list" id="historyList">
+            <div style="text-align: center; padding: 20px; color: var(--text-muted); font-size: 14px;">
+                Memuat data perkembangan...
+            </div>
+        </div>
+
+        <div class="footer">
+            Halaman ini terhubung langsung dengan Data_Adip (Data_Nilai)<br>
+            Dibuat khusus untuk kenyamanan Orang Tua Murid.
+        </div>
+
+    </div>
+
+    <script>
+        // MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwhR5KVSYvDY91iAQN5qBCTFFwg7oRzFFtkZXLs3ywgTn8CMEwhlcvQjg3PMgWhq75hag/exec";
+
+        let allMasterData = []; // Menyimpan semua data mentah dari spreadsheet
+        const namaBulanIndo = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+        // Fungsi pembantu untuk merapikan format tanggal/waktu jika mentah
+        function formatWaktuLokal(inputWaktu) {
+            if (!inputWaktu) return "-";
+            let stringWaktu = String(inputWaktu).trim();
+            
+            if (stringWaktu.includes('T') && stringWaktu.includes('Z')) {
+                try {
+                    let d = new Date(stringWaktu);
+                    if (!isNaN(d.getTime())) {
+                        let tgl = String(d.getDate()).padStart(2, '0');
+                        let bln = namaBulanIndo[d.getMonth()];
+                        let thn = d.getFullYear();
+                        let jam = String(d.getHours()).padStart(2, '0');
+                        let mnt = String(d.getMinutes()).padStart(2, '0');
+                        return `${tgl} ${bln} ${thn}, ${jam}:${mnt}`;
+                    }
+                } catch(e) {}
+            }
+            
+            // Mengubah format angka bulan (misal: "07") menjadi nama bulan ("Juli") jika teks biasa
+            for (let i = 0; i < namaBulanIndo.length; i++) {
+                let angkaBln = String(i + 1).padStart(2, '0');
+                if (stringWaktu.includes(`-${angkaBln}-`)) {
+                    stringWaktu = stringWaktu.replace(`-${angkaBln}-`, ` ${namaBulanIndo[i]} `);
+                }
+            }
+            return stringWaktu;
+        }
+
+        // Fungsi mengidentifikasi Key/Kolom secara fleksibel (tidak sensitif huruf besar/kecil)
+        function getProperti(obj, keyName) {
+            let targetKey = keyName.toLowerCase();
+            for (let k in obj) {
+                if (k.toLowerCase() === targetKey) return obj[k];
+            }
+            return undefined;
+        }
+
+        // Membuat daftar pilihan bulan secara dinamis berdasarkan data yang ada
+        function updateDropdownFilter(data) {
+            const dropdown = document.getElementById('monthFilter');
+            dropdown.innerHTML = '<option value="all">Semua Bulan (Tampilkan Semua)</option>';
+            
+            let kumpulanBulan = new Set();
+            let urutanBulan = [];
+
+            data.forEach(item => {
+                let wkt = getProperti(item, 'timestamp');
+                if (!wkt) return;
+                
+                let dateObj;
+                if (String(wkt).includes('T')) {
+                    dateObj = new Date(wkt);
+                } else {
+                    // Coba baca format teks Indonesia / standar
+                    let bagian = String(wkt).split(/[\s,/-]+/);
+                    if (bagian.length >= 3) {
+                        let thn = bagian.find(b => b.length === 4);
+                        if (thn) {
+                            // Deteksi nama bulan teks
+                            let indeksBln = namaBulanIndo.findIndex(b => String(wkt).toLowerCase().includes(b.toLowerCase()));
+                            if (indeksBln !== -1) {
+                                dateObj = new Date(parseInt(thn), indeksBln, 1);
+                            }
+                        }
+                    }
+                }
+
+                if (dateObj && !isNaN(dateObj.getTime())) {
+                    let idBulan = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}`;
+                    let labelBulan = `${namaBulanIndo[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
+                    
+                    if (!kumpulanBulan.has(idBulan)) {
+                        kumpulanBulan.add(idBulan);
+                        urutanBulan.push({ id: idBulan, label: labelBulan });
+                    }
+                }
+            });
+
+            // Urutkan bulan terbaru di atas
+            urutanBulan.sort((a, b) => b.id.localeCompare(a.id));
+
+            urutanBulan.forEach(b => {
+                let opt = document.createElement('option');
+                opt.value = b.id;
+                opt.innerText = b.label;
+                dropdown.appendChild(opt);
+            });
+        }
+
+        // Fungsi menyaring data ketika opsi dropdown bulan diganti
+        function filterByMonth() {
+            const selectedMonth = document.getElementById('monthFilter').value;
+            if (selectedMonth === 'all') {
+                renderVisual(allMasterData);
+                return;
+            }
+
+            let dataDisaring = allMasterData.filter(item => {
+                let wkt = getProperti(item, 'timestamp');
+                if (!wkt) return false;
+
+                let dateObj;
+                if (String(wkt).includes('T')) {
+                    dateObj = new Date(wkt);
+                } else {
+                    let bagian = String(wkt).split(/[\s,/-]+/);
+                    let thn = bagian.find(b => b.length === 4);
+                    let indeksBln = namaBulanIndo.findIndex(b => String(wkt).toLowerCase().includes(b.toLowerCase()));
+                    if (thn && indeksBln !== -1) {
+                        dateObj = new Date(parseInt(thn), indeksBln, 1);
+                    }
+                }
+
+                if (dateObj && !isNaN(dateObj.getTime())) {
+                    let idBulan = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}`;
+                    return idBulan === selectedMonth;
+                }
+                return false;
+            });
+
+            renderVisual(dataDisaring);
+        }
+
+        // Fungsi menggambar elemen ke layar
+        function renderVisual(data) {
+            const listContainer = document.getElementById('historyList');
+            
+            if (!data || data.length === 0) {
+                listContainer.innerHTML = `
+                    <div style="text-align: center; padding: 30px; color: var(--text-muted); font-size: 14px; background: white; border-radius:16px;">
+                        Belum ada riwayat belajar pada periode bulan ini.
+                    </div>
+                `;
+                document.getElementById('avgScore').innerText = "-";
+                document.getElementById('totalSessions').innerText = "0 x";
+                return;
+            }
+
+            // Atur profil murid berdasarkan data pertama yang ditemukan
+            let namaMurid = getProperti(data[0], 'nama') || "Data Murid";
+            let nisnMurid = getProperti(data[0], 'nisn') || "-";
+            let kelasMurid = getProperti(data[0], 'kelas') || "-";
+
+            document.getElementById('studentName').innerText = namaMurid;
+            document.getElementById('studentMeta').innerText = `NISN: ${nisnMurid} | Kelas: ${kelasMurid}`;
+
+            // Hitung statistik khusus untuk data yang sedang aktif/difilter
+            const total = data.length;
+            const sum = data.reduce((acc, curr) => {
+                let nilaiSatu = parseFloat(getProperti(curr, 'nilai')) || 0;
+                return acc + nilaiSatu;
+            }, 0);
+            const avg = (sum / total).toFixed(1);
+
+            document.getElementById('avgScore').innerText = avg;
+            document.getElementById('totalSessions').innerText = `${total} x`;
+
+            // Bersihkan daftar lama
+            listContainer.innerHTML = '';
+
+            // Tampilkan baris data
+            data.forEach(item => {
+                let nilaiAngka = parseFloat(getProperti(item, 'nilai')) || 0;
+                let materi = getProperti(item, 'materi') || "-";
+                let subMateri = getProperti(item, 'sub_materi') || "-";
+                let wktMentah = getProperti(item, 'timestamp');
+
+                let scoreClass = 'score-low';
+                if (nilaiAngka >= 85) scoreClass = 'score-high';
+                else if (nilaiAngka >= 70) scoreClass = 'score-mid';
+
+                const itemHtml = `
+                    <div class="history-item">
+                        <div class="history-details">
+                            <div class="materi-title">${materi}</div>
+                            <div class="sub-materi">${subMateri}</div>
+                            <div class="timestamp">📅 ${formatWaktuLokal(wktMentah)}</div>
+                        </div>
+                        <div class="score-badge ${scoreClass}">
+                            ${nilaiAngka}
+                        </div>
+                    </div>
+                `;
+                listContainer.innerHTML += itemHtml;
+            });
+        }
+
+        // Mengambil data utama dari Google Spreadsheet
+        async function loadDataUtama() {
+            // Contoh data visual sementara jika belum dipasang URL Web App asli
+            const mockData = [
+                { timestamp: "2026-07-09 14:00", nisn: "12345678", nama: "Aditya Perkasa", kelas: "5 SD", materi: "Matematika", sub_materi: "Pecahan Senilai", nilai: 95 },
+                { timestamp: "2026-07-02 11:00", nisn: "12345678", nama: "Aditya Perkasa", kelas: "5 SD", materi: "IPA", sub_materi: "Siklus Air", nilai: 88 },
+                { timestamp: "2026-06-15 10:30", nisn: "12345678", nama: "Aditya Perkasa", kelas: "5 SD", materi: "Matematika", sub_materi: "Perkalian Desimal", nilai: 65 }
+            ];
+
+            if (WEB_APP_URL.startsWith("SILAHKAN")) {
+                allMasterData = mockData;
+                updateDropdownFilter(allMasterData);
+                renderVisual(allMasterData);
+                return;
+            }
+
+            try {
+                const response = await fetch(WEB_APP_URL);
+                allMasterData = await response.json();
+                
+                updateDropdownFilter(allMasterData);
+                renderVisual(allMasterData);
+            } catch (error) {
+                console.error("Gagal memuat:", error);
+                document.getElementById('historyList').innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: var(--danger-color); font-size: 13px;">
+                        Gagal mengambil data live dari spreadsheet. Pastikan URL Web App Apps Script sudah benar dan statusnya sudah dideploy ke 'Anyone'.
+                    </div>
+                `;
+            }
+        }
+
+        window.onload = loadDataUtama;
+    </script>
+</body>
+</html>
+"""
+
+with open("dashboard_laporan_ulangan.html", "w", encoding="utf-8") as f:
+    f.write(html_with_ulangan)
+print("Sukses")
