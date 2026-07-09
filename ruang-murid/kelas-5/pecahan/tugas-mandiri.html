@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Mandiri Matematika Kelas 5 SD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #F0F7FF; color: #1E293B; padding: 20px 10px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px 25px; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.05); }
+        
+        /* Header */
+        .header { text-align: center; margin-bottom: 30px; background: linear-gradient(135deg, #0D47A1, #1E88E5); color: white; padding: 25px; border-radius: 16px; }
+        .header h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 5px; }
+
+        h2 { color: #0D47A1; font-size: 1.3rem; margin: 25px 0 15px 0; border-bottom: 3px solid #E3F2FD; padding-bottom: 5px; }
+        p.Urutan { font-size: 0.95rem; color: #64748B; margin-bottom: 20px; font-weight: 500; }
+        
+        /* Math Fraction Styling */
+        .pecahan { display: inline-block; vertical-align: middle; text-align: center; font-weight: 700; padding: 0 2px; color: #0D47A1; }
+        .pecahan span { display: block; }
+        .pecahan .pembilang { border-bottom: 2px solid #1E293B; padding-bottom: 1px; font-size: 0.9rem; }
+        .pecahan .penyebut { padding-top: 1px; font-size: 0.9rem; }
+
+        /* Badge Model Soal */
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; }
+        .badge-biasa { background-color: #E2E8F0; color: #475569; }
+        .badge-cerita { background-color: #E8F5E9; color: #2E7D32; }
+        .badge-logika { background-color: #FFF3E0; color: #E65100; }
+
+        /* Soal List */
+        .soal-list { list-style: none; counter-reset: soal-counter; }
+        .soal-item { counter-increment: soal-counter; background: #FFF; border: 2px solid #E2E8F0; border-radius: 12px; padding: 20px; margin-bottom: 15px; display: flex; align-items: flex-start; gap: 15px; }
+        .soal-item::before { content: counter(soal-counter); background: #0D47A1; color: white; font-weight: 700; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.95rem; }
+        .soal-content { width: 100%; }
+        .soal-text { font-size: 1rem; font-weight: 600; line-height: 1.5; color: #1E293B; }
+
+        /* Navigasi Tombol */
+        .nav-buttons { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; border-top: 2px solid #F1F5F9; padding-top: 20px; }
+        .btn { display: inline-block; text-decoration: none; padding: 12px 28px; border-radius: 30px; font-weight: 700; font-size: 0.95rem; transition: 0.2s; cursor: pointer; border: none; }
+        .btn-kembali { background: #64748B; color: white; }
+        .btn-kembali:hover { background: #475569; }
+        .btn-lanjut { background: #0D47A1; color: white; }
+        .btn-lanjut:hover { background: #1E3A8A; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>📝 LEMBAR TUGAS MANDIRI</h1>
+            <p style="color: #FFD700; font-weight: bold;">Evaluasi Matematika Umum — Kelas 5 SD</p>
+        </div>
+
+        <p class="Urutan">Kerjakan soal-soal di bawah ini dengan menuliskan langkah pengerjaannya secara lengkap di buku tugasmu!</p>
+
+        <ul class="soal-list">
+            
+            <h2>I. Bilangan Cacah & Operasi Hitung</h2>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-biasa">Soal Biasa</span>
+                    <div class="soal-text">Hasil dari 4.250 + 12.840 &minus; 5.175 adalah .....</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-biasa">Soal Biasa</span>
+                    <div class="soal-text">Hitunglah hasil operasi perkalian dan pembagian berikut: 250 &times; 12 &divide; 5 = .....</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-biasa">Soal Biasa</span>
+                    <div class="soal-text">Berapakah hasil dari 1.200 + 320 &times; 4 &minus; 150? (Ingat urutan operasi hitung!).</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-cerita">Soal Cerita</span>
+                    <div class="soal-text">Sebuah toko alat tulis memiliki persediaan 45 dus buku tulis. Jika setiap dus berisi 24 buku, dan hari ini terjual sebanyak 185 buku, berapakah sisa buku tulis di toko sekarang?</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-cerita">Soal Cerita</span>
+                    <div class="soal-text">Pak RW membagikan bantuan sosial berupa 1.500 kg beras kepada 75 keluarga secara merata. Berapa kg beras yang diterima oleh masing-masing keluarga?</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-logika">Logika</span>
+                    <div class="soal-text">Aku adalah sebuah bilangan cacah. Jika aku dikalikan 8 lalu ditambah 100, hasilnya adalah 500. Bilangan berapakah aku?</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-logika">Logika</span>
+                    <div class="soal-text">Gunakan angka 3, 4, dan 5 masing-masing hanya sekali untuk membentuk operasi hitung (boleh pakai tambah, kurang, atau kali) agar menghasilkan nilai terbesar yang mungkin! Berapa hasilnya?</div>
+                </div>
+            </li>
+
+
+            <h2>II. KPK & FPB</h2>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-biasa">Soal Biasa</span>
+                    <div class="soal-text">Kelipatan Persekutuan Terkecil (KPK) dari bilangan 12 dan 18 adalah .....</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-biasa">Soal Biasa</span>
+                    <div class="soal-text">Faktor Persekutuan Terbesar (FPB) dari bilangan 24 dan 36 adalah .....</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-biasa">Soal Biasa</span>
+                    <div class="soal-text">Carilah nilai KPK dan FPB sekaligus dari kelompok bilangan berikut: 15, 20, dan 30.</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-cerita">Soal Cerita</span>
+                    <div class="soal-text">Lampu A menyala setiap 8 detik sekali, sedangkan lampu B menyala setiap 12 detik sekali. Jika kedua lampu menyala bersamaan pada detik ke-0, pada detik ke berapakah kedua lampu akan menyala bersama untuk kedua kalinya?</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-cerita">Soal Cerita</span>
+                    <div class="soal-text">Ibu memiliki 20 kue sus dan 30 kue lemper. Kue-kue tersebut akan dimasukkan ke dalam beberapa wadah plastik secara merata tanpa ada sisa. Berapa jumlah wadah plastik terbanyak yang harus Ibu siapkan?</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-logika">Logika</span>
+                    <div class="soal-text">Dua buah bilangan memiliki FPB = 6 dan KPK = 36. Jika bilangan pertama adalah 12, berapakah bilangan yang kedua?</div>
+                </div>
+            </li>
+
+
+            <h2>III. Penjumlahan & Pengurangan Pecahan</h2>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-biasa">Soal Biasa</span>
+                    <div class="soal-text">Hitunglah hasil dari: 
+                        <div class="pecahan"><span class="pembilang">2</span><span class="penyebut">5</span></div> + 
+                        <div class="pecahan"><span class="pembilang">1</span><span class="penyebut">4</span></div> = .....
+                    </div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-biasa">Soal Biasa</span>
+                    <div class="soal-text">Berapakah hasil pengurangan dari: 
+                        <div class="pecahan"><span class="pembilang">5</span><span class="penyebut">6</span></div> &minus; 
+                        <div class="pecahan"><span class="pembilang">2</span><span class="penyebut">3</span></div> = .....
+                    </div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-biasa">Soal Biasa</span>
+                    <div class="soal-text">Tentukan nilai pecahan hasil dari: 
+                        <div class="pecahan"><span class="pembilang">1</span><span class="penyebut">2</span></div> + 
+                        <div class="pecahan"><span class="pembilang">1</span><span class="penyebut">3</span></div> &minus; 
+                        <div class="pecahan"><span class="pembilang">1</span><span class="penyebut">4</span></div> = .....
+                    </div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-cerita">Soal Cerita</span>
+                    <div class="soal-text">Ali memiliki tali sepanjang <div class="pecahan"><span class="pembilang">3</span><span class="penyebut">4</span></div> meter. Dia menggunakan tali tersebut sepanjang <div class="pecahan"><span class="pembilang">1</span><span class="penyebut">3</span></div> meter untuk mengikat paket barang. Berapa meter sisa tali Ali sekarang?</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-cerita">Soal Cerita</span>
+                    <div class="soal-text">Di dalam wadah terdapat gula sebanyak <div class="pecahan"><span class="pembilang">1</span><span class="penyebut">2</span></div> kg. Kakak menambahkan lagi <div class="pecahan"><span class="pembilang">5</span><span class="penyebut">8</span></div> kg gula ke dalam wadah tersebut. Berapa total berat gula di dalam wadah sekarang?</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-logika">Logika</span>
+                    <div class="soal-text">Sebuah botol minum berisi air penuh. Setelah diminum setengahnya, lalu diminum lagi sebanyak <div class="pecahan"><span class="pembilang">1</span><span class="penyebut">5</span></div> bagian, berapa bagian sisa air yang masih ada di dalam botol?</div>
+                </div>
+            </li>
+
+
+            <h2>IV. Perkalian & Pembagian Pecahan</h2>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-biasa">Soal Biasa</span>
+                    <div class="soal-text">Hasil perkalian dari: 
+                        <div class="pecahan"><span class="pembilang">3</span><span class="penyebut">4</span></div> &times; 
+                        <div class="pecahan"><span class="pembilang">2</span><span class="penyebut">5</span></div> = ..... (Tuliskan dalam bentuk paling sederhana).
+                    </div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-biasa">Soal Biasa</span>
+                    <div class="soal-text">Hasil pembagian dari: 
+                        <div class="pecahan"><span class="pembilang">2</span><span class="penyebut">7</span></div> &divide; 
+                        <div class="pecahan"><span class="pembilang">4</span><span class="penyebut">5</span></div> = .....
+                    </div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-biasa">Soal Biasa</span>
+                    <div class="soal-text">Hitunglah hasil operasi campuran pecahan berikut: 
+                        <div class="pecahan"><span class="pembilang">1</span><span class="penyebut">2</span></div> &times; 
+                        <div class="pecahan"><span class="pembilang">4</span><span class="penyebut">5</span></div> &divide; 
+                        <div class="pecahan"><span class="pembilang">2</span><span class="penyebut">3</span></div> = .....
+                    </div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-cerita">Soal Cerita</span>
+                    <div class="soal-text">Seorang petani memiliki lahan seluas 20 hektar. Jika <div class="pecahan"><span class="pembilang">1</span><span class="penyebut">4</span></div> bagian dari lahan tersebut ditanami jagung, berapakah luas lahan yang ditanami jagung dalam satuan hektar?</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-cerita">Soal Cerita</span>
+                    <div class="soal-text">Ibu memotong sebuah kue bolu besar menjadi <div class="pecahan"><span class="pembilang">3</span><span class="penyebut">4</span></div> bagian. Kue tersebut kemudian akan dibagikan merata kepada 3 orang anaknya. Berapa bagian kue yang didapatkan setiap anak?</div>
+                </div>
+            </li>
+
+            <li class="soal-item">
+                <div class="soal-content">
+                    <span class="badge badge-logika">Logika</span>
+                    <div class="soal-text">Jika suatu pecahan dikalikan dengan dikalikan dengan <div class="pecahan"><span class="pembilang">2</span><span class="penyebut">3</span></div> menghasilkan nilai <div class="pecahan"><span class="pembilang">4</span><span class="penyebut">9</span></div>, tentukan pecahan awal tersebut!</div>
+                </div>
+            </li>
+
+        </ul>
+
+        <div class="nav-buttons">
+            <a href="index.html" class="btn btn-kembali">&larr; Kembali</a>
+            <a href="penyelesaian.html" class="btn btn-lanjut">Lanjut &rarr;</a>
+        </div>
+    </div>
+
+</body>
+</html>
