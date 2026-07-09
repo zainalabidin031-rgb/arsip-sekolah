@@ -1,8 +1,4 @@
-# Let's see what went wrong when replacing "Pertemuan" with "Ulangan" in the text.
-# The user probably made a typo or replaced a keyword critical to JavaScript or CSS.
-# Let's provide a modified script with "Pertemuan" safely replaced by "Ulangan" (e.g., "Total Ulangan").
-
-html_with_ulangan = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -508,8 +504,3 @@ html_with_ulangan = """<!DOCTYPE html>
     </script>
 </body>
 </html>
-"""
-
-with open("dashboard_laporan_ulangan.html", "w", encoding="utf-8") as f:
-    f.write(html_with_ulangan)
-print("Sukses")
