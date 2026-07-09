@@ -1,0 +1,334 @@
+!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Perkembangan Belajar | Privat Adip</title>
+    <style>
+        :root {
+            --primary-color: #2b5c8f;
+            --secondary-color: #4a90e2;
+            --background-color: #f4f7f9;
+            --card-color: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+            --danger-color: #e74c3c;
+            --border-radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-main);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px; /* Dioptimalkan khusus untuk tampilan HP */
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Header Profil */
+        .header-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 24px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 20px rgba(43, 92, 143, 0.15);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 12px;
+            font-weight: bold;
+        }
+
+        .student-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .student-meta {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 400;
+        }
+
+        /* Ringkasan Statistik */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-card {
+            background-color: var(--card-color);
+            padding: 16px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .stat-val {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Daftar Nilai / Timeline */
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-left: 4px;
+            margin-bottom: -8px;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .history-item {
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid var(--secondary-color);
+            transition: transform 0.2s;
+        }
+
+        .history-item:active {
+            transform: scale(0.98);
+        }
+
+        .history-details {
+            flex: 1;
+            padding-right: 12px;
+        }
+
+        .materi-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .sub-materi {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .timestamp {
+            font-size: 10px;
+            color: #a0aab2;
+        }
+
+        .score-badge {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .score-high {
+            background-color: rgba(46, 204, 113, 0.15);
+            color: #27ae60;
+        }
+
+        .score-mid {
+            background-color: rgba(241, 196, 15, 0.15);
+            color: #d35400;
+        }
+
+        .score-low {
+            background-color: rgba(231, 76, 60, 0.15);
+            color: #c0392b;
+        }
+
+        /* InfoFooter */
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 10px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Header Profil Anak -->
+        <div class="header-card">
+            <div class="avatar">👦</div>
+            <div class="student-name" id="studentName">Nama Murid</div>
+            <div class="student-meta" id="studentMeta">NISN: - | Kelas: -</div>
+        </div>
+
+        <!-- Ringkasan Statistik -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-val" id="avgScore">0</div>
+                <div class="stat-label">Rata-rata Nilai</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val" id="totalSessions">0</div>
+                <div class="stat-label">Total Pertemuan</div>
+            </div>
+        </div>
+
+        <!-- Judul Riwayat -->
+        <div class="section-title">Riwayat Perkembangan Belajar</div>
+
+        <!-- Daftar Nilai (Dinamis via Google Sheets) -->
+        <div class="history-list" id="historyList">
+            <!-- Sinyal Loading awal -->
+            <div style="text-align: center; padding: 20px; color: var(--text-muted); font-size: 14px;">
+                Memuat data perkembangan...
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Halaman ini terhubung langsung dengan Data_Adip (Data_Nilai)<br>
+            Dibuat khusus untuk kenyamanan Orang Tua Murid.
+        </div>
+
+    </div>
+
+    <script>
+        // PANDUAN INTEGRASI:
+        // Ganti URL di bawah ini dengan URL Google Apps Script Web App Anda
+        // yang mengambil data dari spreadsheet "Data_Adip" sheet "Data_Nilai"
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwhR5KVSYvDY91iAQN5qBCTFFwg7oRzFFtkZXLs3ywgTn8CMEwhlcvQjg3PMgWhq75hag/exec";
+
+        // MOCK DATA (Contoh tampilan jika belum dihubungkan ke Google Sheets)
+        const mockData = [
+            { TimeStamp: "2026-07-09 14:00", NISN: "12345678", Nama: "Aditya Perkasa", Kelas: "5 SD", Materi: "Matematika", Sub_Materi: "Pecahan Senilai", Nilai: 95 },
+            { TimeStamp: "2026-07-07 14:00", NISN: "12345678", Nama: "Aditya Perkasa", Kelas: "5 SD", Materi: "Matematika", Sub_Materi: "Perkalian Desimal", Nilai: 88 },
+            { TimeStamp: "2026-07-02 14:00", NISN: "12345678", Nama: "Aditya Perkasa", Kelas: "5 SD", Materi: "IPA", Sub_Materi: "Siklus Air", Nilai: 72 }
+        ];
+
+        function renderData(data) {
+            if (!data || data.length === 0) return;
+
+            // Isi data profil (mengambil dari baris pertama)
+            document.getElementById('studentName').innerText = data[0].Nama;
+            document.getElementById('studentMeta').innerText = `NISN: ${data[0].NISN} | Kelas: ${data[0].Kelas}`;
+
+            // Hitung statistik
+            const total = data.length;
+            const sum = data.reduce((acc, curr) => acc + Number(curr.Nilai), 0);
+            const avg = (sum / total).toFixed(1);
+
+            document.getElementById('avgScore').innerText = avg;
+            document.getElementById('totalSessions').innerText = `${total} x`;
+
+            // Render list nilai
+            const listContainer = document.getElementById('historyList');
+            listContainer.innerHTML = '';
+
+            data.forEach(item => {
+                let scoreClass = 'score-low';
+                if (item.Nilai >= 85) scoreClass = 'score-high';
+                else if (item.Nilai >= 70) scoreClass = 'score-mid';
+
+                const itemHtml = `
+                    <div class="history-item">
+                        <div class="history-details">
+                            <div class="materi-title">${item.Materi}</div>
+                            <div class="sub-materi">${item.Sub_Materi}</div>
+                            <div class="timestamp">📅 ${item.TimeStamp}</div>
+                        </div>
+                        <div class="score-badge ${scoreClass}">
+                            ${item.Nilai}
+                        </div>
+                    </div>
+                `;
+                listContainer.innerHTML += itemHtml;
+            });
+        }
+
+        // Fungsi fetch data asli dari Google Sheets (jika URL sudah diisi)
+        async function loadSheetData() {
+            if (WEB_APP_URL.startsWith("SILAHKAN")) {
+                // Jika belum setup Apps Script, tampilkan mock data agar langsung bisa dicoba visualnya
+                renderData(mockData);
+                return;
+            }
+
+            try {
+                const response = await fetch(WEB_APP_URL);
+                const data = await response.json();
+                renderData(data);
+            } catch (error) {
+                console.error("Gagal mengambil data:", error);
+                document.getElementById('historyList').innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: var(--danger-color); font-size: 13px;">
+                        Gagal memuat data live. Pastikan URL Web App Apps Script sudah benar.
+                    </div>
+                `;
+            }
+        }
+
+        // Jalankan saat halaman dibuka
+        window.onload = loadSheetData;
+    </script>
+</body>
+</html>
