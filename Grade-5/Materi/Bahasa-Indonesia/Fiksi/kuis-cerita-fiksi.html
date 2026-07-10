@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Bahasa Indonesia: Cerita Fiksi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #FFF5F5; color: #1E293B; padding: 15px 10px; line-height: 1.6; }
+        .container { max-width: 650px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(153, 27, 27, 0.05); }
+        
+        /* Header Tugas */
+        .header-tugas { border-bottom: 3px solid #DC2626; padding-bottom: 10px; margin-bottom: 20px; }
+        .header-tugas h1 { font-size: 1.4rem; font-weight: 800; color: #991B1B; text-transform: uppercase; }
+        .header-tugas p { font-size: 1rem; font-weight: 600; color: #475569; }
+
+        /* Form Identitas */
+        .identity-box { background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 15px; border-radius: 12px; margin-bottom: 25px; }
+        .input-row { display: flex; align-items: center; margin-bottom: 12px; gap: 10px; }
+        .input-row:last-child { margin-bottom: 0; }
+        .input-row label { font-size: 0.9rem; font-weight: 700; color: #334155; width: 110px; flex-shrink: 0; }
+        .input-row input { flex: 1; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.9rem; background-color: #FFFFFF; }
+        .input-row input:focus { outline: none; border-color: #FCA5A5; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1); }
+
+        /* Petunjuk */
+        .petunjuk-box { background-color: #FEF2F2; border-left: 4px solid #DC2626; padding: 12px 15px; border-radius: 0 8px 8px 0; margin-bottom: 25px; font-size: 0.85rem; color: #7F1D1D; }
+        .petunjuk-box strong { display: block; margin-bottom: 5px; font-size: 0.9rem; }
+        .petunjuk-box ol { margin-left: 15px; }
+        .petunjuk-box li { margin-bottom: 3px; }
+
+        /* Judul Bagian Soal */
+        .section-title { font-size: 1.2rem; font-weight: 700; color: #1E293B; margin-bottom: 5px; border-top: 1px solid #E2E8F0; padding-top: 20px; }
+        .section-subtitle { font-size: 0.9rem; font-weight: 600; color: #64748B; margin-bottom: 20px; font-style: italic; }
+
+        /* Kotak Soal */
+        .soal-card { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #F1F5F9; }
+        .soal-text { font-size: 0.95rem; font-weight: 700; color: #1E293B; margin-bottom: 12px; display: flex; gap: 8px; }
+        
+        /* Pilihan Jawaban */
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border: 1px solid #E2E8F0; border-radius: 8px; cursor: pointer; transition: 0.2s; background-color: #FFFDFD; }
+        .option-item:hover { border-color: #FCA5A5; background-color: #FEF2F2; }
+        .option-item input[type="radio"] { margin-top: 4px; width: 16px; height: 16px; accent-color: #DC2626; cursor: pointer; flex-shrink: 0; }
+        .option-text { font-size: 0.9rem; color: #334155; line-height: 1.4; }
+
+        /* Tombol Navigasi Bawah */
+        .navigation-tools { display: flex; justify-content: space-between; gap: 15px; margin-top: 35px; border-top: 2px solid #F1F5F9; padding-top: 20px; }
+        .btn-nav { flex: 1; text-decoration: none; padding: 12px 20px; font-size: 0.95rem; font-weight: 700; border-radius: 10px; text-align: center; border: none; cursor: pointer; transition: 0.2s; }
+        
+        .btn-kembali { background-color: #E2E8F0; color: #475569; }
+        .btn-kembali:hover { background-color: #CBD5E1; }
+        
+        .btn-submit { background: linear-gradient(135deg, #991B1B, #DC2626); color: white; box-shadow: 0 4px 10px rgba(220, 38, 38, 0.15); }
+        .btn-submit:hover { background: #991B1B; box-shadow: 0 6px 14px rgba(153, 27, 27, 0.25); }
+
+        @media (max-width: 480px) {
+            .input-row { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .input-row label { width: 100%; }
+            .btn-nav { padding: 10px 15px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER UTAMA -->
+        <div class="header-tugas">
+            <h1>Tugas Bahasa Indonesia</h1>
+            <p>Materi: Cerita Fiksi</p>
+        </div>
+
+        <!-- IDENTITAS SISWA -->
+        <div class="identity-box">
+            <div class="input-row">
+                <label for="nama">Nama Murid:</label>
+                <input type="text" id="nama" placeholder="Tulis nama lengkap">
+            </div>
+            <div class="input-row">
+                <label for="kelas">Kelas:</label>
+                <input type="text" id="kelas" value="V (Lima)" disabled>
+            </div>
+            <div class="input-row">
+                <label for="absen">No. Absen:</label>
+                <input type="text" id="absen" placeholder="Contoh: 12">
+            </div>
+            <div class="input-row">
+                <label for="tanggal">Hari / Tanggal:</label>
+                <input type="text" id="tanggal" placeholder="Contoh: Senin, 13 Juli 2026">
+            </div>
+        </div>
+
+        <!-- PETUNJUK PENGERJAAN -->
+        <div class="petunjuk-box">
+            <strong>Petunjuk:</strong>
+            <ol>
+                <li>Bacalah setiap soal dengan teliti.</li>
+                <li>Pilihlah jawaban yang paling tepat pada soal pilihan ganda.</li>
+                <li>Isilah soal isian singkat dengan jawaban yang benar.</li>
+                <li>Kerjakan soal membuat cerita fiksi dengan menggunakan bahasamu sendiri.</li>
+                <li>Periksa kembali jawaban sebelum dikumpulkan.</li>
+            </ol>
+        </div>
+
+        <!-- BAGIAN A: PILIHAN GANDA -->
+        <div class="section-title">A. Pilihan Ganda</div>
+        <div class="section-subtitle">Pilih lah jawaban yang paling tepat!</div>
+
+        <form id="quizForm">
+            <!-- SOAL 1 -->
+            <div class="soal-card">
+                <div class="soal-text"><span>1.</span> Cerita yang dibuat berdasarkan imajinasi atau khayalan pengarang disebut ...</div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q1" value="A"><span class="option-text">A. Cerita sejarah</span></label>
+                    <label class="option-item"><input type="radio" name="q1" value="B"><span class="option-text">B. Cerita fiksi</span></label>
+                    <label class="option-item"><input type="radio" name="q1" value="C"><span class="option-text">C. Berita</span></label>
+                    <label class="option-item"><input type="radio" name="q1" value="D"><span class="option-text">D. Laporan</span></label>
+                </div>
+            </div>
+
+            <!-- SOAL 2 -->
+            <div class="soal-card">
+                <div class="soal-text"><span>2.</span> Berikut yang merupakan ciri cerita fiksi adalah ...</div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q2" value="A"><span class="option-text">A. Selalu berdasarkan fakta</span></label>
+                    <label class="option-item"><input type="radio" name="q2" value="B"><span class="option-text">B. Berisi data penelitian</span></label>
+                    <label class="option-item"><input type="radio" name="q2" value="C"><span class="option-text">C. Dibuat berdasarkan imajinasi pengarang</span></label>
+                    <label class="option-item"><input type="radio" name="q2" value="D"><span class="option-text">D. Berisi laporan hasil pengamatan</span></label>
+                </div>
+            </div>
+
+            <!-- SOAL 3 -->
+            <div class="soal-card">
+                <div class="soal-text"><span>3.</span> Tokoh dalam cerita adalah ...</div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q3" value="A"><span class="option-text">A. Tempat terjadinya cerita</span></label>
+                    <label class="option-item"><input type="radio" name="q3" value="B"><span class="option-text">B. Waktu berlangsungnya cerita</span></label>
+                    <label class="option-item"><input type="radio" name="q3" value="C"><span class="option-text">C. Pelaku dalam cerita</span></label>
+                    <label class="option-item"><input type="radio" name="q3" value="D"><span class="option-text">D. Judul cerita</span></label>
+                </div>
+            </div>
+
+            <!-- SOAL 4 -->
+            <div class="soal-card">
+                <div class="soal-text"><span>4.</span> Pesan yang ingin disampaikan pengarang kepada pembaca disebut ...</div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q4" value="A"><span class="option-text">A. Tema</span></label>
+                    <label class="option-item"><input type="radio" name="q4" value="B"><span class="option-text">B. Amanat</span></label>
+                    <label class="option-item"><input type="radio" name="q4" value="C"><span class="option-text">C. Latar</span></label>
+                    <label class="option-item"><input type="radio" name="q4" value="D"><span class="option-text">D. Konflik</span></label>
+                </div>
+            </div>
+
+            <!-- SOAL 5 -->
+            <div class="soal-card">
+                <div class="soal-text"><span>5.</span> Bagian cerita yang memperkenalkan tokoh dan latar disebut ...</div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q5" value="A"><span class="option-text">A. Resolusi</span></label>
+                    <label class="option-item"><input type="radio" name="q5" value="B"><span class="option-text">B. Komplikasi</span></label>
+                    <label class="option-item"><input type="radio" name="q5" value="C"><span class="option-text">C. Orientasi</span></label>
+                    <label class="option-item"><input type="radio" name="q5" value="D"><span class="option-text">D. Penutup</span></label>
+                </div>
+            </div>
+
+            <!-- SOAL 6 -->
+            <div class="soal-card">
+                <div class="soal-text"><span>6.</span> Cerita tentang hewan yang dapat berbicara seperti manusia disebut ...</div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q6" value="A"><span class="option-text">A. Novel</span></label>
+                    <label class="option-item"><input type="radio" name="q6" value="B"><span class="option-text">B. Cerpen</span></label>
+                    <label class="option-item"><input type="radio" name="q6" value="C"><span class="option-text">C. Fabel</span></label>
+                    <label class="option-item"><input type="radio" name="q6" value="D"><span class="option-text">D. Biografi</span></label>
+                </div>
+            </div>
+
+            <!-- SOAL 7 -->
+            <div class="soal-card">
+                <div class="soal-text"><span>7.</span> Yang termasuk latar tempat adalah ...</div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q7" value="A"><span class="option-text">A. Pagi hari</span></label>
+                    <label class="option-item"><input type="radio" name="q7" value="B"><span class="option-text">B. Bahagia</span></label>
+                    <label class="option-item"><input type="radio" name="q7" value="C"><span class="option-text">C. Sekolah</span></label>
+                    <label class="option-item"><input type="radio" name="q7" value="D"><span class="option-text">D. Sedih</span></label>
+                </div>
+            </div>
+
+            <!-- SOAL 8 -->
+            <div class="soal-card">
+                <div class="soal-text"><span>8.</span> Alur yang menceritakan peristiwa dari awal hingga akhir secara berurutan disebut ...</div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q8" value="A"><span class="option-text">A. Alur mundur</span></label>
+                    <label class="option-item"><input type="radio" name="q8" value="B"><span class="option-text">B. Alur maju</span></label>
+                    <label class="option-item"><input type="radio" name="q8" value="C"><span class="option-text">C. Alur campuran</span></label>
+                    <label class="option-item"><input type="radio" name="q8" value="D"><span class="option-text">D. Alur kilas balik</span></label>
+                </div>
+            </div>
+
+            <!-- SOAL 9 -->
+            <div class="soal-card">
+                <div class="soal-text"><span>9.</span> Berikut yang merupakan contoh cerita fiksi adalah ...</div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q9" value="A"><span class="option-text">A. Berita di televisi</span></label>
+                    <label class="option-item"><input type="radio" name="q9" value="B"><span class="option-text">B. Laporan hasil penelitian</span></label>
+                    <label class="option-item"><input type="radio" name="q9" value="C"><span class="option-text">C. Dongeng Kelinci dan Kura-kura</span></label>
+                    <label class="option-item"><input type="radio" name="q9" value="D"><span class="option-text">D. Artikel kesehatan</span></label>
+                </div>
+            </div>
+
+            <!-- SOAL 10 -->
+            <div class="soal-card">
+                <div class="soal-text"><span>10.</span> Salah satu tujuan cerita fiksi adalah ...</div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q10" value="A"><span class="option-text">A. Menyampaikan data penelitian</span></label>
+                    <label class="option-item"><input type="radio" name="q10" value="B"><span class="option-text">B. Menghibur pembaca sekaligus memberikan pesan moral</span></label>
+                    <label class="option-item"><input type="radio" name="q10" value="C"><span class="option-text">C. Menjelaskan hasil eksperimen</span></label>
+                    <label class="option-item"><input type="radio" name="q10" value="D"><span class="option-text">D. Menyampaikan laporan kegiatan</span></label>
+                </div>
+            </div>
+
+            <!-- TOMBOL NAVIGASI BAWAH -->
+            <div class="navigation-tools">
+                <!-- Kembali ke materi bagian ketiga -->
+                <a href="materi-cerita-fiksi-3.html" class="btn-nav btn-kembali">&larr; Kembali</a>
+                <!-- Tombol kirim jawaban -->
+                <button type="button" onclick="alert('Jawaban berhasil disimpan!')" class="btn-nav btn-submit">Kirim Tugas &rarr;</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
