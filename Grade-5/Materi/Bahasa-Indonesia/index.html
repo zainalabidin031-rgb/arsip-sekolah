@@ -8,7 +8,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: #F8FAFC; color: #1E293B; padding: 20px 10px; }
-        .container { max-width: 700px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+        .container { max-width: 750px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
         
         /* Banner Header */
         .banner { background: linear-gradient(135deg, #0284C7, #0EA5E9); color: white; padding: 25px 20px; border-radius: 16px; text-align: center; margin-bottom: 25px; }
@@ -27,199 +27,299 @@
 
         /* Sub Materi List */
         .sub-materi-content { display: none; padding: 5px 0; background: #FFF; border-top: 1px solid #E2E8F0; }
-        .sub-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-bottom: 1px solid #F1F5F9; }
+        .sub-item { display: flex; flex-direction: column; gap: 10px; padding: 15px 20px; border-bottom: 1px solid #F1F5F9; }
         .sub-item:last-child { border-bottom: none; }
-        .sub-text { font-size: 0.95rem; font-weight: 600; color: #475569; padding-right: 10px; }
+        .sub-text { font-size: 0.95rem; font-weight: 600; color: #475569; }
 
+        /* Button Group Wrapper */
+        .btn-group { display: flex; gap: 8px; width: 100%; }
+
+        /* Gaya Tombol Umum */
+        .btn-action { flex: 1; text-align: center; text-decoration: none; padding: 8px 10px; font-size: 0.85rem; font-weight: 700; border-radius: 8px; transition: 0.2s; white-space: nowrap; }
+        
         /* Tombol Pelajari */
-        .btn-pelajari { text-decoration: none; background: #0EA5E9; color: white; padding: 8px 16px; font-size: 0.85rem; font-weight: 700; border-radius: 8px; transition: 0.2s; white-space: nowrap; box-shadow: 0 2px 4px rgba(14, 165, 233, 0.2); }
+        .btn-pelajari { background: #0EA5E9; color: white; box-shadow: 0 2px 4px rgba(14, 165, 233, 0.2); }
         .btn-pelajari:hover { background: #0284C7; }
+
+        /* Tombol Uji Pemahaman */
+        .btn-uji { background: #10B981; color: white; box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2); }
+        .btn-uji:hover { background: #059669; }
 
         /* Footer Navigasi */
         .footer-nav { margin-top: 30px; border-top: 2px solid #F1F5F9; padding-top: 20px; text-align: center; }
         .btn-kembali { display: inline-block; text-decoration: none; background: #64748B; color: white; padding: 10px 24px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; transition: 0.2s; }
         .btn-kembali:hover { background: #475569; }
 
-        @media (max-width: 480px) {
-            .bab-header { padding: 12px 15px; font-size: 0.95rem; }
-            .sub-item { padding: 12px 15px; }
-            .sub-text { font-size: 0.9rem; }
-            .btn-pelajari { padding: 6px 12px; font-size: 0.8rem; }
+        /* Aturan Layar Lebar Tablet / Laptop */
+        @media (min-width: 550px) {
+            .sub-item { flex-direction: row; justify-content: space-between; align-items: center; padding: 12px 20px; }
+            .sub-text { flex: 1; padding-right: 15px; }
+            .btn-group { width: auto; }
+            .btn-action { flex: initial; padding: 8px 16px; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <!-- HEADER -->
         <div class="banner">
             <h1>📖 Materi Ajar Bahasa Indonesia</h1>
             <p>Fase C — Kelas 5 SD / MI</p>
         </div>
 
+        <!-- ================= SEMESTER 1 ================= -->
         <div class="semester-title">Semester 1</div>
 
+        <!-- Bab 1 -->
         <div class="bab-group">
             <button class="bab-header">Bab 1: Aku yang Unik</button>
             <div class="sub-materi-content">
                 <div class="sub-item">
                     <span class="sub-text">Memahami cerita fiksi</span>
-                    <a href="materi-cerita-fiksi.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-cerita-fiksi.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-cerita-fiksi.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Menulis Puisi</span>
-                    <a href="materi-menulis-puisi.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-menulis-puisi.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-menulis-puisi.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Akrostik</span>
-                    <a href="materi-akrostik.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-akrostik.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-akrostik.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Jurnal Membaca</span>
-                    <a href="materi-jurnal-membaca.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-jurnal-membaca.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-jurnal-membaca.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Bab 2 -->
         <div class="bab-group">
             <button class="bab-header">Bab 2: Buku Jendela Dunia</button>
             <div class="sub-materi-content">
                 <div class="sub-item">
                     <span class="sub-text">Mengenal struktur buku</span>
-                    <a href="materi-struktur-buku.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-struktur-buku.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-struktur-buku.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Mencari informasi tersurat/tersirat</span>
-                    <a href="materi-informasi-buku.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-informasi-buku.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-informasi-buku.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Menulis ringkasan</span>
-                    <a href="materi-menulis-ringkasan.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-menulis-ringkasan.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-menulis-ringkasan.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Bab 3 -->
         <div class="bab-group">
             <button class="bab-header">Bab 3: Berkeliling Dunia</button>
             <div class="sub-materi-content">
                 <div class="sub-item">
                     <span class="sub-text">Pemahaman berbagai jenis teks</span>
-                    <a href="Teks/" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="dashboard-bahasa-indonesia.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="dashboard-bahasa-indonesia.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Kaidah kebahasaan dan tata bahasa</span>
-                    <a href="materi-kaidah-bahasa.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-kaidah-bahasa.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-kaidah-bahasa.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Keterampilan berbahasa</span>
-                    <a href="materi-keterampilan-berbahasa.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-keterampilan-berbahasa.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-keterampilan-berbahasa.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Bab 4 -->
         <div class="bab-group">
             <button class="bab-header">Bab 4: Belajar Berwirausaha</button>
             <div class="sub-materi-content">
                 <div class="sub-item">
                     <span class="sub-text">Memahami teks dialog/wawancara</span>
-                    <a href="materi-dialog-wawancara.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-dialog-wawancara.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-dialog-wawancara.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Menulis laporan hasil wawancara</span>
-                    <a href="materi-laporan-wawancara.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-laporan-wawancara.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-laporan-wawancara.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Belajar kosakata bisnis dasar</span>
-                    <a href="materi-kosakata-bisnis.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-kosakata-bisnis.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-kosakata-bisnis.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
             </div>
         </div>
 
 
+        <!-- ================= SEMESTER 2 ================= -->
         <div class="semester-title">Semester 2</div>
 
+        <!-- Bab 5 -->
         <div class="bab-group">
             <button class="bab-header">Bab 5: Menjadi Warga Dunia</button>
             <div class="sub-materi-content">
                 <div class="sub-item">
                     <span class="sub-text">Memahami teks persuasi</span>
-                    <a href="materi-teks-persuasi.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-teks-persuasi.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-teks-persuasi.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Belajar pidato</span>
-                    <a href="materi-belajar-pidato.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-belajar-pidato.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-belajar-pidato.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Penyampaian pendapat</span>
-                    <a href="materi-penyampaikan-pendapat.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-penyampaikan-pendapat.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-penyampaian-pendapat.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Bab 6 -->
         <div class="bab-group">
             <button class="bab-header">Bab 6: Cinta Tanah Air</button>
             <div class="sub-materi-content">
                 <div class="sub-item">
                     <span class="sub-text">Mempelajari teks narasi sejarah</span>
-                    <a href="materi-narasi-sejarah.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-narasi-sejarah.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-narasi-sejarah.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Menggali nilai moral</span>
-                    <a href="materi-nilai-moral.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-nilai-moral.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-nilai-moral.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Menulis Biografi</span>
-                    <a href="materi-menulis-biografi.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-menulis-biografi.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-menulis-biografi.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Bab 7 -->
         <div class="bab-group">
             <button class="bab-header">Bab 7: Sayangi Bumi</button>
             <div class="sub-materi-content">
                 <div class="sub-item">
                     <span class="sub-text">Memahami teks deskripsi</span>
-                    <a href="materi-teks-deskripsi.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-teks-deskripsi.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-teks-deskripsi.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Karya fiksi ilmiah</span>
-                    <a href="materi-fiksi-ilmiah.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-fiksi-ilmiah.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-fiksi-ilmiah.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Lingkungan alam dan ekosistem</span>
-                    <a href="materi-lingkungan-ekosistem.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-lingkungan-ekosistem.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-lingkungan-ekosistem.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Bab 8 -->
         <div class="bab-group">
             <button class="bab-header">Bab 8: Bergerak Bersama</button>
             <div class="sub-materi-content">
                 <div class="sub-item">
                     <span class="sub-text">Memahami surat resmi</span>
-                    <a href="materi-surat-resmi.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-surat-resmi.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-surat-resmi.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Bab 4 Lanjutan -->
         <div class="bab-group">
             <button class="bab-header">Bab 4 (Lanjutan): Pengembangan Usaha</button>
             <div class="sub-materi-content">
                 <div class="sub-item">
                     <span class="sub-text">Membuat proposal kegiatan</span>
-                    <a href="materi-proposal-kegiatan.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-proposal-kegiatan.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-proposal-kegiatan.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
                 <div class="sub-item">
                     <span class="sub-text">Latihan presentasi</span>
-                    <a href="materi-latihan-presentasi.html" class="btn-pelajari">Pelajari!</a>
+                    <div class="btn-group">
+                        <a href="materi-latihan-presentasi.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-latihan-presentasi.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- BUTTON KEMBALI -->
         <div class="footer-nav">
-            <a href="../Grade-5/materi/Bahasa-Indonesia/" class="btn-kembali">&larr; Kembali ke Menu Utama</a>
+            <a href="../../../" class="btn-kembali">&larr; Kembali ke Menu Utama</a>
         </div>
     </div>
 
+    <!-- LOGIKA INTERAKTIF ACCORDION (MENU LIPAT) -->
     <script>
         const accHeaders = document.querySelectorAll(".bab-header");
 
