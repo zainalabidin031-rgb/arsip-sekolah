@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Bahasa Indonesia: Menulis Puisi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #F5F3FF; color: #1E293B; padding: 15px 10px; line-height: 1.6; }
+        .container { max-width: 650px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(79, 70, 229, 0.05); }
+        
+        /* Header Materi */
+        .header-materi { border-bottom: 3px solid #6366F1; padding-bottom: 12px; margin-bottom: 20px; }
+        .header-materi h1 { font-size: 1.4rem; font-weight: 800; color: #4338CA; }
+        
+        /* Sub-judul Halaman */
+        h2 { font-size: 1.15rem; font-weight: 700; color: #1E293B; margin-top: 20px; margin-bottom: 10px; }
+        p { font-size: 0.95rem; color: #334155; margin-bottom: 12px; text-align: justify; }
+
+        /* Kotak Contoh Puisi Pendek */
+        .contoh-puisi-box { background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 15px; margin: 15px 0; position: relative; }
+        .badge-puisi { position: absolute; top: 12px; right: 12px; background-color: #EEF2F6; color: #4F46E5; font-size: 0.75rem; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
+        .header-box-title { font-size: 0.9rem; font-weight: 700; color: #4F46E5; display: flex; align-items: center; gap: 6px; margin-bottom: 15px; }
+        
+        .isi-puisi { text-align: center; margin: 10px 0; font-style: italic; }
+        .isi-puisi h3 { font-size: 1rem; font-weight: 800; color: #1E293B; margin-bottom: 8px; font-style: normal; }
+        .isi-puisi p { text-align: center; font-size: 0.95rem; color: #475569; margin-bottom: 4px; }
+
+        /* Gaya List Ciri-Ciri */
+        ul { margin-left: 20px; margin-bottom: 15px; }
+        li { font-size: 0.95rem; color: #334155; margin-bottom: 6px; }
+
+        /* Unsur-Unsur Puisi (Card Style) */
+        .unsur-item { background: #FFF; border-bottom: 1px solid #F1F5F9; padding: 12px 0; }
+        .unsur-item:last-of-type { border-bottom: none; }
+        .unsur-header { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.95rem; color: #1E293B; margin-bottom: 4px; }
+        .unsur-detail { font-size: 0.9rem; color: #475569; padding-left: 24px; }
+        .unsur-contoh { font-size: 0.9rem; color: #64748B; font-style: italic; padding-left: 24px; margin-top: 2px; }
+
+        /* Gaya Tabel Perbedaan */
+        .table-container { width: 100%; overflow-x: auto; margin-top: 15px; border: 1px solid #E2E8F0; border-radius: 10px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 400px; }
+        th, td { padding: 10px 12px; border-bottom: 1px solid #E2E8F0; text-align: left; }
+        th { background-color: #F8FAFC; color: #1E293B; font-weight: 700; width: 50%; }
+        tr:last-child td { border-bottom: none; }
+
+        /* Pembatas Garis */
+        hr { border: 0; height: 1px; background: #E2E8F0; margin: 20px 0; }
+
+        /* Tombol Navigasi */
+        .navigation-tools { display: flex; justify-content: space-between; gap: 15px; margin-top: 25px; }
+        .btn-nav { flex: 1; text-decoration: none; padding: 12px 20px; font-size: 0.95rem; font-weight: 700; border-radius: 10px; text-align: center; transition: 0.2s; }
+        .btn-kembali { background-color: #E2E8F0; color: #475569; }
+        .btn-kembali:hover { background-color: #CBD5E1; }
+        .btn-lanjut { background: linear-gradient(135deg, #4338CA, #6366F1); color: white; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2); }
+        .btn-lanjut:hover { background: #4338CA; box-shadow: 0 6px 14px rgba(67, 56, 202, 0.3); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- HEADER MATERI -->
+        <div class="header-materi">
+            <h1>Materi Bahasa Indonesia – Menulis Puisi</h1>
+        </div>
+
+        <!-- SECTION 1: APA ITU PUISI -->
+        <h2>Apa Itu Puisi?</h2>
+        <p>Puisi adalah karya sastra yang menggunakan kata-kata indah untuk menyampaikan perasaan, pikiran, pengalaman, atau imajinasi penulis.</p>
+        <p>Puisi biasanya ditulis dalam <strong>baris-baris pendek</strong> dan memiliki pilihan kata yang menarik.</p>
+
+        <!-- KOTAK CONTOH PUISI -->
+        <div class="contoh-puisi-box">
+            <span class="badge-puisi">Kelas 5 SD</span>
+            <div class="header-box-title">📖 Contoh Puisi Pendek</div>
+            
+            <div class="isi-puisi">
+                <h3>Pagi yang Cerah</h3>
+                <p>Mentari tersenyum terang</p>
+                <p>Burung bernyanyi riang</p>
+                <p>Udara sejuk menyapa</p>
+                <p>Hatiku penuh bahagia</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- SECTION 2: CIRI-CIRI PUISI -->
+        <h2>Ciri-Ciri Puisi</h2>
+        <ul>
+            <li>Ditulis dalam <strong>baris-baris pendek</strong>.</li>
+            <li>Memiliki <strong>bait</strong> (kumpulan beberapa baris).</li>
+            <li>Menggunakan <strong>kata-kata indah</strong>.</li>
+            <li>Sering mengandung <strong>irama atau rima</strong> (bunyi yang mirip).</li>
+            <li>Mengungkapkan <strong>perasaan penulis</strong>.</li>
+            <li>Tidak selalu menggunakan kalimat lengkap seperti paragraf biasa.</li>
+        </ul>
+
+        <hr>
+
+        <!-- SECTION 3: UNSUR-UNSUR PUISI -->
+        <h2>Unsur-Unsur Puisi</h2>
+        <div class="unsur-list">
+            
+            <!-- TEMA -->
+            <div class="unsur-item">
+                <div class="unsur-header">💡 Tema</div>
+                <div class="unsur-detail">Ide utama puisi.</div>
+                <div class="unsur-contoh"><strong>Contoh:</strong> Persahabatan, alam, ibu, sekolah.</div>
+            </div>
+
+            <!-- RASA -->
+            <div class="unsur-item">
+                <div class="unsur-header">❤️ Rasa</div>
+                <div class="unsur-detail">Perasaan yang ingin disampaikan.</div>
+                <div class="unsur-contoh"><strong>Contoh:</strong> Senang, sedih, bangga, rindu.</div>
+            </div>
+
+            <!-- AMANAT -->
+            <div class="unsur-item">
+                <div class="unsur-header">💬 Amanat</div>
+                <div class="unsur-detail">Pesan yang dapat dipetik pembaca.</div>
+                <div class="unsur-contoh"><strong>Contoh:</strong> Rajin belajar, mencintai alam.</div>
+            </div>
+
+            <!-- DIKSI -->
+            <div class="unsur-item">
+                <div class="unsur-header">🔮 Diksi</div>
+                <div class="unsur-detail">Pilihan kata yang digunakan dalam puisi.</div>
+                <div class="unsur-contoh"><strong>Contoh:</strong> "mentari" lebih indah daripada "matahari".</div>
+            </div>
+
+            <!-- RIMA -->
+            <div class="unsur-item">
+                <div class="unsur-header">🎵 Rima</div>
+                <div class="unsur-detail">Persamaan bunyi pada akhir baris.</div>
+                <div class="unsur-contoh"><strong>Contoh:</strong> terang – riang</div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- SECTION 4: PERBEDAAN -->
+        <h2>Perbedaan Puisi dan Paragraf Biasa</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Puisi</th>
+                        <th>Paragraf Biasa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Baris pendek</td>
+                        <td>Kalimat panjang</td>
+                    </tr>
+                    <tr>
+                        <td>Bahasa indah</td>
+                        <td>Bahasa langsung</td>
+                    </tr>
+                    <tr>
+                        <td>Mengandung rima</td>
+                        <td>Tidak harus berima</td>
+                    </tr>
+                    <tr>
+                        <td>Menonjolkan perasaan</td>
+                        <td>Menjelaskan informasi</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TOMBOL NAVIGASI BAWAH -->
+        <div class="navigation-tools">
+            <!-- Kembali ke Beranda/Halaman Utama -->
+            <a href="index.html" class="btn-nav btn-kembali">&larr; Kembali</a>
+            <!-- Menuju ke Lembar Tugas/Kuis Puisi berikutnya -->
+            <a href="materi-puisi-2.html" class="btn-nav btn-lanjut">Lanjut &rarr;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
