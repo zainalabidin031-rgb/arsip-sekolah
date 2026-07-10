@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrasi Kelas 5 - SDN Butoh 1 Ngasem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #FFF5F5; color: #1E293B; padding: 20px 10px; }
+        .container { max-width: 650px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(153, 27, 27, 0.05); }
+        
+        /* Banner Header - Tema Merah */
+        .banner { background: linear-gradient(135deg, #991B1B, #DC2626); color: white; padding: 25px 20px; border-radius: 16px; text-align: center; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2); }
+        .banner h1 { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; text-transform: uppercase; line-height: 1.3; letter-spacing: 0.5px; }
+        .banner p { font-size: 1rem; font-weight: 600; opacity: 0.95; letter-spacing: 1px; }
+
+        /* Konten List Menu */
+        .menu-list { display: flex; flex-direction: column; gap: 12px; }
+
+        .menu-card { background: #FFFFFF; border: 1px solid #F3F4F6; border-radius: 12px; padding: 16px; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.01); }
+        .menu-card:hover { border-color: #FCA5A5; background-color: #FEF2F2; transform: translateY(-1px); }
+        .menu-nama { font-size: 0.95rem; font-weight: 700; color: #1E293B; }
+
+        /* Desain Tombol Lihat Detail */
+        .btn-detail { text-decoration: none; background-color: #DC2626; color: white; padding: 8px 16px; font-size: 0.85rem; font-weight: 700; border-radius: 8px; text-align: center; transition: 0.2s; box-shadow: 0 2px 4px rgba(220, 38, 38, 0.15); }
+        .btn-detail:hover { background-color: #991B1B; box-shadow: 0 4px 8px rgba(153, 27, 27, 0.3); }
+
+        /* Footer info */
+        .footer-info { margin-top: 25px; text-align: center; font-size: 0.8rem; color: #94A3B8; font-weight: 500; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="banner">
+            <h1>Administrasi Kelas 5</h1>
+            <p>SDN BUTOH 1 NGASEM</p>
+        </div>
+
+        <div class="menu-list">
+            
+            <div class="menu-card">
+                <span class="menu-nama">Program Tahunan (Prota)</span>
+                <a href="prota-kelas5.html" class="btn-detail">Lihat Detail</a>
+            </div>
+
+            <div class="menu-card">
+                <span class="menu-nama">Program Semester (Promes)</span>
+                <a href="promes-kelas5.html" class="btn-detail">Lihat Detail</a>
+            </div>
+
+            <div class="menu-card">
+                <span class="menu-nama">Capaian Pembelajaran (CP) & ATP</span>
+                <a href="cp-atp-kelas5.html" class="btn-detail">Lihat Detail</a>
+            </div>
+
+            <div class="menu-card">
+                <span class="menu-nama">Modul Ajar (MA)</span>
+                <a href="modul-ajar-kelas5.html" class="btn-detail">Lihat Detail</a>
+            </div>
+
+            <div class="menu-card">
+                <span class="menu-nama">Penilaian</span>
+                <a href="penilaian-kelas5.html" class="btn-detail">Lihat Detail</a>
+            </div>
+
+            <div class="menu-card">
+                <span class="menu-nama">Karya</span>
+                <a href="karya-kelas5.html" class="btn-detail">Lihat Detail</a>
+            </div>
+
+            <div class="menu-card">
+                <span class="menu-nama">Aktifitas Kelas</span>
+                <a href="aktifitas.html" class="btn-detail">Lihat Detail</a>
+            </div>
+
+        </div>
+
+        <div class="footer-info">
+            &copy; 2026 SDN Butoh 1 Ngasem • Kurikulum Merdeka
+        </div>
+    </div>
+
+</body>
+</html>
