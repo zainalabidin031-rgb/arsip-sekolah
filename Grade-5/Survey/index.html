@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survei Kesiapan Tugas Online - SDN Butoh 1 Ngasem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #FFF5F5; color: #1E293B; padding: 20px 10px; }
+        .container { max-width: 650px; margin: 0 auto; background: white; padding: 30px 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(153, 27, 27, 0.05); }
+        
+        .banner { background: linear-gradient(135deg, #991B1B, #DC2626); color: white; padding: 30px 20px; border-radius: 16px; text-align: center; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2); }
+        .banner h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; line-height: 1.3; letter-spacing: 0.5px; }
+        .banner p { font-size: 1rem; font-weight: 600; opacity: 0.95; }
+
+        .instructions { background-color: #FEF2F2; border-left: 4px solid #DC2626; padding: 15px; border-radius: 8px; margin-bottom: 25px; font-size: 0.9rem; line-height: 1.5; color: #7F1D1D; }
+
+        .form-group { margin-bottom: 25px; }
+        .form-label { display: block; font-size: 0.95rem; font-weight: 700; color: #1E293B; margin-bottom: 10px; line-height: 1.4; }
+        
+        input[type="text"], select, textarea { width: 100%; padding: 12px; border: 1px solid #E2E8F0; border-radius: 8px; font-size: 0.95rem; color: #334155; background-color: #F8FAFC; transition: 0.2s; }
+        input[type="text"]:focus, select:focus, textarea:focus { outline: none; border-color: #FCA5A5; background-color: #FFFFFF; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1); }
+
+        .radio-group, .checkbox-group { display: flex; flex-direction: column; gap: 10px; margin-top: 5px; }
+        .option-label { display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #334155; cursor: pointer; line-height: 1.3; }
+        .option-label input[type="radio"], .option-label input[type="checkbox"] { margin-top: 3px; width: 16px; height: 16px; accent-color: #DC2626; cursor: pointer; }
+
+        .btn-submit { width: 100%; background: linear-gradient(135deg, #991B1B, #DC2626); color: white; border: none; padding: 14px; font-size: 1rem; font-weight: 700; border-radius: 10px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2); }
+        .btn-submit:hover { background: #991B1B; transform: translateY(-1px); box-shadow: 0 6px 15px rgba(153, 27, 27, 0.3); }
+
+        .footer-nav { margin-top: 30px; border-top: 2px solid #F1F5F9; padding-top: 20px; text-align: center; }
+        .btn-kembali { display: inline-block; text-decoration: none; background: #64748B; color: white; padding: 10px 24px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; transition: 0.2s; }
+        .btn-kembali:hover { background: #475569; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="banner">
+            <h1>Survei Kesiapan Tugas Online</h1>
+            <p>SDN BUTOH 1 NGASEM • KELAS 5</p>
+        </div>
+
+        <div class="instructions">
+            <strong>Bapak/Ibu Wali Murid yang terhormat,</strong><br>
+            Mohon kesediaannya untuk mengisi survei ini dengan jujur sesuai dengan keadaan sebenarnya demi kelancaran dan kenyamanan putra-putri kita dalam melaksanakan pembelajaran berbasis online/digital.
+        </div>
+
+        <!-- SILAHKAN GANTI URL ACTION DI BAWAH INI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA -->
+        <form id="surveyForm" action="https://script.google.com/macros/s/AKfycbw_2jqvM6Yrl6vEhwV4YJ6aFuV0XWEQc78_TPVo134evVYT279v2qQgv_MgX6udM7s/exec" method="POST">
+            
+            <!-- BAGIAN 1: IDENTITAS -->
+            <div class="form-group">
+                <label class="form-label" for="nama">Nama Lengkap Murid:</label>
+                <input type="text" id="nama" name="nama" placeholder="Contoh: Ahmad Dhani" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="absen">Nomor Absen:</label>
+                <input type="text" id="absen" name="absen" placeholder="Contoh: 05" required>
+            </div>
+
+            <!-- BAGIAN 2: GAWAI -->
+            <div class="form-group">
+                <label class="form-label">Apakah murid memiliki HP/Smartphone sendiri untuk belajar?</label>
+                <div class="radio-group">
+                    <label class="option-label"><input type="radio" name="kepemilikan_hp" value="Milik Sendiri" required> Ya, milik anak sendiri (tidak bergantian)</label>
+                    <label class="option-label"><input type="radio" name="kepemilikan_hp" value="Milik Orang Tua"> Tidak, menggunakan HP milik Orang Tua (Ayah/Ibu)</label>
+                    <label class="option-label"><input type="radio" name="kepemilikan_hp" value="Milik Saudara"> Tidak, menggunakan HP milik Kakak/Saudara lain</label>
+                    <label class="option-label"><input type="radio" name="kepemilikan_hp" value="Tidak Ada"> Tidak ada HP sama sekali di rumah</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Kapan HP biasanya standby / bisa digunakan anak untuk mengerjakan tugas?</label>
+                <div class="radio-group">
+                    <label class="option-label"><input type="radio" name="waktu_standby" value="Pagi (07.00 - 12.00)" required> Pagi hari (07.00 - 12.00)</label>
+                    <label class="option-label"><input type="radio" name="waktu_standby" value="Siang/Sore (12.00 - 17.00)"> Siang/Sore hari (12.00 - 17.00)</label>
+                    <label class="option-label"><input type="radio" name="waktu_standby" value="Malam (Di atas 17.00)"> Malam hari (Setelah orang tua pulang kerja, di atas 17.00)</label>
+                    <label class="option-label"><input type="radio" name="waktu_standby" value="Hari Libur Saja"> Hanya hari libur (Sabtu/Minggu)</label>
+                </div>
+            </div>
+
+            <!-- BAGIAN 3: INTERNET -->
+            <div class="form-group">
+                <label class="form-label">Apa jenis koneksi internet utama yang digunakan di rumah?</label>
+                <div class="radio-group">
+                    <label class="option-label"><input type="radio" name="koneksi_internet" value="WiFi Rumah" required> WiFi Rumah (Indihome/Biznet/Provider lain)</label>
+                    <label class="option-label"><input type="radio" name="koneksi_internet" value="Kuota Paket Data"> Kuota Data Internet Seluler (Paketan HP)</label>
+                    <label class="option-label"><input type="radio" name="koneksi_internet" value="Numpang WiFi"> Menumpang WiFi tetangga/saudara/balai desa</label>
+                    <label class="option-label"><input type="radio" name="koneksi_internet" value="Tidak Ada"> Tidak ada koneksi internet di rumah</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Bagaimana stabilitas sinyal / internet di lingkungan rumah Anda?</label>
+                <div class="radio-group">
+                    <label class="option-label"><input type="radio" name="stabilitas_sinyal" value="Sangat Lancar" required> Sangat lancar (Bisa buka video tanpa putus)</label>
+                    <label class="option-label"><input type="radio" name="stabilitas_sinyal" value="Cukup Lancar"> Cukup lancar (Kadang lambat, tapi bisa untuk browsing/chat)</label>
+                    <label class="option-label"><input type="radio" name="stabilitas_sinyal" value="Sering Gangguan"> Sering gangguan / Sinyal lemah</label>
+                </div>
+            </div>
+
+            <!-- BAGIAN 4: KEMAMPUAN DIGITAL & PENDAMPINGAN -->
+            <div class="form-group">
+                <label class="form-label">Apakah anak sudah bisa membuka link kuis online (seperti Google Form/Wordwall) secara mandiri?</label>
+                <div class="radio-group">
+                    <label class="option-label"><input type="radio" name="kemandirian_anak" value="Sangat Mandiri" required> Ya, anak sudah sangat lancar dan mandiri</label>
+                    <label class="option-label"><input type="radio" name="kemandirian_anak" value="Butuh Arahan"> Bisa, namun kadang masih perlu diarahkan</label>
+                    <label class="option-label"><input type="radio" name="kemandirian_anak" value="Butuh Pendampingan Penuh"> Belum bisa, harus didampingi penuh oleh orang tua</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Apakah orang tua bisa mendampingi anak saat mengerjakan tugas online di rumah?</label>
+                <div class="radio-group">
+                    <label class="option-label"><input type="radio" name="pendampingan_ortu" value="Bisa Kapan Saja" required> Bisa mendampingi kapan saja</label>
+                    <label class="option-label"><input type="radio" name="pendampingan_ortu" value="Hanya Malam Hari"> Hanya bisa mendampingi di malam hari/waktu tertentu</label>
+                    <label class="option-label"><input type="radio" name="pendampingan_ortu" value="Jarang/Tidak Bisa"> Jarang/Tidak bisa mendampingi karena kesibukan kerja</label>
+                </div>
+            </div>
+
+            <!-- BAGIAN 5: MASUKAN -->
+            <div class="form-group">
+                <label class="form-label" for="kendala">Apakah ada kendala khusus atau masukan terkait rencana pemberian tugas online ini?</label>
+                <textarea id="kendala" name="kendala" rows="4" placeholder="Tuliskan kendala atau masukan Anda di sini (opsional)..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Kirim Data Jawaban</button>
+        </form>
+
+        <div class="footer-nav">
+            <a href="index-nilai.html" class="btn-kembali">&larr; Kembali ke Menu Utama</a>
+        </div>
+    </div>
+
+</body>
+</html>
