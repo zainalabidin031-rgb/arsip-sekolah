@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Bahasa Indonesia: Langkah Menulis Puisi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #F5F3FF; color: #1E293B; padding: 15px 10px; line-height: 1.6; }
+        .container { max-width: 650px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(79, 70, 229, 0.05); }
+        
+        /* Judul Bagian */
+        h2 { font-size: 1.15rem; font-weight: 700; color: #1E293B; margin-top: 5px; margin-bottom: 15px; }
+        p { font-size: 0.95rem; color: #334155; margin-bottom: 12px; }
+
+        /* Kotak Langkah-Langkah */
+        .langkah-container { background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 15px; margin-bottom: 25px; }
+        .langkah-header { font-size: 0.9rem; font-weight: 700; color: #1E293B; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #E2E8F0; padding-bottom: 10px; }
+        .badge-mudah { background-color: #DCFCE7; color: #15803D; font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; }
+        
+        .langkah-item { display: flex; gap: 12px; margin-bottom: 16px; }
+        .langkah-item:last-child { margin-bottom: 0; }
+        .step-number { width: 24px; height: 24px; background-color: #4F46E5; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; }
+        .step-content strong { display: block; font-size: 0.95rem; color: #1E293B; margin-bottom: 2px; }
+        .step-content span { display: block; font-size: 0.85rem; color: #64748B; }
+
+        /* Kotak Contoh Puisi */
+        .contoh-box { background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 15px; margin-bottom: 15px; text-align: center; }
+        .contoh-box h3 { font-size: 1rem; font-weight: 800; color: #1E293B; margin-bottom: 8px; }
+        .contoh-box p { text-align: center; font-size: 0.95rem; color: #475569; margin-bottom: 4px; font-style: italic; }
+
+        /* Tabel Analisis */
+        .analisis-title { font-size: 0.95rem; font-weight: 700; color: #1E293B; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        .table-container { width: 100%; overflow-x: auto; margin-bottom: 25px; border: 1px solid #E2E8F0; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        td { padding: 8px 12px; border-bottom: 1px solid #E2E8F0; text-align: left; }
+        tr td:first-child { font-weight: 700; color: #475569; width: 40%; }
+        tr td:last-child { color: #1E293B; }
+        tr:last-child td { border-bottom: none; }
+
+        /* List Tips */
+        ul { margin-left: 20px; margin-bottom: 25px; }
+        li { font-size: 0.95rem; color: #334155; margin-bottom: 6px; }
+
+        /* Latihan Singkat Interaktif */
+        .latihan-box { background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 18px; margin-bottom: 10px; text-align: center; }
+        .latihan-box h3 { font-size: 1rem; font-weight: 800; color: #1E293B; margin-bottom: 8px; }
+        .latihan-box p { text-align: center; font-size: 0.95rem; color: #475569; margin-bottom: 8px; }
+        .input-latihan { width: 90px; padding: 2px 8px; border: 1px dashed #4F46E5; border-radius: 4px; font-size: 0.9rem; text-align: center; background-color: #FFF; color: #4F46E5; font-weight: 600; }
+        .input-latihan:focus { outline: none; border-style: solid; background-color: #EEF2F6; }
+        .kunci-jawaban-singkat { font-size: 0.85rem; color: #64748B; font-style: italic; margin-bottom: 25px; display: block; }
+
+        /* Kotak Kesimpulan */
+        .kesimpulan-box { background-color: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 15px; margin-bottom: 25px; }
+        .kesimpulan-header { font-size: 0.95rem; font-weight: 700; color: #1E3A8A; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .kesimpulan-box p { font-size: 0.9rem; color: #1E3A8A; margin-bottom: 8px; text-align: justify; }
+        .kesimpulan-box p:last-child { margin-bottom: 0; }
+
+        /* Pembatas Garis */
+        hr { border: 0; height: 1px; background: #E2E8F0; margin: 20px 0; }
+
+        /* Tombol Navigasi */
+        .navigation-tools { display: flex; justify-content: space-between; gap: 15px; margin-top: 25px; }
+        .btn-nav { flex: 1; text-decoration: none; padding: 12px 20px; font-size: 0.95rem; font-weight: 700; border-radius: 10px; text-align: center; transition: 0.2s; border: none; cursor: pointer; }
+        .btn-kembali { background-color: #E2E8F0; color: #475569; }
+        .btn-kembali:hover { background-color: #CBD5E1; }
+        .btn-lanjut { background: linear-gradient(135deg, #4338CA, #6366F1); color: white; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2); }
+        .btn-lanjut:hover { background: #4338CA; box-shadow: 0 6px 14px rgba(67, 56, 202, 0.3); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- SECTION 1: LANGKAH-LANGKAH -->
+        <h2>Langkah-Langkah Menulis Puisi</h2>
+        <div class="langkah-container">
+            <div class="langkah-header">
+                <span>📝 Ikuti urutan berikut</span>
+                <span class="badge-mudah">Mudah</span>
+            </div>
+            
+            <div class="langkah-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <strong>Tentukan tema</strong>
+                    <span>Misalnya: ibu, sekolah, hujan, atau sahabat.</span>
+                </div>
+            </div>
+
+            <div class="langkah-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <strong>Pikirkan perasaan yang ingin disampaikan</strong>
+                    <span>Senang, bangga, sedih, atau rindu.</span>
+                </div>
+            </div>
+
+            <div class="langkah-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <strong>Pilih kata-kata yang indah</strong>
+                    <span>Contoh: mentari, embun, pelangi.</span>
+                </div>
+            </div>
+
+            <div class="langkah-item">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <strong>Susun dalam baris-baris pendek</strong>
+                    <span>Setiap baris berisi satu gagasan singkat.</span>
+                </div>
+            </div>
+
+            <div class="langkah-item">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <strong>Periksa kembali</strong>
+                    <span>Pastikan kata-katanya enak dibaca.</span>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- SECTION 2: CONTOH MENULIS PUISI -->
+        <h2>Contoh Menulis Puisi</h2>
+        <p>🟢 <strong>Tema: Sekolah</strong></p>
+        
+        <div class="contoh-box">
+            <h3>Sekolahku</h3>
+            <p>Pagi hari aku datang</p>
+            <p>Dengan hati senang</p>
+            <p>Belajar bersama teman</p>
+            <p>Menuntut ilmu untuk masa depan</p>
+        </div>
+
+        <div class="analisis-title">🔍 Analisis Puisi</div>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <td>Tema</td>
+                    <td>Sekolah</td>
+                </tr>
+                <tr>
+                    <td>Rasa</td>
+                    <td>Senang</td>
+                </tr>
+                <tr>
+                    <td>Amanat</td>
+                    <td>Rajin belajar</td>
+                </tr>
+                <tr>
+                    <td>Jumlah bait</td>
+                    <td>1 bait</td>
+                </tr>
+                <tr>
+                    <td>Jumlah baris</td>
+                    <td>4 baris</td>
+                </tr>
+            </table>
+        </div>
+
+        <hr>
+
+        <!-- SECTION 3: TIPS -->
+        <h2>Tips Agar Puisimu Bagus</h2>
+        <ul>
+            <li>Gunakan kata-kata yang mudah dipahami.</li>
+            <li>Tulis sesuai pengalaman atau imajinasi.</li>
+            <li>Jangan takut berkreasi.</li>
+            <li>Bacalah puisimu dengan suara keras.</li>
+            <li>Perbaiki kata yang terdengar kurang indah.</li>
+        </ul>
+
+        <hr>
+
+        <!-- SECTION 4: LATIHAN SINGKAT -->
+        <h2>Latihan Singkat</h2>
+        <p>Cobalah lengkapi puisi berikut!</p>
+        
+        <div class="latihan-box">
+            <h3>Hujan</h3>
+            <p>Awan datang beriringan</p>
+            <p>Titik air mulai <input type="text" class="input-text input-latihan" placeholder="......"></p>
+            <p>Udara terasa <input type="text" class="input-text input-latihan" placeholder="......"></p>
+            <p>Hatiku menjadi <input type="text" class="input-text input-latihan" placeholder="......"></p>
+        </div>
+        <span class="kunci-jawaban-singkat"><strong>Contoh jawaban:</strong> turun, sejuk, gembira.</span>
+
+        <hr>
+
+        <!-- SECTION 5: KESIMPULAN -->
+        <div class="kesimpulan-box">
+            <div class="kesimpulan-header">🔹 Kesimpulan</div>
+            <p>Puisi adalah karya sastra yang mengungkapkan perasaan dan pikiran dengan kata-kata indah.</p>
+            <p>Puisi memiliki <strong>tema, rasa, amanat, diksi, dan rima</strong>.</p>
+            <p>Untuk menulis puisi, tentukan tema, pilih kata-kata yang indah, lalu susun dalam baris-baris pendek.</p>
+            <p>Dengan sering berlatih, siswa dapat membuat puisi yang menarik dan bermakna.</p>
+        </div>
+
+        <!-- TOMBOL NAVIGASI BAWAH -->
+        <div class="navigation-tools">
+            <!-- Kembali ke Halaman 1 Puisi -->
+            <a href="materi-puisi-1.html" class="btn-nav btn-kembali">&larr; Kembali</a>
+            <!-- Menuju ke tugas/kuis puisi jika nanti ada -->
+            <a href="tugas-puisi.html" class="btn-nav btn-lanjut">Mulai Tugas &rarr;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
