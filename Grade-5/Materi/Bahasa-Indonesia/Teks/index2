@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruang Belajar Bahasa Indonesia Kelas 5 SD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #F4F6F9; color: #1E293B; padding: 20px 10px; }
+        .container { max-width: 650px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); }
+        
+        /* Header Banner */
+        .header-banner { background: linear-gradient(135deg, #FF6F00, #FFA000); color: white; padding: 25px 20px; border-radius: 16px; text-align: center; margin-bottom: 25px; }
+        .header-banner h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; }
+        .header-banner p { font-size: 0.95rem; opacity: 0.95; line-height: 1.5; }
+
+        /* Materi List Wrapper */
+        .materi-container { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
+
+        /* Row Card */
+        .materi-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 15px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        
+        .materi-info { display: flex; align-items: center; gap: 12px; }
+        .materi-nomer { background: #FF6F00; color: white; font-weight: 700; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+        .materi-judul { font-size: 1.05rem; font-weight: 700; color: #0F172A; }
+
+        /* Button Group (Mobile Friendly) */
+        .action-group { display: flex; gap: 8px; width: 100%; }
+        .btn-action { flex: 1; text-align: center; text-decoration: none; padding: 10px 5px; font-size: 0.85rem; font-weight: 700; border-radius: 8px; transition: 0.2s; }
+        
+        /* Variasi Warna Tombol Sesuai Kategori */
+        .btn-baca { background-color: #E3F2FD; color: #0D47A1; border: 1px solid #BBDEFB; }
+        .btn-baca:hover { background-color: #BBDEFB; }
+        
+        .btn-tugas { background-color: #E8F5E9; color: #1B5E20; border: 1px solid #C8E6C9; }
+        .btn-tugas:hover { background-color: #C8E6C9; }
+        
+        .btn-ulangan { background-color: #FFF3E0; color: #E65100; border: 1px solid #FFE0B2; }
+        .btn-ulangan:hover { background-color: #FFE0B2; }
+
+        /* Footer Navigasi */
+        .footer-nav { border-top: 2px solid #F1F5F9; padding-top: 20px; text-align: center; }
+        .btn-kembali { display: inline-block; text-decoration: none; background: #64748B; color: white; padding: 10px 24px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; transition: 0.2s; }
+        .btn-kembali:hover { background: #475569; }
+
+        /* Optimasi Tampilan Layar Lebih Lebar */
+        @media (min-width: 480px) {
+            .materi-card { flex-direction: row; justify-content: space-between; align-items: center; padding: 16px 20px; }
+            .materi-info { flex: 1; }
+            .action-group { width: auto; min-width: 260px; }
+            .btn-action { padding: 8px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-banner">
+            <h1>Halo Anak-Anak Hebat Kelas 5! 👋</h1>
+            <p>Selamat datang di Ruang Belajar Bahasa Indonesia. Pilih topik di bawah ini untuk membaca materi, mengerjakan tugas, atau mengikuti ulangan harian ya!</p>
+        </div>
+
+        <div class="materi-container">
+
+            <div class="materi-card">
+                <div class="materi-info">
+                    <div class="materi-nomer">1</div>
+                    <div class="materi-judul">Teks Eksplanasi</div>
+                </div>
+                <div class="action-group">
+                    <a href="materi-teks-eksplanasi.html" class="btn-action btn-baca">📖 Baca</a>
+                    <a href="tugas-eksplanasi.html" class="btn-action btn-tugas">✏️ Tugas</a>
+                    <a href="ulangan-eksplanasi.html" class="btn-action btn-ulangan">🎯 Ulangan</a>
+                </div>
+            </div>
+
+            <div class="materi-card">
+                <div class="materi-info">
+                    <div class="materi-nomer">2</div>
+                    <div class="materi-judul">Teks Prosedur</div>
+                </div>
+                <div class="action-group">
+                    <a href="materi-prosedur.html" class="btn-action btn-baca">📖 Baca</a>
+                    <a href="tugas-prosedur.html" class="btn-action btn-tugas">✏️ Tugas</a>
+                    <a href="ulangan-prosedur.html" class="btn-action btn-ulangan">🎯 Ulangan</a>
+                </div>
+            </div>
+
+            <div class="materi-card">
+                <div class="materi-info">
+                    <div class="materi-nomer">3</div>
+                    <div class="materi-judul">Teks Narasi / Fiksi</div>
+                </div>
+                <div class="action-group">
+                    <a href="materi-narasi.html" class="btn-action btn-baca">📖 Baca</a>
+                    <a href="tugas-narasi.html" class="btn-action btn-tugas">✏️ Tugas</a>
+                    <a href="ulangan-narasi.html" class="btn-action btn-ulangan">🎯 Ulangan</a>
+                </div>
+            </div>
+
+            <div class="materi-card">
+                <div class="materi-info">
+                    <div class="materi-nomer">4</div>
+                    <div class="materi-judul">Teks Prosedur / Diskusi</div>
+                </div>
+                <div class="action-group">
+                    <a href="materi-diskusi.html" class="btn-action btn-baca">📖 Baca</a>
+                    <a href="tugas-diskusi.html" class="btn-action btn-tugas">✏️ Tugas</a>
+                    <a href="ulangan-diskusi.html" class="btn-action btn-ulangan">🎯 Ulangan</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-nav">
+            <a href="index-nilai.html" class="btn-kembali">&larr; Kembali ke Dashboard Utama</a>
+        </div>
+    </div>
+
+</body>
+</html>
