@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Bahasa Indonesia: Bagian B & C</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #FFF5F5; color: #1E293B; padding: 15px 10px; line-height: 1.6; }
+        .container { max-width: 650px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(153, 27, 27, 0.05); }
+        
+        /* Judul Bagian Soal */
+        .section-title { font-size: 1.2rem; font-weight: 700; color: #1E293B; margin-bottom: 20px; border-top: 2px solid #F1F5F9; padding-top: 20px; }
+        .section-title:first-of-type { border-top: none; padding-top: 0; }
+
+        /* Kotak Soal Isian Singkat */
+        .soal-isian { margin-bottom: 20px; }
+        .soal-text { font-size: 0.95rem; font-weight: 600; color: #1E293B; margin-bottom: 8px; }
+        .input-isian { width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.95rem; }
+        .input-isian:focus { outline: none; border-color: #DC2626; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1); }
+
+        /* Bagian C: Tugas Membuat Cerita */
+        .petunjuk-tugas { background-color: #FFFDFD; border: 1px dashed #FCA5A5; padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 0.95rem; }
+        .petunjuk-tugas p { margin-bottom: 10px; }
+        ul { margin-left: 20px; margin-bottom: 15px; font-size: 0.9rem; color: #475569; }
+        li { margin-bottom: 4px; }
+        .sub-title-tugas { font-weight: 700; color: #1E293B; margin-top: 10px; margin-bottom: 5px; font-size: 0.95rem; }
+
+        /* Input Judul dan Teks Cerita Siswa */
+        .form-tugas-cerita { margin-top: 20px; margin-bottom: 25px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 0.9rem; font-weight: 700; color: #334155; margin-bottom: 6px; }
+        .textarea-cerita { width: 100%; height: 200px; padding: 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.95rem; resize: vertical; }
+        .textarea-cerita:focus { outline: none; border-color: #DC2626; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1); }
+
+        /* Gaya Tabel Rubrik Penilaian */
+        .table-container { width: 100%; overflow-x: auto; margin-top: 15px; margin-bottom: 20px; border: 1px solid #E2E8F0; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 400px; }
+        th, td { padding: 10px 12px; border-bottom: 1px solid #E2E8F0; }
+        th { background-color: #F8FAFC; color: #1E293B; font-weight: 700; text-align: left; }
+        .text-center { text-align: center; }
+        tr:last-child td { border-bottom: none; font-weight: 700; background-color: #F8FAFC; }
+
+        /* Kalimat Semangat Penutup */
+        .pemberitahuan-sukses { font-size: 0.9rem; font-weight: 600; color: #991B1B; background-color: #FEF2F2; padding: 12px; border-radius: 8px; text-align: center; margin-top: 20px; }
+
+        /* Tombol Navigasi Bawah */
+        .navigation-tools { display: flex; justify-content: space-between; gap: 15px; margin-top: 30px; border-top: 2px solid #F1F5F9; padding-top: 20px; }
+        .btn-nav { flex: 1; text-decoration: none; padding: 12px 20px; font-size: 0.95rem; font-weight: 700; border-radius: 10px; text-align: center; border: none; cursor: pointer; transition: 0.2s; }
+        
+        .btn-kembali { background-color: #E2E8F0; color: #475569; }
+        .btn-kembali:hover { background-color: #CBD5E1; }
+        
+        .btn-submit { background: linear-gradient(135deg, #991B1B, #DC2626); color: white; box-shadow: 0 4px 10px rgba(220, 38, 38, 0.15); }
+        .btn-submit:hover { background: #991B1B; box-shadow: 0 6px 14px rgba(153, 27, 27, 0.25); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- BAGIAN B: ISIAN SINGKAT -->
+        <div class="section-title">B. Isian Singkat</div>
+        <form id="tugasForm">
+            
+            <!-- SOAL 1 -->
+            <div class="soal-isian">
+                <div class="soal-text">1. Cerita yang dibuat berdasarkan khayalan pengarang disebut cerita ...</div>
+                <input type="text" class="input-isian" placeholder="Ketik jawabanmu di sini" required>
+            </div>
+
+            <!-- SOAL 2 -->
+            <div class="soal-isian">
+                <div class="soal-text">2. Pelaku yang terdapat dalam sebuah cerita disebut ...</div>
+                <input type="text" class="input-isian" placeholder="Ketik jawabanmu di sini" required>
+            </div>
+
+            <!-- SOAL 3 -->
+            <div class="soal-isian">
+                <div class="soal-text">3. Tempat, waktu, dan suasana dalam cerita disebut ...</div>
+                <input type="text" class="input-isian" placeholder="Ketik jawabanmu di sini" required>
+            </div>
+
+            <!-- SOAL 4 -->
+            <div class="soal-isian">
+                <div class="soal-text">4. Masalah yang dialami tokoh dalam cerita disebut ...</div>
+                <input type="text" class="input-isian" placeholder="Ketik jawabanmu di sini" required>
+            </div>
+
+            <!-- SOAL 5 -->
+            <div class="soal-isian">
+                <div class="soal-text">5. Pesan yang dapat dipetik dari sebuah cerita disebut ...</div>
+                <input type="text" class="input-isian" placeholder="Ketik jawabanmu di sini" required>
+            </div>
+
+
+            <!-- BAGIAN C: TUGAS MEMBUAT CERITA FIKSI -->
+            <div class="section-title">C. Tugas Membuat Cerita Fiksi</div>
+            
+            <div class="petunjuk-tugas">
+                <p><strong>Petunjuk:</strong></p>
+                <p>Buatlah sebuah cerita fiksi hasil imajinasimu sendiri dengan <strong>tema bebas</strong>.</p>
+                
+                <div class="sub-title-tugas">Ceritamu harus memenuhi ketentuan berikut:</div>
+                <ul>
+                    <li>Judul yang menarik.</li>
+                    <li>Minimal <strong>3 paragraf</strong>.</li>
+                    <li>Panjang cerita sekitar <strong>150 - 250 kata</strong>.</li>
+                    <li>Memiliki tokoh, latar, masalah (konflik), dan penyelesaian.</li>
+                    <li>Menggunakan bahasa yang baik dan mudah dipahami.</li>
+                    <li>Mengandung pesan moral (amanat).</li>
+                </ul>
+
+                <div class="sub-title-tugas">Contoh Pilihan Tema:</div>
+                <ul>
+                    <li>Persahabatan</li>
+                    <li>Kejujuran</li>
+                    <li>Petualangan</li>
+                    <li>Keluarga</li>
+                    <li>Hewan yang dapat berbicara</li>
+                    <li>Sekolah impian</li>
+                    <li>Dunia ajaib</li>
+                    <li>Pahlawan kecil</li>
+                    <li>Liburan seru</li>
+                    <li>Polisi penolong</li>
+                </ul>
+            </div>
+
+            <!-- FORM INPUT KREASI CERITA SISWA -->
+            <div class="form-tugas-cerita">
+                <div class="form-group">
+                    <label for="judul_cerita">Judul Cerita Fiksi Buatanmu:</label>
+                    <input type="text" id="judul_cerita" class="input-isian" placeholder="Tuliskan judul ceritamu di sini" required>
+                </div>
+                <div class="form-group">
+                    <label for="isi_cerita">Tuliskan Cerita Fiksimu di Sini (Minimal 3 Paragraf):</label>
+                    <textarea id="isi_cerita" class="textarea-cerita" placeholder="Mulai mengetik ceritamu di sini..." required></textarea>
+                </div>
+            </div>
+
+
+            <!-- RUBRIK PENILAIAN -->
+            <div class="section-title">Rubrik Penilaian Cerita Fiksi</div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspek yang Dinilai</th>
+                            <th class="text-center" style="width: 120px;">Skor Maksimal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Kesesuaian dengan Tema</td>
+                            <td class="text-center">20</td>
+                        </tr>
+                        <tr>
+                            <td>Kelengkapan unsur cerita (tokoh, latar, konflik, penyelesaian)</td>
+                            <td class="text-center">25</td>
+                        </tr>
+                        <tr>
+                            <td>Kreativitas dan imajinasi</td>
+                            <td class="text-center">20</td>
+                        </tr>
+                        <tr>
+                            <td>Penggunaan bahasa dan ejaan</td>
+                            <td class="text-center">20</td>
+                        </tr>
+                        <tr>
+                            <td>Amanat atau pesan moral</td>
+                            <td class="text-center">15</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total</strong></td>
+                            <td class="text-center"><strong>100</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- KALIMAT PENUTUP SEMANGAT -->
+            <div class="pemberitahuan-sukses">
+                Selamat mengerjakan! Gunakan imajinasimu untuk menciptakan cerita yang menarik dan penuh pesan baik. 😊
+            </div>
+
+            <!-- TOMBOL NAVIGASI BAWAH -->
+            <div class="navigation-tools">
+                <!-- Kembali ke bagian halaman Pilihan Ganda -->
+                <a href="kuis-cerita-fiksi.html" class="btn-nav btn-kembali">&larr; Kembali</a>
+                <!-- Tombol Akhir untuk Mengumpulkan Semua Hasil Tugas -->
+                <button type="submit" class="btn-nav btn-submit">Kirim Semua Tugas &rarr;</button>
+            </div>
+        </form>
+
+    </div>
+
+    <script>
+        // Simulasi pengiriman form tugas siswa
+        document.getElementById('tugasForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Selamat! Seluruh rangkaian tugas Bahasa Indonesia Anda sudah sukses dikirim ke guru kelas.');
+        });
+    </script>
+
+</body>
+</html>
