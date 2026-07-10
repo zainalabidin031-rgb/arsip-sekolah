@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Struktur Mata Pelajaran Kelas 5 SD - Kurikulum Merdeka</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #F8FAFC; color: #1E293B; padding: 20px 10px; }
+        .container { max-width: 750px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+        
+        /* Banner Header */
+        .banner { background: linear-gradient(135deg, #4F46E5, #6366F1); color: white; padding: 25px 20px; border-radius: 16px; text-align: center; margin-bottom: 25px; }
+        .banner h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 6px; line-height: 1.3; }
+        .banner p { font-size: 0.95rem; opacity: 0.9; }
+
+        /* Navigasi Semester (Tabs) */
+        .tab-menu { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #E2E8F0; padding-bottom: 10px; }
+        .tab-btn { flex: 1; background: #F1F5F9; border: none; padding: 12px; font-size: 0.95rem; font-weight: 700; color: #64748B; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .tab-btn.active { background: #4F46E5; color: white; }
+
+        /* Container Semester */
+        .semester-content { display: none; flex-direction: column; gap: 12px; }
+        .semester-content.active { display: flex; }
+
+        /* Row Mapel Card */
+        .mapel-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 15px; display: flex; flex-direction: column; gap: 12px; transition: 0.2s; }
+        .mapel-card:hover { border-color: #CBD5E1; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .mapel-nama { font-size: 1rem; font-weight: 700; color: #1E293B; display: flex; align-items: center; gap: 8px; }
+
+        /* Group Tombol Aksi */
+        .action-group { display: flex; gap: 6px; width: 100%; }
+        .btn-act { flex: 1; text-align: center; text-decoration: none; padding: 8px 5px; font-size: 0.8rem; font-weight: 700; border-radius: 6px; transition: 0.2s; white-space: nowrap; }
+        
+        /* Desain Warna Tombol Sesuai Kolom Gambar */
+        .btn-pelajari { background-color: #E0F2FE; color: #0369A1; border: 1px solid #BAE6FD; }
+        .btn-pelajari:hover { background-color: #BAE6FD; }
+        
+        .btn-asesmen { background-color: #E8F5E9; color: #1B5E20; border: 1px solid #C8E6C9; }
+        .btn-asesmen:hover { background-color: #C8E6C9; }
+        
+        .btn-nilai { background-color: #F1F5F9; color: #475569; border: 1px solid #E2E8F0; }
+        .btn-nilai:hover { background-color: #E2E8F0; }
+
+        /* Footer Navigasi */
+        .footer-nav { margin-top: 30px; border-top: 2px solid #F1F5F9; padding-top: 20px; text-align: center; }
+        .btn-kembali { display: inline-block; text-decoration: none; background: #64748B; color: white; padding: 10px 24px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; transition: 0.2s; }
+        .btn-kembali:hover { background: #475569; }
+
+        /* Responsivitas Layar Tablet ke Atas */
+        @media (min-width: 550px) {
+            .mapel-card { flex-direction: row; justify-content: space-between; align-items: center; padding: 14px 18px; }
+            .mapel-nama { flex: 1; padding-right: 10px; }
+            .action-group { width: auto; min-width: 280px; }
+            .btn-act { padding: 8px 14px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER UTAMA -->
+        <div class="banner">
+            <h1>Struktur Mata Pelajaran Kelas 5 SD</h1>
+            <p>Kurikulum Merdeka • Portal Pembelajaran & Asesmen</p>
+        </div>
+
+        <!-- MENU PEMILIHAN SEMESTER -->
+        <div class="tab-menu">
+            <button class="tab-btn active" onclick="bukaSemester(event, 'semester1')">📅 Semester 1</button>
+            <button class="tab-btn" onclick="bukaSemester(event, 'semester2')">📅 Semester 2</button>
+        </div>
+
+        <!-- ================= KONTEN SEMESTER 1 ================= -->
+        <div id="semester1" class="semester-content active">
+            
+            <div class="mapel-card">
+                <div class="mapel-nama">🕌 Pendidikan Agama Islam dan Budi Pekerti</div>
+                <div class="action-group">
+                    <a href="materi-pai.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-pai.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-pai.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">🦅 Pendidikan Pancasila</div>
+                <div class="action-group">
+                    <a href="materi-ppkn.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-ppkn.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-ppkn.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <!-- LINK KHUSUS KE SUB-MATERI BAHASA INDONESIA YANG SUDAH DIBUAT -->
+            <div class="mapel-card" style="border-color: #6366F1; background: #F5F3FF;">
+                <div class="mapel-nama" style="color: #4F46E5;">🇮🇩 Bahasa Indonesia ✨</div>
+                <div class="action-group">
+                    <a href="index-materi-bahasa.html" class="btn-act btn-pelajari" style="background: #EEF2FF; color: #4F46E5; border-color: #C7D2FE;">Pelajari</a>
+                    <a href="index-materi-bahasa.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-indonesia.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">🧮 Matematika</div>
+                <div class="action-group">
+                    <a href="tugas-mandiri.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="kunci-jawaban.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-matematika.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">🔬 Ilmu Pengetahuan Alam dan Sosial (IPAS)</div>
+                <div class="action-group">
+                    <a href="materi-ipas.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-ipas.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-ipas.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">🏃‍♂️ Pendidikan Jasmani, Olahraga dan Kesehatan</div>
+                <div class="action-group">
+                    <a href="materi-pjok.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-pjok.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-pjok.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">🎨 Seni Rupa</div>
+                <div class="action-group">
+                    <a href="materi-senirupa.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-senirupa.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-senirupa.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">🇬🇧 Bahasa Inggris</div>
+                <div class="action-group">
+                    <a href="materi-inggris.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-inggris.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-inggris.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">🎎 Bahasa Jawa</div>
+                <div class="action-group">
+                    <a href="materi-jawa.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-jawa.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-jawa.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">💻 Literasi Digital</div>
+                <div class="action-group">
+                    <a href="materi-digital.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-digital.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-digital.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= KONTEN SEMESTER 2 ================= -->
+        <div id="semester2" class="semester-content">
+            
+            <div class="mapel-card">
+                <div class="mapel-nama">🕌 Pendidikan Agama Islam dan Budi Pekerti</div>
+                <div class="action-group">
+                    <a href="materi-pai-s2.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-pai-s2.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-pai-s2.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">🦅 Pendidikan Pancasila</div>
+                <div class="action-group">
+                    <a href="materi-ppkn-s2.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-ppkn-s2.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-ppkn-s2.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card" style="border-color: #6366F1; background: #F5F3FF;">
+                <div class="mapel-nama" style="color: #4F46E5;">🇮🇩 Bahasa Indonesia ✨</div>
+                <div class="action-group">
+                    <a href="index-materi-bahasa.html" class="btn-act btn-pelajari" style="background: #EEF2FF; color: #4F46E5; border-color: #C7D2FE;">Pelajari</a>
+                    <a href="index-materi-bahasa.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-indonesia-s2.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">🧮 Matematika</div>
+                <div class="action-group">
+                    <a href="materi-mtk-s2.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-mtk-s2.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-mtk-s2.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">🔬 Ilmu Pengetahuan Alam dan Sosial (IPAS)</div>
+                <div class="action-group">
+                    <a href="materi-ipas-s2.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-ipas-s2.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-ipas-s2.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">🏃‍♂️ Pendidikan Jasmani, Olahraga dan Kesehatan</div>
+                <div class="action-group">
+                    <a href="materi-pjok-s2.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-pjok-s2.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-pjok-s2.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">🎨 Seni Rupa</div>
+                <div class="action-group">
+                    <a href="materi-senirupa-s2.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-senirupa-s2.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-senirupa-s2.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">🇬🇧 Bahasa Inggris</div>
+                <div class="action-group">
+                    <a href="materi-inggris-s2.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-inggris-s2.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-inggris-s2.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">🎎 Bahasa Jawa</div>
+                <div class="action-group">
+                    <a href="materi-jawa-s2.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-jawa-s2.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-jawa-s2.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+            <div class="mapel-card">
+                <div class="mapel-nama">💻 Literasi Digital</div>
+                <div class="action-group">
+                    <a href="materi-digital-s2.html" class="btn-act btn-pelajari">Pelajari</a>
+                    <a href="asesmen-digital-s2.html" class="btn-act btn-asesmen">Asesmen</a>
+                    <a href="nilai-digital-s2.html" class="btn-act btn-nilai">Nilai</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TOMBOL KEMBALI DI BAGIAN BAWAH -->
+        <div class="footer-nav">
+            <a href="index.html" class="btn-kembali">&larr; Kembali ke Halaman Login / Awal</a>
+        </div>
+    </div>
+
+    <!-- SCRIPT INTERAKTIF PINDAH SEMESTER -->
+    <script>
+        function bukaSemester(evt, namaSemester) {
+            var i, content, tablinks;
+            
+            content = document.getElementsByClassName("semester-content");
+            for (i = 0; i < content.length; i++) {
+                content[i].classList.remove("active");
+            }
+
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            document.getElementById(namaSemester).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>
