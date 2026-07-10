@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Mandiri: Menulis Puisi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #F5F3FF; color: #1E293B; padding: 15px 10px; line-height: 1.6; }
+        .container { max-width: 650px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(79, 70, 229, 0.05); }
+        
+        /* Identitas Halaman */
+        .header-tugas { border-bottom: 3px solid #6366F1; padding-bottom: 10px; margin-bottom: 20px; }
+        .header-tugas h1 { font-size: 1.4rem; font-weight: 800; color: #4338CA; text-transform: uppercase; }
+        .header-tugas p { font-size: 0.9rem; color: #64748B; font-weight: 600; }
+
+        /* Progress Bar Langkah */
+        .progress-container { display: flex; justify-content: space-between; margin-bottom: 25px; background: #F1F5F9; padding: 6px; border-radius: 30px; position: relative; }
+        .step { flex: 1; text-align: center; font-size: 0.8rem; font-weight: 700; color: #64748B; padding: 8px 5px; border-radius: 20px; transition: 0.3s; }
+        .step.active { background-color: #6366F1; color: white; }
+
+        /* Sembunyikan Step Secara Default */
+        .form-step { display: none; }
+        .form-step.active { display: block; }
+
+        /* Form Identitas Siswa */
+        .identity-box { background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 5px; }
+        .input-text { width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.95rem; }
+        .input-text:focus, .textarea-puisi:focus { outline: none; border-color: #6366F1; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+
+        /* Gaya Soal Pilihan Ganda (Bagian A) */
+        .soal-card { margin-bottom: 20px; background: #FFFDFD; border: 1px solid #EEF2F6; padding: 15px; border-radius: 12px; }
+        .soal-title { font-size: 0.95rem; font-weight: 700; color: #1E293B; margin-bottom: 12px; }
+        .options-list { display: flex; flex-direction: column; gap: 8px; }
+        .option-item { display: flex; align-items: center; background: white; border: 1px solid #E2E8F0; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: 0.2s; }
+        .option-item:hover { border-color: #C7D2FE; background-color: #FEE2E2; background-color: #F9F8FF; }
+        .option-item input { margin-right: 10px; accent-color: #6366F1; width: 16px; height: 16px; }
+
+        /* Gaya Soal Isian (Bagian B) */
+        .soal-isian { margin-bottom: 20px; }
+        .soal-isian-text { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+
+        /* Petunjuk Tugas Esai (Bagian C) */
+        .petunjuk-box { background-color: #F9F8FF; border: 1px dashed #C7D2FE; padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 0.9rem; }
+        .textarea-puisi { width: 100%; height: 160px; padding: 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.95rem; resize: vertical; }
+
+        /* Tombol Navigasi */
+        .nav-buttons { display: flex; justify-content: space-between; gap: 12px; margin-top: 25px; border-top: 2px solid #F1F5F9; padding-top: 15px; }
+        .btn { flex: 1; padding: 12px; font-size: 0.95rem; font-weight: 700; border-radius: 10px; border: none; cursor: pointer; text-align: center; text-decoration: none; transition: 0.2s; }
+        .btn-prev { background-color: #E2E8F0; color: #475569; }
+        .btn-next { background-color: #4338CA; color: white; }
+        .btn-submit { background: linear-gradient(135deg, #16A34A, #22C55E); color: white; box-shadow: 0 4px 10px rgba(22, 163, 74, 0.2); }
+
+        /* Rubrik Penilaian Tabel */
+        .table-container { width: 100%; overflow-x: auto; margin-top: 15px; border: 1px solid #E2E8F0; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 350px; text-align: left; }
+        th, td { padding: 8px 10px; border-bottom: 1px solid #E2E8F0; }
+        th { background-color: #F8FAFC; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER UTAMA -->
+        <div class="header-tugas">
+            <h1>Lembar Tugas Mandiri</h1>
+            <p>Materi: Memahami Unsur & Menulis Puisi</p>
+        </div>
+
+        <!-- PROGRESS BAR -->
+        <div class="progress-container">
+            <div class="step active" id="step1-badge">1. Identitas & PG</div>
+            <div class="step" id="step2-badge">2. Isian & Buat Puisi</div>
+        </div>
+
+        <form id="masterTugasForm">
+            
+            <!-- ================= STEP 1: IDENTITAS & PILIHAN GANDA ================= -->
+            <div class="form-step active" id="step-1">
+                <!-- Data Siswa -->
+                <div class="identity-box">
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap Siswa:</label>
+                        <input type="text" id="nama" class="input-text" placeholder="Tulis nama lengkapmu" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="kelas">Kelas / No. Absen:</label>
+                        <input type="text" id="kelas" class="input-text" placeholder="Contoh: V-A / 05" required>
+                    </div>
+                </div>
+
+                <h3>A. Pilihan Ganda</h3><br>
+
+                <!-- SOAL 1 -->
+                <div class="soal-card">
+                    <div class="soal-title">1. Karya sastra yang menggunakan kata-kata indah untuk menyampaikan perasaan atau imajinasi penulis disebut ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg1" value="A" required> A. Paragraf narasi</label>
+                        <label class="option-item"><input type="radio" name="pg1" value="B"> B. Artikel berita</label>
+                        <label class="option-item"><input type="radio" name="pg1" value="C"> C. Puisi</label>
+                        <label class="option-item"><input type="radio" name="pg1" value="D"> D. Laporan ilmiah</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 2 -->
+                <div class="soal-card">
+                    <div class="soal-title">2. Kumpulan dari beberapa baris pendek dalam puisi disebut ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg2" value="A" required> A. Paragraf</label>
+                        <label class="option-item"><input type="radio" name="pg2" value="B"> B. Bait</label>
+                        <label class="option-item"><input type="radio" name="pg2" value="C"> C. Kalimat</label>
+                        <label class="option-item"><input type="radio" name="pg2" value="D"> D. Tema</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 3 -->
+                <div class="soal-card">
+                    <div class="soal-title">3. Ide utama atau gagasan pokok yang menjadi dasar pembuatan sebuah puisi dinamakan ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg3" value="A" required> A. Rima</label>
+                        <label class="option-item"><input type="radio" name="pg3" value="B"> B. Diksi</label>
+                        <label class="option-item"><input type="radio" name="pg3" value="C"> C. Amanat</label>
+                        <label class="option-item"><input type="radio" name="pg3" value="D"> D. Tema</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 4 -->
+                <div class="soal-card">
+                    <div class="soal-title">4. Pilihan kata yang indah dan tepat yang digunakan dalam puisi disebut ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg4" value="A" required> A. Diksi</label>
+                        <label class="option-item"><input type="radio" name="pg4" value="B"> B. Rima</label>
+                        <label class="option-item"><input type="radio" name="pg4" value="C"> C. Latar</label>
+                        <label class="option-item"><input type="radio" name="pg4" value="D"> D. Alur</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 5 -->
+                <div class="soal-card">
+                    <div class="soal-title">5. Persamaan atau pengulangan bunyi yang mirip pada akhir baris puisi disebut ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg5" value="A" required> A. Rasa</label>
+                        <label class="option-item"><input type="radio" name="pg5" value="B"> B. Rima</label>
+                        <label class="option-item"><input type="radio" name="pg5" value="C"> C. Bait</label>
+                        <label class="option-item"><input type="radio" name="pg5" value="D"> D. Diksi</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 6 -->
+                <div class="soal-card">
+                    <div class="soal-title">6. Pesan atau nasihat baik yang ingin disampaikan pembuat puisi kepada pembaca disebut ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg6" value="A" required> A. Tema</label>
+                        <label class="option-item"><input type="radio" name="pg6" value="B"> B. Rasa</label>
+                        <label class="option-item"><input type="radio" name="pg6" value="C"> C. Amanat</label>
+                        <label class="option-item"><input type="radio" name="pg6" value="D"> D. Judul</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 7 -->
+                <div class="soal-card">
+                    <div class="soal-title">7. Kata "Mentari" di dalam puisi terasa lebih indah jika dibandingkan dengan kata ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg7" value="A" required> A. Bulan</label>
+                        <label class="option-item"><input type="radio" name="pg7" value="B"> B. Matahari</label>
+                        <label class="option-item"><input type="radio" name="pg7" value="C"> C. Pelangi</label>
+                        <label class="option-item"><input type="radio" name="pg7" value="D"> D. Awan</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 8 -->
+                <div class="soal-card">
+                    <div class="soal-title">8. Ciri penulisan puisi yang paling membedakannya dari paragraf bacaan biasa adalah ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg8" value="A" required> A. Ditulis dalam bentuk baris-baris pendek</label>
+                        <label class="option-item"><input type="radio" name="pg8" value="B"> B. Selalu berisi laporan kejadian nyata</label>
+                        <label class="option-item"><input type="radio" name="pg8" value="C"> C. Menggunakan kalimat yang sangat panjang</label>
+                        <label class="option-item"><input type="radio" name="pg8" value="D"> D. Menggunakan bahasa sehari-hari secara langsung</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 9 -->
+                <div class="soal-card">
+                    <div class="soal-title">9. Langkah pertama yang harus kita lakukan sebelum mulai menulis puisi adalah ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg9" value="A" required> A. Menentukan judul puisi</label>
+                        <label class="option-item"><input type="radio" name="pg9" value="B"> B. Menentukan tema puisi</label>
+                        <label class="option-item"><input type="radio" name="pg9" value="C"> C. Membaca puisi keras-keras</label>
+                        <label class="option-item"><input type="radio" name="pg9" value="D"> D. Memperbaiki pilihan kata</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 10 -->
+                <div class="soal-card">
+                    <div class="soal-title">10. Jika kita menulis puisi tentang rasa terima kasih kepada Ayah dan Ibu, maka tema puisi tersebut adalah ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg10" value="A" required> A. Keindahan Alam</label>
+                        <label class="option-item"><input type="radio" name="pg10" value="B"> B. Lingkungan Sekolah</label>
+                        <label class="option-item"><input type="radio" name="pg10" value="C"> C. Kasih Sayang Keluarga</label>
+                        <label class="option-item"><input type="radio" name="pg10" value="D"> D. Kelestarian Hewan</label>
+                    </div>
+                </div>
+
+                <!-- Navigasi ke Lembar 2 -->
+                <div class="nav-buttons">
+                    <button type="button" class="btn btn-next" onclick="bukaStep2()">Lanjut Halaman 2 &rarr;</button>
+                </div>
+            </div>
+
+
+            <!-- ================= STEP 2: ISIAN SINGKAT & KREASI PUISI ================= -->
+            <div class="form-step" id="step-2">
+                <h3>B. Isian Singkat</h3><br>
+
+                <div class="soal-isian">
+                    <div class="soal-isian-text">1. Dibandingkan paragraf biasa yang berupa kalimat panjang, puisi ditulis dalam bentuk ...</div>
+                    <input type="text" id="isian1" class="input-text" placeholder="Ketik jawabanmu" required disabled>
+                </div>
+                <div class="soal-isian">
+                    <div class="soal-isian-text">2. Unsur puisi berupa perasaan senang, sedih, atau bangga yang ingin disampaikan penulis dinamakan ...</div>
+                    <input type="text" id="isian2" class="input-text" placeholder="Ketik jawabanmu" required disabled>
+                </div>
+                <div class="soal-isian">
+                    <div class="soal-isian-text">3. Kumpulan kata-kata indah pilihan yang dipakai pengarang disebut juga dengan unsur ...</div>
+                    <input type="text" id="isian3" class="input-text" placeholder="Ketik jawabanmu" required disabled>
+                </div>
+                <div class="soal-isian">
+                    <div class="soal-isian-text">4. Persamaan bunyi akhir kata seperti "datang" dan "senang" dalam satu bait puisi disebut ...</div>
+                    <input type="text" id="isian4" class="input-text" placeholder="Ketik jawabanmu" required disabled>
+                </div>
+                <div class="soal-isian">
+                    <div class="soal-isian-text">5. Setelah selesai merangkai baris puisi, kita perlu melakukan langkah terakhir yaitu memeriksa dan ... kembali tulisan kita agar enak dibaca.</div>
+                    <input type="text" id="isian5" class="input-text" placeholder="Ketik jawabanmu" required disabled>
+                </div>
+
+                <br><h3>C. Tugas Membuat Puisi Kreatif Sederhana</h3><br>
+                <div class="petunjuk-box">
+                    <strong>Petunjuk Tugas:</strong>
+                    <p>Buatlah satu buah bait puisi sederhana buatanmu sendiri dengan <strong>tema bebas</strong> (boleh tentang lingkungan, sahabat, hewan peliharaan, liburan, dll). Puisi minimal terdiri dari 4 baris pendek.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="judul_puisi">Judul Puisi Buatanmu:</label>
+                    <input type="text" id="judul_puisi" class="input-text" placeholder="Ketik judul puisimu di sini" required disabled>
+                </div>
+                <div class="form-group">
+                    <label for="isi_puisi_siswa">Ketik Bait Puisimu di Sini (Gunakan tombol 'Enter' untuk ganti baris baru):</label>
+                    <textarea id="isi_puisi_siswa" class="textarea-puisi" placeholder="Baris 1&#10;Baris 2&#10;Baris 3&#10;Baris 4" required disabled></textarea>
+                </div>
+
+                <!-- Rubrik Penilaian Singkat Visual -->
+                <div class="table-container">
+                    <table>
+                        <tr><th>Kriteria Penilaian Puisi Mandiri</th><th>Skor Maksimal</th></tr>
+                        <tr><td>Kesesuaian isi puisi dengan tema pilihan siswa</td><td>40 Poin</td></tr>
+                        <tr><td>Kreativitas pilihan kata (diksi) yang indah</td><td>40 Poin</td></tr>
+                        <tr><td>Keindahan bunyi akhir baris (rima/irama)</td><td>20 Poin</td></tr>
+                    </table>
+                </div>
+
+                <!-- Navigasi Kirim/Kembali -->
+                <div class="nav-buttons">
+                    <button type="button" class="btn btn-prev" onclick="bukaStep1()">&larr; Kembali</button>
+                    <button type="submit" class="btn btn-submit">🟢 Kirim Jawaban ke WA</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        // MASUKKAN NOMOR WHATSAPP ANDA DI SINI (Contoh: 628123456789)
+        const NOMOR_WA_GURU = "6289643655518"; 
+
+        // Kunci Jawaban Pilihan Ganda untuk Koreksi Otomatis
+        const KUNCI_PG = { pg1:"C", pg2:"B", pg3:"D", pg4:"A", pg5:"B", pg6:"C", pg7:"B", pg8:"A", pg9:"B", pg10:"C" };
+
+        function bukaStep2() {
+            // Validasi identitas dasar di halaman 1 sebelum berlanjut
+            const nama = document.getElementById('nama').value.trim();
+            const kelas = document.getElementById('kelas').value.trim();
+            if(!nama || !kelas){
+                alert("Silakan lengkapi nama dan kelasmu terlebih dahulu ya!");
+                return;
+            }
+            
+            // Aktifkan input halaman 2 agar sistem validasi HTML form bawaan bekerja
+            toggleInputsStep2(false);
+
+            document.getElementById('step-1').classList.remove('active');
+            document.getElementById('step-2').classList.add('active');
+            document.getElementById('step1-badge').classList.remove('active');
+            document.getElementById('step2-badge').classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function bukaStep1() {
+            // Nonaktifkan kembali agar input tersembunyi tidak memicu pemblokiran validasi form
+            toggleInputsStep2(true);
+
+            document.getElementById('step-2').classList.remove('active');
+            document.getElementById('step-1').classList.add('active');
+            document.getElementById('step2-badge').classList.remove('active');
+            document.getElementById('step1-badge').classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function toggleInputsStep2(status) {
+            document.getElementById('isian1').disabled = status;
+            document.getElementById('isian2').disabled = status;
+            document.getElementById('isian3').disabled = status;
+            document.getElementById('isian4').disabled = status;
+            document.getElementById('isian5').disabled = status;
+            document.getElementById('judul_puisi').disabled = status;
+            document.getElementById('isi_puisi_siswa').disabled = status;
+        }
+
+        // PROSES HITUNG PG OTOMATIS & KIRIM FORMAT WA LENGKAP
+        document.getElementById('masterTugasForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let skorPG = 0;
+            let totalSoalPG = 10;
+            let detailPGText = "";
+
+            // Pengoreksian otomatis lembar Pilihan Ganda
+            for (let i = 1; i <= totalSoalPG; i++) {
+                let jawabanSiswa = document.querySelector(`input[name="pg${i}"]:checked`).value;
+                let kunciBenar = KUNCI_PG[`pg${i}`];
+                
+                if (jawabanSiswa === kunciBenar) {
+                    skorPG += 10;
+                    detailPGText += `   ${i}. ${jawabanSiswa} (Benar)\n`;
+                } else {
+                    detailPGText += `   ${i}. ${jawabanSiswa} (Salah - Kunci: ${kunciBenar})\n`;
+                }
+            }
+
+            // Pengumpulan variabel jawaban siswa halaman 2
+            let namaSiswa = document.getElementById('nama').value;
+            let kelasSiswa = document.getElementById('kelas').value;
+            let isi1 = document.getElementById('isian1').value;
+            let isi2 = document.getElementById('isian2').value;
+            let isi3 = document.getElementById('isian3').value;
+            let isi4 = document.getElementById('isian4').value;
+            let isi5 = document.getElementById('isian5').value;
+            let judulPuisi = document.getElementById('judul_puisi').value;
+            let isiPuisiSiswa = document.getElementById('isi_puisi_siswa').value;
+
+            // Penyusunan teks laporan hasil kerja siswa ke WA Anda
+            let textWA = `*YTH. GURU KELAS V*\n`;
+            textWA += `*LAPORAN TUGAS MANDIRI: MENULIS PUISI*\n\n`;
+            textWA += `👤 *Nama Siswa:* ${namaSiswa}\n`;
+            textWA += `🏫 *Kelas / No Absen:* ${kelasSiswa}\n`;
+            textWA += `-----------------------------------------------\n\n`;
+            
+            textWA += `🎯 *I. PILIHAN GANDA (KOREKSI OTOMATIS)*\n`;
+            textWA += `👉 *Skor Nilai PG:* ${skorPG} / 100\n`;
+            textWA += `*Detail Jawaban:*\n${detailPGText}\n`;
+            textWA += `-----------------------------------------------\n\n`;
+            
+            textWA += `📝 *II. JAWABAN ISIAN SINGKAT*\n`;
+            textWA += `   1. ${isi1}\n`;
+            textWA += `   2. ${isi2}\n`;
+            textWA += `   3. ${isi3}\n`;
+            textWA += `   4. ${isi4}\n`;
+            textWA += `   5. ${isi5}\n\n`;
+            textWA += `-----------------------------------------------\n\n`;
+            
+            textWA += `🎨 *III. KREASI MEMBUAT PUISI BEBAS*\n`;
+            textWA += `*Judul:* ${judulPuisi}\n`;
+            textWA += `*Isi Puisi:*\n"${isiPuisiSiswa}"\n`;
+
+            // Kirim paket data teks laporan terbungkus menuju WhatsApp web/aplikasi
+            let urlLinkWA = `https://api.whatsapp.com/send?phone=${NOMOR_WA_GURU}&text=${encodeURIComponent(textWA)}`;
+            window.open(urlLinkWA, '_blank');
+        });
+    </script>
+
+</body>
+</html>
