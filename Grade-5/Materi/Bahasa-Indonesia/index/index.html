@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Ajar Bahasa Indonesia Kelas 5 SD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #F8FAFC; color: #1E293B; padding: 20px 10px; }
+        .container { max-width: 700px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+        
+        /* Banner Header */
+        .banner { background: linear-gradient(135deg, #0284C7, #0EA5E9); color: white; padding: 25px 20px; border-radius: 16px; text-align: center; margin-bottom: 25px; }
+        .banner h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 6px; }
+        .banner p { font-size: 0.95rem; opacity: 0.9; }
+
+        .semester-title { font-size: 1.25rem; font-weight: 800; color: #0369A1; margin: 25px 0 15px 0; padding-left: 5px; border-left: 5px solid #0EA5E9; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Accordion / Menu Lipat */
+        .bab-group { margin-bottom: 12px; border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden; background: #FFFFFF; }
+        .bab-header { width: 100%; background: #F1F5F9; border: none; padding: 15px 20px; text-align: left; font-size: 1rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
+        .bab-header:hover { background: #E2E8F0; }
+        .bab-header::after { content: '▼'; font-size: 0.75rem; color: #64748B; transition: transform 0.2s; }
+        .bab-header.active { background: #E0F2FE; color: #0369A1; }
+        .bab-header.active::after { transform: rotate(180deg); color: #0369A1; }
+
+        /* Sub Materi List */
+        .sub-materi-content { display: none; padding: 5px 0; background: #FFF; border-top: 1px solid #E2E8F0; }
+        .sub-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-bottom: 1px solid #F1F5F9; }
+        .sub-item:last-child { border-bottom: none; }
+        .sub-text { font-size: 0.95rem; font-weight: 600; color: #475569; padding-right: 10px; }
+
+        /* Tombol Pelajari */
+        .btn-pelajari { text-decoration: none; background: #0EA5E9; color: white; padding: 8px 16px; font-size: 0.85rem; font-weight: 700; border-radius: 8px; transition: 0.2s; white-space: nowrap; box-shadow: 0 2px 4px rgba(14, 165, 233, 0.2); }
+        .btn-pelajari:hover { background: #0284C7; }
+
+        /* Footer Navigasi */
+        .footer-nav { margin-top: 30px; border-top: 2px solid #F1F5F9; padding-top: 20px; text-align: center; }
+        .btn-kembali { display: inline-block; text-decoration: none; background: #64748B; color: white; padding: 10px 24px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; transition: 0.2s; }
+        .btn-kembali:hover { background: #475569; }
+
+        @media (max-width: 480px) {
+            .bab-header { padding: 12px 15px; font-size: 0.95rem; }
+            .sub-item { padding: 12px 15px; }
+            .sub-text { font-size: 0.9rem; }
+            .btn-pelajari { padding: 6px 12px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="banner">
+            <h1>📖 Materi Ajar Bahasa Indonesia</h1>
+            <p>Fase C — Kelas 5 SD / MI</p>
+        </div>
+
+        <div class="semester-title">Semester 1</div>
+
+        <div class="bab-group">
+            <button class="bab-header">Bab 1: Aku yang Unik</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Memahami cerita fiksi</span>
+                    <a href="materi-cerita-fiksi.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Menulis Puisi</span>
+                    <a href="materi-menulis-puisi.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Akrostik</span>
+                    <a href="materi-akrostik.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Jurnal Membaca</span>
+                    <a href="materi-jurnal-membaca.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="bab-group">
+            <button class="bab-header">Bab 2: Buku Jendela Dunia</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Mengenal struktur buku</span>
+                    <a href="materi-struktur-buku.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Mencari informasi tersurat/tersirat</span>
+                    <a href="materi-informasi-buku.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Menulis ringkasan</span>
+                    <a href="materi-menulis-ringkasan.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="bab-group">
+            <button class="bab-header">Bab 3: Berkeliling Dunia</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Pemahaman berbagai jenis teks</span>
+                    <a href="dashboard-bahasa-indonesia.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Kaidah kebahasaan dan tata bahasa</span>
+                    <a href="materi-kaidah-bahasa.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Keterampilan berbahasa</span>
+                    <a href="materi-keterampilan-berbahasa.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="bab-group">
+            <button class="bab-header">Bab 4: Belajar Berwirausaha</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Memahami teks dialog/wawancara</span>
+                    <a href="materi-dialog-wawancara.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Menulis laporan hasil wawancara</span>
+                    <a href="materi-laporan-wawancara.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Belajar kosakata bisnis dasar</span>
+                    <a href="materi-kosakata-bisnis.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="semester-title">Semester 2</div>
+
+        <div class="bab-group">
+            <button class="bab-header">Bab 5: Menjadi Warga Dunia</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Memahami teks persuasi</span>
+                    <a href="materi-teks-persuasi.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Belajar pidato</span>
+                    <a href="materi-belajar-pidato.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Penyampaian pendapat</span>
+                    <a href="materi-penyampaikan-pendapat.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="bab-group">
+            <button class="bab-header">Bab 6: Cinta Tanah Air</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Mempelajari teks narasi sejarah</span>
+                    <a href="materi-narasi-sejarah.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Menggali nilai moral</span>
+                    <a href="materi-nilai-moral.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Menulis Biografi</span>
+                    <a href="materi-menulis-biografi.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="bab-group">
+            <button class="bab-header">Bab 7: Sayangi Bumi</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Memahami teks deskripsi</span>
+                    <a href="materi-teks-deskripsi.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Karya fiksi ilmiah</span>
+                    <a href="materi-fiksi-ilmiah.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Lingkungan alam dan ekosistem</span>
+                    <a href="materi-lingkungan-ekosistem.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="bab-group">
+            <button class="bab-header">Bab 8: Bergerak Bersama</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Memahami surat resmi</span>
+                    <a href="materi-surat-resmi.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="bab-group">
+            <button class="bab-header">Bab 4 (Lanjutan): Pengembangan Usaha</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Membuat proposal kegiatan</span>
+                    <a href="materi-proposal-kegiatan.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Latihan presentasi</span>
+                    <a href="materi-latihan-presentasi.html" class="btn-pelajari">Pelajari!</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-nav">
+            <a href="../Grade-5/materi/Bahasa-Indonesia/" class="btn-kembali">&larr; Kembali ke Menu Utama</a>
+        </div>
+    </div>
+
+    <script>
+        const accHeaders = document.querySelectorAll(".bab-header");
+
+        accHeaders.forEach(header => {
+            header.addEventListener("click", function() {
+                this.classList.toggle("active");
+                const content = this.nextElementSibling;
+                
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
