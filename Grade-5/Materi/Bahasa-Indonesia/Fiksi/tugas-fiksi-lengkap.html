@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Mandiri: Cerita Fiksi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #FFF5F5; color: #1E293B; padding: 15px 10px; line-height: 1.6; }
+        .container { max-width: 650px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(153, 27, 27, 0.05); }
+        
+        /* Identitas Halaman */
+        .header-tugas { border-bottom: 3px solid #DC2626; padding-bottom: 10px; margin-bottom: 20px; }
+        .header-tugas h1 { font-size: 1.4rem; font-weight: 800; color: #991B1B; text-transform: uppercase; }
+        .header-tugas p { font-size: 0.9rem; color: #64748B; font-weight: 600; }
+
+        /* Progress Bar Langkah */
+        .progress-container { display: flex; justify-content: space-between; margin-bottom: 25px; background: #F1F5F9; padding: 6px; border-radius: 30px; position: relative; }
+        .step { flex: 1; text-align: center; font-size: 0.8rem; font-weight: 700; color: #64748B; padding: 8px 5px; border-radius: 20px; transition: 0.3s; }
+        .step.active { background-color: #DC2626; color: white; }
+
+        /* Sembunyikan Step Secara Default */
+        .form-step { display: none; }
+        .form-step.active { display: block; }
+
+        /* Form Identitas Siswa */
+        .identity-box { background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 5px; }
+        .input-text { width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.95rem; }
+        .input-text:focus, .textarea-cerita:focus { outline: none; border-color: #DC2626; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1); }
+
+        /* Gaya Soal Pilihan Ganda (Bagian A) */
+        .soal-card { margin-bottom: 20px; background: #FFFDFD; border: 1px solid #FEE2E2; padding: 15px; border-radius: 12px; }
+        .soal-title { font-size: 0.95rem; font-weight: 700; color: #1E293B; margin-bottom: 12px; }
+        .options-list { display: flex; flex-direction: column; gap: 8px; }
+        .option-item { display: flex; align-items: center; background: white; border: 1px solid #E2E8F0; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: 0.2s; }
+        .option-item:hover { border-color: #FCA5A5; background-color: #FFF8F8; }
+        .option-item input { margin-right: 10px; accent-color: #DC2626; width: 16px; height: 16px; }
+
+        /* Gaya Soal Isian (Bagian B) */
+        .soal-isian { margin-bottom: 20px; }
+        .soal-isian-text { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+
+        /* Petunjuk Tugas Esai (Bagian C) */
+        .petunjuk-box { background-color: #FFFDFD; border: 1px dashed #FCA5A5; padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 0.9rem; }
+        .petunjuk-box ul { margin-left: 20px; margin-top: 5px; color: #475569; }
+        .textarea-cerita { width: 100%; height: 180px; padding: 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.95rem; resize: vertical; }
+
+        /* Tombol Navigasi */
+        .nav-buttons { display: flex; justify-content: space-between; gap: 12px; margin-top: 25px; border-top: 2px solid #F1F5F9; padding-top: 15px; }
+        .btn { flex: 1; padding: 12px; font-size: 0.95rem; font-weight: 700; border-radius: 10px; border: none; cursor: pointer; text-align: center; text-decoration: none; transition: 0.2s; }
+        .btn-prev { background-color: #E2E8F0; color: #475569; }
+        .btn-next { background-color: #991B1B; color: white; }
+        .btn-submit { background: linear-gradient(135deg, #16A34A, #22C55E); color: white; box-shadow: 0 4px 10px rgba(22, 163, 74, 0.2); }
+
+        /* Rubrik Penilaian Tabel */
+        .table-container { width: 100%; overflow-x: auto; margin-top: 15px; border: 1px solid #E2E8F0; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 350px; text-align: left; }
+        th, td { padding: 8px 10px; border-bottom: 1px solid #E2E8F0; }
+        th { background-color: #F8FAFC; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER UTAMA -->
+        <div class="header-tugas">
+            <h1>Lembar Tugas Mandiri</h1>
+            <p>Materi: Mengidentifikasi & Mengarang Cerita Fiksi</p>
+        </div>
+
+        <!-- PROGRESS BAR -->
+        <div class="progress-container">
+            <div class="step active" id="step1-badge">1. Identitas & PG</div>
+            <div class="step" id="step2-badge">2. Isian & Cerita</div>
+        </div>
+
+        <form id="masterTugasForm">
+            
+            <!-- ================= STEP 1: IDENTITAS & PILIHAN GANDA ================= -->
+            <div class="form-step active" id="step-1">
+                <!-- Data Siswa -->
+                <div class="identity-box">
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap Siswa:</label>
+                        <input type="text" id="nama" class="input-text" placeholder="Tulis nama lengkapmu" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="kelas">Kelas / No. Absen:</label>
+                        <input type="text" id="kelas" class="input-text" placeholder="Contoh: V-A / 07" required>
+                    </div>
+                </div>
+
+                <h3>A. Pilihan Ganda</h3><br>
+
+                <!-- SOAL 1 -->
+                <div class="soal-card">
+                    <div class="soal-title">1. Cerita yang dibuat berdasarkan imajinasi atau khayalan pengarang disebut ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg1" value="A" required> A. Cerita nonfiksi</label>
+                        <label class="option-item"><input type="radio" name="pg1" value="B"> B. Cerita fiksi</label>
+                        <label class="option-item"><input type="radio" name="pg1" value="C"> C. Laporan ilmiah</label>
+                        <label class="option-item"><input type="radio" name="pg1" value="D"> D. Artikel berita</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 2 -->
+                <div class="soal-card">
+                    <div class="soal-title">2. Berikut yang merupakan ciri cerita fiksi adalah ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg2" value="A" required> A. Ditulis berdasarkan data sejarah asli</label>
+                        <label class="option-item"><input type="radio" name="pg2" value="B"> B. Berisi fakta-fakta ilmiah ilmiah</label>
+                        <label class="option-item"><input type="radio" name="pg2" value="C"> C. Dibuat berdasarkan imajinasi pengarang</label>
+                        <label class="option-item"><input type="radio" name="pg2" value="D"> D. Menggunakan bahasa baku laporan resmi</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 3 -->
+                <div class="soal-card">
+                    <div class="soal-title">3. Tokoh dalam cerita adalah ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg3" value="A" required> A. Orang yang membaca cerita</label>
+                        <label class="option-item"><input type="radio" name="pg3" value="B"> B. Orang yang menulis cerita</label>
+                        <label class="option-item"><input type="radio" name="pg3" value="C"> C. Pelaku dalam cerita</label>
+                        <label class="option-item"><input type="radio" name="pg3" value="D"> D. Tempat terjadinya cerita</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 4 -->
+                <div class="soal-card">
+                    <div class="soal-title">4. Pesan yang ingin disampaikan pengarang kepada pembaca disebut ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg4" value="A" required> A. Alur</label>
+                        <label class="option-item"><input type="radio" name="pg4" value="B"> B. Amanat</label>
+                        <label class="option-item"><input type="radio" name="pg4" value="C"> C. Latar</label>
+                        <label class="option-item"><input type="radio" name="pg4" value="D"> D. Tema</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 5 -->
+                <div class="soal-card">
+                    <div class="soal-title">5. Bagian cerita yang memperkenalkan tokoh dan latar disebut ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg5" value="A" required> A. Resolusi</label>
+                        <label class="option-item"><input type="radio" name="pg5" value="B"> B. Komplikasi</label>
+                        <label class="option-item"><input type="radio" name="pg5" value="C"> C. Orientasi</label>
+                        <label class="option-item"><input type="radio" name="pg5" value="D"> D. Klimaks</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 6 -->
+                <div class="soal-card">
+                    <div class="soal-title">6. Cerita tentang hewan yang dapat bertingkah laku seperti manusia disebut ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg6" value="A" required> A. Mite</label>
+                        <label class="option-item"><input type="radio" name="pg6" value="B"> B. Legenda</label>
+                        <label class="option-item"><input type="radio" name="pg6" value="C"> C. Fabel</label>
+                        <label class="option-item"><input type="radio" name="pg6" value="D"> D. Sage</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 7 -->
+                <div class="soal-card">
+                    <div class="soal-title">7. Yang termasuk latar tempat adalah ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg7" value="A" required> A. Pagi hari</label>
+                        <label class="option-item"><input type="radio" name="pg7" value="B"> B. Sangat sepi</label>
+                        <label class="option-item"><input type="radio" name="pg7" value="C"> C. Di sekolah</label>
+                        <label class="option-item"><input type="radio" name="pg7" value="D"> D. Menegangkan</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 8 -->
+                <div class="soal-card">
+                    <div class="soal-title">8. Alur yang menceritakan peristiwa dari awal hingga akhir secara berurutan disebut ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg8" value="A" required> A. Alur mundur</label>
+                        <label class="option-item"><input type="radio" name="pg8" value="B"> B. Alur maju</label>
+                        <label class="option-item"><input type="radio" name="pg8" value="C"> C. Alur campuran</label>
+                        <label class="option-item"><input type="radio" name="pg8" value="D"> D. Alur bolak-balik</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 9 -->
+                <div class="soal-card">
+                    <div class="soal-title">9. Berikut yang merupakan contoh cerita fiksi adalah ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg9" value="A" required> A. Buku sejarah kemerdekaan Indonesia</label>
+                        <label class="option-item"><input type="radio" name="pg9" value="B"> B. Berita koran tentang gempa bumi</label>
+                        <label class="option-item"><input type="radio" name="pg9" value="C"> C. Dongeng Kelinci dan Kura-kura</label>
+                        <label class="option-item"><input type="radio" name="pg9" value="D"> D. Laporan keuangan tahunan sekolah</label>
+                    </div>
+                </div>
+
+                <!-- SOAL 10 -->
+                <div class="soal-card">
+                    <div class="soal-title">10. Salah satu tujuan cerita fiksi adalah ...</div>
+                    <div class="options-list">
+                        <label class="option-item"><input type="radio" name="pg10" value="A" required> A. Memberikan data statistik akurat</label>
+                        <label class="option-item"><input type="radio" name="pg10" value="B"> B. Menghibur pembaca sekaligus memberikan pesan moral</label>
+                        <label class="option-item"><input type="radio" name="pg10" value="C"> C. Menjelaskan rumus matematika terbaru</label>
+                        <label class="option-item"><input type="radio" name="pg10" value="D"> D. Menyampaikan fakta ilmiah kedokteran</label>
+                    </div>
+                </div>
+
+                <!-- Navigasi ke Lembar 2 -->
+                <div class="nav-buttons">
+                    <button type="button" class="btn btn-next" onclick="bukaStep2()">Lanjut Halaman 2 &rarr;</button>
+                </div>
+            </div>
+
+
+            <!-- ================= STEP 2: ISIAN SINGKAT & KREASI CERITA ================= -->
+            <div class="form-step" id="step-2">
+                <h3>B. Isian Singkat</h3><br>
+
+                <div class="soal-isian">
+                    <div class="soal-isian-text">1. Cerita yang dibuat berdasarkan khayalan pengarang disebut cerita ...</div>
+                    <input type="text" id="isian1" class="input-text" placeholder="Ketik jawabanmu" required disabled>
+                </div>
+                <div class="soal-isian">
+                    <div class="soal-isian-text">2. Pelaku yang terdapat dalam sebuah cerita disebut ...</div>
+                    <input type="text" id="isian2" class="input-text" placeholder="Ketik jawabanmu" required disabled>
+                </div>
+                <div class="soal-isian">
+                    <div class="soal-isian-text">3. Tempat, waktu, dan suasana dalam cerita disebut ...</div>
+                    <input type="text" id="isian3" class="input-text" placeholder="Ketik jawabanmu" required disabled>
+                </div>
+                <div class="soal-isian">
+                    <div class="soal-isian-text">4. Masalah yang dialami tokoh dalam cerita disebut ...</div>
+                    <input type="text" id="isian4" class="input-text" placeholder="Ketik jawabanmu" required disabled>
+                </div>
+                <div class="soal-isian">
+                    <div class="soal-isian-text">5. Pesan yang dapat dipetik dari sebuah cerita disebut ...</div>
+                    <input type="text" id="isian5" class="input-text" placeholder="Ketik jawabanmu" required disabled>
+                </div>
+
+                <br><h3>C. Tugas Membuat Cerita Fiksi</h3><br>
+                <div class="petunjuk-box">
+                    <strong>Petunjuk & Ketentuan:</strong>
+                    <p>Buat cerita imajinasimu (Tema bebas: Persahabatan, Petualangan, Fabel, dll). Minimal 3 paragraf (150-250 kata), memiliki unsur tokoh, latar, konflik, penyelesaian, serta amanat moral.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="judul_cerita">Judul Cerita Fiksi Buatanmu:</label>
+                    <input type="text" id="judul_cerita" class="input-text" placeholder="Tuliskan judul ceritamu" required disabled>
+                </div>
+                <div class="form-group">
+                    <label for="isi_cerita">Ketik Ceritamu di Sini (Minimal 3 Paragraf):</label>
+                    <textarea id="isi_cerita" class="textarea-cerita" placeholder="Mulai mengetik ceritamu..." required disabled></textarea>
+                </div>
+
+                <!-- Rubrik Penilaian Singkat Visual -->
+                <div class="table-container">
+                    <table>
+                        <tr><th>Aspek yang Dinilai</th><th>Skor Maks</th></tr>
+                        <tr><td>Kesesuaian Tema & Unsur Cerita Lengkap</td><td>45</td></tr>
+                        <tr><td>Kreativitas Imajinasi & Bahasa Ejaan</td><td>40</td></tr>
+                        <tr><td>Amanat/Pesan Moral</td><td>15</td></tr>
+                    </table>
+                </div>
+
+                <!-- Navigasi Kirim/Kembali -->
+                <div class="nav-buttons">
+                    <button type="button" class="btn btn-prev" onclick="bukaStep1()">&larr; Kembali</button>
+                    <button type="submit" class="btn btn-submit">🟢 Kirim Semua ke WA Guru</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        // MASUKKAN NOMOR WHATSAPP GURU DI SINI (Contoh: 628123456789)
+        const NOMOR_WA_GURU = "6289643655518"; 
+
+        // Kunci Jawaban Pilihan Ganda untuk Sistem Koreksi Otomatis
+        const KUNCI_PG = { pg1:"B", pg2:"C", pg3:"C", pg4:"B", pg5:"C", pg6:"C", pg7:"C", pg8:"B", pg9:"C", pg10:"B" };
+
+        function bukaStep2() {
+            // Validasi nama dan pilihan ganda halaman 1 sebelum boleh lanjut
+            const nama = document.getElementById('nama').value.trim();
+            const kelas = document.getElementById('kelas').value.trim();
+            if(!nama || !kelas){
+                alert("Silakan isi nama dan kelas terlebih dahulu!");
+                return;
+            }
+            
+            // Aktifkan input halaman 2 agar validasi HTML berfungsi
+            toggleInputsStep2(false);
+
+            document.getElementById('step-1').classList.remove('active');
+            document.getElementById('step-2').classList.add('active');
+            document.getElementById('step1-badge').classList.remove('active');
+            document.getElementById('step2-badge').classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function bukaStep1() {
+            // Nonaktifkan kembali agar tidak macet di validasi saat balik ke step 1
+            toggleInputsStep2(true);
+
+            document.getElementById('step-2').classList.remove('active');
+            document.getElementById('step-1').classList.add('active');
+            document.getElementById('step2-badge').classList.remove('active');
+            document.getElementById('step1-badge').classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function toggleInputsStep2(status) {
+            document.getElementById('isian1').disabled = status;
+            document.getElementById('isian2').disabled = status;
+            document.getElementById('isian3').disabled = status;
+            document.getElementById('isian4').disabled = status;
+            document.getElementById('isian5').disabled = status;
+            document.getElementById('judul_cerita').disabled = status;
+            document.getElementById('isi_cerita').disabled = status;
+        }
+
+        // PROSES HITUNG PG OTOMATIS & KIRIM FORMAT WA
+        document.getElementById('masterTugasForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let skorPG = 0;
+            let totalSoalPG = 10;
+            let detailPGText = "";
+
+            // Koreksi otomatis Pilihan Ganda
+            for (let i = 1; i <= totalSoalPG; i++) {
+                let jawabanSiswa = document.querySelector(`input[name="pg${i}"]:checked`).value;
+                let kunciBenar = KUNCI_PG[`pg${i}`];
+                
+                if (jawabanSiswa === kunciBenar) {
+                    skorPG += 10; // Setiap nomor bernilai 10 poin
+                    detailPGText += `   ${i}. ${jawabanSiswa} (Benar)\n`;
+                } else {
+                    detailPGText += `   ${i}. ${jawabanSiswa} (Salah - Kunci: ${kunciBenar})\n`;
+                }
+            }
+
+            // Ambil data isian & esai cerita
+            let namaSiswa = document.getElementById('nama').value;
+            let kelasSiswa = document.getElementById('kelas').value;
+            let isi1 = document.getElementById('isian1').value;
+            let isi2 = document.getElementById('isian2').value;
+            let isi3 = document.getElementById('isian3').value;
+            let isi4 = document.getElementById('isian4').value;
+            let isi5 = document.getElementById('isian5').value;
+            let judulCerita = document.getElementById('judul_cerita').value;
+            let isiCerita = document.getElementById('isi_cerita').value;
+
+            // Menyusun format pesan WhatsApp yang rapi dan elegan
+            let textWA = `*YTH. GURU BAHASA INDONESIA*\n`;
+            textWA += `*LAPORAN TUGAS MANDIRI: CERITA FIKSI*\n\n`;
+            textWA += `👤 *Nama Siswa:* ${namaSiswa}\n`;
+            textWA += `🏫 *Kelas / No Absen:* ${kelasSiswa}\n`;
+            textWA += `-----------------------------------------------\n\n`;
+            
+            textWA += `🎯 *I. PILIHAN GANDA (KOREKSI OTOMATIS)*\n`;
+            textWA += `👉 *Skor Nilai PG:* ${skorPG} / 100\n`;
+            textWA += `*Detail Jawaban:*\n${detailPGText}\n`;
+            textWA += `-----------------------------------------------\n\n`;
+            
+            textWA += `📝 *II. JAWABAN ISIAN SINGKAT*\n`;
+            textWA += `   1. ${isi1}\n`;
+            textWA += `   2. ${isi2}\n`;
+            textWA += `   3. ${isi3}\n`;
+            textWA += `   4. ${isi4}\n`;
+            textWA += `   5. ${isi5}\n\n`;
+            textWA += `-----------------------------------------------\n\n`;
+            
+            textWA += `✍️ *III. TUGAS MEMBUAT CERITA FIKSI*\n`;
+            textWA += `*Judul:* ${judulCerita}\n`;
+            textWA += `*Isi Cerita:*\n"${isiCerita}"\n`;
+
+            // Membuat tautan API WhatsApp resmi
+            let urlLinkWA = `https://api.whatsapp.com/send?phone=${NOMOR_WA_GURU}&text=${encodeURIComponent(textWA)}`;
+            
+            // Redirect atau buka tab aplikasi WhatsApp otomatis
+            window.open(urlLinkWA, '_blank');
+        });
+    </script>
+
+</body>
+</html>
