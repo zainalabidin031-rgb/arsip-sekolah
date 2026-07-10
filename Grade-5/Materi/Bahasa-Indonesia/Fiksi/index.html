@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda Pembelajaran: Cerita Fiksi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #FFF5F5; color: #1E293B; padding: 20px 10px; line-height: 1.6; }
+        .container { max-width: 650px; margin: 0 auto; background: white; padding: 30px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(153, 27, 27, 0.05); text-align: center; }
+        
+        /* Banner Header */
+        .welcome-badge { display: inline-block; background-color: #FEF2F2; color: #DC2626; font-size: 0.85rem; font-weight: 700; padding: 6px 16px; border-radius: 50px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
+        h1 { font-size: 1.8rem; font-weight: 800; color: #991B1B; line-height: 1.3; margin-bottom: 10px; }
+        .subtitle { font-size: 1rem; color: #64748B; font-weight: 500; margin-bottom: 25px; }
+
+        /* Pengaturan Gambar Google Drive Langsung */
+        .gdrive-image { width: 100%; max-height: 350px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06); margin-bottom: 25px; border: 1px solid #F1F5F9; display: block; }
+
+        /* Kata Pengantar */
+        .intro-text { text-align: justify; color: #334155; font-size: 0.98rem; margin-bottom: 20px; text-indent: 25px; }
+        .highlight-box { background-color: #FFFDFD; border-left: 4px solid #DC2626; padding: 15px; border-radius: 0 12px 12px 0; text-align: left; margin: 25px 0; }
+        .highlight-box h3 { font-size: 1rem; font-weight: 700; color: #1E293B; margin-bottom: 5px; }
+        .highlight-box p { font-size: 0.9rem; color: #475569; text-indent: 0; }
+
+        /* Tombol Navigasi Pintasan */
+        .menu-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
+        .btn-menu { display: flex; align-items: center; justify-content: center; text-decoration: none; padding: 14px 20px; font-size: 1rem; font-weight: 700; border-radius: 12px; transition: 0.2s; }
+        
+        .btn-mulai { background: linear-gradient(135deg, #991B1B, #DC2626); color: white; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.2); }
+        .btn-mulai:hover { background: #991B1B; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(153, 27, 27, 0.3); }
+        
+        .btn-tugas { background-color: #F8FAFC; color: #475569; border: 1px solid #E2E8F0; }
+        .btn-tugas:hover { background-color: #F1F5F9; color: #1E293B; }
+
+        /* Footer Informasi */
+        .footer-info { margin-top: 35px; font-size: 0.8rem; color: #94A3B8; border-top: 1px solid #F1F5F9; padding-top: 15px; }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.5rem; }
+            .intro-text { font-size: 0.92rem; }
+            .btn-menu { padding: 12px 15px; font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- BADGE & JUDUL -->
+        <div class="welcome-badge">Modul Digital Interaktif</div>
+        <h1>Mengeksplorasi Dunia<br>Cerita Fiksi</h1>
+        <div class="subtitle">Bahasa Indonesia • Kelas V (Lima)</div>
+
+        <!-- GAMBAR GOOGLE DRIVE LANGSUNG JADI GAMBAR HALAMAN -->
+        <img src="https://docs.google.com/uc?export=view&id=1JlvDSL1x8-Ny-fQmfosgG9HzcbjjAmU8" alt="Banner Cerita Fiksi" class="gdrive-image">
+
+        <!-- KATA PENGANTAR / PENDAHULUAN -->
+        <div class="intro-text">
+            Halo, anak-anak hebat! Selamat datang di modul pembelajaran mandiri Bahasa Indonesia. Pernahkah kalian membaca kisah petualangan yang seru, dongeng hewan yang cerdik, atau cerita tentang benda-benda ajaib? Semua itu merupakan bagian dari indahnya dunia cerita fiksi. 
+        </div>
+        <div class="intro-text">
+            Melalui halaman interaktif ini, kita akan belajar bersama-sama untuk memahami apa sebenarnya cerita fiksi itu, menemukan unsur-unsur menarik yang menyusunnya, hingga mengenali berbagai jenis cerita rakyat yang kaya akan pesan moral. Tidak hanya membaca, di akhir pembelajaran nanti kalian juga bisa menguji pemahaman lewat kuis seru dan mencoba mengarang cerita fiksimu sendiri!
+        </div>
+
+        <!-- KOTAK INFORMASI SINGKAT -->
+        <div class="highlight-box">
+            <h3>🎯 Tujuan Pembelajaran:</h3>
+            <p>Siswa mampu mengidentifikasi karakteristik, struktur dasar, unsur intrinsik, serta membedakan antara teks fiksi dan nonfiksi secara tepat dan mandiri.</p>
+        </div>
+
+        <!-- PINTASAN TOMBOL MENU -->
+        <div class="menu-grid">
+            <a href="materi-cerita-fiksi.html" class="btn-menu btn-mulai">
+                📖 Mulai Belajar Materi &rarr;
+            </a>
+            <a href="kuis-cerita-fiksi.html" class="btn-menu btn-tugas">
+                📝 Pintasan Langsung ke Tugas
+            </a>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer-info">
+            &copy; 2026 Ruang Belajar Digital Bahasa Indonesia - Kelas V SD
+        </div>
+    </div>
+
+</body>
+</html>
