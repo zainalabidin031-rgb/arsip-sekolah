@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Mandiri: Menulis & Membaca Puisi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #F5F3FF; color: #1E293B; padding: 15px 10px; line-height: 1.6; }
+        .container { max-width: 650px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(79, 70, 229, 0.05); }
+        
+        /* Header Lembar Tugas */
+        .header-tugas { border-bottom: 3px solid #6366F1; padding-bottom: 10px; margin-bottom: 20px; }
+        .header-tugas h1 { font-size: 1.4rem; font-weight: 800; color: #4338CA; text-transform: uppercase; }
+        .header-tugas p { font-size: 0.9rem; color: #64748B; font-weight: 600; }
+
+        /* Box Identitas Siswa */
+        .identity-box { background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 15px; border-radius: 12px; margin-bottom: 25px; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 5px; }
+        .input-text { width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.95rem; }
+        .input-text:focus, .textarea-puisi:focus { outline: none; border-color: #6366F1; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+
+        /* Gaya Blok Soal */
+        .soal-card { margin-bottom: 25px; background: #FFF; border: 1px solid #E2E8F0; padding: 18px; border-radius: 12px; }
+        .soal-title { font-size: 1rem; font-weight: 700; color: #1E293B; margin-bottom: 12px; border-bottom: 1px dashed #E2E8F0; padding-bottom: 6px; }
+        .petunjuk-soal { font-size: 0.85rem; color: #64748B; font-style: italic; margin-bottom: 12px; display: block; }
+
+        /* Teks Puisi Soal 1 */
+        .puisi-bacaan { background-color: #F8FAFC; border-left: 4px solid #6366F1; padding: 12px 15px; border-radius: 4px; margin-bottom: 10px; text-align: center; }
+        .puisi-bacaan h4 { font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; }
+        .puisi-bacaan p { font-size: 0.9rem; color: #475569; font-style: italic; margin-bottom: 4px; text-align: center; }
+
+        /* Struktur Soal Rumpang (Soal 2, 3, 4) */
+        .rumpang-container { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; background: #FAF9FF; padding: 15px; border-radius: 8px; border: 1px solid #EEF2F6; }
+        .baris-rumpang { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; color: #334155; }
+        .baris-rumpang span { font-weight: 600; white-space: nowrap; }
+        .input-rumpang { flex: 1; padding: 6px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.9rem; }
+        .input-rumpang:focus { outline: none; border-color: #6366F1; background-color: #FFF; }
+
+        /* Area Ketik Soal 5 */
+        .textarea-puisi { width: 100%; height: 140px; padding: 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.95rem; resize: vertical; margin-top: 8px; }
+
+        /* Rubrik Penilaian */
+        .table-container { width: 100%; overflow-x: auto; margin-top: 20px; border: 1px solid #E2E8F0; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; text-align: left; }
+        th, td { padding: 8px 10px; border-bottom: 1px solid #E2E8F0; }
+        th { background-color: #F8FAFC; color: #1E293B; }
+
+        /* Navigasi & Tombol */
+        .nav-buttons { display: flex; justify-content: space-between; gap: 12px; margin-top: 25px; border-top: 2px solid #F1F5F9; padding-top: 15px; }
+        .btn { flex: 1; padding: 12px; font-size: 0.95rem; font-weight: 700; border-radius: 10px; border: none; cursor: pointer; text-align: center; text-decoration: none; transition: 0.2s; }
+        .btn-prev { background-color: #E2E8F0; color: #475569; }
+        .btn-submit { background: linear-gradient(135deg, #16A34A, #22C55E); color: white; box-shadow: 0 4px 10px rgba(22, 163, 74, 0.2); }
+        .btn-submit:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-tugas">
+            <h1>Lembar Kerja Siswa (LKS)</h1>
+            <p>Materi: Ekspresi & Kreativitas Menulis Puisi</p>
+        </div>
+
+        <form id="tugasPuisiForm">
+            <div class="identity-box">
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap Siswa:</label>
+                    <input type="text" id="nama" class="input-text" placeholder="Tulis nama lengkapmu" required>
+                </div>
+                <div class="form-group">
+                    <label for="kelas">Kelas / No. Absen:</label>
+                    <input type="text" id="kelas" class="input-text" placeholder="Contoh: V-A / 12" required>
+                </div>
+            </div>
+
+            <div class="soal-card">
+                <div class="soal-title">Soal 1: Praktik Membaca Puisi</div>
+                <span class="petunjuk-soal">📋 Petunjuk: Bacalah puisi di bawah ini dengan lafal, intonasi, dan ekspresi yang tepat di depan kelas saat giliranmu tiba! Tulislah "Siap" pada kolom di bawah jika kamu sudah mempelajarinya.</span>
+                
+                <div class="puisi-bacaan">
+                    <h4>Guruku Pahlawanku</h4>
+                    <p>Kau buka jendela dunia untukku</p>
+                    <p>Dengan sabar mengajariku</p>
+                    <p>Kini aku tahu banyak hal baru</p>
+                    <p>Terima kasih atas segala jasamu</p>
+                </div>
+
+                <div class="form-group" style="margin-top: 12px;">
+                    <label for="soal1_status">Konfirmasi Siswa:</label>
+                    <input type="text" id="soal1_status" class="input-text" placeholder="Ketik 'Siap' jika sudah siap membaca" required>
+                </div>
+            </div>
+
+            <div class="soal-card">
+                <div class="soal-title">Soal 2: Melengkapi Puisi Rumpang (Tema: Keindahan Alam)</div>
+                <span class="petunjuk-soal">📋 Petunjuk: Lanjutkan kata pemantik di bawah ini menjadi baris puisi yang indah sesuai kreativitasmu!</span>
+                
+                <div class="rumpang-container">
+                    <p style="font-weight: 700; text-align: center; color: #4338CA; font-size: 0.9rem; margin-bottom: 5px;">Judul: Pesona Alamku</p>
+                    <div class="baris-rumpang">
+                        <span>Baris 1: Gunug tinggi</span>
+                        <input type="text" id="s2_b1" class="input-rumpang" placeholder="... sambung di sini (misal: menjulang biru)" required>
+                    </div>
+                    <div class="baris-rumpang">
+                        <span>Baris 2: Sawah hijau</span>
+                        <input type="text" id="s2_b2" class="input-rumpang" placeholder="... sambung di sini (misal: membentang luas)" required>
+                    </div>
+                    <div class="baris-rumpang">
+                        <span>Baris 3: Burung-burung</span>
+                        <input type="text" id="s2_b3" class="input-rumpang" placeholder="... sambung di sini (misal: terbang kian kemari)" required>
+                    </div>
+                    <div class="baris-rumpang">
+                        <span>Baris 4: Sungguh indah</span>
+                        <input type="text" id="s2_b4" class="input-rumpang" placeholder="... sambung di sini (misal: alam ciptaan Tuhan)" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-card">
+                <div class="soal-title">Soal 3: Melengkapi Puisi Rumpang (Tema: Sahabat Sejati)</div>
+                <span class="petunjuk-soal">📋 Petunjuk: Lanjutkan kata pemantik di bawah ini menjadi baris puisi yang penuh perasaan!</span>
+                
+                <div class="rumpang-container">
+                    <p style="font-weight: 700; text-align: center; color: #4338CA; font-size: 0.9rem; margin-bottom: 5px;">Judul: Sahabat Terbaik</p>
+                    <div class="baris-rumpang">
+                        <span>Baris 1: Wahai sahabat</span>
+                        <input type="text" id="s3_b1" class="input-rumpang" placeholder="... sambung di sini" required>
+                    </div>
+                    <div class="baris-rumpang">
+                        <span>Baris 2: Kita selalu</span>
+                        <input type="text" id="s3_b2" class="input-rumpang" placeholder="... sambung di sini" required>
+                    </div>
+                    <div class="baris-rumpang">
+                        <span>Baris 3: Saat senang</span>
+                        <input type="text" id="s3_b3" class="input-rumpang" placeholder="... sambung di sini" required>
+                    </div>
+                    <div class="baris-rumpang">
+                        <span>Baris 4: Terima kasih</span>
+                        <input type="text" id="s3_b4" class="input-rumpang" placeholder="... sambung di sini" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-card">
+                <div class="soal-title">Soal 4: Melengkapi Puisi Rumpang (Tema: Kasih Sayang Ibu)</div>
+                <span class="petunjuk-soal">📋 Petunjuk: Lanjutkan kata pemantik di bawah ini dengan kata-kata penuh kehangatan!</span>
+                
+                <div class="rumpang-container">
+                    <p style="font-weight: 700; text-align: center; color: #4338CA; font-size: 0.9rem; margin-bottom: 5px;">Judul: Senyuman Ibu</p>
+                    <div class="baris-rumpang">
+                        <span>Baris 1: Ibu tersenyum</span>
+                        <input type="text" id="s4_b1" class="input-rumpang" placeholder="... sambung di sini" required>
+                    </div>
+                    <div class="baris-rumpang">
+                        <span>Baris 2: Pelukan hangat</span>
+                        <input type="text" id="s4_b2" class="input-rumpang" placeholder="... sambung di sini" required>
+                    </div>
+                    <div class="baris-rumpang">
+                        <span>Baris 3: Kau merawatku</span>
+                        <input type="text" id="s4_b3" class="input-rumpang" placeholder="... sambung di sini" required>
+                    </div>
+                    <div class="baris-rumpang">
+                        <span>Baris 4: Doa tulusmu</span>
+                        <input type="text" id="s4_b4" class="input-rumpang" placeholder="... sambung di sini" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-card">
+                <div class="soal-title">Soal 5: Berkreasi Membuat Puisi Mandiri</div>
+                <span class="petunjuk-soal">📋 Petunjuk: Buatlah sebuah puisi sederhana hasil karyamu sendiri secara utuh! Tema bebas (pilih salah satu: Rumahku, Hewan Peliharaanku, Cita-citaku, atau Sepedaku). Minimal terdiri dari 1 bait (4 baris).</span>
+                
+                <div class="form-group">
+                    <label for="s5_judul">Judul Puisimu:</label>
+                    <input type="text" id="s5_judul" class="input-text" placeholder="Tuliskan judul puisimu sendiri" required>
+                </div>
+                <div class="form-group">
+                    <label for="s5_isi">Ketik Isinya di Sini (Gunakan tombol 'Enter' untuk berpindah baris):</label>
+                    <textarea id="s5_isi" class="textarea-puisi" placeholder="Baris 1&#10;Baris 2&#10;Baris 3&#10;Baris 4" required></textarea>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Jenis Penilaian Tugas</th>
+                        <th>Aspek Kunci</th>
+                        <th>Skor Maks</th>
+                    </tr>
+                    <tr>
+                        <td>Soal 1 (Praktik Membaca)</td>
+                        <td>Lafal, Intonasi, & Gestur Ekspresi</td>
+                        <td>20 Poin</td>
+                    </tr>
+                    <tr>
+                        <td>Soal 2, 3, 4 (Melengkapi)</td>
+                        <td>Kesesuaian makna sambungan & keindahan diksi</td>
+                        <td>45 Poin</td>
+                    </tr>
+                    <tr>
+                        <td>Soal 5 (Membuat Puisi)</td>
+                        <td>Kreativitas, struktur bait, & keaslian karya</td>
+                        <td>35 Poin</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="materi-puisi-2.html" class="btn btn-prev">&larr; Kembali Materi</a>
+                <button type="submit" class="btn btn-submit">🟢 Kirim Jawaban ke WA</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // ISI NOMOR WHATSAPP ANDA DI SINI (Gunakan kode negara 62 di depan, contoh: 628123456789)
+        const NOMOR_WA_GURU = "6289643655518"; 
+
+        document.getElementById('tugasPuisiForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Ambil Identitas Siswa
+            let nama = document.getElementById('nama').value;
+            let kelas = document.getElementById('kelas').value;
+
+            // Ambil Data Jawaban Soal
+            let s1 = document.getElementById('soal1_status').value;
+            
+            let s2_1 = document.getElementById('s2_b1').value;
+            let s2_2 = document.getElementById('s2_b2').value;
+            let s2_3 = document.getElementById('s2_b3').value;
+            let s2_4 = document.getElementById('s2_b4').value;
+
+            let s3_1 = document.getElementById('s3_b1').value;
+            let s3_2 = document.getElementById('s3_b2').value;
+            let s3_3 = document.getElementById('s3_b3').value;
+            let s3_4 = document.getElementById('s3_b4').value;
+
+            let s4_1 = document.getElementById('s4_b1').value;
+            let s4_2 = document.getElementById('s4_b2').value;
+            let s4_3 = document.getElementById('s4_b3').value;
+            let s4_4 = document.getElementById('s4_b4').value;
+
+            let s5_judul = document.getElementById('s5_judul').value;
+            let s5_isi = document.getElementById('s5_isi').value;
+
+            // Format Penyusunan Teks Pesan WhatsApp
+            let textWA = `*YTH. GURU KELAS V*\n`;
+            textWA += `*LAPORAN TUGAS MANDIRI: MENULIS & MEMBACA PUISI*\n\n`;
+            textWA += `👤 *Nama Siswa:* ${nama}\n`;
+            textWA += `🏫 *Kelas / No Absen:* ${kelas}\n`;
+            textWA += `-----------------------------------------------\n\n`;
+
+            textWA += `📖 *SOAL 1: PRAKTIK MEMBACA PUISI*\n`;
+            textWA += `👉 Status: *${s1}*\n\n`;
+
+            textWA += `📝 *SOAL 2: MELENGKAPI PUISI (PESONA ALAMKU)*\n`;
+            textWA += `   - Gunung tinggi ${s2_1}\n`;
+            textWA += `   - Sawah hijau ${s2_2}\n`;
+            textWA += `   - Burung-burung ${s2_3}\n`;
+            textWA += `   - Sungguh indah ${s2_4}\n\n`;
+
+            textWA += `📝 *SOAL 3: MELENGKAPI PUISI (SAHABAT TERBAIK)*\n`;
+            textWA += `   - Wahai sahabat ${s3_1}\n`;
+            textWA += `   - Kita selalu ${s3_2}\n`;
+            textWA += `   - Saat senang ${s3_3}\n`;
+            textWA += `   - Terima kasih ${s3_4}\n\n`;
+
+            textWA += `📝 *SOAL 4: MELENGKAPI PUISI (SENYUMAN IBU)*\n`;
+            textWA += `   - Ibu tersenyum ${s4_1}\n`;
+            textWA += `   - Pelukan hangat ${s4_2}\n`;
+            textWA += `   - Kau merawatku ${s4_3}\n`;
+            textWA += `   - Doa tulusmu ${s4_4}\n\n`;
+
+            textWA += `🎨 *SOAL 5: MEMBUAT PUISI KREATIF UTUH*\n`;
+            textWA += `*Judul:* ${s5_judul}\n`;
+            textWA += `*Isi Puisi:*\n"${s5_isi}"\n`;
+
+            // Pembuatan Tautan Kirim Resmi ke WhatsApp
+            let urlLinkWA = `https://api.whatsapp.com/send?phone=${NOMOR_WA_GURU}&text=${encodeURIComponent(textWA)}`;
+            
+            // Membuka Aplikasi WhatsApp otomatis
+            window.open(urlLinkWA, '_blank');
+        });
+    </script>
+</body>
+</html>
