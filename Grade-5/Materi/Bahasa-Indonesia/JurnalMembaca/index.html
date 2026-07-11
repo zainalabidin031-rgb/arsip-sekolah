@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Interaktif: Jurnal Membaca Kelas V SD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #F8FAFC; color: #1E293B; padding: 20px 10px; line-height: 1.6; }
+        .container { max-width: 650px; margin: 0 auto; background: white; padding: 30px 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.05); }
+        
+        /* Banner Utama */
+        .welcome-banner { background: linear-gradient(135deg, #1E3A8A, #3B82F6); color: white; padding: 25px; border-radius: 16px; text-align: center; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); }
+        .welcome-banner h1 { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
+        .welcome-banner p { font-size: 0.95rem; color: #FBBF24; font-weight: 600; text-align: center; }
+
+        /* Judul Section */
+        h2 { font-size: 1.15rem; font-weight: 700; color: #1E293B; margin-top: 20px; margin-bottom: 12px; border-left: 4px solid #3B82F6; padding-left: 8px; }
+        p { font-size: 0.95rem; color: #334155; margin-bottom: 15px; text-align: justify; }
+
+        /* Box Info (Tujuan & Manfaat) */
+        .info-card { background-color: #F1F5F9; border: 1px solid #E2E8F0; border-radius: 12px; padding: 15px 18px; margin-bottom: 15px; }
+        ul { margin-left: 20px; }
+        li { font-size: 0.95rem; color: #475569; margin-bottom: 6px; }
+
+        /* Menu Navigasi Utama */
+        .menu-container { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
+        .menu-item { display: flex; align-items: center; justify-content: space-between; text-decoration: none; padding: 16px 20px; background-color: white; border: 2px solid #E2E8F0; border-radius: 12px; transition: 0.2s; }
+        .menu-item:hover { border-color: #3B82F6; background-color: #EFF6FF; transform: translateY(-2px); }
+        .menu-details { display: flex; flex-direction: column; gap: 2px; }
+        .menu-title { font-size: 1rem; font-weight: 700; color: #1E293B; }
+        .menu-desc { font-size: 0.85rem; color: #64748B; }
+        .menu-icon { font-size: 1.2rem; color: #3B82F6; font-weight: 700; }
+
+        /* Footer */
+        .footer { text-align: center; font-size: 0.8rem; color: #94A3B8; margin-top: 35px; border-top: 1px solid #E2E8F0; padding-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- BANNER UTAMA -->
+        <div class="welcome-banner">
+            <h1>Selamat Datang di Modul Literasi!</h1>
+            <p>Media Pembelajaran Interaktif Bahasa Indonesia Kelas V SD</p>
+        </div>
+
+        <!-- PENDAHULUAN -->
+        <h2>Pendahuluan</h2>
+        <p>Halo, anak-anak hebat kelas V! Pernahkah kamu membaca buku cerita yang sangat seru lalu ingin menceritakannya kembali kepada teman atau keluargamu? Di modul interaktif ini, kita akan belajar tentang <strong>Jurnal Membaca</strong>. Lewat modul ini, kamu bisa mencatat petualangan membacamu dengan cara yang terstruktur, mudah, dan menyenangkan!</p>
+
+        <!-- TUJUAN PEMBELAJARAN -->
+        <div class="info-card">
+            <h2>🎯 Tujuan Pembelajaran</h2>
+            <ul>
+                <li>Siswa mampu memahami pengertian, tujuan, dan manfaat jurnal membaca dengan benar.</li>
+                <li>Siswa dapat mengenali bagian-bagian penting di dalam jurnal membaca secara lengkap.</li>
+                <li>Siswa mampu menyusun jurnal membaca secara mandiri berdasarkan buku yang telah dibaca.</li>
+            </ul>
+        </div>
+
+        <!-- MANFAAT -->
+        <div class="info-card">
+            <h2>💡 Apa Manfaat Membuat Jurnal Membaca?</h2>
+            <ul>
+                <li><strong>Mengasah Ingatan:</strong> Membantu kita mengingat detail-detail seru dan tokoh penting dari cerita yang sudah dibaca.</li>
+                <li><strong>Melatih Berpikir Kritis:</strong> Kita belajar memberikan pendapat pribadi serta memetik pesan moral (amanat) dari sebuah buku.</li>
+                <li><strong>Keren dalam Menulis:</strong> Memperbanyak kosakata baru dan melatih kemampuan merangkai kalimat dengan bahasa sendiri.</li>
+            </ul>
+        </div>
+
+        <!-- PILIHAN MENU NAVIGASI (3 HALAMAN) -->
+        <h2>Silakan Pilih Menu Belajar:</h2>
+        <div class="menu-container">
+            
+            <!-- Tombol Ke Halaman Materi 1 -->
+            <a href="materi-jurnal.html" class="menu-item">
+                <div class="menu-details">
+                    <span class="menu-title">📖 Bagian 1: Pengenalan Jurnal Membaca</span>
+                    <span class="menu-desc">Belajar pengertian, tujuan, manfaat, dan bagian-bagian dasar jurnal.</span>
+                </div>
+                <span class="menu-icon">&rarr;</span>
+            </a>
+
+            <!-- Tombol Ke Halaman Materi 2 -->
+            <a href="materi-jurnal-2.html" class="menu-item">
+                <div class="menu-details">
+                    <span class="menu-title">💡 Bagian 2: Langkah, Contoh, & Tips</span>
+                    <span class="menu-desc">Cara membuat, contoh jurnal fiksi, serta perbedaan jurnal dengan ringkasan.</span>
+                </div>
+                <span class="menu-icon">&rarr;</span>
+            </a>
+
+            <!-- Tombol Ke Halaman Tugas -->
+            <a href="tugas-jurnal.html" class="menu-item" style="border-left: 4px solid #3B82F6;">
+                <div class="menu-details">
+                    <span class="menu-title">📝 Bagian 3: Lembar Latihan & Kesimpulan</span>
+                    <span class="menu-desc">Isi lembar kerja jurnal membacamu secara interaktif di sini!</span>
+                </div>
+                <span class="menu-icon">🚀</span>
+            </a>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>&copy; 2026 Modul Digital Bahasa Indonesia Kelas V SD. All Rights Reserved.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
