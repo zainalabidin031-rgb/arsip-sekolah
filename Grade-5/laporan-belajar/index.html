@@ -30,7 +30,7 @@
             background-color: var(--card-bg);
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             width: 100%;
             max-width: 550px;
             box-sizing: border-box;
@@ -57,16 +57,18 @@
             font-size: 14px;
         }
 
-        select, input[type="text"], input[type="number"], textarea {
+        select, textarea {
             width: 100%;
             padding: 10px 12px;
             border: 1px solid var(--border-color);
             border-radius: 6px;
             font-size: 14px;
             box-sizing: border-box;
+            transition: border-color 0.2s;
+            background-color: #fff;
         }
 
-        select:focus, input:focus, textarea:focus {
+        select:focus, textarea:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.1);
@@ -89,6 +91,7 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            transition: background-color 0.2s;
         }
 
         button:hover {
@@ -159,18 +162,38 @@
 
         <div class="form-group">
             <label for="mata_pelajaran">Mata Pelajaran <span style="color: red;">*</span></label>
-            <input type="text" id="mata_pelajaran" name="mata_pelajaran" placeholder="Contoh: Matematika, IPA, Bahasa Indonesia" required>
+            <select id="mata_pelajaran" name="mata_pelajaran" required>
+                <option value="">-- Pilih Mata Pelajaran --</option>
+                <option value="Pendidikan Agama Islam dan Budi Pekerti">Pendidikan Agama Islam dan Budi Pekerti</option>
+                <option value="Pendidikan Pancasila">Pendidikan Pancasila</option>
+                <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                <option value="Ilmu Pengetahuan Alam dan Sosial">Ilmu Pengetahuan Alam dan Sosial</option>
+                <option value="Matematika">Matematika</option>
+                <option value="Pendidikan Jasmani, Olahraga dan Kesehatan">Pendidikan Jasmani, Olahraga dan Kesehatan</option>
+                <option value="Seni Rupa">Seni Rupa</option>
+                <option value="Bahasa Inggris">Bahasa Inggris</option>
+                <option value="Bahasa Jawa">Bahasa Jawa</option>
+                <option value="Literasi Digital">Literasi Digital</option>
+            </select>
         </div>
 
         <div class="form-group">
-            <label for="lama_belajar">Lama Belajar (Menit) <span style="color: red;">*</span></label>
-            <input type="number" id="lama_belajar" name="lama_belajar" min="1" placeholder="Contoh: 60" required>
+            <label for="lama_belajar">Lama Belajar <span style="color: red;">*</span></label>
+            <select id="lama_belajar" name="lama_belajar" required>
+                <option value="">-- Pilih Lama Belajar --</option>
+                <option value="kurang dari 15 menit">kurang dari 15 menit</option>
+                <option value="30 menit">30 menit</option>
+                <option value="45 menit">45 menit</option>
+                <option value="60 menit">60 menit</option>
+                <option value="90 menit">90 menit</option>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="pendamping">Pendamping Belajar <span style="color: red;">*</span></label>
             <select id="pendamping" name="pendamping" required>
                 <option value="">-- Pilih Pendamping --</option>
+                <option value="Sendiri">Sendiri</option>
                 <option value="Orang Tua (Ayah/Ibu)">Orang Tua (Ayah/Ibu)</option>
                 <option value="Kakak">Kakak</option>
                 <option value="Wali/Saudara Lain">Wali/Saudara Lain</option>
@@ -191,18 +214,23 @@
 </div>
 
 <script>
-    // URL Web App Script Anda
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw_2jqvM6Yrl6vEhwV4YJ6aFuV0XWEQc78_TPVo134evVYT279v2qQgv_MgX6udM7s/exec";
 
-    // Cek saat halaman dibuka apakah hari ini sudah pernah mengirim
+    // Fungsi pembantu untuk mengambil total pengisian hari ini
+    function getSubmissionCount(todayStr) {
+        const count = localStorage.getItem('laporan_count_' + todayStr);
+        return count ? parseInt(count, 10) : 0;
+    }
+
+    // Cek kuota saat halaman pertama kali dibuka
     document.addEventListener("DOMContentLoaded", function() {
         const todayStr = new Date().toDateString();
-        if (localStorage.getItem('laporan_belajar_' + todayStr)) {
+        if (getSubmissionCount(todayStr) >= 2) {
             document.getElementById('submitBtn').disabled = true;
             const statusMessage = document.getElementById('statusMessage');
             statusMessage.style.display = 'block';
             statusMessage.className = 'error';
-            statusMessage.innerHTML = 'Anda sudah mengirimkan laporan belajar untuk hari ini. Silakan kembali besok!';
+            statusMessage.innerHTML = 'Maaf, Anda sudah mengisi batas maksimal laporan (2x) untuk hari ini. Silakan kembali besok!';
         }
     });
 
@@ -213,16 +241,16 @@
         const submitBtn = document.getElementById('submitBtn');
         const statusMessage = document.getElementById('statusMessage');
         const todayStr = new Date().toDateString();
+        let currentCount = getSubmissionCount(todayStr);
 
-        // Validasi ganda di sisi client side sebelum mengirim
-        if (localStorage.getItem('laporan_belajar_' + todayStr)) {
+        if (currentCount >= 2) {
             statusMessage.style.display = 'block';
             statusMessage.className = 'error';
-            statusMessage.innerHTML = 'Anda sudah mengirimkan laporan belajar untuk hari ini.';
+            statusMessage.innerHTML = 'Maaf, Anda sudah mengisi batas maksimal laporan (2x) untuk hari ini.';
             return;
         }
 
-        // 1. Tampilkan status sedang mengirim
+        // Tampilkan status pengiriman
         submitBtn.disabled = true;
         statusMessage.style.display = 'block';
         statusMessage.className = 'loading';
@@ -230,23 +258,27 @@
 
         const formData = new FormData(form);
         
-        // 2. Kirim data ke Google Apps Script
         fetch(WEB_APP_URL, {
             method: 'POST',
             body: formData,
-            mode: 'no-cors' // Menggunakan no-cors karena Apps Script tidak mengembalikan header CORS standar
+            mode: 'no-cors'
         })
         .then(() => {
-            // Karena no-cors, kita asumsikan pengiriman berhasil jika tidak masuk ke catch error
             form.reset();
-            submitBtn.disabled = true; // Tetap kunci tombol setelah sukses
             
-            // Simpan penanda di browser agar tidak bisa kirim lagi hari ini
-            localStorage.setItem('laporan_belajar_' + todayStr, 'true');
+            // Tambah hitungan submisi hari ini
+            currentCount += 1;
+            localStorage.setItem('laporan_count_' + todayStr, currentCount.toString());
 
-            // 3. Tampilkan status sukses dan kalimat penutup
-            statusMessage.className = 'success';
-            statusMessage.innerHTML = '<strong>Laporan sukses dikirim!</strong><br><br>Terima kasih! Semoga ilmunya bermanfaat.';
+            if (currentCount >= 2) {
+                submitBtn.disabled = true;
+                statusMessage.className = 'success';
+                statusMessage.innerHTML = '<strong>Laporan sukses dikirim!</strong><br><br>Terima kasih! Semoga ilmunya bermanfaat.<br><small>(Anda telah mencapai batas pengisian maksimal 2x hari ini)</small>';
+            } else {
+                submitBtn.disabled = false; // Izinkan isi lagi karena baru 1x
+                statusMessage.className = 'success';
+                statusMessage.innerHTML = '<strong>Laporan sukses dikirim!</strong><br><br>Terima kasih! Semoga ilmunya bermanfaat.<br><small>(Hari ini Anda masih bisa mengisi 1 laporan lagi jika diperlukan)</small>';
+            }
         })
         .catch(error => {
             console.error('Error:', error);
