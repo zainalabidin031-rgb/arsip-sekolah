@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruang Kelas Digital - SDN Butoh 1 Ngasem</title>
+    <style>
+        :root {
+            --primary-blue: #1e3a8a; /* Biru Tua Cerah */
+            --accent-purple: #6d28d9; /* Ungu Elegan */
+            --bg-clean: #ffffff; /* Putih Bersih */
+            --bg-light: #f8fafc; /* Abu-abu sangat muda untuk kontras */
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-clean);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Header / Hero Section */
+        header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #2563eb 50%, var(--accent-purple) 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.2);
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .school-badge {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #e2e8f0;
+            font-weight: 400;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* Ilustrasi SVG Ruang Kelas Digital Terintegrasi */
+        .illustration-container {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            animation: zoomIn 1.2s ease-out;
+        }
+
+        .classroom-svg {
+            width: 100%;
+            max-width: 240px;
+            height: auto;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
+        }
+
+        /* Main Content / Grid Menu */
+        main {
+            flex: 1;
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 20px;
+            color: var(--primary-blue);
+            margin-bottom: 30px;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-blue), var(--accent-purple));
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+
+        .class-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 5px;
+        }
+
+        /* Card Menu Kelas */
+        .class-card {
+            background-color: var(--bg-clean);
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 30px 25px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-dark);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .class-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-blue), var(--accent-purple));
+            opacity: 0.8;
+            transition: height 0.3s ease;
+        }
+
+        .class-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+        }
+
+        .class-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #0f172a;
+            transition: color 0.3s ease;
+        }
+
+        .class-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Hover Effects */
+        .class-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(109, 40, 217, 0.1), 0 10px 10px -5px rgba(30, 58, 138, 0.05);
+            border-color: #cbd5e1;
+        }
+
+        .class-card:hover::before {
+            height: 8px;
+        }
+
+        .class-card:hover .class-icon {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-purple) 100%);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(43, 108, 176, 0.2);
+        }
+
+        .class-card:hover h3 {
+            color: var(--accent-purple);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-light);
+            text-align: center;
+            padding: 25px 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid #e2e8f0;
+            font-weight: 500;
+        }
+
+        /* Animasi Keyframes */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Responsive Breakpoints */
+        @media (min-width: 768px) {
+            header {
+                padding: 60px 40px;
+                border-bottom-left-radius: 50px;
+                border-bottom-right-radius: 50px;
+            }
+            h1 { font-size: 38px; }
+            .subtitle { font-size: 18px; }
+            .classroom-svg { max-width: 320px; margin-top: 35px; }
+            main { padding: 60px 40px; }
+            .section-title { font-size: 24px; margin-bottom: 45px; }
+            .class-grid { gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Hero Section -->
+    <header>
+        <div class="header-content">
+            <span class="school-badge">SDN Butoh 1 Ngasem</span>
+            <h1>Ruang Kelas Digital</h1>
+            <p class="subtitle">Kabupaten Bojonegoro</p>
+            
+            <!-- Ilustrasi Ruang Kelas Digital & Gedung Sekolah Terpadu (SVG Berwarna Harmonis) -->
+            <div class="illustration-container">
+                <svg class="classroom-svg" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Base Ground -->
+                    <path d="M10 130 L190 130" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+                    
+                    <!-- School Building/Classroom Outline Backdrop -->
+                    <rect x="35" y="50" width="130" height="80" rx="8" fill="#ffffff" opacity="0.1"/>
+                    <polygon points="25,52 100,15 175,52" fill="#ffffff" opacity="0.08"/>
+                    
+                    <!-- Digital Tablet / Board Center -->
+                    <rect x="50" y="35" width="100" height="75" rx="10" fill="#ffffff" stroke="#ffffff" stroke-width="1"/>
+                    <rect x="54" y="39" width="92" height="61" rx="6" fill="#f8fafc"/>
+                    
+                    <!-- Tablet Stand -->
+                    <polygon points="90,110 110,110 115,126 85,126" fill="#ffffff" opacity="0.9"/>
+                    <rect x="75" y="124" width="50" height="6" rx="3" fill="#ffffff"/>
+
+                    <!-- Content Inside Screen: Cute Geometric Classroom & Light Bulb idea -->
+                    <!-- Teacher/Board area -->
+                    <rect x="85" y="48" width="30" height="18" rx="2" fill="#6d28d9" opacity="0.15"/>
+                    <line x1="90" y1="54" x2="110" y2="54" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                    <line x1="93" y1="60" x2="107" y2="60" stroke="#1e3a8a" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                    
+                    <!-- Student Desks Iconography Inside Screen -->
+                    <circle cx="70" cy="82" r="6" fill="#1e3a8a" opacity="0.7"/>
+                    <path d="M62 94 C62 88, 78 88, 78 94" fill="#1e3a8a" opacity="0.7"/>
+                    
+                    <circle cx="130" cy="82" r="6" fill="#6d28d9" opacity="0.7"/>
+                    <path d="M122 94 C122 88, 138 88, 138 94" fill="#6d28d9" opacity="0.7"/>
+                    
+                    <!-- Sparkles / Digital Waves -->
+                    <circle cx="160" cy="40" r="4" fill="#fff" opacity="0.8"/>
+                    <circle cx="40" cy="90" r="3" fill="#fff" opacity="0.6"/>
+                    <path d="M162 65 A 15 15 0 0 1 172 85" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.5"/>
+                    <path d="M38 45 A 12 12 0 0 0 28 60" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.5"/>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <h2 class="section-title">Pilih Tingkat Kelas</h2>
+        
+        <div class="class-grid">
+            <!-- Kelas 1 -->
+            <a href="#" class="class-card">
+                <div class="class-icon">1</div>
+                <h3>Kelas 1</h3>
+                <p>Ruang belajar digital interaktif untuk tingkat Kelas 1</p>
+            </a>
+
+            <!-- Kelas 2 -->
+            <a href="#" class="class-card">
+                <div class="class-icon">2</div>
+                <h3>Kelas 2</h3>
+                <p>Ruang belajar digital interaktif untuk tingkat Kelas 2</p>
+            </a>
+
+            <!-- Kelas 3 -->
+            <a href="#" class="class-card">
+                <div class="class-icon">3</div>
+                <h3>Kelas 3</h3>
+                <p>Ruang belajar digital interaktif untuk tingkat Kelas 3</p>
+            </a>
+
+            <!-- Kelas 4 -->
+            <a href="#" class="class-card">
+                <div class="class-icon">4</div>
+                <h3>Kelas 4</h3>
+                <p>Ruang belajar digital interaktif untuk tingkat Kelas 4</p>
+            </a>
+
+            <!-- Kelas 5 -->
+            <a href="#" class="class-card">
+                <div class="class-icon">5</div>
+                <h3>Kelas 5</h3>
+                <p>Ruang belajar digital interaktif untuk tingkat Kelas 5</p>
+            </a>
+
+            <!-- Kelas 6 -->
+            <a href="#" class="class-card">
+                <div class="class-icon">6</div>
+                <h3>Kelas 6</h3>
+                <p>Ruang belajar digital interaktif untuk tingkat Kelas 6</p>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2026 SDN Butoh 1 Ngasem, Bojonegoro. All Rights Reserved.
+    </footer>
+
+    <script>
+        /* Catatan untuk Anda:
+           Ubah tanda '#' pada bagian `href="#"` di setiap elemen `<a class="class-card">` 
+           menjadi link halaman kelas yang sudah Anda miliki saat ini.
+           Contoh: href="https://link-kelas-1.com" atau href="kelas1.html"
+        */
+    </script>
+</body>
+</html>
