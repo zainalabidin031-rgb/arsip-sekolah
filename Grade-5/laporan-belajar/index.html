@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Laporan Belajar Harian</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+background:#eef5ff;
+
+display:flex;
+
+justify-content:center;
+
+padding:20px;
+
+}
+
+.card{
+
+background:white;
+
+width:100%;
+
+max-width:500px;
+
+border-radius:20px;
+
+padding:25px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.1);
+
+}
+
+.logo{
+
+font-size:60px;
+
+text-align:center;
+
+}
+
+h1{
+
+font-size:24px;
+
+text-align:center;
+
+color:#1d4ed8;
+
+margin-top:10px;
+
+}
+
+.subtitle{
+
+text-align:center;
+
+margin-top:5px;
+
+color:#555;
+
+margin-bottom:25px;
+
+}
+
+label{
+
+font-weight:600;
+
+display:block;
+
+margin-bottom:8px;
+
+margin-top:18px;
+
+}
+
+select,textarea{
+
+width:100%;
+
+padding:13px;
+
+border-radius:12px;
+
+border:1px solid #ccc;
+
+font-size:15px;
+
+outline:none;
+
+}
+
+select:focus,
+textarea:focus{
+
+border:1px solid #2563eb;
+
+}
+
+textarea{
+
+resize:none;
+
+height:110px;
+
+}
+
+.radio-group{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:10px;
+
+margin-top:8px;
+
+}
+
+.radio-item{
+
+background:#f5f7fb;
+
+padding:12px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+}
+
+.radio-item input{
+
+margin-right:8px;
+
+}
+
+button{
+
+margin-top:25px;
+
+width:100%;
+
+padding:16px;
+
+background:#2563eb;
+
+color:white;
+
+font-size:17px;
+
+border:none;
+
+border-radius:12px;
+
+cursor:pointer;
+
+transition:.3s;
+
+font-weight:bold;
+
+}
+
+button:hover{
+
+background:#1e40af;
+
+}
+
+.footer{
+
+margin-top:25px;
+
+text-align:center;
+
+font-size:13px;
+
+color:#888;
+
+}
+
+@media(max-width:500px){
+
+.card{
+
+padding:18px;
+
+}
+
+.radio-group{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="card">
+
+<div class="logo">📚</div>
+
+<h1>Laporan Belajar Harian</h1>
+
+<div class="subtitle">
+
+SDN Butoh 1 Ngasem<br>
+
+Belajar sedikit setiap hari lebih baik daripada tidak sama sekali.
+
+</div>
+
+<form id="laporanForm">
+
+<label>Nama Siswa</label>
+
+<select name="nama" required>
+
+<option value="">-- Pilih Nama --</option>
+
+<option>Achmat Juli Setyawan</option>
+<option>Afifa Refanda Oktavia</option>
+<option>Ahmad Noval Nugroho</option>
+<option>Ahmad Syahrul Dermawan</option>
+<option>Farel Galih Revander</option>
+<option>Mochammad Noer Azzam</option>
+<option>Muhamad Adi Nur Mahendra</option>
+<option>Muhammad Alfian Hidayatulloh</option>
+<option>Muhammad David Aufal Marom</option>
+<option>Muhammad Fajar Ibrahim</option>
+<option>Natasya Syabila Azzahra</option>
+<option>Ramadhani Rizki Hermawan</option>
+<option>Rosalina Ayu Kirana Putri</option>
+<option>Tri Nurdiana</option>
+<option>Tri Nurdiani</option>
+<option>Yuda Setya Anggara Putra</option>
+
+</select>
+
+<label>Mata Pelajaran</label>
+
+<select name="mapel" required>
+
+<option value="">Pilih Mata Pelajaran</option>
+
+<option>Pendidikan Agama Islam dan Budi Pekerti</option>
+
+<option>Pendidikan Pancasila</option>
+
+<option>Bahasa Indonesia</option>
+
+<option>IPA dan Sosial</option>
+
+<option>PJOK</option>
+
+<option>Seni Rupa</option>
+
+<option>Bahasa Inggris</option>
+
+<option>Bahasa Jawa</option>
+
+<option>Literasi Digital</option>
+
+<option>Karya dan Kreativitas</option>
+
+<option>Lainnya</option>
+
+</select>
+
+<label>Belajar Bersama</label>
+
+<div class="radio-group">
+
+<label class="radio-item"><input type="radio" name="bersama" value="Sendiri" required>Sendiri</label>
+
+<label class="radio-item"><input type="radio" name="bersama" value="Ayah">Ayah</label>
+
+<label class="radio-item"><input type="radio" name="bersama" value="Ibu">Ibu</label>
+
+<label class="radio-item"><input type="radio" name="bersama" value="Orang Tua">Orang Tua</label>
+
+<label class="radio-item"><input type="radio" name="bersama" value="Kakak">Kakak</label>
+
+<label class="radio-item"><input type="radio" name="bersama" value="Guru Les">Guru Les</label>
+
+<label class="radio-item"><input type="radio" name="bersama" value="Teman">Teman</label>
+
+<label class="radio-item"><input type="radio" name="bersama" value="Lainnya">Lainnya</label>
+
+</div>
+
+<label>Keterangan</label>
+
+<textarea
+
+name="keterangan"
+
+placeholder="Tulis apa saja yang belum di mengerti atau kosongkan bila sudah paham materi yang di pelajari."
+
+></textarea>
+
+<button type="submit">
+
+📚 Kirim Laporan Belajar
+
+</button>
+
+</form>
+
+<div class="footer">
+
+SDN Butoh 1 Ngasem © 2026
+
+</div>
+
+</div>
+
+</body>
+</html>
