@@ -1,338 +1,261 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Laporan Belajar Harian</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-
-background:#eef5ff;
-
-display:flex;
-
-justify-content:center;
-
-padding:20px;
-
-}
-
-.card{
-
-background:white;
-
-width:100%;
-
-max-width:500px;
-
-border-radius:20px;
-
-padding:25px;
-
-box-shadow:0 15px 35px rgba(0,0,0,.1);
-
-}
-
-.logo{
-
-font-size:60px;
-
-text-align:center;
-
-}
-
-h1{
-
-font-size:24px;
-
-text-align:center;
-
-color:#1d4ed8;
-
-margin-top:10px;
-
-}
-
-.subtitle{
-
-text-align:center;
-
-margin-top:5px;
-
-color:#555;
-
-margin-bottom:25px;
-
-}
-
-label{
-
-font-weight:600;
-
-display:block;
-
-margin-bottom:8px;
-
-margin-top:18px;
-
-}
-
-select,textarea{
-
-width:100%;
-
-padding:13px;
-
-border-radius:12px;
-
-border:1px solid #ccc;
-
-font-size:15px;
-
-outline:none;
-
-}
-
-select:focus,
-textarea:focus{
-
-border:1px solid #2563eb;
-
-}
-
-textarea{
-
-resize:none;
-
-height:110px;
-
-}
-
-.radio-group{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:10px;
-
-margin-top:8px;
-
-}
-
-.radio-item{
-
-background:#f5f7fb;
-
-padding:12px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-}
-
-.radio-item input{
-
-margin-right:8px;
-
-}
-
-button{
-
-margin-top:25px;
-
-width:100%;
-
-padding:16px;
-
-background:#2563eb;
-
-color:white;
-
-font-size:17px;
-
-border:none;
-
-border-radius:12px;
-
-cursor:pointer;
-
-transition:.3s;
-
-font-weight:bold;
-
-}
-
-button:hover{
-
-background:#1e40af;
-
-}
-
-.footer{
-
-margin-top:25px;
-
-text-align:center;
-
-font-size:13px;
-
-color:#888;
-
-}
-
-@media(max-width:500px){
-
-.card{
-
-padding:18px;
-
-}
-
-.radio-group{
-
-grid-template-columns:1fr;
-
-}
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Laporan Belajar Harian</title>
+    <style>
+        :root {
+            --primary-color: #2b6cb0;
+            --primary-hover: #1a4373;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 550px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 24px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        select, input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.1);
+        }
+
+        .hint {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button:disabled {
+            background-color: #cbd5e0;
+            cursor: not-allowed;
+        }
+
+        #statusMessage {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .loading {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            border: 1px solid #bee3f8;
+        }
+
+        .success {
+            background-color: #f0fff4;
+            color: #38a169;
+            border: 1px solid #c6f6d5;
+        }
+
+        .error {
+            background-color: #fff5f5;
+            color: #e53e3e;
+            border: 1px solid #fed7d7;
+        }
+    </style>
 </head>
 <body>
 
-<div class="card">
+<div class="container">
+    <h2>Form Laporan Belajar Harian</h2>
+    <form id="laporanForm">
+        
+        <div class="form-group">
+            <label for="nama">Nama Siswa <span style="color: red;">*</span></label>
+            <select id="nama" name="nama" required>
+                <option value="">-- Pilih Nama Siswa --</option>
+                <option value="Achmat Juli Setyawan">Achmat Juli Setyawan</option>
+                <option value="Afifa Refanda Oktavia">Afifa Refanda Oktavia</option>
+                <option value="Ahmad Noval Nugroho">Ahmad Noval Nugroho</option>
+                <option value="Ahmad Syahrul Dermawan">Ahmad Syahrul Dermawan</option>
+                <option value="Farel Galih Revander">Farel Galih Revander</option>
+                <option value="Mochammad Noer Azzam">Mochammad Noer Azzam</option>
+                <option value="Muhamad Adi nur Mahendra">Muhamad Adi nur Mahendra</option>
+                <option value="MUHAMMAD ALFIAN HIDAYATULLOH">MUHAMMAD ALFIAN HIDAYATULLOH</option>
+                <option value="Muhammad David AufalMarom">Muhammad David AufalMarom</option>
+                <option value="MUHAMMAD FAJAR IBRAHIM">MUHAMMAD FAJAR IBRAHIM</option>
+                <option value="Natasya Syabila Azzahra">Natasya Syabila Azzahra</option>
+                <option value="Ramadhani Rizki Hermawan">Ramadhani Rizki Hermawan</option>
+                <option value="Rosalina Ayu Kirana Putri">Rosalina Ayu Kirana Putri</option>
+                <option value="Tri Nurdiana">Tri Nurdiana</option>
+                <option value="Tri Nurdiani">Tri Nurdiani</option>
+                <option value="Yuda Setya Anggara Putra">Yuda Setya Anggara Putra</option>
+            </select>
+        </div>
 
-<div class="logo">📚</div>
+        <div class="form-group">
+            <label for="mata_pelajaran">Mata Pelajaran <span style="color: red;">*</span></label>
+            <input type="text" id="mata_pelajaran" name="mata_pelajaran" placeholder="Contoh: Matematika, IPA, Bahasa Indonesia" required>
+        </div>
 
-<h1>Laporan Belajar Harian</h1>
+        <div class="form-group">
+            <label for="lama_belajar">Lama Belajar (Menit) <span style="color: red;">*</span></label>
+            <input type="number" id="lama_belajar" name="lama_belajar" min="1" placeholder="Contoh: 60" required>
+        </div>
 
-<div class="subtitle">
+        <div class="form-group">
+            <label for="pendamping">Pendamping Belajar <span style="color: red;">*</span></label>
+            <select id="pendamping" name="pendamping" required>
+                <option value="">-- Pilih Pendamping --</option>
+                <option value="Orang Tua (Ayah/Ibu)">Orang Tua (Ayah/Ibu)</option>
+                <option value="Kakak">Kakak</option>
+                <option value="Wali/Saudara Lain">Wali/Saudara Lain</option>
+                <option value="Belajar Mandiri">Belajar Mandiri</option>
+            </select>
+        </div>
 
-SDN Butoh 1 Ngasem<br>
+        <div class="form-group">
+            <label for="keterangan">Keterangan / Catatan Belajar</label>
+            <textarea id="keterangan" name="keterangan" rows="3" placeholder="Tulis apa yang masih belum di mengerti dari materi yang telah dipelajari atau kosongkan bila sudah paham."></textarea>
+            <div class="hint">Boleh dikosongkan jika sudah paham semua materi.</div>
+        </div>
 
-Belajar sedikit setiap hari lebih baik daripada tidak sama sekali.
+        <button type="submit" id="submitBtn">Kirim Laporan</button>
+    </form>
 
+    <div id="statusMessage"></div>
 </div>
 
-<form id="laporanForm">
+<script>
+    // URL Web App Script Anda
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw_2jqvM6Yrl6vEhwV4YJ6aFuV0XWEQc78_TPVo134evVYT279v2qQgv_MgX6udM7s/exec";
 
-<label>Nama Siswa</label>
+    // Cek saat halaman dibuka apakah hari ini sudah pernah mengirim
+    document.addEventListener("DOMContentLoaded", function() {
+        const todayStr = new Date().toDateString();
+        if (localStorage.getItem('laporan_belajar_' + todayStr)) {
+            document.getElementById('submitBtn').disabled = true;
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.style.display = 'block';
+            statusMessage.className = 'error';
+            statusMessage.innerHTML = 'Anda sudah mengirimkan laporan belajar untuk hari ini. Silakan kembali besok!';
+        }
+    });
 
-<select name="nama" required>
+    document.getElementById('laporanForm').addEventListener('submit', function(e) {
+        e.preventDefault();
 
-<option value="">-- Pilih Nama --</option>
+        const form = this;
+        const submitBtn = document.getElementById('submitBtn');
+        const statusMessage = document.getElementById('statusMessage');
+        const todayStr = new Date().toDateString();
 
-<option>Achmat Juli Setyawan</option>
-<option>Afifa Refanda Oktavia</option>
-<option>Ahmad Noval Nugroho</option>
-<option>Ahmad Syahrul Dermawan</option>
-<option>Farel Galih Revander</option>
-<option>Mochammad Noer Azzam</option>
-<option>Muhamad Adi Nur Mahendra</option>
-<option>Muhammad Alfian Hidayatulloh</option>
-<option>Muhammad David Aufal Marom</option>
-<option>Muhammad Fajar Ibrahim</option>
-<option>Natasya Syabila Azzahra</option>
-<option>Ramadhani Rizki Hermawan</option>
-<option>Rosalina Ayu Kirana Putri</option>
-<option>Tri Nurdiana</option>
-<option>Tri Nurdiani</option>
-<option>Yuda Setya Anggara Putra</option>
+        // Validasi ganda di sisi client side sebelum mengirim
+        if (localStorage.getItem('laporan_belajar_' + todayStr)) {
+            statusMessage.style.display = 'block';
+            statusMessage.className = 'error';
+            statusMessage.innerHTML = 'Anda sudah mengirimkan laporan belajar untuk hari ini.';
+            return;
+        }
 
-</select>
+        // 1. Tampilkan status sedang mengirim
+        submitBtn.disabled = true;
+        statusMessage.style.display = 'block';
+        statusMessage.className = 'loading';
+        statusMessage.innerHTML = 'Sedang mengirim laporan, mohon tunggu...';
 
-<label>Mata Pelajaran</label>
+        const formData = new FormData(form);
+        
+        // 2. Kirim data ke Google Apps Script
+        fetch(WEB_APP_URL, {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors' // Menggunakan no-cors karena Apps Script tidak mengembalikan header CORS standar
+        })
+        .then(() => {
+            // Karena no-cors, kita asumsikan pengiriman berhasil jika tidak masuk ke catch error
+            form.reset();
+            submitBtn.disabled = true; // Tetap kunci tombol setelah sukses
+            
+            // Simpan penanda di browser agar tidak bisa kirim lagi hari ini
+            localStorage.setItem('laporan_belajar_' + todayStr, 'true');
 
-<select name="mapel" required>
-
-<option value="">Pilih Mata Pelajaran</option>
-
-<option>Pendidikan Agama Islam dan Budi Pekerti</option>
-
-<option>Pendidikan Pancasila</option>
-
-<option>Bahasa Indonesia</option>
-
-<option>IPA dan Sosial</option>
-
-<option>PJOK</option>
-
-<option>Seni Rupa</option>
-
-<option>Bahasa Inggris</option>
-
-<option>Bahasa Jawa</option>
-
-<option>Literasi Digital</option>
-
-<option>Karya dan Kreativitas</option>
-
-<option>Lainnya</option>
-
-</select>
-
-<label>Belajar Bersama</label>
-
-<div class="radio-group">
-
-<label class="radio-item"><input type="radio" name="bersama" value="Sendiri" required>Sendiri</label>
-
-<label class="radio-item"><input type="radio" name="bersama" value="Ayah">Ayah</label>
-
-<label class="radio-item"><input type="radio" name="bersama" value="Ibu">Ibu</label>
-
-<label class="radio-item"><input type="radio" name="bersama" value="Orang Tua">Orang Tua</label>
-
-<label class="radio-item"><input type="radio" name="bersama" value="Kakak">Kakak</label>
-
-<label class="radio-item"><input type="radio" name="bersama" value="Guru Les">Guru Les</label>
-
-<label class="radio-item"><input type="radio" name="bersama" value="Teman">Teman</label>
-
-<label class="radio-item"><input type="radio" name="bersama" value="Lainnya">Lainnya</label>
-
-</div>
-
-<label>Keterangan</label>
-
-<textarea
-
-name="keterangan"
-
-placeholder="Tulis apa saja yang belum di mengerti atau kosongkan bila sudah paham materi yang di pelajari."
-
-></textarea>
-
-<button type="submit">
-
-📚 Kirim Laporan Belajar
-
-</button>
-
-</form>
-
-<div class="footer">
-
-SDN Butoh 1 Ngasem © 2026
-
-</div>
-
-</div>
+            // 3. Tampilkan status sukses dan kalimat penutup
+            statusMessage.className = 'success';
+            statusMessage.innerHTML = '<strong>Laporan sukses dikirim!</strong><br><br>Terima kasih! Semoga ilmunya bermanfaat.';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            submitBtn.disabled = false;
+            statusMessage.className = 'error';
+            statusMessage.innerHTML = 'Terjadi kesalahan saat mengirim laporan. Silakan coba lagi.';
+        });
+    });
+</script>
 
 </body>
 </html>
