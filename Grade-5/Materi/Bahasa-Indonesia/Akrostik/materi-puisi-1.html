@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Materi Bahasa Indonesia: Menulis Puisi (Halaman 1)</title>
+    <title>Materi Bahasa Indonesia: Menulis Puisi Akrostik (Halaman 1)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -13,37 +13,34 @@
         /* Header Judul Utama */
         .header-modul { border-bottom: 2px solid #E2E8F0; padding-bottom: 12px; margin-bottom: 20px; }
         .header-modul h1 { font-size: 1.1rem; font-weight: 700; color: #475569; }
+        .header-modul p { font-size: 1.3rem; font-weight: 800; color: #1E293B; margin-top: 4px; }
         
         /* Judul Bab */
-        h2 { font-size: 1.3rem; font-weight: 800; color: #1E293B; margin-top: 15px; margin-bottom: 12px; }
-        h3 { font-size: 1.05rem; font-weight: 700; color: #1E293B; margin-top: 20px; margin-bottom: 10px; }
-        p { font-size: 0.95rem; color: #334155; margin-bottom: 12px; }
+        h2 { font-size: 1.15rem; font-weight: 700; color: #1E293B; margin-top: 25px; margin-bottom: 12px; border-left: 4px solid #6366F1; padding-left: 8px; }
+        h3 { font-size: 0.95rem; font-weight: 700; color: #334155; margin-top: 15px; margin-bottom: 6px; }
+        p { font-size: 0.95rem; color: #334155; margin-bottom: 12px; text-align: justify; }
 
-        /* Kotak Contoh Puisi Pendek */
-        .box-contoh { background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 15px; margin: 15px 0; }
-        .box-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.85rem; font-weight: 700; color: #475569; }
-        .badge-kelas { background-color: #EEF2F6; color: #4F46E5; padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; }
-        .puisi-content { text-align: center; font-style: italic; color: #334155; font-size: 0.95rem; }
-        .puisi-content strong { display: block; font-style: normal; margin-bottom: 8px; font-size: 1rem; color: #1E293B; }
-
-        /* List Ciri-ciri & Unsur */
+        /* List Gaya */
         ul { margin-left: 20px; margin-bottom: 20px; }
         li { font-size: 0.95rem; color: #334155; margin-bottom: 6px; }
-        
-        .unsur-item { margin-bottom: 15px; padding-bottom: 12px; border-bottom: 1px dashed #E2E8F0; }
-        .unsur-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .unsur-title { font-weight: 700; font-size: 0.95rem; color: #1E293B; display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
-        .unsur-desc { font-size: 0.9rem; color: #475569; margin-left: 22px; }
 
-        /* Tabel Perbedaan */
-        .table-container { width: 100%; overflow-x: auto; margin: 20px 0; border: 1px solid #E2E8F0; border-radius: 10px; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #E2E8F0; }
-        th { background-color: #F8FAFC; font-weight: 700; color: #1E293B; }
-        tr:last-child td { border-bottom: none; }
+        /* Box Contoh & Pembahasan */
+        .contoh-box { background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 18px; margin: 15px 0; }
+        .contoh-box h3 { font-size: 1rem; font-weight: 800; color: #1E293B; margin-top: 0; margin-bottom: 10px; }
+        .puisi-content { text-align: left; margin-bottom: 15px; }
+        .puisi-content p { font-style: italic; margin-bottom: 4px; }
+        .akrostik-letter { font-weight: 800; color: #4F46E5; font-size: 1.05rem; }
+        
+        .pembahasan-box { background-color: #F1F5F9; border-radius: 8px; padding: 12px 15px; font-size: 0.9rem; color: #475569; border-left: 3px solid #94A3B8; }
+        .pembahasan-box strong { color: #1E293B; display: block; margin-bottom: 6px; }
+        .pembahasan-box ul { margin-bottom: 8px; }
 
         /* Pembatas Garis */
         hr { border: 0; height: 1px; background: #E2E8F0; margin: 25px 0; }
+
+        /* Teks Gaya Vertikal / Contoh Langkah */
+        .badge-kata { display: inline-block; background-color: #EEF2F6; color: #4F46E5; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: 700; margin-right: 6px; margin-bottom: 6px; }
+        .vertikal-text { font-weight: 800; color: #4F46E5; font-size: 1.1rem; letter-spacing: 2px; line-height: 1.8; margin-top: 5px; padding-left: 5px; }
 
         /* Tombol Navigasi */
         .navigation-tools { display: flex; justify-content: space-between; gap: 15px; margin-top: 25px; }
@@ -58,101 +55,98 @@
 
     <div class="container">
         
+        <!-- HEADER UTAMA -->
         <div class="header-modul">
-            <h1>Materi Bahasa Indonesia – Menulis Puisi</h1>
+            <h1>Materi Bahasa Indonesia Kelas V SD</h1>
+            <p>Menulis Puisi Akrostik</p>
         </div>
 
-        <h2>Apa Itu Puisi?</h2>
-        <p><strong>Puisi</strong> adalah karya sastra yang menggunakan kata-kata indah untuk menyampaikan <strong>perasaan, pikiran, pengalaman, atau imajinasi</strong> penulis.</p>
-        <p>Puisi biasanya ditulis dalam <strong>baris-baris pendek</strong> dan memiliki pilihan kata yang menarik.</p>
-
-        <div class="box-contoh">
-            <div class="box-header">
-                <span>📖 Contoh Puisi Pendek</span>
-                <span class="badge-kelas">Kelas 5 SD</span>
-            </div>
-            <div class="puisi-content">
-                <strong>Pagi yang Cerah</strong>
-                <p>Mentari tersenyum terang</p>
-                <p>Burung bernyanyi riang</p>
-                <p>Udara sejuk menyapa</p>
-                <p>Hatiku penuh bahagia</p>
-            </div>
-        </div>
+        <!-- APA ITU PUISI AKROSTIK -->
+        <h2>Apa Itu Puisi Akrostik?</h2>
+        <p><strong>Puisi akrostik</strong> adalah puisi yang huruf pertama pada setiap barisnya membentuk sebuah kata atau nama tertentu jika dibaca dari atas ke bawah.</p>
+        <p>Kata yang dibentuk biasanya menjadi tema utama puisi, misalnya nama orang, nama sekolah, nama kota, atau kata-kata yang memiliki makna khusus.</p>
+        <p>Puisi akrostik termasuk puisi yang menyenangkan karena menggabungkan kreativitas dalam memilih kata sekaligus menyusun isi puisi.</p>
 
         <hr>
 
-        <h2>Ciri-Ciri Puisi</h2>
+        <!-- CIRI-CIRI -->
+        <h2>Ciri-Ciri Puisi Akrostik</h2>
+        <p>Puisi akrostik memiliki beberapa ciri berikut:</p>
         <ul>
-            <li>Ditulis dalam <strong>baris-baris pendek</strong>.</li>
-            <li>Memiliki <strong>bait</strong> (kumpulan beberapa baris).</li>
-            <li>Menggunakan <strong>kata-kata indah</strong>.</li>
-            <li>Sering mengandung <strong>irama atau rima</strong> (bunyi yang mirip).</li>
-            <li>Mengungkapkan <strong>perasaan penulis</strong>.</li>
-            <li>Tidak selalu menggunakan kalimat lengkap seperti paragraf biasa.</li>
+            <li>Huruf pertama setiap baris membentuk sebuah kata.</li>
+            <li>Setiap baris saling berhubungan dengan tema.</li>
+            <li>Menggunakan bahasa yang indah dan mudah dipahami.</li>
+            <li>Mengandung pesan atau amanat.</li>
+            <li>Dapat terdiri atas satu atau lebih bait.</li>
+            <li>Tidak harus memiliki rima yang sama.</li>
         </ul>
 
         <hr>
 
-        <h2>Unsur-Unsur Puisi</h2>
-        
-        <div class="unsur-item">
-            <div class="unsur-title">💡 Tema</div>
-            <div class="unsur-desc">Ide utama puisi.<br><strong>Contoh:</strong> Persahabatan, alam, ibu, sekolah.</div>
-        </div>
-
-        <div class="unsur-item">
-            <div class="unsur-title">❤️ Rasa</div>
-            <div class="unsur-desc">Perasaan yang ingin disampaikan.<br><strong>Contoh:</strong> Senang, sedih, bangga, rindu.</div>
-        </div>
-
-        <div class="unsur-item">
-            <div class="unsur-title">💬 Amanat</div>
-            <div class="unsur-desc">Pesan yang dapat dipetik pembaca.<br><strong>Contoh:</strong> Rajin belajar, mencintai alam.</div>
-        </div>
-
-        <div class="unsur-item">
-            <div class="unsur-title">⦚ Diksi</div>
-            <div class="unsur-desc">Pilihan kata yang digunakan dalam puisi.<br><strong>Contoh:</strong> "mentari" lebih indah daripada "matahari".</div>
-        </div>
-
-        <div class="unsur-item">
-            <div class="unsur-title">🎵 Rima</div>
-            <div class="unsur-desc">Persamaan bunyi pada akhir baris.<br><strong>Contoh:</strong> terang – riang</div>
-        </div>
+        <!-- TUJUAN -->
+        <h2>Tujuan Menulis Puisi Akrostik</h2>
+        <p>Menulis puisi akrostik bertujuan untuk:</p>
+        <ul>
+            <li>Melatih kreativitas dalam menulis.</li>
+            <li>Memperkaya kosakata.</li>
+            <li>Mengungkapkan perasaan dengan cara yang menarik.</li>
+            <li>Belajar memilih kata-kata yang indah.</li>
+            <li>Membuat puisi lebih mudah diingat.</li>
+        </ul>
 
         <hr>
 
-        <h2>Perbedaan Puisi dan Paragraf Biasa</h2>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Puisi</th>
-                        <th>Paragraf Biasa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Baris pendek</td>
-                        <td>Kalimat panjang</td>
-                    </tr>
-                    <tr>
-                        <td>Bahasa indah</td>
-                        <td>Bahasa langsung</td>
-                    </tr>
-                    <tr>
-                        <td>Mengandung rima</td>
-                        <td>Tidak harus berima</td>
-                    </tr>
-                    <tr>
-                        <td>Menonjolkan perasaan</td>
-                        <td>Menjelaskan informasi</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- LANGKAH-LANGKAH -->
+        <h2>Langkah-Langkah Membuat Puisi Akrostik</h2>
+        
+        <h3>1. Tentukan kata yang akan digunakan.</h3>
+        <p>Contoh:</p>
+        <div style="margin-bottom: 10px;">
+            <span class="badge-kata">IBU</span>
+            <span class="badge-kata">SAHABAT</span>
+            <span class="badge-kata">SEKOLAH</span>
+            <span class="badge-kata">INDONESIA</span>
         </div>
 
+        <h3>2. Tuliskan kata tersebut secara vertikal.</h3>
+        <p>Contoh:</p>
+        <div class="vertikal-text">
+            I<br>B<br>U
+        </div>
+
+        <h3>3. Buat kalimat pada setiap huruf.</h3>
+        <p>Usahakan isi puisi sesuai dengan tema.</p>
+
+        <h3>4. Periksa kembali.</h3>
+        <p>Pastikan setiap baris sesuai dengan huruf awal dan mudah dipahami.</p>
+
+        <hr>
+
+        <!-- CONTOH 1 & PEMBAHASAN -->
+        <div class="contoh-box">
+            <h3>Contoh 1</h3>
+            <div class="puisi-content">
+                <p><strong>Tema: IBU</strong></p>
+                <p><span class="akrostik-letter">I</span>ngin selalu membuatmu tersenyum</p>
+                <p><span class="akrostik-letter">B</span>elai kasihmu menguatkanku setiap hari</p>
+                <p><span class="akrostik-letter">U</span>ntukmu akan selalu kuberikan yang terbaik</p>
+            </div>
+            
+            <div class="pembahasan-box">
+                <strong>Pembahasan:</strong>
+                <p>Kata yang dibentuk adalah <strong>IBU</strong>.</p>
+                <p>Huruf pertama setiap baris berturut-turut adalah:</p>
+                <ul>
+                    <li>I</li>
+                    <li>B</li>
+                    <li>U</li>
+                </ul>
+                <p>Isi puisi menceritakan kasih sayang seorang ibu.</p>
+                <p>Amanatnya adalah kita harus menghormati dan menyayangi ibu.</p>
+            </div>
+        </div>
+
+        <!-- TOMBOL NAVIGASI -->
         <div class="navigation-tools">
             <a href="index.html" class="btn-nav btn-kembali">&larr; Kembali Menu</a>
             <a href="materi-puisi-2.html" class="btn-nav btn-lanjut">Halaman 2 &rarr;</a>
