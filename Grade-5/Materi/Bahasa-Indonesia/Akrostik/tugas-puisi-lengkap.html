@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Evaluasi Lengkap: Puisi Akrostik Kelas V</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #F5F3FF; color: #1E293B; padding: 15px 10px; line-height: 1.6; }
+        .container { max-width: 650px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(79, 70, 229, 0.05); }
+        
+        /* Header Kuis */
+        .header-kuis { border-bottom: 3px solid #6366F1; padding-bottom: 12px; margin-bottom: 25px; text-align: center; }
+        .header-kuis h1 { font-size: 1.4rem; font-weight: 800; color: #4338CA; }
+        .header-kuis p { font-size: 0.9rem; color: #64748B; font-weight: 600; margin-top: 4px; }
+
+        /* Petunjuk */
+        .petunjuk-box { background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 12px 15px; border-radius: 10px; margin-bottom: 25px; font-size: 0.85rem; color: #475569; }
+        .petunjuk-box strong { color: #1E293B; }
+
+        /* Judul Bagian */
+        h2 { font-size: 1.1rem; font-weight: 700; color: #1E293B; margin-top: 20px; margin-bottom: 15px; border-left: 4px solid #6366F1; padding-left: 8px; background: #F8FAFC; padding-top: 4px; padding-bottom: 4px; }
+        
+        /* Struktur Soal */
+        .soal-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #F1F5F9; }
+        .soal-text { font-size: 0.95rem; font-weight: 600; color: #1E293B; margin-bottom: 10px; }
+        
+        /* Pilihan Ganda */
+        .pilihan-container { display: flex; flex-direction: column; gap: 8px; margin-left: 5px; }
+        .pilihan-label { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #334155; cursor: pointer; padding: 8px 12px; border: 1px solid #E2E8F0; border-radius: 8px; transition: 0.2s; }
+        .pilihan-label:hover { background-color: #F4F3FF; border-color: #C7D2FE; }
+        .pilihan-label input[type="radio"] { accent-color: #4F46E5; width: 16px; height: 16px; }
+
+        /* Isian Singkat */
+        .input-isian { width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.9rem; margin-top: 5px; transition: 0.2s; }
+        .input-isian:focus { border-color: #6366F1; outline: none; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+
+        /* Tugas Mandiri Akrostik */
+        .tugas-box { background-color: #FAF9FF; border: 1px dashed #C7D2FE; padding: 15px; border-radius: 12px; margin-top: 10px; }
+        .input-tema { padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.9rem; width: 100%; max-width: 250px; margin-bottom: 15px; background: white; font-weight: 600; }
+        .textarea-puisi { width: 100%; height: 150px; padding: 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 0.95rem; resize: none; font-style: italic; }
+        .textarea-puisi:focus { border-color: #6366F1; outline: none; }
+
+        /* Tombol Aksi */
+        .btn-kirim { display: block; width: 100%; padding: 14px; font-size: 1rem; font-weight: 700; color: white; background: linear-gradient(135deg, #4338CA, #6366F1); border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2); transition: 0.2s; margin-top: 30px; text-align: center; text-decoration: none; }
+        .btn-kirim:hover { opacity: 0.95; box-shadow: 0 6px 16px rgba(67, 56, 202, 0.3); }
+
+        .navigation-tools { display: flex; justify-content: space-between; gap: 15px; margin-top: 20px; border-top: 1px solid #F1F5F9; padding-top: 20px; }
+        .btn-nav { flex: 1; text-decoration: none; padding: 10px 15px; font-size: 0.85rem; font-weight: 700; border-radius: 8px; text-align: center; transition: 0.2s; }
+        .btn-kembali { background-color: #E2E8F0; color: #475569; }
+        .btn-kembali:hover { background-color: #CBD5E1; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="header-kuis">
+            <h1>Kuis Evaluasi Lembar Kerja Siswa</h1>
+            <p>Materi: Menulis Puisi Akrostik — Kelas V SD</p>
+        </div>
+
+        <div class="petunjuk-box">
+            <strong>📋 Petunjuk Pengerjaan:</strong><br>
+            1. Isi seluruh soal Pilihan Ganda (Bagian A) dengan memilih salah satu jawaban paling tepat.<br>
+            2. Tulis jawaban singkat pada kolom yang disediakan untuk Bagian B.<br>
+            3. Rangkai puisi kreatifmu sendiri pada Bagian C.<br>
+            4. Tekan tombol paling bawah untuk mengirimkan seluruh hasil jawaban kepada Guru.
+        </div>
+
+        <form id="quizForm">
+            
+            <h2>Bagian A: Pilihan Ganda (10 Soal)</h2>
+
+            <div class="soal-item">
+                <div class="soal-text">1. Puisi yang huruf pertama di setiap barisnya dapat membentuk sebuah kata jika dibaca dari atas ke bawah dinamakan...</div>
+                <div class="pilihan-container">
+                    <label class="pilihan-label"><input type="radio" name="q1" value="A"> A. Puisi lama</label>
+                    <label class="pilihan-label"><input type="radio" name="q1" value="B"> B. Puisi bebas</label>
+                    <label class="pilihan-label"><input type="radio" name="q1" value="C"> C. Puisi akrostik</label>
+                    <label class="pilihan-label"><input type="radio" name="q1" value="D"> D. Puisi kontemporer</label>
+                </div>
+            </div>
+
+            <div class="soal-item">
+                <div class="soal-text">2. Kata tersembunyi yang dibentuk oleh rangkaian huruf awal baris puisi akrostik biasanya berfungsi sebagai...</div>
+                <div class="pilihan-container">
+                    <label class="pilihan-label"><input type="radio" name="q2" value="A"> A. Judul tambahan</label>
+                    <label class="pilihan-label"><input type="radio" name="q2" value="B"> B. Tema utama puisi</label>
+                    <label class="pilihan-label"><input type="radio" name="q2" value="C"> C. Rima akhir puisi</label>
+                    <label class="pilihan-label"><input type="radio" name="q2" value="D"> D. Nama pengarang saja</label>
+                </div>
+            </div>
+
+            <div class="soal-item">
+                <div class="soal-text">3. Untuk mempermudah penyusunan baris kalimat, penulisan huruf-huruf kata kunci di awal langkah sebaiknya disusun secara...</div>
+                <div class="pilihan-container">
+                    <label class="pilihan-label"><input type="radio" name="q3" value="A"> A. Horizontal (mendatar)</label>
+                    <label class="pilihan-label"><input type="radio" name="q3" value="B"> B. Vertikal (ke bawah)</label>
+                    <label class="pilihan-label"><input type="radio" name="q3" value="C"> C. Melingkar</label>
+                    <label class="pilihan-label"><input type="radio" name="q3" value="D"> D. Acak</label>
+                </div>
+            </div>
+
+            <div class="soal-item">
+                <div class="soal-text">4. Berikut ini yang *bukan* merupakan contoh kata kunci yang cocok dijadikan tema puisi akrostik anak sekolah adalah...</div>
+                <div class="pilihan-container">
+                    <label class="pilihan-label"><input type="radio" name="q4" value="A"> A. BUKU</label>
+                    <label class="pilihan-label"><input type="radio" name="q4" value="B"> B. SAHABAT</label>
+                    <label class="pilihan-label"><input type="radio" name="q4" value="C"> C. XyZqW12 (tanpa makna)</label>
+                    <label class="pilihan-label"><input type="radio" name="q4" value="D"> D. GURU</label>
+                </div>
+            </div>
+
+            <div class="soal-item">
+                <div class="soal-text">5. Apabila kita memilih kata kunci akrostik "AYAH", maka jumlah baris minimal puisi yang akan kita buat adalah...</div>
+                <div class="pilihan-container">
+                    <label class="pilihan-label"><input type="radio" name="q5" value="A"> A. 3 baris</label>
+                    <label class="pilihan-label"><input type="radio" name="q5" value="B"> B. 4 baris</label>
+                    <label class="pilihan-label"><input type="radio" name="q5" value="C"> C. 5 baris</label>
+                    <label class="pilihan-label"><input type="radio" name="q5" value="D"> D. 6 baris</label>
+                </div>
+            </div>
+
+            <div class="soal-item">
+                <div class="soal-text">6. Manfaat utama dari latihan menulis puisi model akrostik bagi siswa adalah...</div>
+                <div class="pilihan-container">
+                    <label class="pilihan-label"><input type="radio" name="q6" value="A"> A. Menghafal rumus tulisan</label>
+                    <label class="pilihan-label"><input type="radio" name="q6" value="B"> B. Melatih kecepatan mengetik</label>
+                    <label class="pilihan-label"><input type="radio" name="q6" value="C"> C. Meningkatkan kreativitas dan memperkaya kosakata</label>
+                    <label class="pilihan-label"><input type="radio" name="q6" value="D"> D. Meniru karya orang lain secara persis</label>
+                </div>
+            </div>
+
+            <div class="soal-item">
+                <div class="soal-text">7. Berbeda dengan puisi lama (seperti pantun), puisi akrostik memiliki aturan rima akhir yang...</div>
+                <div class="pilihan-container">
+                    <label class="pilihan-label"><input type="radio" name="q7" value="A"> A. Wajib berakhiran a-b-a-b</label>
+                    <label class="pilihan-label"><input type="radio" name="q7" value="B"> B. Harus selalu berakhiran a-a-a-a</label>
+                    <label class="pilihan-label"><input type="radio" name="q7" value="C"> C. Bebas dan tidak harus sama bunyi akhirnya</label>
+                    <label class="pilihan-label"><input type="radio" name="q7" value="D"> D. Tidak boleh ada persamaan bunyi sama sekali</label>
+                </div>
+            </div>
+
+            <div class="soal-item">
+                <div class="soal-text">8. Salah satu kesalahan yang paling sering terjadi saat menyusun puisi akrostik adalah...</div>
+                <div class="pilihan-container">
+                    <label class="pilihan-label"><input type="radio" name="q8" value="A"> A. Huruf awal baris tidak sesuai dengan susunan kata kunci yang dipilih</label>
+                    <label class="pilihan-label"><input type="radio" name="q8" value="B"> B. Menggunakan pilihan kosakata yang sopan</label>
+                    <label class="pilihan-label"><input type="radio" name="q8" value="C"> C. Membuat puisi yang terlalu indah pembacaannya</label>
+                    <label class="pilihan-label"><input type="radio" name="q8" value="D"> D. Menuliskan judul puisi di bagian paling atas</label>
+                </div>
+            </div>
+
+            <div class="soal-item">
+                <div class="soal-text">9. Langkah terakhir setelah seluruh kalimat baris puisi akrostik selesai ditulis adalah...</div>
+                <div class="pilihan-container">
+                    <label class="pilihan-label"><input type="radio" name="q9" value="A"> A. Langsung mengabaikannya</label>
+                    <label class="pilihan-label"><input type="radio" name="q9" value="B"> B. Memeriksa kembali kesesuaian huruf awal dan keterbacaannya</label>
+                    <label class="pilihan-label"><input type="radio" name="q9" value="C"> C. Mengganti tema secara mendadak</label>
+                    <label class="pilihan-label"><input type="radio" name="q9" value="D"> D. Menghapus baris terakhir</label>
+                </div>
+            </div>
+
+            <div class="soal-item">
+                <div class="soal-text">10. Jika baris puisi berbunyi: "Belai kasihmu menguatkanku setiap hari", maka baris tersebut cocok untuk mengisi huruf awal...</div>
+                <div class="pilihan-container">
+                    <label class="pilihan-label"><input type="radio" name="q10" value="A"> A. Huruf I</label>
+                    <label class="pilihan-label"><input type="radio" name="q10" value="B"> B. Huruf B</label>
+                    <label class="pilihan-label"><input type="radio" name="q10" value="C"> C. Huruf U</label>
+                    <label class="pilihan-label"><input type="radio" name="q10" value="D"> D. Huruf A</label>
+                </div>
+            </div>
+
+
+            <h2>Bagian B: Isian Singkat (5 Soal)</h2>
+
+            <div class="soal-item">
+                <div class="soal-text">1. Puisi yang susunan huruf terdepan tiap barisnya membangun kata bermakna disebut puisi...</div>
+                <input type="text" id="b1" class="input-isian" placeholder="Ketik jawabanmu di sini...">
+            </div>
+
+            <div class="soal-item">
+                <div class="soal-text">2. Penulisan rancangan huruf awal akrostik dibuat mengarah ke... (dari atas ke bawah).</div>
+                <input type="text" id="b2" class="input-isian" placeholder="Ketik jawabanmu di sini...">
+            </div>
+
+            <div class="soal-item">
+                <div class="soal-text">3. Kata yang dipilih siswa untuk dipecah menjadi susunan huruf awal bertindak sebagai... puisi.</div>
+                <input type="text" id="b3" class="input-isian" placeholder="Ketik jawabanmu di sini...">
+            </div>
+
+            <div class="soal-item">
+                <div class="soal-text">4. Menulis puisi akrostik melatih kita mencari padanan kata indah, hal ini sangat baik untuk menambah unsur...</div>
+                <input type="text" id="b4" class="input-isian" placeholder="Ketik jawabanmu di sini...">
+            </div>
+
+            <div class="soal-item">
+                <div class="soal-text">5. Tahap evaluasi mandiri saat memeriksa ejaan kalimat puisi dinamakan tahap... kembali.</div>
+                <input type="text" id="b5" class="input-isian" placeholder="Ketik jawabanmu di sini...">
+            </div>
+
+
+            <h2>Bagian C: Praktik Membuat Puisi Akrostik (Tema Bebas)</h2>
+            <p style="font-size: 0.9rem; color: #475569; margin-bottom: 8px;">Pilihlah satu kata bebas (misal nama kamu, kata benda, atau alam) lalu susun menjadi puisi akrostik indah minimal 4 baris!</p>
+            
+            <div class="tugas-box">
+                <div class="soal-text">Kata Kunci / Tema Pilihanmu:</div>
+                <input type="text" id="temaPilihan" class="input-tema" placeholder="Contoh: BUKU / GURU / ALAM">
+                
+                <div class="soal-text">Tulis Teks Puisi Akrostik Lengkapmu di Sini:</div>
+                <textarea id="teksPuisi" class="textarea-puisi" placeholder="Tuliskan baris-baris puisimu secara vertikal di sini...&#10;B...&#10;U...&#10;K...&#10;U..."></textarea>
+            </div>
+
+            <button type="button" class="btn-kirim" onclick="kirimJawabanWA()">🚀 Kirim Hasil Jawaban ke WhatsApp Guru</button>
+
+        </form>
+
+        <div class="navigation-tools">
+            <a href="materi-puisi-2.html" class="btn-nav btn-kembali">&larr; Kembali ke Materi Halaman 2</a>
+        </div>
+
+    </div>
+
+    <script>
+        function kirimJawabanWA() {
+            const noGuru = "6289643655518"; // Ganti dengan nomor WhatsApp Anda asli
+            
+            // Mengambil data Pilihan Ganda
+            let pgResult = "";
+            for (let i = 1; i <= 10; i++) {
+                const checkedRadio = document.querySelector(`input[name="q${i}"]:checked`);
+                pgResult += `PG-${i}: ${checkedRadio ? checkedRadio.value : "-"}  |  `;
+            }
+
+            // Mengambil data Isian Singkat
+            const isian1 = document.getElementById('b1').value || "-";
+            const isian2 = document.getElementById('b2').value || "-";
+            const isian3 = document.getElementById('b3').value || "-";
+            const isian4 = document.getElementById('b4').value || "-";
+            const isian5 = document.getElementById('b5').value || "-";
+
+            // Mengambil data Puisi Mandiri
+            const tema = document.getElementById('temaPilihan').value || "-";
+            const puisi = document.getElementById('teksPuisi').value || "-";
+
+            // Format Teks WhatsApp
+            const teksFormat = encodeURIComponent(
+                `*LEMBAR JAWABAN KUIS EVALUASI PUISI AKROSTIK*\n` +
+                `=====================================\n\n` +
+                `*A. PILIHAN GANDA (10 Soal):*\n${pgResult}\n\n` +
+                `*B. ISIAN SINGKAT:*\n` +
+                `1. ${isian1}\n` +
+                `2. ${isian2}\n` +
+                `3. ${isian3}\n` +
+                `4. ${isian4}\n` +
+                `5. ${isian5}\n\n` +
+                `*C. TUGAS MANDIRI (PUISI AKROSTIK):*\n` +
+                `• Kata Kunci/Tema: ${tema}\n` +
+                `• Karya Puisi:\n${puisi}\n\n` +
+                `=====================================\n` +
+                `Terima kasih Guru! Mohon diperiksa.`
+            );
+
+            // Buka Link WhatsApp
+            window.open(`https://api.whatsapp.com/send?phone=${noGuru}&text=${teksFormat}`, '_blank');
+        }
+    </script>
+</body>
+</html>
