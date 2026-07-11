@@ -8,7 +8,7 @@
         :root {
             --primary-color: #2b6cb0;
             --primary-hover: #1a4373;
-            --bg-color: #f7fafc;
+            --bg-gradient: linear-gradient(135deg, #e6fffa 0%, #ebf8ff 100%);
             --card-bg: #ffffff;
             --text-color: #2d3748;
             --border-color: #e2e8f0;
@@ -16,38 +16,46 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
+            background: var(--bg-gradient);
             color: var(--text-color);
             margin: 0;
-            padding: 20px;
+            padding: 30px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            box-sizing: border-box;
         }
 
         .container {
             background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 35px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(43, 108, 176, 0.15), 0 8px 10px -6px rgba(43, 108, 176, 0.15);
             width: 100%;
             max-width: 550px;
             box-sizing: border-box;
+            border-top: 6px solid var(--primary-color);
         }
 
         h2 {
             text-align: center;
             color: var(--primary-color);
             margin-top: 0;
-            margin-bottom: 25px;
+            margin-bottom: 5px;
             font-size: 24px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px;
+        }
+
+        .sub-title {
+            text-align: center;
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 30px;
+            font-weight: 500;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         label {
@@ -55,43 +63,47 @@
             margin-bottom: 8px;
             font-weight: 600;
             font-size: 14px;
+            color: #4a5568;
         }
 
         select, textarea {
             width: 100%;
-            padding: 10px 12px;
+            padding: 12px;
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 14px;
             box-sizing: border-box;
-            transition: border-color 0.2s;
-            background-color: #fff;
+            transition: all 0.2s ease-in-out;
+            background-color: #f7fafc;
         }
 
         select:focus, textarea:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.1);
+            box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.15);
+            background-color: #fff;
         }
 
         .hint {
             font-size: 12px;
             color: #718096;
-            margin-top: 4px;
+            margin-top: 6px;
             font-style: italic;
         }
 
         button {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             background-color: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             transition: background-color 0.2s;
+            box-shadow: 0 4px 6px rgba(43, 108, 176, 0.2);
+            margin-top: 10px;
         }
 
         button:hover {
@@ -101,15 +113,17 @@
         button:disabled {
             background-color: #cbd5e0;
             cursor: not-allowed;
+            box-shadow: none;
         }
 
         #statusMessage {
-            margin-top: 20px;
+            margin-top: 25px;
             padding: 15px;
-            border-radius: 6px;
+            border-radius: 8px;
             text-align: center;
             font-weight: 500;
             display: none;
+            line-height: 1.5;
         }
 
         .loading {
@@ -134,11 +148,13 @@
 <body>
 
 <div class="container">
-    <h2>Form Laporan Belajar Harian</h2>
+    <h2>Laporan Belajar Harian</h2>
+    <div class="sub-title">Silakan isi data belajar harian siswa dengan benar</div>
+    
     <form id="laporanForm">
         
         <div class="form-group">
-            <label for="nama">Nama Siswa <span style="color: red;">*</span></label>
+            <label for="nama">Nama Siswa <span style="color: #e53e3e;">*</span></label>
             <select id="nama" name="nama" required>
                 <option value="">-- Pilih Nama Siswa --</option>
                 <option value="Achmat Juli Setyawan">Achmat Juli Setyawan</option>
@@ -161,7 +177,7 @@
         </div>
 
         <div class="form-group">
-            <label for="mata_pelajaran">Mata Pelajaran <span style="color: red;">*</span></label>
+            <label for="mata_pelajaran">Mata Pelajaran <span style="color: #e53e3e;">*</span></label>
             <select id="mata_pelajaran" name="mata_pelajaran" required>
                 <option value="">-- Pilih Mata Pelajaran --</option>
                 <option value="Pendidikan Agama Islam dan Budi Pekerti">Pendidikan Agama Islam dan Budi Pekerti</option>
@@ -174,11 +190,13 @@
                 <option value="Bahasa Inggris">Bahasa Inggris</option>
                 <option value="Bahasa Jawa">Bahasa Jawa</option>
                 <option value="Literasi Digital">Literasi Digital</option>
+                <option value="Karya dan Kreativitas">Karya dan Kreativitas</option>
+                <option value="Lainnya">Lainnya</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="lama_belajar">Lama Belajar <span style="color: red;">*</span></label>
+            <label for="lama_belajar">Lama Belajar <span style="color: #e53e3e;">*</span></label>
             <select id="lama_belajar" name="lama_belajar" required>
                 <option value="">-- Pilih Lama Belajar --</option>
                 <option value="kurang dari 15 menit">kurang dari 15 menit</option>
@@ -190,14 +208,15 @@
         </div>
 
         <div class="form-group">
-            <label for="pendamping">Pendamping Belajar <span style="color: red;">*</span></label>
+            <label for="pendamping">Pendamping Belajar <span style="color: #e53e3e;">*</span></label>
             <select id="pendamping" name="pendamping" required>
                 <option value="">-- Pilih Pendamping --</option>
-                <option value="Sendiri">Sendiri</option>
+                <option value="Belajar Mandiri">Belajar Mandiri</option>
                 <option value="Orang Tua (Ayah/Ibu)">Orang Tua (Ayah/Ibu)</option>
                 <option value="Kakak">Kakak</option>
+                <option value="Teman">Teman</option>
                 <option value="Wali/Saudara Lain">Wali/Saudara Lain</option>
-                <option value="Belajar Mandiri">Belajar Mandiri</option>
+                <option value="Guru Les">Guru Les</option>
             </select>
         </div>
 
@@ -216,13 +235,11 @@
 <script>
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw_2jqvM6Yrl6vEhwV4YJ6aFuV0XWEQc78_TPVo134evVYT279v2qQgv_MgX6udM7s/exec";
 
-    // Fungsi pembantu untuk mengambil total pengisian hari ini
     function getSubmissionCount(todayStr) {
         const count = localStorage.getItem('laporan_count_' + todayStr);
         return count ? parseInt(count, 10) : 0;
     }
 
-    // Cek kuota saat halaman pertama kali dibuka
     document.addEventListener("DOMContentLoaded", function() {
         const todayStr = new Date().toDateString();
         if (getSubmissionCount(todayStr) >= 2) {
@@ -250,7 +267,6 @@
             return;
         }
 
-        // Tampilkan status pengiriman
         submitBtn.disabled = true;
         statusMessage.style.display = 'block';
         statusMessage.className = 'loading';
@@ -265,8 +281,6 @@
         })
         .then(() => {
             form.reset();
-            
-            // Tambah hitungan submisi hari ini
             currentCount += 1;
             localStorage.setItem('laporan_count_' + todayStr, currentCount.toString());
 
@@ -275,7 +289,7 @@
                 statusMessage.className = 'success';
                 statusMessage.innerHTML = '<strong>Laporan sukses dikirim!</strong><br><br>Terima kasih! Semoga ilmunya bermanfaat.<br><small>(Anda telah mencapai batas pengisian maksimal 2x hari ini)</small>';
             } else {
-                submitBtn.disabled = false; // Izinkan isi lagi karena baru 1x
+                submitBtn.disabled = false;
                 statusMessage.className = 'success';
                 statusMessage.innerHTML = '<strong>Laporan sukses dikirim!</strong><br><br>Terima kasih! Semoga ilmunya bermanfaat.<br><small>(Hari ini Anda masih bisa mengisi 1 laporan lagi jika diperlukan)</small>';
             }
