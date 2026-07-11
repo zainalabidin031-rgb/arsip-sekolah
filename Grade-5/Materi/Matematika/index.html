@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Ajar Matematika Kelas 5 SD</title>
+    <link rel="icon" type="image/png" href="../../../favicon.png?v=1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #F8FAFC; color: #1E293B; padding: 20px 10px; }
+        .container { max-width: 750px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+        
+        /* Banner Header */
+        .banner { background: linear-gradient(135deg, #0284C7, #0EA5E9); color: white; padding: 25px 20px; border-radius: 16px; text-align: center; margin-bottom: 25px; }
+        .banner h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 6px; }
+        .banner p { font-size: 0.95rem; opacity: 0.9; }
+
+        .semester-title { font-size: 1.25rem; font-weight: 800; color: #0369A1; margin: 25px 0 15px 0; padding-left: 5px; border-left: 5px solid #0EA5E9; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Accordion / Menu Lipat */
+        .bab-group { margin-bottom: 12px; border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden; background: #FFFFFF; }
+        .bab-header { width: 100%; background: #F1F5F9; border: none; padding: 15px 20px; text-align: left; font-size: 1rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
+        .bab-header:hover { background: #E2E8F0; }
+        .bab-header::after { content: '▼'; font-size: 0.75rem; color: #64748B; transition: transform 0.2s; }
+        .bab-header.active { background: #E0F2FE; color: #0369A1; }
+        .bab-header.active::after { transform: rotate(180deg); color: #0369A1; }
+
+        /* Sub Materi List */
+        .sub-materi-content { display: none; padding: 5px 0; background: #FFF; border-top: 1px solid #E2E8F0; }
+        .sub-item { display: flex; flex-direction: column; gap: 10px; padding: 15px 20px; border-bottom: 1px solid #F1F5F9; }
+        .sub-item:last-child { border-bottom: none; }
+        .sub-text { font-size: 0.95rem; font-weight: 600; color: #475569; }
+
+        /* Button Group Wrapper */
+        .btn-group { display: flex; gap: 8px; width: 100%; }
+
+        /* Gaya Tombol Umum */
+        .btn-action { flex: 1; text-align: center; text-decoration: none; padding: 8px 10px; font-size: 0.85rem; font-weight: 700; border-radius: 8px; transition: 0.2s; white-space: nowrap; }
+        
+        /* Tombol Pelajari */
+        .btn-pelajari { background: #0EA5E9; color: white; box-shadow: 0 2px 4px rgba(14, 165, 233, 0.2); }
+        .btn-pelajari:hover { background: #0284C7; }
+
+        /* Tombol Uji Pemahaman */
+        .btn-uji { background: #10B981; color: white; box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2); }
+        .btn-uji:hover { background: #059669; }
+
+        /* Footer Navigasi */
+        .footer-nav { margin-top: 30px; border-top: 2px solid #F1F5F9; padding-top: 20px; text-align: center; }
+        .btn-kembali { display: inline-block; text-decoration: none; background: #64748B; color: white; padding: 10px 24px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; transition: 0.2s; }
+        .btn-kembali:hover { background: #475569; }
+
+        /* Aturan Layar Lebar Tablet / Laptop */
+        @media (min-width: 550px) {
+            .sub-item { flex-direction: row; justify-content: space-between; align-items: center; padding: 12px 20px; }
+            .sub-text { flex: 1; padding-right: 15px; }
+            .btn-group { width: auto; }
+            .btn-action { flex: initial; padding: 8px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER -->
+        <div class="banner">
+            <h1>📖 Materi Ajar Matematika</h1>
+            <p>Fase C — Kelas 5 SD / MI</p>
+        </div>
+
+        <!-- ================= SEMESTER 1 ================= -->
+        <div class="semester-title">Semester 1</div>
+
+        <!-- Bab 1 -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 1: Bilangan Cacah Sampai 100.000</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Belajar membaca bilangan cacah</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="https://script.google.com/macros/s/AKfycbwFX8F8C1AbYqtKTVZYqoftf70fe41Ek-nG3CNB62rY17CZnUybvyp-YgWgpv9uXS57lQ/exec" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Menulis Bilangan Cacah</span>
+                    <div class="btn-group">
+                        <a href="../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="https://script.google.com/macros/s/AKfycbwFX8F8C1AbYqtKTVZYqoftf70fe41Ek-nG3CNB62rY17CZnUybvyp-YgWgpv9uXS57lQ/exec" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Membandingkan Bilangan Cacah</span>
+                    <div class="btn-group">
+                        <a href="../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="https://script.google.com/macros/s/AKfycbwFX8F8C1AbYqtKTVZYqoftf70fe41Ek-nG3CNB62rY17CZnUybvyp-YgWgpv9uXS57lQ/exec" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Mengurutkan nilai tempat bilangan</span>
+                    <div class="btn-group">
+                        <a href="../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="https://script.google.com/macros/s/AKfycbwFX8F8C1AbYqtKTVZYqoftf70fe41Ek-nG3CNB62rY17CZnUybvyp-YgWgpv9uXS57lQ/exec" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bab 2 -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 2: Operasi Hitung Bilangan Cacah</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Penjumlahan dan Pengurangan</span>
+                    <div class="btn-group">
+                        <a href="../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="../dalampengembangan/" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Perkalian</span>
+                    <div class="btn-group">
+                        <a href="materi-informasi-buku.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-informasi-buku.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Pembagian</span>
+                    <div class="btn-group">
+                        <a href="materi-menulis-ringkasan.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="https://script.google.com/macros/s/AKfycbwFX8F8C1AbYqtKTVZYqoftf70fe41Ek-nG3CNB62rY17CZnUybvyp-YgWgpv9uXS57lQ/exec" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bab 3 -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 3: Faktor, Kelipatan, KPK dan FPB</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Faktor Bilangan</span>
+                    <div class="btn-group">
+                        <a href="Teks/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="https://script.google.com/macros/s/AKfycbwFX8F8C1AbYqtKTVZYqoftf70fe41Ek-nG3CNB62rY17CZnUybvyp-YgWgpv9uXS57lQ/exec" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Kelipatan Bilangan</span>
+                    <div class="btn-group">
+                        <a href="materi-kaidah-bahasa.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="https://script.google.com/macros/s/AKfycbwFX8F8C1AbYqtKTVZYqoftf70fe41Ek-nG3CNB62rY17CZnUybvyp-YgWgpv9uXS57lQ/exec" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">KPK dan FPB</span>
+                    <div class="btn-group">
+                        <a href="materi-keterampilan-berbahasa.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-keterampilan-berbahasa.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bab 4 -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 4: Bilangan Pecahan</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Penjumlahan dan Pengurangan Pecahan</span>
+                    <div class="btn-group">
+                        <a href="materi-dialog-wawancara.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-dialog-wawancara.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Perkalian Pecahan</span>
+                    <div class="btn-group">
+                        <a href="materi-laporan-wawancara.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-laporan-wawancara.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Pembagian Pecahan</span>
+                    <div class="btn-group">
+                        <a href="materi-kosakata-bisnis.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-kosakata-bisnis.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= SEMESTER 2 ================= -->
+        <div class="semester-title">Semester 2</div>
+
+        <!-- Bab 5 -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 5: Bilangan Desimal</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Penjumlahan dan Pengurangan Bilangan Desimal/span>
+                    <div class="btn-group">
+                        <a href="materi-teks-persuasi.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-teks-persuasi.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Perkalian Bilangan Desimal</span>
+                    <div class="btn-group">
+                        <a href="materi-belajar-pidato.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-belajar-pidato.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Pembagian Bilangan Desimal</span>
+                    <div class="btn-group">
+                        <a href="materi-penyampaikan-pendapat.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-penyampaian-pendapat.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bab 6 -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 6: Keliling dan Luas Bangun Datar</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Keliling dan Luas Persegi & Persegi Panjang</span>
+                    <div class="btn-group">
+                        <a href="materi-narasi-sejarah.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-narasi-sejarah.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Keliling dan Luas Segitiga</span>
+                    <div class="btn-group">
+                        <a href="materi-nilai-moral.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-nilai-moral.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Keliling dan Luas Jajar Genjang</span>
+                    <div class="btn-group">
+                        <a href="materi-menulis-biografi.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-menulis-biografi.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bab 7 -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 7: Pengukuran dan Perbandingan</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Pengukuran kuantitas unit</span>
+                    <div class="btn-group">
+                        <a href="materi-teks-deskripsi.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-teks-deskripsi.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Kecepatan dan Debit</span>
+                    <div class="btn-group">
+                        <a href="materi-fiksi-ilmiah.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-fiksi-ilmiah.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Menghitung Skala</span>
+                    <div class="btn-group">
+                        <a href="materi-lingkungan-ekosistem.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-lingkungan-ekosistem.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bab 8 -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 8: Volume Bangun Ruang</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Menghitung volume kubus dan balok</span>
+                    <div class="btn-group">
+                        <a href="materi-surat-resmi.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-surat-resmi.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bab 9 Lanjutan -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 9 : Penyajian Data</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Belajar membaca dan Menginterpretasi Data</span>
+                    <div class="btn-group">
+                        <a href="materi-proposal-kegiatan.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-proposal-kegiatan.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Menyajikan Data dalam bentuk Diagram</span>
+                    <div class="btn-group">
+                        <a href="materi-latihan-presentasi.html" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="uji-latihan-presentasi.html" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BUTTON KEMBALI -->
+        <div class="footer-nav">
+            <a href="../../../" class="btn-kembali">&larr; Kembali ke Menu Utama</a>
+        </div>
+    </div>
+
+    <!-- LOGIKA INTERAKTIF ACCORDION (MENU LIPAT) -->
+    <script>
+        const accHeaders = document.querySelectorAll(".bab-header");
+
+        accHeaders.forEach(header => {
+            header.addEventListener("click", function() {
+                this.classList.toggle("active");
+                const content = this.nextElementSibling;
+                
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
