@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan & Kesimpulan: Jurnal Membaca</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #F8FAFC; color: #1E293B; padding: 15px 10px; line-height: 1.6; }
+        .container { max-width: 650px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); }
+        
+        /* Judul Utama */
+        h2 { font-size: 1.3rem; font-weight: 800; color: #0F172A; margin-bottom: 8px; border-left: 4px solid #6366F1; padding-left: 8px; }
+        p { font-size: 0.95rem; color: #334155; margin-bottom: 20px; text-align: justify; }
+        
+        /* Form Latihan */
+        .form-group { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 0.95rem; font-weight: 700; color: #1E293B; }
+        
+        input[type="text"], input[type="date"], textarea {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 0.95rem;
+            color: #334155;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+            background-color: #F8FAFC;
+            transition: 0.2s;
+            outline: none;
+        }
+        input[type="text"]:focus, input[type="date"]:focus, textarea:focus {
+            border-color: #6366F1;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        textarea { resize: vertical; min-height: 100px; }
+
+        /* Box Kesimpulan */
+        .kesimpulan-box { background-color: #EFF6FF; border: 1px solid #BFDBFE; padding: 18px; border-radius: 12px; margin-top: 15px; }
+        .kesimpulan-box p { margin-bottom: 0; color: #1E3A8A; font-size: 0.95rem; }
+
+        /* Garis Pembatas */
+        hr { border: 0; border-top: 1px solid #E2E8F0; margin: 30px 0; }
+
+        /* Tombol Navigasi */
+        .nav-buttons { display: flex; margin-top: 30px; border-top: 2px solid #E2E8F0; padding-top: 20px; }
+        .btn-beranda {
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            padding: 14px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 12px;
+            background-color: #6366F1;
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+            transition: 0.2s;
+        }
+        .btn-beranda:hover { background-color: #4338CA; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- SEKSI LATIHAN -->
+        <h2>Latihan</h2>
+        <p>Bacalah sebuah cerita atau buku yang kamu sukai, kemudian buatlah jurnal membaca dengan format berikut.</p>
+
+        <form action="#" onsubmit="event.preventDefault(); alert('Jurnal berhasil disimpan!');">
+            <div class="form-group">
+                <label for="nama">Nama:</label>
+                <input type="text" id="nama" placeholder="Tulis nama lengkapmu...">
+            </div>
+
+            <div class="form-group">
+                <label for="kelas">Kelas:</label>
+                <input type="text" id="kelas" placeholder="Contoh: V (Lima)">
+            </div>
+
+            <div class="form-group">
+                <label for="tanggal">Tanggal Membaca:</label>
+                <input type="date" id="tanggal">
+            </div>
+
+            <div class="form-group">
+                <label for="judul">Judul Buku:</label>
+                <input type="text" id="judul" placeholder="Tulis judul buku atau cerita...">
+            </div>
+
+            <div class="form-group">
+                <label for="penulis">Penulis:</label>
+                <input type="text" id="penulis" placeholder="Nama penulis buku...">
+            </div>
+
+            <div class="form-group">
+                <label for="jenis">Jenis Bacaan:</label>
+                <input type="text" id="jenis" placeholder="Contoh: Dongeng, Fiksi, Cerpen...">
+            </div>
+
+            <div class="form-group">
+                <label for="tokoh">Tokoh:</label>
+                <input type="text" id="tokoh" placeholder="Sebutkan tokoh-tokoh di dalam cerita...">
+            </div>
+
+            <div class="form-group">
+                <label for="ringkasan">Ringkasan Isi:</label>
+                <textarea id="ringkasan" placeholder="Tuliskan ringkasan cerita menggunakan bahasamu sendiri secara singkat..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="amanat">Amanat:</label>
+                <input type="text" id="amanat" placeholder="Pesan atau pelajaran berharga dari cerita...">
+            </div>
+
+            <div class="form-group">
+                <label for="pendapat">Pendapat Saya:</label>
+                <input type="text" id="pendapat" placeholder="Bagaimana pendapatmu setelah membaca cerita ini?">
+            </div>
+        </form>
+
+        <hr>
+
+        <!-- SEKSI KESIMPULAN -->
+        <h2>Kesimpulan</h2>
+        <div class="kesimpulan-box">
+            <p><strong>Jurnal membaca</strong> adalah catatan yang dibuat setelah membaca sebuah buku atau bacaan. Jurnal membaca membantu kita memahami isi bacaan, mengingat informasi penting, serta melatih kemampuan menulis dan berpikir kritis. Dalam jurnal membaca terdapat beberapa bagian penting, seperti <strong>judul buku, nama penulis, tanggal membaca, jenis bacaan, tokoh, ringkasan isi, amanat, dan pendapat pembaca</strong>. Dengan rutin membuat jurnal membaca, siswa akan semakin gemar membaca dan mampu menyampaikan isi bacaan menggunakan bahasa sendiri.</p>
+        </div>
+
+        <!-- TOMBOL NAVIGASI -->
+        <div class="nav-buttons">
+            <a href="index.html" class="btn-beranda">&larr; Kembali ke Beranda</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
