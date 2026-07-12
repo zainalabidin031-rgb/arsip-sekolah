@@ -339,21 +339,36 @@ footer {
 
 /* HP Portrait / Layar Kecil (Mobile Utama) */
 @media (max-width: 600px) {
-    /* Navbar berganti mode tumpuk vertikal agar menu tidak terpotong */
+    /* Navbar tetap sejajar ke samping, menu navigasi turun ke bawahnya */
     .navbar .flex-box {
         flex-direction: column;
-        gap: 15px;
-        text-align: center;
+        gap: 12px;
+        align-items: center;
     }
+    
+    /* MEMASTIKAN LOGO TETAP DI KIRI NAMA SEKOLAH */
     .nav-logo {
-        flex-direction: column;
-        gap: 5px;
+        flex-direction: row; /* Tetap sejajar horizontal */
+        align-items: center;
+        text-align: left; /* Teks rata kiri */
+        width: 100%;
+        justify-content: center; /* Pusatkan seluruh kesatuan logo+nama di layar HP */
     }
+    
+    .nav-logo h1 {
+        font-size: 16px; /* Dikecilkan sedikit agar pas di satu baris layar HP */
+    }
+    
+    .nav-logo p {
+        font-size: 10px;
+    }
+
     .nav-links {
         width: 100%;
         justify-content: center;
-        flex-wrap: wrap; /* Menu otomatis turun ke bawah jika layar terlalu sempit */
+        flex-wrap: wrap; 
     }
+    
     .nav-links a {
         padding: 6px 10px;
         font-size: 12px;
@@ -370,13 +385,13 @@ footer {
         font-size: 13px;
     }
 
-    /* Pilihan kelas menjadi 2 kolom agar tombolnya pas di jari jempol anak */
+    /* Pilihan kelas menjadi 2 kolom */
     .class-selector {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
     
-    /* Box bab berganti vertikal agar tombol materi & latihan tidak keluar layar */
+    /* Box bab berganti vertikal */
     .chapter-box {
         flex-direction: column;
         align-items: flex-start;
@@ -386,7 +401,7 @@ footer {
         width: 100%;
     }
     .btn-materi, .btn-latihan {
-        flex: 1; /* Lebar tombol sama rata memenuhi ruang */
+        flex: 1; 
         justify-content: center;
         padding: 10px;
     }
