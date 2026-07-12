@@ -35,7 +35,7 @@
       line-height: 1.5;
     }
 
-    /* HEADER / HERO (Disesuaikan ukurannya agar tidak terlalu besar di laptop) */
+    /* HEADER / HERO */
     .hero {
       background: linear-gradient(135deg, #0088ff, #0044cc);
       color: white;
@@ -88,7 +88,7 @@
       gap: 20px;
     }
 
-    /* KARTU KELAS (Dibuat lebih ringkas) */
+    /* KARTU KELAS */
     .card-kelas {
       background: var(--white);
       border-radius: 18px;
@@ -136,7 +136,7 @@
       font-weight: 600;
     }
 
-    /* Warna Spesifik Kartu */
+    /* Warna Kartu */
     .g1::after { background: #ff4757; } .g1 i { color: #ff4757; }
     .g2::after { background: #2ed573; } .g2 i { color: #2ed573; }
     .g3::after { background: #ffa502; } .g3 i { color: #ffa502; }
@@ -211,69 +211,23 @@
     
     .no-materi { text-align: center; color: #94a3b8; padding: 20px 0; font-style: italic; font-size: 13px; }
 
-    /* ==========================================
-       MEDIA QUERIES (OPTIMASI KHUSUS HP)
-       ========================================== */
+    /* MEDIA QUERIES (OPTIMASI KHUSUS HP) */
     @media (max-width: 600px) {
-      .hero {
-        padding: 35px 15px;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
-      }
-      .hero h1 {
-        font-size: 22px;
-      }
-      .hero p {
-        font-size: 12px;
-      }
-      
-      .container {
-        margin: 20px auto;
-        padding: 0 15px;
-      }
-      .welcome-text {
-        font-size: 16px;
-        margin-bottom: 20px;
-      }
-      
-      /* Grid Kelas menjadi 2 kolom di HP agar kompak */
-      .grid-kelas {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-      }
-      .card-kelas {
-        padding: 15px 10px;
-        border-radius: 14px;
-      }
-      .card-kelas i {
-        font-size: 32px;
-        margin-bottom: 8px;
-      }
-      .card-kelas h3 {
-        font-size: 15px;
-      }
-      .card-kelas p {
-        font-size: 11px;
-      }
-
-      /* Modal & Tabel Kosakata di HP */
-      .modal-content {
-        padding: 15px;
-        border-radius: 16px;
-      }
-      .modal-header h2 {
-        font-size: 16px;
-      }
-      .sem-btn {
-        padding: 8px;
-        font-size: 12px;
-      }
-      .table-vocab {
-        font-size: 12px;
-      }
-      .table-vocab th, .table-vocab td {
-        padding: 8px;
-      }
+      .hero { padding: 35px 15px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
+      .hero h1 { font-size: 22px; }
+      .hero p { font-size: 12px; }
+      .container { margin: 20px auto; padding: 0 15px; }
+      .welcome-text { font-size: 16px; margin-bottom: 20px; }
+      .grid-kelas { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .card-kelas { padding: 15px 10px; border-radius: 14px; }
+      .card-kelas i { font-size: 32px; margin-bottom: 8px; }
+      .card-kelas h3 { font-size: 15px; }
+      .card-kelas p { font-size: 11px; }
+      .modal-content { padding: 15px; border-radius: 16px; }
+      .modal-header h2 { font-size: 16px; }
+      .sem-btn { padding: 8px; font-size: 12px; }
+      .table-vocab { font-size: 12px; }
+      .table-vocab th, .table-vocab td { padding: 8px; }
     }
   </style>
 </head>
@@ -316,7 +270,7 @@
     let kelasAktif = 1;
     let semesterAktif = 1;
 
-    // MASTER DATABASE MATERI
+    // DATABASE MATERI (SUDAH KEMBALI LENGKAP)
     const databaseMateri = {
       1: { 
         1: [{ bab: "Unit 1: Alphabet & Greetings", sub: [{nama:"The Alphabet", vocab:[{w:"A", m:"A", p:"ei"}]}] }], 
