@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Ajar Literasi Digital Kelas 5 SD</title>
+    <link rel="icon" type="image/png" href="../../../favicon.png?v=1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #F8FAFC; color: #1E293B; padding: 20px 10px; }
+        .container { max-width: 750px; margin: 0 auto; background: white; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+        
+        /* Banner Header */
+        .banner { background: linear-gradient(135deg, #0284C7, #0EA5E9); color: white; padding: 25px 20px; border-radius: 16px; text-align: center; margin-bottom: 25px; }
+        .banner h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 6px; }
+        .banner p { font-size: 0.95rem; opacity: 0.9; }
+
+        .semester-title { font-size: 1.25rem; font-weight: 800; color: #0369A1; margin: 25px 0 15px 0; padding-left: 5px; border-left: 5px solid #0EA5E9; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Accordion / Menu Lipat */
+        .bab-group { margin-bottom: 12px; border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden; background: #FFFFFF; }
+        .bab-header { width: 100%; background: #F1F5F9; border: none; padding: 15px 20px; text-align: left; font-size: 1rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
+        .bab-header:hover { background: #E2E8F0; }
+        .bab-header::after { content: '▼'; font-size: 0.75rem; color: #64748B; transition: transform 0.2s; }
+        .bab-header.active { background: #E0F2FE; color: #0369A1; }
+        .bab-header.active::after { transform: rotate(180deg); color: #0369A1; }
+
+        /* Sub Materi List */
+        .sub-materi-content { display: none; padding: 5px 0; background: #FFF; border-top: 1px solid #E2E8F0; }
+        .sub-item { display: flex; flex-direction: column; gap: 10px; padding: 15px 20px; border-bottom: 1px solid #F1F5F9; }
+        .sub-item:last-child { border-bottom: none; }
+        .sub-text { font-size: 0.95rem; font-weight: 600; color: #475569; }
+
+        /* Button Group Wrapper */
+        .btn-group { display: flex; gap: 8px; width: 100%; }
+
+        /* Gaya Tombol Umum */
+        .btn-action { flex: 1; text-align: center; text-decoration: none; padding: 8px 10px; font-size: 0.85rem; font-weight: 700; border-radius: 8px; transition: 0.2s; white-space: nowrap; }
+        
+        /* Tombol Pelajari */
+        .btn-pelajari { background: #0EA5E9; color: white; box-shadow: 0 2px 4px rgba(14, 165, 233, 0.2); }
+        .btn-pelajari:hover { background: #0284C7; }
+
+        /* Tombol Uji Pemahaman */
+        .btn-uji { background: #10B981; color: white; box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2); }
+        .btn-uji:hover { background: #059669; }
+
+        /* Footer Navigasi */
+        .footer-nav { margin-top: 30px; border-top: 2px solid #F1F5F9; padding-top: 20px; text-align: center; }
+        .btn-kembali { display: inline-block; text-decoration: none; background: #64748B; color: white; padding: 10px 24px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; transition: 0.2s; }
+        .btn-kembali:hover { background: #475569; }
+
+        /* Aturan Layar Lebar Tablet / Laptop */
+        @media (min-width: 550px) {
+            .sub-item { flex-direction: row; justify-content: space-between; align-items: center; padding: 12px 20px; }
+            .sub-text { flex: 1; padding-right: 15px; }
+            .btn-group { width: auto; }
+            .btn-action { flex: initial; padding: 8px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER -->
+        <div class="banner">
+            <h1>📖 Materi Ajar Pendidikan Pancasila</h1>
+            <p>Fase C — Kelas 5 SD / MI</p>
+        </div>
+
+        <!-- ================= SEMESTER 1 ================= -->
+        <div class="semester-title">Semester 1</div>
+
+        <!-- Bab 1 -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 1: Pengenalan Perangkat Digital</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Mengenal Berbagai Perangkat Digital</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="https://script.google.com/macros/s/AKfycbwFX8F8C1AbYqtKTVZYqoftf70fe41Ek-nG3CNB62rY17CZnUybvyp-YgWgpv9uXS57lQ/exec" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Pengoperasian Perangkat Digital</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="https://script.google.com/macros/s/AKfycbwFX8F8C1AbYqtKTVZYqoftf70fe41Ek-nG3CNB62rY17CZnUybvyp-YgWgpv9uXS57lQ/exec" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Pemanfaatan Perangkat Digital dalam Kehidupan Sehari-hari</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="https://script.google.com/macros/s/AKfycbwFX8F8C1AbYqtKTVZYqoftf70fe41Ek-nG3CNB62rY17CZnUybvyp-YgWgpv9uXS57lQ/exec" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Mengenal Jaringan Komunikasi Digital</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="https://script.google.com/macros/s/AKfycbwFX8F8C1AbYqtKTVZYqoftf70fe41Ek-nG3CNB62rY17CZnUybvyp-YgWgpv9uXS57lQ/exec" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bab 2 -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 2: Etika Komunikasi Digital</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Memahami Aturan dan Interaksi Digital</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="../../dalampengembangan/" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Menghargai Karya Orang Lain di Internet</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="../../dalampengembangan/" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Mencegah Cyberbulliying atau Perundungan Siber</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="https://script.google.com/macros/s/AKfycbwFX8F8C1AbYqtKTVZYqoftf70fe41Ek-nG3CNB62rY17CZnUybvyp-YgWgpv9uXS57lQ/exec" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bab 3 -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 3: Mencari dan Mengolah Informasi</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Mengenal Fakta dan Hoaks</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="https://script.google.com/macros/s/AKfycbwFX8F8C1AbYqtKTVZYqoftf70fe41Ek-nG3CNB62rY17CZnUybvyp-YgWgpv9uXS57lQ/exec" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Evaluasi Kebenaran Informasi di Internet</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="https://script.google.com/macros/s/AKfycbwFX8F8C1AbYqtKTVZYqoftf70fe41Ek-nG3CNB62rY17CZnUybvyp-YgWgpv9uXS57lQ/exec" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Memanfaatkan Media Sosial dengan Bijak</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="../../dalampengembangan/" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= SEMESTER 2 ================= -->
+        <div class="semester-title">Semester 2</div>
+
+        <!-- Bab 4 -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 5: Keamanan Daring (Digital Safety)</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Mengenal Kata Sandi</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="../../dalampengembangan/" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Perlindungan Data Pribadi</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="../../dalampengembangan/" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Mengenal Virus Komputer</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="../../dalampengembangan/" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bab 6 -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 6: Kreasi Konten Digital</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Ragam Aplikasi dan Perangkat Lunak</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="../../dalampengembangan/" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Teknologi Artificial Intelegent (AI)</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="../../dalampengembangan/" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Pemanfaatan AI dalam Kehidupan</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="../../dalampengembangan/" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bab 7 -->
+        <div class="bab-group">
+            <button class="bab-header">Bab 7: Budaya Digital (Digital Culture)</button>
+            <div class="sub-materi-content">
+                <div class="sub-item">
+                    <span class="sub-text">Mengenal Budaya Digital</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="../../dalampengembangan/" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Pemanfaatan Teknologi untuk Memajukan Budaya Lokal</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="../../dalampengembangan/" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+                <div class="sub-item">
+                    <span class="sub-text">Membuat Konten Digital yang Positif</span>
+                    <div class="btn-group">
+                        <a href="../../dalampengembangan/" class="btn-action btn-pelajari">Pelajari!</a>
+                        <a href="../../dalampengembangan/" class="btn-action btn-uji">Uji Pemahaman</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- BUTTON KEMBALI -->
+        <div class="footer-nav">
+            <a href="../../" class="btn-kembali">&larr; Kembali ke Menu Utama</a>
+        </div>
+    </div>
+
+    <!-- LOGIKA INTERAKTIF ACCORDION (MENU LIPAT) -->
+    <script>
+        const accHeaders = document.querySelectorAll(".bab-header");
+
+        accHeaders.forEach(header => {
+            header.addEventListener("click", function() {
+                this.classList.toggle("active");
+                const content = this.nextElementSibling;
+                
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
