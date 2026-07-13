@@ -59,20 +59,20 @@
             display: block;
         }
 
-        /* 2. LINK GAMBAR (WRAPPER GAMBAR GDRIVE) */
-       .featured-image-box {
+        /* 2. BINGKAI GAMBAR (PROPORSIAL & PAS DI HP) */
+        .detail-image-wrapper {
             width: 100%;
-            max-height: 450px;
-            border-radius: 16px;
+            height: 220px; /* Tinggi ideal agar pas di pandangan mata */
+            border-radius: 8px;
             overflow: hidden;
-            border: 1px solid #e2eefe;
-            margin-bottom: 35px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            border: 1px solid #e8e8e8;
+            margin-bottom: 20px;
         }
-        .featured-image-box img {
+        
+        .detail-image-wrapper img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Memotong gambar secara proporsional tanpa membuatnya melar */
         }
 
         /* 3. ISI BERITA / AKTIVITAS */
@@ -135,6 +135,7 @@
         <span class="meta-date">Senin, 13 Juli 2026 | Oleh: Wali Kelas 5</span>
     </div>
 
+    <!-- Kelas pembungkus gambar disamakan dengan CSS di atas -->
     <div class="detail-image-wrapper">
         <img src="https://lh3.googleusercontent.com/d/1pei-zqQHGHTxz5beAIOiPQ6AORvsoyQo" alt="Upacara MPLS Ramah 2026">
     </div>
