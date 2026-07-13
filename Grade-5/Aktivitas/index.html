@@ -116,14 +116,58 @@
             text-align: justify;
         }
 
+        /* Tombol Baca Selengkapnya */
+        .read-more-btn {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+            background-color: #ff6600;
+            padding: 6px 14px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+
+        /* Efek hover khusus tombol Baca Selengkapnya */
+        .card-link:hover .read-more-btn {
+            background-color: #e65c00;
+            transform: scale(1.03);
+        }
+
         .card-date {
             font-size: 11px;
             font-weight: 500;
             color: #666666;
             display: flex;
             align-items: center;
+            border-top: 1px solid #f5f5f5;
+            padding-top: 8px;
+            margin-top: 4px;
         }
-        /* Efek hover tombol */
+
+        /* Desain Tombol Kembali Bagian Bawah */
+        .footer-action {
+            border-top: 1px solid #eeeeee;
+            padding-top: 20px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .btn-back {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #ff6600;
+            border: 2px solid #ff6600;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* Efek hover tombol kembali */
         .btn-back:hover {
             background-color: #ff6600;
             color: #ffffff;
@@ -147,15 +191,14 @@
         <h3 class="card-title">Hari Baru Semangat Baru</h3>
         
         <div class="image-container">
-            <!-- SILAKAN GANTI 'ID_FOTO_GDRIVE_1' DENGAN ID FOTO GOOGLE DRIVE ANDA -->
             <img src="https://drive.google.com/thumbnail?id=17vs75NZ4zvKTUFtd_HShi99thgNQVsp7" alt="Upacara MPLS">
         </div>
         
         <p class="card-desc">
             Libur telah usai dan hari ini adalah hari pertama masuk sekolah. Seperti Tahun-tahun yang telah berlalu, hari pertama...
         </p>
-        <a href="13-07-2026/" class="card-link">
-        <span class="read-more-btn">Baca Selengkapnya ➡️</span>
+        <a href="13-07-2026/" class="card-link" style="text-decoration: none;">
+            <span class="read-more-btn">Baca Selengkapnya ➡️</span>
         </a>
         <span class="card-date">📅 Tanggal: Senin, 13 Juli 2026</span>
     </div>
@@ -167,22 +210,20 @@
         <h3 class="card-title">Ruang Digital Kelas 5 SDN Butoh 1 Ngasem</h3>
         
         <div class="image-container">
-            <!-- SILAKAN GANTI 'ID_FOTO_GDRIVE_2' DENGAN ID FOTO GOOGLE DRIVE ANDA -->
             <img src="https://drive.google.com/thumbnail?id=1ccHWMBdK1bghoarDAqehWN_PhjTyOIds" alt="Kelas Digital Kelas 5">
         </div>
         
         <p class="card-desc">
             Informasi terkini untuk Kelas 5 SDN Butoh 1 bahwa saat ini telah disediakan halaman khusus yang dapat diakses dari....
         </p>
-        <a href="11-07-2026/" class="card-link">
-        <span class="read-more-btn">Baca Selengkapnya ➡️</span>
-     </a>
+        <a href="11-07-2026/" class="card-link" style="text-decoration: none;">
+            <span class="read-more-btn">Baca Selengkapnya ➡️</span>
+        </a>
         <span class="card-date">📅 Tanggal: Sabtu, 11 Juli 2026</span>
     </div>
     
- <!-- BAGIAN BAWAH: TOMBOL KEMBALI -->
+    <!-- BAGIAN BAWAH: TOMBOL KEMBALI -->
     <div class="footer-action">
-        <!-- Silakan ganti '#' dengan nama file halaman utama aktivitas Anda sebelumnya (misal: index.html) -->
         <a href="../index.html" class="btn-back">⬅️ Kembali ke Menu</a>
     </div>
 
