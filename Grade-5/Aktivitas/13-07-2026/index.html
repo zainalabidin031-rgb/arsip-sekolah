@@ -71,10 +71,11 @@
         }
 
         .detail-image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 💡 MENGHINDARI GAMBAR PECAH/MELAR */
+    background-color: #f0f0f0; /* Memberi warna dasar jika gambar asli lebih kecil */
+}
 
         /* 3. ISI BERITA / AKTIVITAS */
         .detail-content p {
@@ -137,7 +138,7 @@
     </div>
 
     <div class="detail-image-wrapper">
-        <img src="https://drive.google.com/thumbnail?id=17vs75NZ4zvKTUFtd_HShi99thgNQVsp7=w1000" alt="Upacara MPLS Ramah 2026">
+        <img src="https://docs.google.com/uc?export=download&id=17vs75NZ4zvKTUFtd_HShi99thgNQVsp7" alt="Upacara MPLS Ramah 2026">
     </div>
 
     <div class="detail-content">
