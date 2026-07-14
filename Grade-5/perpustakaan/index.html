@@ -23,6 +23,9 @@
             --ungu-matang: #311B92;
             --putih: #FFFFFF;
             --abu-bg: #EBF3F9;
+            --hijau-muda: #E8F5E9;
+            --hijau-tua: #2E7D32;
+            --hijau-border: #C8E6C9;
         }
 
         body {
@@ -85,6 +88,7 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            margin-bottom: 25px;
         }
 
         .category-title {
@@ -111,7 +115,7 @@
             box-shadow: 0 6px 12px rgba(0,0,0,0.05);
         }
 
-        /* Representasi Cover Buku Menggunakan CSS Mini */
+        /* Cover Buku Menggunakan CSS Mini */
         .book-cover {
             width: 90px;
             flex-shrink: 0;
@@ -123,7 +127,7 @@
             font-size: 2rem;
         }
 
-        /* Variasi warna cover biar menarik */
+        /* Variasi warna cover */
         .bc-2 { background: linear-gradient(135deg, #b91c1c, #f87171); }
         .bc-3 { background: linear-gradient(135deg, #15803d, #4ade80); }
         .bc-4 { background: linear-gradient(135deg, #6d28d9, #a78bfa); }
@@ -184,6 +188,81 @@
             color: white;
         }
 
+        /* --- KOTAK INFO HIJAU --- */
+        .info-box-green {
+            background-color: var(--hijau-muda);
+            border: 1px solid var(--hijau-border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .info-box-green h4 {
+            font-size: 0.95rem;
+            color: var(--hijau-tua);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-box-green p {
+            font-size: 0.8rem;
+            color: #2E7D32;
+            line-height: 1.4;
+        }
+
+        /* --- KOTAK TERBAWAH & AKSI FOOTER --- */
+        .footer-box {
+            background: #F1F5F9;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-box p {
+            font-size: 0.85rem;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .btn-more-books {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            background-color: #0F172A;
+            color: white;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .btn-more-books:hover {
+            background-color: #334155;
+            transform: translateY(-1px);
+        }
+
+        /* Area Tombol Navigasi Bawah */
+        .bottom-navigation {
+            display: flex;
+            justify-content: center;
+            border-top: 2px solid #E1EBF2;
+            padding-top: 20px;
+        }
+
         /* --- RESPONSIVE --- */
         @media (max-width: 500px) {
             .top-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
@@ -191,6 +270,7 @@
             .book-cover { width: 75px; font-size: 1.5rem; }
             .book-details { padding: 12px; }
             .book-details h3 { font-size: 0.9rem; }
+            .bottom-navigation .btn-back { width: 100%; }
         }
     </style>
 </head>
@@ -273,6 +353,20 @@
                 </div>
             </div>
 
+        </div>
+
+        <div class="info-box-green">
+            <h4>💡 Pojok Literasi Kelas V</h4>
+            <p>Membaca buku cerita minimal 15 menit sehari dapat memperluas wawasan kosakata, mengasah empati, serta melatih daya imajinasi kamu. Yuk, jadikan membaca sebagai kebiasaan seru setiap hari!</p>
+        </div>
+
+        <div class="footer-box">
+            <p>Ingin mencari referensi buku digital interaktif atau cerita menarik lainnya?</p>
+            <a href="buku-lainnya.html" class="btn-more-books">📚 Baca Buku Lainnya</a>
+        </div>
+
+        <div class="bottom-navigation">
+            <a href="../" class="btn-back">&larr; Kembali ke Beranda</a>
         </div>
 
     </div>
