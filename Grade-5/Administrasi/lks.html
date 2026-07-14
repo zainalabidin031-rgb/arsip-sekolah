@@ -8,7 +8,6 @@
     <style>
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
-            /* Latar belakang dinamis dengan stripping/pola grid halus */
             background-color: #f3f4f6;
             background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
             background-size: 20px 20px;
@@ -18,7 +17,6 @@
             line-height: 1.4;
         }
 
-        /* Container Utama - Desain Premium Modern */
         .container {
             max-width: 480px;
             margin: 0 auto;
@@ -32,7 +30,6 @@
             overflow: hidden;
         }
 
-        /* Ornamen Stripping Warna di bagian paling atas Container */
         .container::before {
             content: '';
             position: absolute;
@@ -43,7 +40,6 @@
             background: linear-gradient(90deg, #ff9900, #ff5500);
         }
 
-        /* Header Halaman dengan Aksen Badge */
         .header-page {
             border-bottom: 2px dashed #e5e7eb;
             padding-bottom: 16px;
@@ -79,7 +75,6 @@
             margin: 0;
         }
 
-        /* Grid Sistem untuk Kartu LKS */
         .cards-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -87,7 +82,6 @@
             margin-bottom: 24px;
         }
 
-        /* Desain Kartu Kecil LKS */
         .book-card {
             background: #ffffff;
             border: 1px solid #e5e7eb;
@@ -100,9 +94,9 @@
             justify-content: space-between;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            cursor: pointer;
         }
 
-        /* Efek Interaktif & Stripping Warna saat Kartu Disentuh/Hover */
         .book-card:active, .book-card:hover {
             border-color: #ff5500;
             background: linear-gradient(185deg, #fffcf9 0%, #fff5ed 100%);
@@ -110,7 +104,6 @@
             box-shadow: 0 6px 16px rgba(255, 85, 0, 0.12);
         }
 
-        /* Badge Jenis LKS (Siswa / Guru) */
         .badge-book {
             align-self: flex-start;
             font-size: 9px;
@@ -134,7 +127,6 @@
             border: 1px solid #dcfce7;
         }
 
-        /* Judul Mata Pelajaran LKS */
         .subject-name {
             font-size: 13.5px;
             font-weight: 700;
@@ -144,7 +136,6 @@
             flex-grow: 1;
         }
 
-        /* Label Aksi Bawah Kartu */
         .action-label {
             font-size: 11px;
             font-weight: 700;
@@ -162,7 +153,6 @@
             font-weight: 500;
         }
 
-        /* Bagian Footer Tombol Kembali */
         .footer-action {
             border-top: 1px solid #e5e7eb;
             padding-top: 16px;
@@ -203,6 +193,7 @@
 
     <div class="cards-grid">
 
+        <!-- 1. PAI (LKS Siswa) -->
         <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
             <div>
                 <span class="badge-book lks-siswa">LKS Siswa</span>
@@ -211,14 +202,16 @@
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
         </a>
 
-        <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
+        <!-- 2. PAI (LKS Guru) -->
+        <div onclick="bukaBukuGuru('URL_PREVIEW_DRIVE_DISINI')" class="book-card">
             <div>
-                <span class="badge-book lks-guru">LKS Guru</span>
+                <span class="badge-book lks-guru">LKS Guru 🔒</span>
                 <div class="subject-name">Pendidikan Agama Islam & Budi Pekerti</div>
             </div>
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
-        </a>
+        </div>
 
+        <!-- 3. Pendidikan Pancasila (LKS Siswa) -->
         <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
             <div>
                 <span class="badge-book lks-siswa">LKS Siswa</span>
@@ -227,14 +220,16 @@
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
         </a>
 
-        <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
+        <!-- 4. Pendidikan Pancasila (LKS Guru) -->
+        <div onclick="bukaBukuGuru('URL_PREVIEW_DRIVE_DISINI')" class="book-card">
             <div>
-                <span class="badge-book lks-guru">LKS Guru</span>
+                <span class="badge-book lks-guru">LKS Guru 🔒</span>
                 <div class="subject-name">Pendidikan Pancasila</div>
             </div>
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
-        </a>
+        </div>
 
+        <!-- 5. Bahasa Indonesia (LKS Siswa) -->
         <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
             <div>
                 <span class="badge-book lks-siswa">LKS Siswa</span>
@@ -243,14 +238,16 @@
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
         </a>
 
-        <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
+        <!-- 6. Bahasa Indonesia (LKS Guru) -->
+        <div onclick="bukaBukuGuru('URL_PREVIEW_DRIVE_DISINI')" class="book-card">
             <div>
-                <span class="badge-book lks-guru">LKS Guru</span>
+                <span class="badge-book lks-guru">LKS Guru 🔒</span>
                 <div class="subject-name">Bahasa Indonesia</div>
             </div>
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
-        </a>
+        </div>
 
+        <!-- 7. Matematika (LKS Siswa) -->
         <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
             <div>
                 <span class="badge-book lks-siswa">LKS Siswa</span>
@@ -259,14 +256,16 @@
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
         </a>
 
-        <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
+        <!-- 8. Matematika (LKS Guru) -->
+        <div onclick="bukaBukuGuru('URL_PREVIEW_DRIVE_DISINI')" class="book-card">
             <div>
-                <span class="badge-book lks-guru">LKS Guru</span>
+                <span class="badge-book lks-guru">LKS Guru 🔒</span>
                 <div class="subject-name">Matematika</div>
             </div>
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
-        </a>
+        </div>
 
+        <!-- 9. PJOK (LKS Siswa) -->
         <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
             <div>
                 <span class="badge-book lks-siswa">LKS Siswa</span>
@@ -275,14 +274,16 @@
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
         </a>
 
-        <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
+        <!-- 10. PJOK (LKS Guru) -->
+        <div onclick="bukaBukuGuru('URL_PREVIEW_DRIVE_DISINI')" class="book-card">
             <div>
-                <span class="badge-book lks-guru">LKS Guru</span>
+                <span class="badge-book lks-guru">LKS Guru 🔒</span>
                 <div class="subject-name">PJOK</div>
             </div>
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
-        </a>
+        </div>
 
+        <!-- 11. IPAS (LKS Siswa) -->
         <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
             <div>
                 <span class="badge-book lks-siswa">LKS Siswa</span>
@@ -291,14 +292,16 @@
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
         </a>
 
-        <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
+        <!-- 12. IPAS (LKS Guru) -->
+        <div onclick="bukaBukuGuru('URL_PREVIEW_DRIVE_DISINI')" class="book-card">
             <div>
-                <span class="badge-book lks-guru">LKS Guru</span>
+                <span class="badge-book lks-guru">LKS Guru 🔒</span>
                 <div class="subject-name">IPAS (Alam & Sosial)</div>
             </div>
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
-        </a>
+        </div>
 
+        <!-- 13. Bahasa Inggris (LKS Siswa) -->
         <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
             <div>
                 <span class="badge-book lks-siswa">LKS Siswa</span>
@@ -307,14 +310,16 @@
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
         </a>
 
-        <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
+        <!-- 14. Bahasa Inggris (LKS Guru) -->
+        <div onclick="bukaBukuGuru('URL_PREVIEW_DRIVE_DISINI')" class="book-card">
             <div>
-                <span class="badge-book lks-guru">LKS Guru</span>
+                <span class="badge-book lks-guru">LKS Guru 🔒</span>
                 <div class="subject-name">Bahasa Inggris</div>
             </div>
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
-        </a>
+        </div>
 
+        <!-- 15. Seni Rupa (LKS Siswa) -->
         <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
             <div>
                 <span class="badge-book lks-siswa">LKS Siswa</span>
@@ -323,14 +328,16 @@
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
         </a>
 
-        <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
+        <!-- 16. Seni Rupa (LKS Guru) -->
+        <div onclick="bukaBukuGuru('URL_PREVIEW_DRIVE_DISINI')" class="book-card">
             <div>
-                <span class="badge-book lks-guru">LKS Guru</span>
+                <span class="badge-book lks-guru">LKS Guru 🔒</span>
                 <div class="subject-name">Seni Rupa</div>
             </div>
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
-        </a>
+        </div>
 
+        <!-- 17. Bahasa Jawa (LKS Siswa) -->
         <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
             <div>
                 <span class="badge-book lks-siswa">LKS Siswa</span>
@@ -339,14 +346,16 @@
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
         </a>
 
-        <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
+        <!-- 18. Bahasa Jawa (LKS Guru) -->
+        <div onclick="bukaBukuGuru('URL_PREVIEW_DRIVE_DISINI')" class="book-card">
             <div>
-                <span class="badge-book lks-guru">LKS Guru</span>
+                <span class="badge-book lks-guru">LKS Guru 🔒</span>
                 <div class="subject-name">Bahasa Jawa</div>
             </div>
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
-        </a>
+        </div>
 
+        <!-- 19. Literasi Digital (LKS Siswa) -->
         <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
             <div>
                 <span class="badge-book lks-siswa">LKS Siswa</span>
@@ -355,13 +364,14 @@
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
         </a>
 
-        <a href="URL_PREVIEW_DRIVE_DISINI" target="_blank" class="book-card">
+        <!-- 20. Literasi Digital (LKS Guru) -->
+        <div onclick="bukaBukuGuru('URL_PREVIEW_DRIVE_DISINI')" class="book-card">
             <div>
-                <span class="badge-book lks-guru">LKS Guru</span>
+                <span class="badge-book lks-guru">LKS Guru 🔒</span>
                 <div class="subject-name">Literasi Digital</div>
             </div>
             <div class="action-label">Buka LKS 📄 <span>Kelas V</span></div>
-        </a>
+        </div>
 
     </div>
 
@@ -370,6 +380,29 @@
     </div>
 
 </div>
+
+<!-- Script Tambahan untuk Proteksi Password Buku Guru -->
+<script>
+    function bukaBukuGuru(urlMateri) {
+        // Silakan ganti kata di dalam tanda petik sesuai keinginan Anda
+        var passwordBenar = "GURU5BUTOH"; 
+        
+        var inputUser = prompt("Akses Terbatas!\nMasukkan kata sandi khusus Guru untuk membuka LKS ini:");
+        
+        if (inputUser === null) {
+            // Jika user menekan tombol 'Batal' atau 'Cancel'
+            return; 
+        }
+        
+        if (inputUser === passwordBenar) {
+            // Jika password cocok, buka tab baru menuju link drive
+            window.open(urlMateri, '_blank');
+        } else {
+            // Jika password salah
+            alert("Kata sandi salah! Akses ditolak.");
+        }
+    }
+</script>
 
 </body>
 </html>
