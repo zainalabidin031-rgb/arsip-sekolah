@@ -26,32 +26,57 @@
             padding: 20px;
         }
 
-        /* Header Styling */
+        /* PERBAIKAN HEADER: Penataan Sejajar Kiri-Kanan (Flexbox) */
         header {
-            text-align: center;
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            align-items: center; /* Membuat logo dan teks rata tengah secara vertikal */
+            gap: 15px; /* Jarak antara logo di kiri dengan teks di kanan */
             margin-top: 15px;
             margin-bottom: 25px;
+            padding: 0 5px;
             animation: fadeInDown 0.8s ease;
         }
 
-        .logo-area {
-            font-size: 3rem;
-            color: #ef4444;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        /* Desain area khusus untuk menampung gambar logo sekolah */
+        .logo-area-sekolah {
+            width: 60px;
+            height: 60px;
+            background-color: #ffffff;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0; /* Mencegah gambar menyusut/gepeng */
+            padding: 5px;
+        }
+
+        .logo-area-sekolah img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Pembungkus teks kop di sebelah kanan */
+        .header-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left; /* Teks otomatis rata kiri */
         }
 
         header h1 {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             color: #0f172a;
             font-weight: 700;
-            line-height: 1.3;
+            line-height: 1.2;
         }
 
         header p {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #64748b;
-            margin-top: 5px;
+            margin-top: 3px;
             font-weight: 600;
         }
 
@@ -96,7 +121,7 @@
         .c-ulang { border-bottom: 5px solid #ef4444; }
         .c-nil-ulang { border-bottom: 5px solid #8b5cf6; }
 
-        /* Icon Box Styling */
+        /* Icon Box Styling untuk kartu menu */
         .icon-box {
             width: 50px;
             height: 50px;
@@ -190,14 +215,21 @@
 </head>
 <body>
 
+    <!-- Header / Kop Baru yang Sejajar ke Samping -->
     <header>
-        <div class="icon-box">
-    <img src="../assets/logosekolah300px.png.png" style="width: 35px; height: 35px; object-fit: contain;">
-</div>
-        <h1>Halaman Asesmen</h1>
-        <p>SDN Butoh 1 Ngasem • Kelas 5</p>
+        <!-- SEBELAH KIRI: Logo Gambar Sekolah -->
+        <div class="logo-area-sekolah">
+            <img src="../assets/logosekolah300px.png.png" alt="Logo Sekolah">
+        </div>
+        
+        <!-- SEBELAH KANAN: Judul & Keterangan Halaman -->
+        <div class="header-text">
+            <h1>Halaman Asesmen</h1>
+            <p>SDN Butoh 1 Ngasem • Kelas 5</p>
+        </div>
     </header>
 
+    <!-- Grid Menu Kotak Kecil -->
     <div class="grid-container">
         
         <a href="../latihan-soal/" class="menu-card c-lat1">
@@ -251,6 +283,7 @@
 
     </div>
 
+    <!-- Tombol Kembali -->
     <a href="../Grade-5/" class="btn-kembali">
         <i class="fa-solid fa-arrow-left"></i> Kembali ke Menu Utama
     </a>
