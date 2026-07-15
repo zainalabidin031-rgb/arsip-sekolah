@@ -393,7 +393,6 @@
         fetch(url)
             .then(response => response.text())
             .then(data => {
-                // Parsing format JSON dari Google Viz API dengan aman
                 const startIdx = data.indexOf('{');
                 const endIdx = data.lastIndexOf('}');
                 if (startIdx !== -1 && endIdx !== -1) {
@@ -406,37 +405,100 @@
             })
             .catch(error => {
                 console.error("Error fetching sheet:", error);
-                showError("Gagal memuat data dari Spreadsheet. Pastikan akses Google Sheet di-set publik (Anyone with the link can view).");
+                showError("Gagal memuat data dari Spreadsheet. Pastikan akses Google Sheet di-set publik.");
             });
 
         function processSheetData(json) {
+            const cols = json.table.cols;
             const rows = json.table.rows;
             
-            // Konversi row spreadsheet ke array objek JS
-            allData = rows.map(row => {
+            // 1. Deteksi Kolom secara Dinamis (Mencegah masalah kolom bergeser/kosong)
+            let colIndices = {
+                tanggal: -1,
+                nama: -1,
+                bulan: -1,
+                catatan: -1
+            };
+
+            // Cari berdasarkan Label Kolom dari Google API
+            cols.forEach((col, idx) => {
+                const label = (col.label || "").toLowerCase().trim();
+                if (label.includes("tanggal")) colIndices.tanggal = idx;
+                else if (label.includes("nama")) colIndices.nama = idx;
+                else if (label.includes("bulan")) colIndices.bulan = idx;
+                else if (label.includes("catatan")) colIndices.catatan = idx;
+            });
+
+            // Jika label tidak terdeteksi (karena Google API tidak membaca header), 
+            // kita scan baris pertama di data rows
+            const isMissingIndex = Object.values(colIndices).some(idx => idx === -1);
+            let startRowIdx = 0;
+
+            if (isMissingIndex && rows.length > 0) {
+                const firstRow = rows[0];
+                if (firstRow && firstRow.c) {
+                    firstRow.c.forEach((cell, idx) => {
+                        if (!cell) return;
+                        const val = String(cell.f || cell.v || "").toLowerCase().trim();
+                        if (val.includes("tanggal")) colIndices.tanggal = idx;
+                        else if (val.includes("nama")) colIndices.nama = idx;
+                        else if (val.includes("bulan")) colIndices.bulan = idx;
+                        else if (val.includes("catatan")) colIndices.catatan = idx;
+                    });
+                }
+                startRowIdx = 1; // Lewati baris pertama karena itu adalah header
+            }
+
+            // Fallback ke index default jika benar-benar tidak terdeteksi
+            if (colIndices.tanggal === -1) colIndices.tanggal = 0;
+            if (colIndices.nama === -1) colIndices.nama = 1;
+            if (colIndices.bulan === -1) colIndices.bulan = 2;
+            if (colIndices.catatan === -1) colIndices.catatan = 3;
+
+            // 2. Ekstrak Data
+            allData = [];
+            for (let i = startRowIdx; i < rows.length; i++) {
+                const row = rows[i];
+                if (!row || !row.c) continue;
+
                 const getVal = (colIdx) => {
-                    if (!row.c || !row.c[colIdx]) return "";
-                    return row.c[colIdx].f || row.c[colIdx].v || "";
+                    if (colIdx === -1 || colIdx >= row.c.length || !row.c[colIdx]) return "";
+                    const cell = row.c[colIdx];
+                    // Gunakan nilai terformat (.f) jika ada, jika tidak gunakan nilai mentah (.v)
+                    let val = (cell.f !== undefined && cell.f !== null) ? cell.f : ((cell.v !== undefined && cell.v !== null) ? cell.v : "");
+                    return String(val).trim();
                 };
-                return {
-                    tanggal: getVal(0),
-                    nama: getVal(1),
-                    bulan: getVal(2),
-                    catatan: getVal(3)
+
+                const item = {
+                    tanggal: getVal(colIndices.tanggal),
+                    nama: getVal(colIndices.nama),
+                    bulan: getVal(colIndices.bulan),
+                    catatan: getVal(colIndices.catatan)
                 };
-            }).filter(item => item.nama.trim() !== "" || item.tanggal.trim() !== ""); // Filter baris kosong
+
+                // Filter baris kosong agar tidak merusak tampilan
+                if (item.nama !== "" || item.tanggal !== "") {
+                    // Validasi agar baris header tidak ikut masuk sebagai data siswa
+                    if (item.nama.toLowerCase() !== "nama" && item.tanggal.toLowerCase() !== "tanggal") {
+                        allData.push(item);
+                    }
+                }
+            }
 
             document.getElementById('loading').style.display = 'none';
 
-            // Mengisi dropdown bulan & inisialisasi cards
+            // 3. Tampilkan Filter Bulan & Kartu Siswa
             populateMonthFilter();
             renderCards(allData);
         }
 
         function populateMonthFilter() {
             const select = document.getElementById('monthFilter');
-            // Ambil daftar bulan unik
+            // Ambil daftar bulan unik, bersihkan, dan filter nilai kosong
             const months = [...new Set(allData.map(item => item.bulan))].filter(Boolean);
+            
+            // Reset dropdown ke default
+            select.innerHTML = '<option value="">Semua Bulan</option>';
             
             months.forEach(month => {
                 const option = document.createElement('option');
@@ -480,7 +542,7 @@
                 
                 const card = document.createElement('div');
                 card.className = `student-card ${statusClass}`;
-                card.style.animationDelay = `${index * 0.05}s`; // Efek staggered animation cascade
+                card.style.animationDelay = `${index * 0.05}s`;
 
                 card.innerHTML = `
                     <div class="card-header">
