@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catatan Belajar Harian Siswa - SDN Butoh 1 Ngasem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-light: #e6f4ea;
+            --success-bg: #d1fae5;
+            --success-text: #065f46;
+            --success-border: #10b981;
+            --danger-bg: #fee2e2;
+            --danger-text: #991b1b;
+            --danger-border: #ef4444;
+            --bg: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 20px 16px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            margin-bottom: 24px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo-box {
+            background: white;
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 10px 20px -5px rgba(5, 150, 105, 0.15);
+            color: var(--primary);
+            font-size: 28px;
+            border: 2px solid #ecfdf5;
+        }
+
+        h1 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        /* CONTROLS (Back Button & Filter) */
+        .controls {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .btn-back {
+            background: #f1f5f9;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 14px;
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .btn-back:hover {
+            background: #e2e8f0;
+            transform: translateX(-4px);
+        }
+
+        .filter-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .filter-wrapper i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+            font-size: 0.9rem;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px 16px 10px 36px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 14px;
+            background-color: white;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 600;
+            outline: none;
+            appearance: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.12);
+        }
+
+        /* LOADING STATE */
+        .loading {
+            text-align: center;
+            background: white;
+            border-radius: 20px;
+            padding: 40px 20px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.03);
+            color: var(--text-muted);
+            font-weight: 500;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .spinner {
+            border: 4px solid rgba(5, 150, 105, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border-left-color: var(--primary);
+            animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            margin: 0 auto 16px;
+        }
+
+        /* CARDS */
+        .cards-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .student-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 18px;
+            box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.04);
+            border-left: 6px solid #cbd5e1;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .student-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Status Coloring */
+        .student-card.status-sudah {
+            border-left-color: var(--success-border);
+            background: linear-gradient(90deg, #f0fdf4 0%, #ffffff 20%);
+        }
+
+        .student-card.status-belum {
+            border-left-color: var(--danger-border);
+            background: linear-gradient(90deg, #fef2f2 0%, #ffffff 20%);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .student-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .student-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #f8fafc;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .card-body {
+            background: rgba(248, 250, 252, 0.8);
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 0.88rem;
+            color: #334155;
+            line-height: 1.6;
+            border: 1px solid #f1f5f9;
+            margin-bottom: 12px;
+        }
+
+        .card-body strong {
+            color: #0f172a;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .bulan-tag {
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        /* Status Badge Styling */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .status-sudah .status-badge {
+            background-color: var(--success-bg);
+            color: var(--success-text);
+        }
+
+        .status-belum .status-badge {
+            background-color: var(--danger-bg);
+            color: var(--danger-text);
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            background: white;
+            border-radius: 20px;
+            padding: 50px 20px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.03);
+            color: var(--text-muted);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .empty-state i {
+            font-size: 54px;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+        }
+
+        .empty-state p {
+            font-weight: 500;
+        }
+
+        /* ANIMATIONS */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-box">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <h1>Catatan Belajar Harian Siswa</h1>
+            <div class="subtitle">SDN Butoh 1 Ngasem</div>
+        </header>
+
+        <div class="controls">
+            <a href="javascript:history.back()" class="btn-back">
+                <i class="fa-solid fa-arrow-left"></i> Kembali
+            </a>
+            <div class="filter-wrapper">
+                <i class="fa-solid fa-calendar-days"></i>
+                <select id="monthFilter" disabled>
+                    <option value="">Semua Bulan</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Menghubungkan & Memuat Data...</p>
+        </div>
+
+        <div id="cardsContainer" class="cards-list"></div>
+    </div>
+
+    <script>
+        const SPREADSHEET_ID = '1Hm7vkLMerFfq9w1W9ds47_YEhwUtJ5RZrszo1tSqk34';
+        const SHEET_NAME = 'Laporan';
+        const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+
+        let allData = [];
+
+        // Ambil Data dari Google Sheets
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                // Parsing format JSON dari Google Viz API dengan aman
+                const startIdx = data.indexOf('{');
+                const endIdx = data.lastIndexOf('}');
+                if (startIdx !== -1 && endIdx !== -1) {
+                    const jsonStr = data.substring(startIdx, endIdx + 1);
+                    const jsonData = JSON.parse(jsonStr);
+                    processSheetData(jsonData);
+                } else {
+                    showError("Format respon data Google Sheets tidak valid.");
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching sheet:", error);
+                showError("Gagal memuat data dari Spreadsheet. Pastikan akses Google Sheet di-set publik (Anyone with the link can view).");
+            });
+
+        function processSheetData(json) {
+            const rows = json.table.rows;
+            
+            // Konversi row spreadsheet ke array objek JS
+            allData = rows.map(row => {
+                const getVal = (colIdx) => {
+                    if (!row.c || !row.c[colIdx]) return "";
+                    return row.c[colIdx].f || row.c[colIdx].v || "";
+                };
+                return {
+                    tanggal: getVal(0),
+                    nama: getVal(1),
+                    bulan: getVal(2),
+                    catatan: getVal(3)
+                };
+            }).filter(item => item.nama.trim() !== "" || item.tanggal.trim() !== ""); // Filter baris kosong
+
+            document.getElementById('loading').style.display = 'none';
+
+            // Mengisi dropdown bulan & inisialisasi cards
+            populateMonthFilter();
+            renderCards(allData);
+        }
+
+        function populateMonthFilter() {
+            const select = document.getElementById('monthFilter');
+            // Ambil daftar bulan unik
+            const months = [...new Set(allData.map(item => item.bulan))].filter(Boolean);
+            
+            months.forEach(month => {
+                const option = document.createElement('option');
+                option.value = month;
+                option.textContent = month;
+                select.appendChild(option);
+            });
+
+            select.disabled = false;
+            select.addEventListener('change', (e) => {
+                const selectedMonth = e.target.value;
+                if (selectedMonth === "") {
+                    renderCards(allData);
+                } else {
+                    const filtered = allData.filter(item => item.bulan === selectedMonth);
+                    renderCards(filtered);
+                }
+            });
+        }
+
+        function renderCards(data) {
+            const container = document.getElementById('cardsContainer');
+            container.innerHTML = "";
+
+            if (data.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-regular fa-folder-open"></i>
+                        <p>Tidak ada catatan belajar untuk bulan ini.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            data.forEach((item, index) => {
+                const catatanText = item.catatan.trim();
+                const isSudah = catatanText.toLowerCase() === "sudah belajar";
+                
+                const statusClass = isSudah ? "status-sudah" : "status-belum";
+                const iconClass = isSudah ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
+                
+                const card = document.createElement('div');
+                card.className = `student-card ${statusClass}`;
+                card.style.animationDelay = `${index * 0.05}s`; // Efek staggered animation cascade
+
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="student-name">${item.nama}</div>
+                        <div class="student-date">
+                            <i class="fa-regular fa-calendar-days"></i> ${item.tanggal}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <strong>Catatan Belajar:</strong> ${item.catatan}
+                    </div>
+                    <div class="card-meta">
+                        <span class="bulan-tag"><i class="fa-regular fa-clock"></i> ${item.bulan}</span>
+                        <span class="status-badge">
+                            <i class="${iconClass}"></i> ${item.catatan}
+                        </span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function showError(message) {
+            const loading = document.getElementById('loading');
+            loading.innerHTML = `
+                <div style="color: #ef4444; font-size: 2.5rem; margin-bottom: 12px;">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div style="color: #ef4444; font-weight: 700; font-size: 1.1rem;">Koneksi Gagal</div>
+                <p style="font-size: 0.85rem; margin-top: 8px; color: var(--text-muted); line-height: 1.5;">${message}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
