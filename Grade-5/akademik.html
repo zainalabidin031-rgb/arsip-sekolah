@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Asesmen Kelas 5 - SDN Butoh 1 Ngasem</title>
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fef2f2 0%, #fff7ed 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #334155;
+            padding: 20px;
+        }
+
+        /* HEADER: Penataan Sejajar Kiri-Kanan (Flexbox) */
+        header {
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            align-items: center; 
+            gap: 15px; 
+            margin-top: 15px;
+            margin-bottom: 25px;
+            padding: 0 5px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .logo-area-sekolah {
+            width: 60px;
+            height: 60px;
+            background-color: #ffffff;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0; 
+            padding: 5px;
+        }
+
+        .logo-area-sekolah img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left; 
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            color: #0f172a;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        header p {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 3px;
+            font-weight: 600;
+        }
+
+        /* Container Grid Menu HP Friendly */
+        .grid-container {
+            width: 100%;
+            max-width: 450px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        /* Tag <a> untuk Link Fitur */
+        .feat-link {
+            text-decoration: none;
+            color: #ffffff;
+            display: block;
+        }
+
+        /* Untuk item ganjil yang ingin dibuat memenuhi baris penuh */
+        .full-width {
+            grid-column: span 2;
+        }
+
+        /* PERBAIKAN CARD: Menggunakan Konsep feat-card Baru */
+        .feat-card {
+            border-radius: 16px;
+            padding: 18px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 110px;
+        }
+
+        /* Styling Emoji di Dalam Span */
+        .feat-card span {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        /* Variasi Warna Solid Elegan Sesuai Request */
+        .f1 { background-color: #0D47A1; }
+        .f2 { background-color: #E65100; }
+        .f3 { background-color: #880E4F; }
+        .f4 { background-color: #1B5E20; }
+        .f5 { background-color: #00796B; }
+
+        /* Efek Animasi Hover & Active Tekan HP */
+        .feat-link:hover .feat-card, .feat-link:active .feat-card {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            filter: brightness(1.1);
+        }
+
+        .feat-link:hover span, .feat-link:active span {
+            transform: scale(1.15) rotate(-5deg);
+        }
+
+        /* Penyesuaian khusus untuk item baris penuh (Nilai Ulangan) */
+        .full-width .feat-card {
+            flex-direction: row;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px 20px;
+            min-height: auto;
+        }
+
+        .full-width .feat-card span {
+            margin-bottom: 0;
+        }
+
+        /* Tombol Kembali */
+        .btn-kembali {
+            margin-top: 35px;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background-color: #64748b;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(100, 116, 139, 0.2);
+            transition: all 0.3s ease;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .btn-kembali:active, .btn-kembali:hover {
+            background-color: #475569;
+            transform: scale(0.95);
+        }
+
+        /* Keyframes Animasi */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Kop Sejajar -->
+    <header>
+        <div class="logo-area-sekolah">
+            <img src="../assets/logosekolah300px.png.png" alt="Logo Sekolah">
+        </div>
+        <div class="header-text">
+            <h1>Informasi Digital Kelas 5</h1>
+            <p>SDN Butoh 1 Ngasem</p>
+        </div>
+    </header>
+
+    <!-- Grid Menu dengan Model feat-card Baru -->
+    <div class="grid-container">
+        
+        <!-- Latihan-1 -->
+        <a href="../nisn.html/" class="feat-link">
+            <div class="feat-card f1"><span>🎓</span>Cari NISN</div>
+        </a>
+
+        <!-- Latihan-2 -->
+        <a href="jadwal.html" class="feat-link">
+            <div class="feat-card f2"><span>💡</span>Jadwal Pelajaran + Piket</div>
+        </a>
+
+        <!-- Nilai-1 -->
+        <a href="absensi.html" class="feat-link">
+            <div class="feat-card f3"><span>🏢</span>Absen Murid</div>
+        </a>
+
+        <!-- Nilai-2 -->
+        <a href="form-izin-siswa.html" class="feat-link">
+            <div class="feat-card f4"><span>📝</span>Surat Izin</div>
+        </a>
+
+        <!-- Nilai Ulangan (Dibuat Baris Penuh) -->
+        <a href="Panduan/" class="feat-link full-width">
+            <div class="feat-card f1"><span>📊</span>Petunjuk Penggunaan</div>
+        </a>
+
+    </div>
+
+    <!-- Tombol Kembali -->
+    <a href="index.html" class="btn-kembali">
+        <i class="fa-solid fa-arrow-left"></i> Kembali ke Menu Utama
+    </a>
+
+</body>
+</html>
