@@ -293,94 +293,98 @@
   </div>
 
   <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzMAtFGc1uHbutZUYHSCums529Ahq1kHrpaNkyKrXbZ69izp8xIuAKaZaMI1_wa6tHXhA/exec";
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzMAtFGc1uHbutZUYHSCums529Ahq1kHrpaNkyKrXbZ69izp8xIuAKaZaMI1_wa6tHXhA/exec";
 
-    function tampilkanNilaiKelas() {
-      const kelasSelect = document.getElementById("filterKelas").value;
-      const tanggalInput = document.getElementById("filterTanggal").value; // Menghasilkan format YYYY-MM-DD
-      
-      const btn = document.getElementById("btnCari");
-      const loader = document.getElementById("loader");
-      const msgBox = document.getElementById("msgBox");
-      const resultArea = document.getElementById("resultArea");
-      const resultBody = document.getElementById("resultBody");
+  function tampilkanNilaiKelas() {
+    const kelasSelect = document.getElementById("filterKelas").value;
+    const tanggalInput = document.getElementById("filterTanggal").value; // Format default: "YYYY-MM-DD"
+    
+    const btn = document.getElementById("btnCari");
+    const loader = document.getElementById("loader");
+    const msgBox = document.getElementById("msgBox");
+    const resultArea = document.getElementById("resultArea");
+    const resultBody = document.getElementById("resultBody");
 
-      if (kelasSelect === "") {
-        showMsg("Silakan pilih kelas terlebih dahulu sebelum klik tombol.", "error");
-        return;
-      }
+    if (kelasSelect === "") {
+      showMsg("Silakan pilih kelas terlebih dahulu sebelum klik tombol.", "error");
+      return;
+    }
 
-      let targetTanggal = "";
-      let targetBulan = "";
+    // Reset UI
+    msgBox.style.display = "none";
+    resultArea.style.display = "none";
+    resultBody.innerHTML = "";
+    loader.style.display = "block";
+    btn.disabled = true;
 
-      // Jika user memilih tanggal pada komponen kalender
-      if (tanggalInput !== "") {
-        const dateObj = new Date(tanggalInput);
-        targetTanggal = String(dateObj.getDate()).padStart(2, '0'); // Contoh: "05"
-        targetBulan = String(dateObj.getMonth() + 1).padStart(2, '0'); // Contoh: "07" (Juli)
-      }
+    // Menyusun parameter pencarian ke URL Web App
+    let fetchUrl = `${WEB_APP_URL}?kelas=${encodeURIComponent(kelasSelect)}`;
+    
+    // Daripada memecah tanggal & bulan, kirimkan format utuh YYYY-MM-DD ke backend
+    if (tanggalInput !== "") {
+      fetchUrl += `&tanggalFull=${encodeURIComponent(tanggalInput)}`;
+    }
 
-      // Reset UI
-      msgBox.style.display = "none";
-      resultArea.style.display = "none";
-      resultBody.innerHTML = "";
-      loader.style.display = "block";
-      btn.disabled = true;
+    // Ambil data dari server
+    fetch(fetchUrl)
+      .then(response => response.json())
+      .then(response => {
+        loader.style.display = "none";
+        btn.disabled = false;
 
-      // Menyusun parameter pencarian ke URL Web App
-      let fetchUrl = `${WEB_APP_URL}?kelas=${encodeURIComponent(kelasSelect)}`;
-      if (targetTanggal !== "") fetchUrl += `&tanggal=${encodeURIComponent(targetTanggal)}`;
-      if (targetBulan !== "") fetchUrl += `&bulan=${encodeURIComponent(targetBulan)}`;
+        if (response.success) {
+          if (response.data.length === 0) {
+            showMsg("Data nilai tidak ditemukan untuk kriteria pencarian tersebut.", "error");
+            return;
+          }
 
-      // Ambil data dari server
-      fetch(fetchUrl)
-        .then(response => response.json())
-        .then(response => {
-          loader.style.display = "none";
-          btn.disabled = false;
-
-          if (response.success) {
-            if (response.data.length === 0) {
-              showMsg("Data nilai tidak ditemukan untuk kriteria pencarian tersebut.", "error");
-              return;
+          response.data.forEach(function(row) {
+            const tr = document.createElement("tr");
+            
+            let badgeClass = "badge-nilai";
+            const nilaiNum = parseFloat(row.nilai);
+            if (!isNaN(nilaiNum) && nilaiNum >= 80) {
+              badgeClass += " nilai-tinggi";
             }
 
-            response.data.forEach(function(row) {
-              const tr = document.createElement("tr");
-              
-              let badgeClass = "badge-nilai";
-              const nilaiNum = parseFloat(row.nilai);
-              if (!isNaN(nilaiNum) && nilaiNum >= 80) {
-                badgeClass += " nilai-tinggi";
+            // Fungsi pembantu untuk mempercantik tampilan tanggal ISO di tabel web Anda
+            let tanggalTampilan = row.tanggal;
+            if (tanggalTampilan && tanggalTampilan.includes('T')) {
+              const d = new Date(tanggalTampilan);
+              // Mengubah ISO menjadi format Indonesia: DD/MM/YYYY
+              if (!isNaN(d.getTime())) {
+                tanggalTampilan = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
               }
+            }
 
-              tr.innerHTML = `<td style="font-weight:600; color:var(--accent-dark);">${row.nama}</td>
-                              <td>Kelas ${row.kelas}</td>
-                              <td>${row.mapel}</td>
-                              <td>${row.bab}</td>
-                              <td><span class='${badgeClass}'>${row.nilai}</span></td>
-                              <td style="color:var(--text-muted); font-size:13px;">${row.tanggal}</td>`;
-              resultBody.appendChild(tr);
-            });
-            resultArea.style.display = "block";
-          } else {
-            showMsg(response.message, "error");
-          }
-        })
-        .catch(error => {
-          loader.style.display = "none";
-          btn.disabled = false;
-          showMsg("Gagal memuat data dari spreadsheet. Pastikan Anda telah meng-deploy ulang Apps Script versi terbaru.", "error");
-          console.error(error);
-        });
-    }
+            tr.innerHTML = `<td style="font-weight:600; color:var(--accent-dark);">${row.nama}</td>
+                            <td>Kelas ${row.kelas}</td>
+                            <td>${row.mapel}</td>
+                            <td>${row.bab}</td>
+                            <td><span class='${badgeClass}'>${row.nilai}</span></td>
+                            <td style="color:var(--text-muted); font-size:13px;">${tanggalTampilan}</td>`;
+            resultBody.appendChild(tr);
+          });
+          resultArea.style.display = "block";
+        } else {
+          showMsg(response.message, "error");
+        }
+      })
+      .catch(error => {
+        loader.style.display = "none";
+        btn.disabled = false;
+        showMsg("Gagal memuat data dari spreadsheet. Pastikan Anda telah meng-deploy ulang Apps Script versi terbaru.", "error");
+        console.error(error);
+      });
+  }
 
-    function showMsg(text, type) {
-      const msgBox = document.getElementById("msgBox");
-      msgBox.innerText = text;
-      msgBox.className = "message " + type;
-      msgBox.style.display = "block";
-    }
-  </script>
+  function showMsg(text, type) {
+    const msgBox = document.getElementById("msgBox");
+    const msgBox = document.getElementById("msgBox");
+    msgBox.innerText = text;
+    msgBox.className = "message " + type;
+    msgBox.style.display = "block";
+  }
+</script>
 </body>
 </html>
