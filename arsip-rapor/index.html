@@ -289,17 +289,18 @@ window.addEventListener("load", async () => {
     }
 });
 
-// Pencarian hanya berdasarkan NISN (Kolom indeks 0)
+// Pencarian berdasarkan NISN (Telah dinormalisasi menjadi 10 digit string)
 document.getElementById("btnCari").addEventListener("click", () => {
-    const nisn = document.getElementById("nisnInput").value.trim();
+    const inputRaw = document.getElementById("nisnInput").value.trim();
 
-    if (!nisn) {
+    if (!inputRaw) {
         alert("Silakan masukkan NISN siswa terlebih dahulu.");
         return;
     }
 
-    // Filter data hanya berdasarkan kecocokan NISN
-    const hasil = semuaData.filter(row => String(row[0]).trim() === nisn);
+    // Normalisasi input user & data spreadsheet agar selalu 10 digit (menjaga angka 0 di depan)
+    const nisnTarget = inputRaw.padStart(10, '0');
+    const hasil = semuaData.filter(row => String(row[0]).trim().padStart(10, '0') === nisnTarget);
 
     if (hasil.length === 0) {
         document.getElementById("pesanStatus").innerHTML =
@@ -315,14 +316,14 @@ document.getElementById("btnCari").addEventListener("click", () => {
 
     // Mapping profil singkat siswa
     document.getElementById("namaSiswa").textContent = hasil[0][1];
-    document.getElementById("nisnSiswa").textContent = hasil[0][0];
+    document.getElementById("nisnSiswa").textContent = nisnTarget; // Tampilkan versi lengkap dengan angka 0
     document.getElementById("peringkatSiswa").textContent = "Peringkat " + (hasil[0][2] || "-");
 
     // Ambil opsi Tahun Ajaran secara unik dari kolom indeks 3
     const tahunSelect = document.getElementById("tahunSelect");
     tahunSelect.innerHTML = '<option value="">Pilih Tahun Ajaran</option>';
 
-    [...new Set(hasil.map(x => x[3]))].forEach(tahun => {
+    ...new Set(hasil.map(x => x[3]))].forEach(tahun => {
         tahunSelect.innerHTML += `<option value="${tahun}">${tahun}</option>`;
     });
 
@@ -331,31 +332,33 @@ document.getElementById("btnCari").addEventListener("click", () => {
 
 // Update pilihan semester berdasarkan Tahun Ajaran yang dipilih
 document.getElementById("tahunSelect").addEventListener("change", () => {
-    const nisn = document.getElementById("nisnInput").value.trim();
+    const inputRaw = document.getElementById("nisnInput").value.trim();
     const tahun = document.getElementById("tahunSelect").value;
     const semesterSelect = document.getElementById("semesterSelect");
 
     semesterSelect.innerHTML = '<option value="">Pilih Semester</option>';
 
+    const nisnTarget = inputRaw.padStart(10, '0');
     const data = semuaData.filter(r =>
-        String(r[0]).trim() === nisn &&
+        String(r[0]).trim().padStart(10, '0') === nisnTarget &&
         String(r[3]) === tahun
     );
 
     // Ambil opsi Semester secara unik dari kolom indeks 4
-    [...new Set(data.map(x => x[4]))].forEach(semester => {
+    ...new Set(data.map(x => x[4]))].forEach(semester => {
         semesterSelect.innerHTML += `<option value="${semester}">${semester}</option>`;
     });
 });
 
 // Tampilkan nilai mata pelajaran ke tabel
 document.getElementById("btnTampil").addEventListener("click", () => {
-    const nisn = document.getElementById("nisnInput").value.trim();
+    const inputRaw = document.getElementById("nisnInput").value.trim();
     const tahun = document.getElementById("tahunSelect").value;
     const semester = document.getElementById("semesterSelect").value;
 
+    const nisnTarget = inputRaw.padStart(10, '0');
     const row = semuaData.find(r =>
-        String(r[0]).trim() === nisn &&
+        String(r[0]).trim().padStart(10, '0') === nisnTarget &&
         String(r[3]) === tahun &&
         String(r[4]) === semester
     );
