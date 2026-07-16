@@ -13,148 +13,305 @@
 
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #0088ff 0%, #00c6ff 100%);
-            --text-dark: #1e293b;
+            --primary-gradient: linear-gradient(135deg, #0d6efd 0%, #00c6ff 100%);
+            --secondary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --text-dark: #0f172a;
             --text-muted: #64748b;
-            --bg-body: #f8fafc;
-            --shadow-card: 0 12px 30px rgba(0, 136, 255, 0.05);
+            --bg-body: #f4f7fc;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 10px 25px -5px rgba(13, 110, 253, 0.1), 0 8px 10px -6px rgba(13, 110, 253, 0.05);
+            --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.08);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
             background: var(--bg-body);
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
         }
 
+        /* Hero Section */
         .hero {
             background: var(--primary-gradient);
             color: white;
-            padding: 50px 20px;
+            padding: 60px 20px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            pointer-events: none;
         }
 
         .hero h1 {
             font-weight: 800;
-            font-size: 28px;
-            letter-spacing: -0.5px;
+            font-size: 2.2rem;
+            letter-spacing: -0.8px;
+            margin-bottom: 8px;
+            animation: slideDown 0.6s ease-out;
         }
 
         .hero p {
             font-weight: 500;
             opacity: 0.9;
-            font-size: 15px;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            animation: fadeIn 0.8s ease-out;
         }
 
+        /* Card Container & Animations */
         .card-custom {
             border: none;
-            border-radius: 24px;
-            box-shadow: var(--shadow-card);
+            border-radius: 28px;
+            box-shadow: var(--shadow-lg);
             background: #ffffff;
-            border: 1px solid rgba(0, 136, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            transition: var(--transition-smooth);
+            animation: cardEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Form Controls */
         .form-label {
             font-weight: 700;
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-dark);
             margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .input-group {
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
         }
 
         .input-group-text {
             background-color: #f8fafc;
-            border-color: #cbd5e1;
-            color: #94a3b8;
+            border-color: #e2e8f0;
+            color: #3b82f6;
+            font-size: 16px;
+            padding-left: 18px;
+            padding-right: 18px;
         }
 
         .form-control, .form-select {
-            padding: 12px 14px;
-            border-radius: 12px;
-            border: 1px solid #cbd5e1;
-            font-size: 14px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: var(--transition-smooth);
         }
 
         .form-control:focus, .form-select:focus {
-            border-color: #0077ff;
-            box-shadow: 0 0 0 4px rgba(0, 119, 255, 0.1);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+            background-color: #fff;
         }
 
+        /* Buttons */
         .btn-primary {
             background: var(--primary-gradient) !important;
             border: none !important;
-            padding: 13px 20px;
-            border-radius: 12px;
+            padding: 14px 24px;
+            border-radius: 14px;
             font-weight: 700;
-            font-size: 15px;
-            box-shadow: 0 4px 12px rgba(0, 136, 255, 0.2);
-            transition: all 0.2s ease;
+            font-size: 16px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.25);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-primary:hover::after {
+            left: 100%;
         }
 
         .btn-primary:hover {
-            box-shadow: 0 6px 18px rgba(0, 136, 255, 0.3);
-            transform: translateY(-1px);
+            box-shadow: 0 12px 24px rgba(13, 110, 253, 0.35);
+            transform: translateY(-2px);
         }
 
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Info Student Badge (Glassmorphism style) */
         .info-badge-box {
-            background: #f0f7ff;
-            padding: 15px 20px;
-            border-radius: 16px;
-            border-left: 4px solid #0077ff;
+            background: linear-gradient(135deg, rgba(240, 247, 255, 0.8) 0%, rgba(224, 242, 254, 0.8) 100%);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid #bae6fd;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+        }
+
+        .info-badge-box:hover {
+            transform: scale(1.01);
+        }
+
+        .font-13 {
+            font-size: 13.5px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Table Design */
+        .nilai-table-container {
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            margin-top: 20px;
         }
 
         .nilai-table {
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid #e2e8f0;
+            margin-bottom: 0;
+            border-collapse: collapse;
         }
 
         .nilai-table th {
             background: #f8fafc;
             color: var(--text-dark);
             font-weight: 700;
-            font-size: 13px;
+            font-size: 14px;
+            padding: 16px 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e2e8f0;
         }
 
         .nilai-table td {
-            padding: 12px 16px;
-            font-size: 14px;
+            padding: 14px 20px;
+            font-size: 14.5px;
             vertical-align: middle;
+            border-bottom: 1px solid #f1f5f9;
+            transition: var(--transition-smooth);
+        }
+
+        .nilai-table tbody tr:hover td {
+            background-color: #f1f7fe;
         }
 
         .nilai-score {
             font-weight: 800;
-            color: #0077ff;
+            color: #0d6efd;
             text-align: right;
-            width: 80px;
+            width: 90px;
+            font-size: 16px;
         }
 
+        /* Badges */
+        .badge.bg-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+        }
+
+        /* Back Button */
         .home-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             text-decoration: none;
             color: var(--text-muted);
             font-weight: 700;
-            font-size: 14px;
-            padding: 10px 18px;
+            font-size: 15px;
+            padding: 12px 24px;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            border-radius: 14px;
+            box-shadow: var(--shadow-sm);
             border: 1px solid #e2e8f0;
-            transition: all 0.2s ease;
+            transition: var(--transition-smooth);
         }
 
         .home-btn:hover {
-            color: #0077ff;
-            border-color: #e6f2ff;
-            transform: translateX(-3px);
+            color: #0d6efd;
+            border-color: #bfdbfe;
+            box-shadow: var(--shadow-md);
+            transform: translateX(-5px);
         }
 
+        /* Footer */
         footer {
             color: var(--text-muted);
             font-size: 13px;
             font-weight: 500;
+            margin-top: auto;
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* Responsive Design Adjustments */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 45px 15px;
+                border-bottom-left-radius: 25px;
+                border-bottom-right-radius: 25px;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .card-custom {
+                padding: 30px 20px !important;
+                border-radius: 20px;
+            }
+            .form-control, .form-select, .btn-primary {
+                padding: 12px 14px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -172,7 +329,7 @@
         <div class="col-lg-7">
             
             <div class="card card-custom p-4 p-md-5">
-                <h4 class="text-center mb-4 fw-800" style="letter-spacing: -0.5px;">Cari Rekam Jejak Rapor</h4>
+                <h4 class="text-center mb-4 fw-bold" style="letter-spacing: -0.5px; color: var(--text-dark);">Cari Rekam Jejak Rapor</h4>
                 
                 <div class="mb-4">
                     <label class="form-label">Masukkan NISN Siswa</label>
@@ -182,7 +339,7 @@
                     </div>
                 </div>
 
-                <button class="btn btn-primary w-100" id="btnCari">
+                <button class="btn btn-primary w-100 mb-2" id="btnCari">
                     <i class="fa-solid fa-magnifying-glass me-2"></i> Cari Arsip Data
                 </button>
 
@@ -192,12 +349,12 @@
                     <hr class="text-muted opacity-25 my-4">
                     
                     <div class="info-badge-box mb-4">
-                        <div class="row g-2">
+                        <div class="row g-2 align-items-center">
                             <div class="col-4 text-secondary font-13"><strong>Nama</strong></div>
-                            <div class="col-8">: <span id="namaSiswa" class="fw-bold">-</span></div>
+                            <div class="col-8">: <span id="namaSiswa" class="fw-bold text-dark">-</span></div>
                             
                             <div class="col-4 text-secondary font-13"><strong>NISN</strong></div>
-                            <div class="col-8">: <span id="nisnSiswa">-</span></div>
+                            <div class="col-8">: <span id="nisnSiswa" class="fw-semibold">-</span></div>
                             
                             <div class="col-4 text-secondary font-13"><strong>Peringkat</strong></div>
                             <div class="col-8">: <span id="peringkatSiswa" class="badge bg-success fw-bold">-</span></div>
@@ -224,40 +381,42 @@
                         <i class="fa-solid fa-file-invoice me-2"></i> Tampilkan Lembar Rapor
                     </button>
 
-                    <table class="table table-striped table-hover nilai-table">
-                        <thead>
-                            <tr>
-                                <th>Mata Pelajaran</th>
-                                <th class="text-end">Nilai Akhir</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Pendidikan Agama Islam (PAI)</td><td id="pai" class="nilai-score">-</td></tr>
-                            <tr><td>Pendidikan Pancasila (PPKn)</td><td id="pkn" class="nilai-score">-</td></tr>
-                            <tr><td>Bahasa Indonesia (BIN)</td><td id="bin" class="nilai-score">-</td></tr>
-                            <tr><td>Matematika (MTK)</td><td id="mtk" class="nilai-score">-</td></tr>
-                            <tr><td>Ilmu Pengetahuan Alam dan Sosial (IPAS)</td><td id="ipas" class="nilai-score">-</td></tr>
-                            <tr><td>Pendidikan Jasmani, Olahraga & Kesehatan (PJOK)</td><td id="pjok" class="nilai-score">-</td></tr>
-                            <tr><td>Seni dan Budaya (SENI)</td><td id="seni" class="nilai-score">-</td></tr>
-                            <tr><td>Bahasa Inggris (BIG)</td><td id="big" class="nilai-score">-</td></tr>
-                            <tr><td>Bahasa Jawa (BJ)</td><td id="bj" class="nilai-score">-</td></tr>
-                            <tr><td>Literasi Digital (LIDI)</td><td id="lidi" class="nilai-score">-</td></tr>
-                        </tbody>
-                    </table>
+                    <div class="nilai-table-container">
+                        <table class="table table-hover nilai-table">
+                            <thead>
+                                <tr>
+                                    <th>Mata Pelajaran</th>
+                                    <th class="text-end">Nilai Akhir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Pendidikan Agama Islam (PAI)</td><td id="pai" class="nilai-score">-</td></tr>
+                                <tr><td>Pendidikan Pancasila (PPKn)</td><td id="pkn" class="nilai-score">-</td></tr>
+                                <tr><td>Bahasa Indonesia (BIN)</td><td id="bin" class="nilai-score">-</td></tr>
+                                <tr><td>Matematika (MTK)</td><td id="mtk" class="nilai-score">-</td></tr>
+                                <tr><td>Ilmu Pengetahuan Alam dan Sosial (IPAS)</td><td id="ipas" class="nilai-score">-</td></tr>
+                                <tr><td>Pendidikan Jasmani, Olahraga & Kesehatan (PJOK)</td><td id="pjok" class="nilai-score">-</td></tr>
+                                <tr><td>Seni dan Budaya (SENI)</td><td id="seni" class="nilai-score">-</td></tr>
+                                <tr><td>Bahasa Inggris (BIG)</td><td id="big" class="nilai-score">-</td></tr>
+                                <tr><td>Bahasa Jawa (BJ)</td><td id="bj" class="nilai-score">-</td></tr>
+                                <tr><td>Literasi Digital (LIDI)</td><td id="lidi" class="nilai-score">-</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
             </div>
         </div>
     </div>
 
-    <div class="text-center mt-4">
+    <div class="text-center mt-4 mb-5">
         <a href="https://zainalabidin031-rgb.github.io/arsip-sekolah/" class="home-btn">
             <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
         </a>
     </div>
 </div>
                         
-<footer class="text-center py-4 mt-5 border-top border-light">
+<footer class="text-center py-4">
     © 2026 SDN Butoh 1 Ngasem. Seluruh Hak Cipta Dilindungi.
 </footer>
 
@@ -273,7 +432,7 @@ async function loadData() {
     const text = await res.text();
     const json = JSON.parse(text.substring(47).slice(0, -2));
 
-    semuaData = json.table.rows.map(r =>
+    semaData = json.table.rows.map(r =>
         r.c.map(c => c ? (c.f || c.v) : "")
     );
 }
@@ -283,7 +442,7 @@ window.addEventListener("load", async () => {
         await loadData();
     } catch (e) {
         document.getElementById("pesanStatus").innerHTML =
-            `<div class="alert alert-danger d-flex align-items-center" role="alert">
+            `<div class="alert alert-danger d-flex align-items-center" role="alert" style="border-radius: 12px; font-weight: 500;">
                 <i class="fa-solid fa-circle-exclamation me-2"></i> Gagal menyinkronkan data database arsip.
             </div>`;
     }
@@ -308,11 +467,11 @@ document.getElementById("btnCari").addEventListener("click", () => {
     }
 
     const nisnTarget = bersihkanNISN(inputRaw);
-    const hasil = semuaData.filter(row => bersihkanNISN(row[0]) === nisnTarget);
+    const hasil = semaData.filter(row => bersihkanNISN(row[0]) === nisnTarget);
 
     if (hasil.length === 0) {
         document.getElementById("pesanStatus").innerHTML =
-            `<div class="alert alert-danger d-flex align-items-center" role="alert">
+            `<div class="alert alert-danger d-flex align-items-center animate__animated animate__fadeIn" role="alert" style="border-radius: 12px; font-weight: 500;">
                 <i class="fa-solid fa-triangle-exclamation me-2"></i> Berkas tidak ditemukan. Periksa kembali NISN yang Anda masukkan.
             </div>`;
         document.getElementById("hasilArea").style.display = "none";
@@ -347,7 +506,7 @@ document.getElementById("tahunSelect").addEventListener("change", () => {
     semesterSelect.innerHTML = '<option value="">Pilih Semester</option>';
 
     const nisnTarget = bersihkanNISN(inputRaw);
-    const data = semuaData.filter(r =>
+    const data = semaData.filter(r =>
         bersihkanNISN(r[0]) === nisnTarget &&
         String(r[3]) === tahun
     );
@@ -365,7 +524,7 @@ document.getElementById("btnTampil").addEventListener("click", () => {
     const semester = document.getElementById("semesterSelect").value;
 
     const nisnTarget = bersihkanNISN(inputRaw);
-    const row = semuaData.find(r =>
+    const row = semaData.find(r =>
         bersihkanNISN(r[0]) === nisnTarget &&
         String(r[3]) === tahun &&
         String(r[4]) === semester
