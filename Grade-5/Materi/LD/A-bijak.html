@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi: Sikap Bijak dalam Keamanan Digital</title>
+    <!-- Google Fonts untuk tampilan menarik, modern, dan mudah dibaca -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome untuk ikon interaktif -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #ecfeff 0%, #e0f2fe 100%);
+            --primary: #0891b2;
+            --primary-dark: #155e75;
+            --primary-light: #cffafe;
+            --accent: #06b6d4;
+            --accent-light: #f0fdfa;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 30px -5px rgba(8, 145, 178, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* NAVIGATION ATAS */
+        .top-navigation {
+            margin-bottom: 20px;
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card-bg);
+            color: var(--primary-dark);
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-back:hover {
+            transform: translateX(-3px);
+            border-color: var(--primary);
+        }
+
+        /* KARTU MATERI UTAMA */
+        .material-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease-out;
+            border: 3px solid #a5f3fc;
+        }
+
+        h1.main-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.55rem;
+            color: var(--primary-dark);
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 1.3;
+        }
+
+        h1.main-title i {
+            color: var(--accent);
+        }
+
+        .section-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            margin: 22px 0 12px 0;
+            line-height: 1.4;
+        }
+
+        .sub-section-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.05rem;
+            color: #0e7490;
+            margin: 16px 0 8px 0;
+            padding-left: 4px;
+        }
+
+        /* Gaya Alenia / Paragraf Buku Cetak */
+        .paragraph {
+            font-size: 0.98rem;
+            line-height: 1.8;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            text-align: justify;
+            text-indent: 35px; /* Membuat awal alenia menjorok ke dalam */
+        }
+
+        /* Tata letak khusus untuk teks bersandingan dengan QR Code */
+        .intro-flex {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .intro-text {
+            flex: 1;
+        }
+
+        /* KOTAK TEMPAT GAMBAR & QR (PLACEHOLDER GDRIVE) */
+        .image-container {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .image-container.qr-box {
+            width: 130px;
+            min-height: 130px;
+            flex-shrink: 0;
+        }
+
+        .image-container.full-box {
+            width: 100%;
+            min-height: 200px;
+            margin: 16px 0;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .image-placeholder-text {
+            position: absolute;
+            text-align: center;
+            color: #94a3b8;
+            padding: 10px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            pointer-events: none;
+        }
+
+        .image-placeholder-text i {
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+            color: #cbd5e1;
+            display: block;
+        }
+
+        /* List Berstruktur (1, 2) dan (a, b) */
+        .list-level-1 {
+            list-style: none;
+            padding-left: 4px;
+        }
+        
+        .list-level-2 {
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+
+        .list-level-3 {
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 6px;
+        }
+
+        .list-bold-title {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        /* KARTU TUGAS MANDIRI */
+        .task-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            border: 3px solid #bae6fd;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .task-badge {
+            background: #06b6d4;
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .task-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+
+        .instruction-box {
+            background: #ecfeff;
+            border-left: 4px solid #06b6d4;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #0891b2;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .questions-list {
+            padding-left: 20px;
+        }
+
+        .questions-list li {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            color: var(--text-main);
+            padding-left: 6px;
+            text-align: justify;
+        }
+
+        .questions-list li::marker {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* NAVIGASI BAWAH */
+        .bottom-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .btn-nav-bottom {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .btn-nav-bottom.back {
+            background: #cbd5e1;
+            color: #475569;
+        }
+
+        .btn-nav-bottom.back:hover {
+            background: #94a3b8;
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-bottom.next {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-nav-bottom.next:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(8, 145, 178, 0.3);
+        }
+
+        /* KURIKULUM MERDEKA BADGE */
+        .kurikulum-badge {
+            text-align: right;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #64748b;
+            margin-top: 10px;
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        /* ANIMASI CSS */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Layar HP */
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            h1.main-title { font-size: 1.35rem; }
+            .intro-flex { flex-direction: column-reverse; align-items: center; }
+            .image-container.qr-box { width: 100%; min-height: 120px; }
+            .material-card, .task-card { padding: 18px; border-radius: 20px; }
+            .paragraph { font-size: 0.92rem; }
+            .btn-nav-bottom { font-size: 0.85rem; padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Top Navigation -->
+        <div class="top-navigation">
+            <a href="javascript:history.back()" class="btn-back">
+                <i class="fa-solid fa-arrow-left"></i> Kembali
+            </a>
+        </div>
+
+        <!-- Main Material Card -->
+        <div class="material-card">
+            <h1 class="main-title">
+                <i class="fa-solid fa-shield-halved"></i> A. Sikap Bijak dalam Keamanan Digital
+            </h1>
+            
+            <p class="paragraph">
+                Menjadi bijak di dunia digital artinya kita tahu cara menggunakan teknologi dengan baik dan aman. Tidak hanya memahami cara menggunakan komputer, tetapi juga tentang bersikap dan melindungi diri saat terhubung ke internet. Sikap bijak sangat penting dalam menjaga keamanan digital.
+            </p>
+
+            <div class="section-title">1. Pentingnya Keamanan Digital dalam Kehidupan Sehari-hari</div>
+            
+            <div class="intro-flex">
+                <div class="intro-text">
+                    <p class="paragraph" style="margin-bottom: 0;">
+                        Setiap hari, kita sering menggunakan gawai, entah untuk belajar, bermain game, atau menghubungi teman. Pada setiap kegiatan dalam dunia digital terdapat celah tak terlihat yang bisa dimasuki orang lain jika kita tidak menjaganya. Oleh karena itu penting untuk menjaga keamanan digital dalam kehidupan sehari-hari.
+                    </p>
+                </div>
+                <!-- Tempat Gambar QR Code "Scan Me!" -->
+                <div class="image-container qr-box">
+                    <div class="image-placeholder-text">
+                        <i class="fa-solid fa-qrcode"></i>
+                        QR Code
+                    </div>
+                    <img src="" alt="QR Code Scan Me">
+                </div>
+            </div>
+
+            <div class="sub-section-title">a. Pengertian keamanan digital</div>
+            <p class="paragraph">
+                Keamanan digital adalah upaya untuk melindungi data, informasi, dan perangkat yang digunakan agar tidak disalahgunakan oleh orang lain. Data yang dimaksud dapat berupa nama, alamat, foto, kata sandi, hingga akun media sosial.
+            </p>
+            <p class="paragraph">
+                Keamanan digital adalah cara menjaga keselamatan saat beraktivitas di dunia digital. Keamanan digital adalah semua usaha yang dilakukan untuk melindungi perangkat (komputer, laptop, atau ponsel), data pribadi (nama, foto, atau alamat), dan akun <em>online</em> (akun game, media sosial, atau e-mail) dari pencurian, kerusakan, atau orang-orang yang tidak bertanggung jawab.
+            </p>
+
+            <div class="sub-section-title">b. Contoh penggunaan keamanan digital di rumah dan sekolah</div>
+            <p class="paragraph">
+                Keamanan digital bukanlah sesuatu yang rumit. Tanpa disadari, kita sudah sering melakukannya setiap hari. Berikut contoh penggunaan keamanan digital di rumah dan sekolah.
+            </p>
+
+            <!-- List Tingkat 1 (Rumah) -->
+            <ul class="list-level-1">
+                <li>
+                    <span class="list-bold-title">1) Penggunaan keamanan digital di rumah</span>
+                    <p class="paragraph" style="text-indent: 20px; margin-top: 4px;">
+                        Pada lingkungan rumah sering menggunakan perangkat digital seperti telepon pintar, tablet, atau komputer untuk belajar dan bermain. Oleh karena itu, penting untuk menjaga keamanan saat menggunakannya.
+                    </p>
+                    
+                    <!-- List Tingkat 2 (Poin Rumah) -->
+                    <ul class="list-level-2">
+                        <li>
+                            <span class="list-bold-title">a) Mengunci ponsel dengan kata sandi (<em>password</em>) atau pola:</span>
+                            <span style="font-size: 0.96rem; line-height: 1.7;"> langkah ini menjadi bentuk keamanan digital paling dasar. Tujuannya agar tidak ada orang, bahkan adik atau teman, yang bisa membuka ponselmu tanpa izin dan melihat pesan atau foto.</span>
+                            
+                            <!-- Tempat Gambar Ilustrasi Keamanan Digital -->
+                            <div class="image-container full-box">
+                                <div class="image-placeholder-text">
+                                    <i class="fa-regular fa-image"></i>
+                                    Gambar Keamanan Digital (Isi Link GDrive di Sini)
+                                </div>
+                                <img src="" alt="Gambar keamanan digital">
+                            </div>
+                        </li>
+                        <li style="margin-top: 10px;">
+                            <span class="list-bold-title">b) Memberi kata sandi pada jaringan Wi-Fi:</span>
+                            <span style="font-size: 0.96rem; line-height: 1.7;"> jaringan Wi-Fi di rumah adalah gerbang utama untuk terhubung ke internet. Jika tidak diberi kata sandi, orang asing bisa ikut memakainya dan bahkan mencoba melihat aktivitas <em>online</em> keluarga.</span>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- List Tingkat 1 (Sekolah) -->
+                <li style="margin-top: 20px;">
+                    <span class="list-bold-title">2) Penggunaan keamanan digital di sekolah</span>
+                    <p class="paragraph" style="text-indent: 20px; margin-top: 4px;">
+                        Pada sekolah, teknologi digital digunakan untuk mendukung kegiatan pembelajaran. Oleh karena itu, perlu menerapkan keamanan digital dengan baik.
+                    </p>
+                    
+                    <!-- List Tingkat 2 (Poin Sekolah) -->
+                    <ul class="list-level-2">
+                        <li>
+                            <span class="list-bold-title">a) Berhati-hati saat mengunduh file untuk tugas:</span>
+                            <span style="font-size: 0.96rem; line-height: 1.7;"> guru mungkin meminta mencari gambar atau materi di internet. Pastikan mengunduh dari situs web yang aman dan terpercaya, bukan dari situs yang penuh iklan aneh. Langkah ini untuk mencegah virus masuk ke komputer sekolah.</span>
+                        </li>
+                        <li style="margin-top: 12px;">
+                            <span class="list-bold-title">b) Menggunakan internet sesuai keperluan belajar:</span>
+                            <span style="font-size: 0.96rem; line-height: 1.7;"> saat menggunakan internet di sekolah, harus fokus pada kegiatan pembelajaran, seperti mencari informasi yang berkaitan dengan pelajaran. Hindari membuka situs yang tidak sesuai atau tidak berkaitan dengan kegiatan belajar.</span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="kurikulum-badge">Kurikulum Merdeka</div>
+        </div>
+
+        <!-- Task Card (Tugas Mandiri 16 Pertanyaan Uraian) -->
+        <div class="task-card">
+            <div class="task-header">
+                <span class="task-badge">TUGAS MANDIRI</span>
+                <h2 class="task-title">Uji Pemahaman Digital</h2>
+            </div>
+
+            <div class="instruction-box">
+                <i class="fa-solid fa-pen-clip"></i>
+                <span>Petunjuk: Salin dan jawablah 16 pertanyaan uraian berikut dengan rapi di buku tulismu!</span>
+            </div>
+
+            <ol class="questions-list">
+                <li>Apa arti dari menjadi bijak di dunia digital menurut paragraf pertama teks bacaan?</li>
+                <li>Sebutkan dua hal yang harus dilindungi saat diri kita terhubung dengan jaringan internet!</li>
+                <li>Mengapa sikap bijak sangat penting dan dibutuhkan dalam dunia digital saat ini?</li>
+                <li>Sebutkan contoh gawai atau perangkat digital yang sering kita gunakan untuk belajar atau bermain setiap hari!</li>
+                <li>Apa yang tersembunyi pada setiap kegiatan dalam dunia digital yang bisa dimasuki orang lain jika kita tidak waspada?</li>
+                <li>Jelaskan pengertian dari keamanan digital secara umum berdasarkan teks di atas!</li>
+                <li>Sebutkan 5 contoh data atau informasi pribadi kita yang harus dilindungi agar tidak disalahgunakan oleh orang lain!</li>
+                <li>Selain data pribadi, akun <em>online</em> apa saja yang harus kita lindungi dari tindakan orang yang tidak bertanggung jawab?</li>
+                <li>Mengapa dikatakan bahwa penerapan keamanan digital sebenarnya bukanlah merupakan sesuatu hal yang rumit?</li>
+                <li>Apa tindakan keamanan digital paling dasar yang bisa kita terapkan pada ponsel kita di rumah?</li>
+                <li>Jelaskan apa tujuan utama dari mengunci ponsel kita menggunakan kata sandi (<em>password</em>) atau pola!</li>
+                <li>Mengapa kita wajib memberikan kata sandi pengaman pada jaringan Wi-Fi yang dipasang di rumah?</li>
+                <li>Apa bahaya yang mungkin terjadi apabila jaringan Wi-Fi di rumah kita dibiarkan terbuka tanpa kata sandi?</li>
+                <li>Untuk mendukung kegiatan apakah teknologi digital biasanya disediakan dan digunakan saat berada di lingkungan sekolah?</li>
+                <li>Bagaimana cara yang aman saat kita harus mencari atau mengunduh gambar dan materi tugas sekolah di internet?</li>
+                <li>Situs atau halaman web seperti apa yang harus kita hindari saat sedang menggunakan fasilitas internet di sekolah?</li>
+            </ol>
+        </div>
+
+        <!-- Bottom Navigation Buttons -->
+        <div class="bottom-navigation">
+            <a href="javascript:history.back()" class="btn-nav-bottom back">
+                <i class="fa-solid fa-chevron-left"></i> Materi Sebelumnya
+            </a>
+            <a href="#" class="btn-nav-bottom next">
+                Materi Selanjutnya <i class="fa-solid fa-chevron-right"></i>
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        // Otomatis menyembunyikan tulisan panduan placeholder jika link gambar src sudah diisi oleh pengguna
+        document.querySelectorAll('.image-container img').forEach(img => {
+            if (img.getAttribute('src') !== "") {
+                img.previousElementSibling.style.display = 'none';
+            }
+            img.addEventListener('load', () => {
+                img.previousElementSibling.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
