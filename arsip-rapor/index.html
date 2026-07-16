@@ -289,7 +289,16 @@ window.addEventListener("load", async () => {
     }
 });
 
-// Pencarian berdasarkan NISN (Telah dinormalisasi menjadi 10 digit string)
+// FUNGSI PEMBERSIH NISN SUPER AMAN (Menghapus spasi, huruf typo O/o, tanda baca, dll)
+function bersihkanNISN(nisn) {
+    if (!nisn) return "";
+    // Hanya sisakan karakter angka (0-9). Karakter non-angka otomatis dibuang.
+    let angkaSaja = String(nisn).replace(/\D/g, '');
+    // Selalu genapkan menjadi 10 digit dengan menambah angka 0 di depan
+    return angkaSaja.padStart(10, '0');
+}
+
+// Pencarian berdasarkan NISN
 document.getElementById("btnCari").addEventListener("click", () => {
     const inputRaw = document.getElementById("nisnInput").value.trim();
 
@@ -298,9 +307,8 @@ document.getElementById("btnCari").addEventListener("click", () => {
         return;
     }
 
-    // Normalisasi input user & data spreadsheet agar selalu 10 digit (menjaga angka 0 di depan)
-    const nisnTarget = inputRaw.padStart(10, '0');
-    const hasil = semuaData.filter(row => String(row[0]).trim().padStart(10, '0') === nisnTarget);
+    const nisnTarget = bersihkanNISN(inputRaw);
+    const hasil = semuaData.filter(row => bersihkanNISN(row[0]) === nisnTarget);
 
     if (hasil.length === 0) {
         document.getElementById("pesanStatus").innerHTML =
@@ -316,7 +324,7 @@ document.getElementById("btnCari").addEventListener("click", () => {
 
     // Mapping profil singkat siswa
     document.getElementById("namaSiswa").textContent = hasil[0][1];
-    document.getElementById("nisnSiswa").textContent = nisnTarget; // Tampilkan versi lengkap dengan angka 0
+    document.getElementById("nisnSiswa").textContent = nisnTarget; 
     document.getElementById("peringkatSiswa").textContent = "Peringkat " + (hasil[0][2] || "-");
 
     // Ambil opsi Tahun Ajaran secara unik dari kolom indeks 3
@@ -338,9 +346,9 @@ document.getElementById("tahunSelect").addEventListener("change", () => {
 
     semesterSelect.innerHTML = '<option value="">Pilih Semester</option>';
 
-    const nisnTarget = inputRaw.padStart(10, '0');
+    const nisnTarget = bersihkanNISN(inputRaw);
     const data = semuaData.filter(r =>
-        String(r[0]).trim().padStart(10, '0') === nisnTarget &&
+        bersihkanNISN(r[0]) === nisnTarget &&
         String(r[3]) === tahun
     );
 
@@ -356,9 +364,9 @@ document.getElementById("btnTampil").addEventListener("click", () => {
     const tahun = document.getElementById("tahunSelect").value;
     const semester = document.getElementById("semesterSelect").value;
 
-    const nisnTarget = inputRaw.padStart(10, '0');
+    const nisnTarget = bersihkanNISN(inputRaw);
     const row = semuaData.find(r =>
-        String(r[0]).trim().padStart(10, '0') === nisnTarget &&
+        bersihkanNISN(r[0]) === nisnTarget &&
         String(r[3]) === tahun &&
         String(r[4]) === semester
     );
