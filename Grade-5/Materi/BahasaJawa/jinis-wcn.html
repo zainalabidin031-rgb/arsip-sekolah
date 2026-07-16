@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Basa Jawa: Jinise Karangan</title>
+    <!-- Google Fonts untuk tampilan modern, cerah, dan ramah anak -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome untuk ikon interaktif -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #e6fffa 0%, #e2e8f0 100%);
+            --primary: #059669;
+            --primary-dark: #065f46;
+            --primary-light: #d1fae5;
+            --accent: #10b981;
+            --accent-light: #f0fdf4;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 30px -5px rgba(5, 150, 105, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* NAVIGATION ATAS */
+        .top-navigation {
+            margin-bottom: 20px;
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card-bg);
+            color: var(--primary-dark);
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-back:hover {
+            transform: translateX(-3px);
+            border-color: var(--primary);
+        }
+
+        /* KARTU MATERI UTAMA */
+        .material-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease-out;
+            border: 3px solid #a7f3d0;
+        }
+
+        h1.main-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 1.3;
+        }
+
+        h1.main-title i {
+            color: var(--accent);
+        }
+
+        .section-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.25rem;
+            color: var(--primary-dark);
+            margin: 20px 0 12px 0;
+            border-bottom: 2px dashed #a7f3d0;
+            padding-bottom: 4px;
+        }
+
+        /* Gaya Alenia / Paragraf Buku Cetak */
+        .paragraph {
+            font-size: 0.98rem;
+            line-height: 1.8;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            text-align: justify;
+            text-indent: 35px; /* Membuat awal alenia menjorok ke dalam */
+        }
+
+        /* Gaya List Struktur Karangan (a, b, c, d, e) */
+        .sub-content-list {
+            list-style: none;
+            margin-bottom: 20px;
+            padding-left: 4px;
+        }
+
+        .sub-content-list li {
+            font-size: 0.96rem;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            text-align: justify;
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .sub-content-list li strong {
+            color: var(--primary-dark);
+            font-size: 1rem;
+        }
+
+        .sub-content-list li .list-alpha {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            color: white;
+            background: var(--primary);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        .inner-paragraph {
+            margin-top: 6px;
+            text-indent: 20px;
+            text-align: justify;
+            color: #334155;
+        }
+
+        /* KARTU TUGAS MANDIRI */
+        .task-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            border: 3px solid #a7f3d0;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .task-badge {
+            background: #f59e0b;
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .task-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+
+        .instruction-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #78350f;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .questions-list {
+            padding-left: 20px;
+        }
+
+        .questions-list li {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            color: var(--text-main);
+            padding-left: 6px;
+            text-align: justify;
+        }
+
+        .questions-list li::marker {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* NAVIGASI BAWAH */
+        .bottom-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .btn-nav-bottom {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .btn-nav-bottom.back {
+            background: #cbd5e1;
+            color: #475569;
+        }
+
+        .btn-nav-bottom.back:hover {
+            background: #94a3b8;
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-bottom.next {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-nav-bottom.next:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3);
+        }
+
+        /* ANIMASI CSS */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Layar HP */
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            h1.main-title { font-size: 1.4rem; }
+            .material-card, .task-card { padding: 18px; border-radius: 20px; }
+            .paragraph, .sub-content-list li { font-size: 0.92rem; }
+            .btn-nav-bottom { font-size: 0.85rem; padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Top Navigation -->
+        <div class="top-navigation">
+            <a href="javascript:history.back()" class="btn-back">
+                <i class="fa-solid fa-arrow-left"></i> Kembali
+            </a>
+        </div>
+
+        <!-- Main Material Card -->
+        <div class="material-card">
+            <h1 class="main-title">
+                <i class="fa-solid fa-feather-pointed"></i> 1. Jinise Karangan
+            </h1>
+            
+            <p class="paragraph">
+                Miturut jinise karangan wujud gancaran iku ana lima warna, yaiku narasi, deskripsi, argumentasi, eksposisi, lan persuasi. Dene karangan gancaran yaiku karangan kang arupa rerangkene ukara-ukara kang kaiket ing sajeroning paragrap.
+            </p>
+
+            <!-- List Macam-Macam Gancaran -->
+            <ul class="sub-content-list">
+                <li>
+                    <span class="list-alpha">a</span>
+                    <strong>Gancaran narasi</strong>
+                    <div class="inner-paragraph">
+                        Gancaran narasi yaiku karangan gancaran kang isine nyritakake samubarang kanthi runtut manut urutan wektu. Tuladha karangan jinis iki kayata cerkak, cerbung, novel, dongeng, utawa crita pengalaman pribadi (pengalaman olehe plesiran, pengalaman kang lucu, aneh, nyenengake, medeni, ngisinake, nyusahake, lan sapanunggalane).
+                    </div>
+                </li>
+                <li>
+                    <span class="list-alpha">b</span>
+                    <strong>Gancaran deskripsi</strong>
+                    <div class="inner-paragraph">
+                        Gancaran deskripsi yaiku karangan kang isine menehi gambaran kahanan samubarang apa bae.
+                    </div>
+                </li>
+                <li>
+                    <span class="list-alpha">c</span>
+                    <strong>Gancaran argumentasi</strong>
+                    <div class="inner-paragraph">
+                        Gancaran argumentasi yaiku karangan kang isine ngandharake sawijining panemu/gagasan/ide ngenani bab apa bae dikantheni alesan/bukti sing kuwat, supaya sing padha maca percaya marang panemune penulis mau.
+                    </div>
+                </li>
+                <li>
+                    <span class="list-alpha">d</span>
+                    <strong>Gancaran eksposisi</strong>
+                    <div class="inner-paragraph">
+                        Gancaran eksposisi yaiku karangan isine menehi katrangan salah sijine topik utawa prakara kanggo menehi informasi utawa kabar marang wong kang padha maca.
+                    </div>
+                </li>
+                <li>
+                    <span class="list-alpha">e</span>
+                    <strong>Gancaran persuasi</strong>
+                    <div class="inner-paragraph">
+                        Gancaran persuasi yaiku karangan kang nduweni ancas menehi pangaribawa (pengaruh) marang kang padha maca supaya gelem melu marang apa kang dikarepake pengarang.
+                    </div>
+                </li>
+            </ul>
+
+            <div class="section-title">2. Wacan Narasi</div>
+            <p class="paragraph">
+                Teks narasi yaiku wacan kang nyritakake prastawa utawa kedadeyan kaya-kaya wong kang maca nyekseni dhewe utawa ngalami dhewe prastawa kasebut. Bisa uga ditegesi wacan kang nyritakake kanthi cetha rerangkening kedadeyan utawa prastawa ing sajroning wektu tartamtu.
+            </p>
+        </div>
+
+        <!-- Task Card (Tugas Mandiri 16 Pertanyaan) -->
+        <div class="task-card">
+            <div class="task-header">
+                <span class="task-badge">GLADHEN</span>
+                <h2 class="task-title">Tugas Mandiri</h2>
+            </div>
+
+            <div class="instruction-box">
+                <i class="fa-solid fa-book-open"></i>
+                <span>Petunjuk: Turunan lan wangsulana 16 pitakonan ing ngisor iki kanthi patitis ing buku tulismu!</span>
+            </div>
+
+            <ol class="questions-list">
+                <li>Miturut teks wacan, ana pira warna wujude karangan gancaran iku? Sebutna!</li>
+                <li>Apa kang diarani karangan gancaran miturut katrangan ing dhuwur?</li>
+                <li>Jelaske apa sing dimaksud karo gancaran narasi!</li>
+                <li>Kepiye carane nyritakake samubarang prastawa ing sajroning gancaran narasi?</li>
+                <li>Sebutna tuladha-tuladha karya sastra utawa karangan kang kalebu jinis gancaran narasi!</li>
+                <li>Coba sebutna 4 wae tuladha crita pengalaman pribadi sing bisa didadekake gancaran narasi!</li>
+                <li>Apa titikane utawa tegese saka karangan gancaran deskripsi?</li>
+                <li>Apa isine karangan gancaran argumentasi iku yen didelok saka teks kasebut?</li>
+                <li>Kena apa karangan argumentasi kudu dikantheni alesan utawa bukti sing kuwat?</li>
+                <li>Apa tujuane panulis nggawe karangan argumentasi kanggo wong sing padha maca?</li>
+                <li>Jelaske apa sing diarani karangan gancaran eksposisi!</li>
+                <li>Apa gunane utawa paedahe gancaran eksposisi kanggo wong kang padha maca?</li>
+                <li>Karangan apa sing nduweni ancas utawa tujuan menehi pangaribawa (pengaruh)?</li>
+                <li>Apa tujuane pengarang nggawe jinis karangan gancaran persuasi?</li>
+                <li>Apa sing diarani wacan narasi miturut katrangan nomer 2?</li>
+                <li>Kepiye kahanan utawa rasane pamaca nalika maca teks narasi sing becik?</li>
+            </ol>
+        </div>
+
+        <!-- Bottom Navigation Buttons -->
+        <div class="bottom-navigation">
+            <a href="javascript:history.back()" class="btn-nav-bottom back">
+                <i class="fa-solid fa-chevron-left"></i> Materi Sadurunge
+            </a>
+            <a href="#" class="btn-nav-bottom next">
+                Materi Sabanjure <i class="fa-solid fa-chevron-right"></i>
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>
