@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi PAI: Surah al-Mā'ūn</title>
+    <!-- Google Fonts untuk Latin (Fredoka & Poppins) dan Arab (Amiri) -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital@0;1&family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome untuk ikon interaktif -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+            --primary: #0f766e;
+            --primary-dark: #115e59;
+            --primary-light: #e6fffa;
+            --accent: #d97706;
+            --accent-light: #fef3c7;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 30px -5px rgba(15, 118, 110, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* NAVIGATION ATAS */
+        .top-navigation {
+            margin-bottom: 20px;
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card-bg);
+            color: var(--primary-dark);
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-back:hover {
+            transform: translateX(-3px);
+            border-color: var(--primary);
+        }
+
+        /* KARTU MATERI UTAMA */
+        .material-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease-out;
+            border: 3px solid #99f6e4;
+        }
+
+        h1.main-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 1.3;
+        }
+
+        h1.main-title i {
+            color: var(--primary);
+        }
+
+        .section-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.25rem;
+            color: var(--primary-dark);
+            margin: 22px 0 12px 0;
+            border-bottom: 2px dashed #99f6e4;
+            padding-bottom: 6px;
+        }
+
+        /* Gaya Alenia / Paragraf Buku Cetak */
+        .paragraph {
+            font-size: 0.98rem;
+            line-height: 1.8;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            text-align: justify;
+            text-indent: 35px; /* Awal alenia menjorok ke dalam */
+        }
+
+        /* GAYA TEKS ARAB */
+        .arabic-container {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 18px 0;
+            direction: rtl; /* Teks dari kanan ke kiri */
+            text-align: justify;
+            line-height: 2.5;
+        }
+
+        .arabic-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.75rem;
+            font-weight: 400;
+            color: #1e293b;
+            word-spacing: 4px;
+        }
+
+        .verse-number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--primary);
+            background: #ccfbf1;
+            padding: 2px 8px;
+            border-radius: 50%;
+            margin-left: 6px;
+            margin-right: 4px;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        /* Gaya List Tajwid (a, b, c) */
+        .tajwid-list {
+            list-style: none;
+            margin-bottom: 20px;
+            padding-left: 4px;
+        }
+
+        .tajwid-list li {
+            font-size: 0.96rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: justify;
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .tajwid-list li strong {
+            color: var(--primary-dark);
+            font-size: 1.05rem;
+        }
+
+        .tajwid-list li .list-alpha {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            color: white;
+            background: var(--primary);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        .inner-content {
+            margin-top: 6px;
+            color: #334155;
+        }
+
+        .inline-arabic {
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            color: #000;
+            direction: rtl;
+            display: inline-block;
+            padding: 0 4px;
+            font-weight: bold;
+        }
+
+        /* CONTOH BACAAN TAJWID */
+        .example-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 10px 16px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .example-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+        }
+
+        .example-arabic {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #111827;
+            direction: rtl;
+        }
+
+        /* KARTU TUGAS MANDIRI */
+        .task-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            border: 3px solid #99f6e4;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .task-badge {
+            background: var(--accent);
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .task-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+
+        .instruction-box {
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #78350f;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .questions-list {
+            padding-left: 20px;
+        }
+
+        .questions-list li {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            color: var(--text-main);
+            padding-left: 6px;
+            text-align: justify;
+        }
+
+        .questions-list li::marker {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* NAVIGASI BAWAH */
+        .bottom-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .btn-nav-bottom {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .btn-nav-bottom.back {
+            background: #cbd5e1;
+            color: #475569;
+        }
+
+        .btn-nav-bottom.back:hover {
+            background: #94a3b8;
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-bottom.next {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-nav-bottom.next:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(15, 118, 110, 0.3);
+        }
+
+        /* ANIMASI CSS */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Layar HP */
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            h1.main-title { font-size: 1.4rem; }
+            .material-card, .task-card { padding: 18px; border-radius: 20px; }
+            .arabic-text { font-size: 1.5rem; line-height: 2.3; }
+            .paragraph, .tajwid-list li { font-size: 0.92rem; }
+            .btn-nav-bottom { font-size: 0.85rem; padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Top Navigation -->
+        <div class="top-navigation">
+            <a href="javascript:history.back()" class="btn-back">
+                <i class="fa-solid fa-arrow-left"></i> Kembali
+            </a>
+        </div>
+
+        <!-- Main Material Card -->
+        <div class="material-card">
+            <h1 class="main-title">
+                <i class="fa-solid fa-book-quran"></i> A. Surah al-Mā'ūn
+            </h1>
+            
+            <p class="paragraph">
+                Surah al-Mā'ūn artinya barang yang berguna. Surah al-Mā'ūn terdiri dari tujuh ayat dan diturunkan di Kota Makkah. Surah al-Mā'ūn berada pada urutan 107 di dalam Al-Qur'an. Apakah kamu sudah siap untuk belajar membacanya? Mari kamu lakukan!
+            </p>
+
+            <div class="section-title">1. Membaca Surah al-Mā'ūn</div>
+            <p class="paragraph" style="text-indent: 0; font-weight: 500; color: var(--primary-dark);">
+                Ayo, bacalah Surah al-Mā'ūn berikut dengan makhraj yang tepat!
+            </p>
+
+            <!-- Wadah Teks Arab Surah Al-Ma'un -->
+            <div class="arabic-container">
+                <span class="arabic-text">
+                    اَرَءَيْتَ الَّذِيْ يُكَذِّبُ بِالدِّيْنِ <span class="verse-number">١</span> 
+                    فَذٰلِكَ الَّذِيْ يَدُعُّ الْيَتِيْمَ <span class="verse-number">٢</span> 
+                    وَلَا يَحُضُّ عَلٰى طَعَامِ الْمِسْكِيْنِ <span class="verse-number">٣</span> 
+                    فَوَيْلٌ لِّلْمُصَلِّيْنَ <span class="verse-number">٤</span> 
+                    الَّذِيْنَ هُمْ عَنْ صَلَاتِهِمْ سَاهُوْنَ <span class="verse-number">٥</span> 
+                    الَّذِيْنَ هُمْ يُرَاۤءُوْنَ <span class="verse-number">٦</span> 
+                    وَيَمْنَعُوْنَ الْمَاعُوْنَ <span class="verse-number">٧</span>
+                </span>
+            </div>
+
+            <p class="paragraph">
+                Saat membaca Surah al-Mā'ūn, kamu harus memperhatikan hukum bacaan di dalamnya. Ada banyak hukum bacaan dalam ilmu tajwid, di antaranya hukum mim sukun. Hukum mim sukun dibagi menjadi tiga, yaitu sebagai berikut.
+            </p>
+
+            <!-- Daftar Hukum Mim Sukun -->
+            <ul class="tajwid-list">
+                <li>
+                    <span class="list-alpha">a</span>
+                    <strong>Ikhfa' syafawi</strong>
+                    <div class="inner-content">
+                        Yaitu apabila terdapat mim sukun (<span class="inline-arabic">مْ</span>) bertemu dengan huruf ba (<span class="inline-arabic">ب</span>). Cara membacanya yaitu dengan suara samar antara (<span class="inline-arabic">مْ</span>) dan <span class="inline-arabic">ب</span> pada bibir, kemudian ditahan sekitar dua ketukan seraya mengeluarkan suara ikhfa' dari pangkal hidung.
+                        <div class="example-box">
+                            <span class="example-label">Contoh:</span>
+                            <span class="example-arabic">تَرْمِيْهِمْ بِحِجَارَةٍ</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <span class="list-alpha">b</span>
+                    <strong>Idgam mutamasilain (idgam misli)</strong>
+                    <div class="inner-content">
+                        Yaitu apabila terdapat mim sukun (<span class="inline-arabic">مْ</span>) bertemu dengan huruf mim (<span class="inline-arabic">م</span>). Cara membacanya yaitu memasukkan huruf (<span class="inline-arabic">مْ</span>) ke dalam huruf <span class="inline-arabic">م</span> disertai dengan suara gunnah sekitar dua ketukan.
+                        <div class="example-box">
+                            <span class="example-label">Contoh:</span>
+                            <span class="example-arabic">وَاٰمَنَهُمْ مِّنْ خَوْفٍ</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <span class="list-alpha">c</span>
+                    <strong>Izhar syafawi</strong>
+                    <div class="inner-content">
+                        Yaitu apabila terdapat mim sukun (<span class="inline-arabic">مْ</span>) bertemu dengan huruf hijaiyah selain mim (<span class="inline-arabic">م</span>) dan ba (<span class="inline-arabic">ب</span>). Cara membacanya yaitu jelas di bibir dan mulut tertutup tanpa dipanjangkan.
+                        <div class="example-box">
+                            <span class="example-label">Contoh:</span>
+                            <span class="example-arabic">هُمْ عَنْ / هُمْ يُرَاۤءُوْنَ</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Task Card (Tugas Mandiri 16 Pertanyaan) -->
+        <div class="task-card">
+            <div class="task-header">
+                <span class="task-badge">TUGAS MANDIRI</span>
+                <h2 class="task-title">Ayo Berlatih</h2>
+            </div>
+
+            <div class="instruction-box">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>Petunjuk: Salin lan wangsulana 16 pitakonan ing ngisor iki kanthi bener ing buku tulismu!</span>
+            </div>
+
+            <ol class="questions-list">
+                <li>Apa arti dari nama "al-Mā'ūn" menurut penjelasan paragraf pertama?</li>
+                <li>Ada berapa jumlah ayat yang terkandung dalam Surah al-Mā'ūn?</li>
+                <li>Di kota manakah Surah al-Mā'ūn diturunkan kepada Nabi Muhammad SAW?</li>
+                <li>Berada pada urutan nomor berapakah Surah al-Mā'ūn di dalam kitab suci Al-Qur'an?</li>
+                <li>Bagaimanakah perintah membaca Surah al-Mā'ūn yang baik dan benar menurut petunjuk teks?</li>
+                <li>Hukum bacaan dari huruf sukun apa yang dibahas secara mendalam pada materi tajwid di atas?</li>
+                <li>Hukum bacaan mim sukun dibagi menjadi berapa macam? Sebutkan semuanya!</li>
+                <li>Jelaskan pengertian dari hukum bacaan Ikhfa' syafawi berdasarkan teks bacaan!</li>
+                <li>Huruf hijaiyah apa yang harus bertemu dengan mim sukun agar membentuk hukum Ikhfa' syafawi?</li>
+                <li>Bagaimana posisi bibir dan cara membaca hukum Ikhfa' syafawi yang tepat?</li>
+                <li>Berapa ketukan kita harus menahan suara seraya mengeluarkan bunyi ikhfa' dari pangkal hidung?</li>
+                <li>Tuliskan contoh potongan ayat yang mengandung hukum bacaan Ikhfa' syafawi beserta harakatnya!</li>
+                <li>Apa nama lain atau istilah lain untuk hukum bacaan Idgam mutamasilain?</li>
+                <li>Jelaskan kondisi bertemunya huruf yang menyebabkan terjadinya hukum Idgam misli!</li>
+                <li>Bagaimana cara mempraktikkan bacaan Idgam mutamasilain yang benar disertai suara apa?</li>
+                <li>Jelaskan pengertian hukum bacaan Izhar syafawi beserta ketentuan huruf dan cara melafalkannya pada mulut!</li>
+            </ol>
+        </div>
+
+        <!-- Bottom Navigation Buttons -->
+        <div class="bottom-navigation">
+            <a href="javascript:history.back()" class="btn-nav-bottom back">
+                <i class="fa-solid fa-chevron-left"></i> Materi Sadurunge
+            </a>
+            <a href="#" class="btn-nav-bottom next">
+                Materi Sabanjure <i class="fa-solid fa-chevron-right"></i>
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>
