@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi: Sejarah Kelahiran Pancasila</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%);
+            --primary: #0284c7;
+            --primary-light: #e0f2fe;
+            --accent: #f59e0b;
+            --accent-light: #fef3c7;
+            --text-main: #1e293b;
+            --text-muted: #475569;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 30px -5px rgba(2, 132, 199, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* ATAS: NAVIGASI KEMBALI */
+        .top-navigation {
+            margin-bottom: 20px;
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card-bg);
+            color: var(--primary);
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-back:hover {
+            transform: translateX(-3px);
+            border-color: var(--primary);
+        }
+
+        /* KARTU UTAMA MATERI */
+        .material-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease-out;
+            border: 3px solid #bae6fd;
+        }
+
+        h1.main-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            color: #0369a1;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 1.3;
+        }
+
+        h1.main-title i {
+            color: var(--accent);
+        }
+
+        /* Gaya Paragraf */
+        .paragraph {
+            font-size: 0.98rem;
+            line-height: 1.7;
+            color: var(--text-main);
+            margin-bottom: 18px;
+            text-align: justify;
+        }
+
+        /* TEMPAT GAMBAR (PLACEHOLDER) */
+        .image-container {
+            width: 100%;
+            background: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            border-radius: 16px;
+            margin: 20px 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            position: relative;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* Label bantuan jika src gambar masih kosong */
+        .image-placeholder-text {
+            position: absolute;
+            text-align: center;
+            color: #94a3b8;
+            padding: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            pointer-events: none;
+        }
+
+        .image-placeholder-text i {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            display: block;
+        }
+
+        /* KARTU TUGAS (PR) */
+        .task-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            border: 3px solid #fde68a;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .task-badge {
+            background: var(--accent);
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+        }
+
+        .task-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            color: #b45309;
+        }
+
+        .instruction-box {
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #78350f;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Daftar Pertanyaan */
+        .questions-list {
+            padding-left: 20px;
+        }
+
+        .questions-list li {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            color: var(--text-main);
+            padding-left: 6px;
+            font-weight: 500;
+        }
+
+        .questions-list li::marker {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* BAWAH: NAVIGASI MATERI */
+        .bottom-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .btn-nav-bottom {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .btn-nav-bottom.back {
+            background: #cbd5e1;
+            color: #475569;
+        }
+
+        .btn-nav-bottom.back:hover {
+            background: #94a3b8;
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-bottom.next {
+            background: var(--primary);
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-nav-bottom.next:hover {
+            background: #0369a1;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
+        }
+
+        /* ANIMASI CSS */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Pengaturan Responsif Layar Kecil (HP) */
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+            h1.main-title {
+                font-size: 1.4rem;
+            }
+            .material-card, .task-card {
+                padding: 18px;
+                border-radius: 20px;
+            }
+            .paragraph {
+                font-size: 0.92rem;
+            }
+            .btn-nav-bottom {
+                font-size: 0.85rem;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="top-navigation">
+            <a href="javascript:history.back()" class="btn-back">
+                <i class="fa-solid fa-arrow-left"></i> Kembali
+            </a>
+        </div>
+
+        <div class="material-card">
+            <h1 class="main-title">
+                <i class="fa-solid fa-book-open-reader"></i> A. Sejarah Kelahiran Pancasila
+            </h1>
+            
+            <p class="paragraph">
+                Indonesia memiliki sejarah panjang sebelum mencapai kemerdekaan. Bangsa kita pernah dijajah oleh bangsa asing selama ratusan tahun. Belanda menjajah Indonesia sekitar 350 tahun, kemudian Jepang datang dan menguasai Indonesia selama 3,5 tahun. Bagaimana kronologi singkat kedatangan Jepang di Indonesia?
+            </p>
+
+            <p class="paragraph">
+                Pada tanggal 7 Desember 1941 (atau 8 Desember 1941 waktu Jepang), Jepang meluncurkan serangan ke pangkalan angkatan laut Amerika Serikat di Pearl Harbor, Hawaii. Serangan ini memicu terjadinya Perang Dunia II di kawasan Pasifik. Perang ini juga dikenal dengan sebutan Perang Pasifik atau Perang Asia Timur Raya. Jepang berkeinginan menguasai seluruh wilayah Asia Timur dan Asia Tenggara, termasuk Indonesia yang saat itu masih dikuasai Belanda.
+            </p>
+
+            <div class="image-container">
+                <div class="image-placeholder-text">
+                    <i class="fa-regular fa-image"></i>
+                    Silakan masukkan link gambar Google Drive Anda pada kode HTML komponen ini.
+                </div>
+                <img src="" alt="https://lh3.googleusercontent.com/d/1dAlrdYRJNDM0Qe5uIK_M8-MEu9ZyS4rj" alt="Ilustrasi Sejarah Pearl Harbor / Kedatangan Jepang">
+            </div>
+
+            <p class="paragraph">
+                Setelah menyerang Pearl Harbor, Jepang menyerbu kawasan Asia Tenggara termasuk Indonesia. Tentara Belanda tidak mampu membendung serangan Jepang yang sangat kuat. Akhirnya, Belanda menyerah tanpa syarat kepada Jepang setelah pasukan Jepang berhasil menguasai Batavia (Jakarta) dan seluruh Pulau Jawa. Peristiwa bersejarah ini ditandai dengan penandatanganan Perjanjian Kalijati pada 8 Maret 1942. Pihak Belanda diwakili oleh Gubernur Jenderal Tjarda van Starkenborgh Stachouwer dan Letnan Jenderal Heindrik Ter Poorten, sedangkan Jepang diwakili oleh Jenderal Hitoshi Imamura.
+            </p>
+        </div>
+
+        <div class="task-card">
+            <div class="task-header">
+                <span class="task-badge">TUGAS MANDIRI</span>
+                <h2 class="task-title">Uji Pemahaman Materi</h2>
+            </div>
+
+            <div class="instruction-box">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>Petunjuk: Salin dan jawablah 16 pertanyaan di bawah ini dengan rapi di Buku Tulis masing-masing!</span>
+            </div>
+
+            <ol class="questions-list">
+                <li>Berdasarkan teks bacaan, berapakah perkiraan lama waktu bangsa Belanda menjajah Indonesia?</li>
+                <li>Berapa tahun bangsa Jepang menguasai atau menjajah wilayah Indonesia?</li>
+                <li>Peristiwa penting apa yang terjadi pada tanggal 7 Desember 1941 (atau 8 Desember waktu Jepang)?</li>
+                <li>Di manakah lokasi pangkalan angkatan laut Amerika Serikat yang diserang oleh Jepang?</li>
+                <li>Perang besar apa yang dipicu akibat dari serangan Jepang ke Pearl Harbor di kawasan Pasifik?</li>
+                <li>Sebutkan dua istilah atau nama lain yang digunakan untuk menyebut Perang Dunia II di kawasan Pasifik tersebut!</li>
+                <li>Kawasan benua bagian mana saja yang menjadi target ambisi Jepang untuk dikuasai secara penuh?</li>
+                <li>Siapakah bangsa asing yang sedang menjajah dan menguasai Indonesia ketika tentara Jepang pertama kali datang menyerbu?</li>
+                <li>Apa alasan utama Jepang berkeinginan kuat untuk menyerbu dan menguasai wilayah Asia Tenggara termasuk Indonesia?</li>
+                <li>Mengapa tentara Belanda akhirnya terpaksa menyerah tanpa syarat kepada pihak militer Jepang?</li>
+                <li>Sebutkan nama kota pusat pemerintahan penting yang berhasil diduduki Jepang sebelum mereka menguasai seluruh Pulau Jawa!</li>
+                <li>Apa nama perjanjian bersejarah yang menandai penyerahan kekuasaan Indonesia dari tangan Belanda kepada Jepang?</li>
+                <li>Pada tanggal berapakah Perjanjian Kalijati resmi ditandatangani oleh kedua belah pihak?</li>
+                <li>Siapakah nama Gubernur Jenderal yang menjadi wakil resmi dari pihak Belanda dalam Perjanjian Kalijati?</li>
+                <li>Siapakah nama tokoh militer berpangkat Letnan Jenderal yang mendampingi pihak Belanda saat penandatanganan perjanjian tersebut?</li>
+                <li>Siapakah nama Jenderal tinggi militer yang menjadi wakil resmi dari pihak Kekaisaran Jepang dalam Perjanjian Kalijati?</li>
+            </ol>
+        </div>
+
+        <div class="bottom-navigation">
+            <a href="javascript:history.back()" class="btn-nav-bottom back">
+                <i class="fa-solid fa-chevron-left"></i> Materi Sebelumnya
+            </a>
+            <a href="a1-jepang.html" class="btn-nav-bottom next">
+                Materi Selanjutnya <i class="fa-solid fa-chevron-right"></i>
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        // Script opsional untuk menghilangkan text bantuan jika user sudah mengisi link gambar src
+        const imgElement = document.querySelector('.image-container img');
+        const placeholderText = document.querySelector('.image-placeholder-text');
+        
+        if(imgElement && imgElement.getAttribute('src') !== "") {
+            placeholderText.style.display = 'none';
+        }
+        
+        imgElement.addEventListener('load', () => {
+            placeholderText.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
