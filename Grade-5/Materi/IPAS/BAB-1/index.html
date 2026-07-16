@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi: Daratan dan Lautan di Indonesia</title>
+    <link rel="icon" type="image/png" href="../../../favicon.png?v=1">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%);
+            --primary: #0284c7;
+            --primary-light: #e0f2fe;
+            --accent: #f59e0b;
+            --accent-light: #fef3c7;
+            --text-main: #1e293b;
+            --text-muted: #475569;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 30px -5px rgba(2, 132, 199, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* ATAS: NAVIGASI KEMBALI */
+        .top-navigation {
+            margin-bottom: 20px;
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card-bg);
+            color: var(--primary);
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-back:hover {
+            transform: translateX(-3px);
+            border-color: var(--primary);
+        }
+
+        /* KARTU UTAMA MATERI */
+        .material-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease-out;
+            border: 3px solid #bae6fd;
+        }
+
+        h1.main-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            color: #0369a1;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 1.3;
+        }
+
+        h1.main-title i {
+            color: var(--accent);
+        }
+
+        h2.sub-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.25rem;
+            color: #0c4a6e;
+            margin: 20px 0 12px 0;
+        }
+
+        .paragraph {
+            font-size: 0.98rem;
+            line-height: 1.8;
+            color: var(--text-main);
+            margin-bottom: 14px;
+            text-align: justify;
+            text-indent: 35px;
+        }
+
+        /* TEMPAT GAMBAR (PLACEHOLDER) */
+        .image-container {
+            width: 100%;
+            background: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            border-radius: 16px;
+            margin: 20px 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            position: relative;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .image-placeholder-text {
+            position: absolute;
+            text-align: center;
+            color: #94a3b8;
+            padding: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            pointer-events: none;
+        }
+
+        .image-placeholder-text i {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            display: block;
+        }
+
+        /* KARTU TUGAS (PR) */
+        .task-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            border: 3px solid #fde68a;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .task-badge {
+            background: var(--accent);
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+        }
+
+        .task-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            color: #b45309;
+        }
+
+        .instruction-box {
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #78350f;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Daftar Pertanyaan */
+        .questions-list {
+            padding-left: 20px;
+        }
+
+        .questions-list li {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            color: var(--text-main);
+            padding-left: 6px;
+            font-weight: 500;
+        }
+
+        .questions-list li::marker {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* BAWAH: NAVIGASI MATERI */
+        .bottom-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .btn-nav-bottom {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .btn-nav-bottom.back {
+            background: #cbd5e1;
+            color: #475569;
+        }
+
+        .btn-nav-bottom.back:hover {
+            background: #94a3b8;
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-bottom.next {
+            background: var(--primary);
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-nav-bottom.next:hover {
+            background: #0369a1;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
+        }
+
+        /* ANIMASI CSS */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Pengaturan Responsif Layar Kecil (HP) */
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+            h1.main-title {
+                font-size: 1.4rem;
+            }
+            .material-card, .task-card {
+                padding: 18px;
+                border-radius: 20px;
+            }
+            .paragraph {
+                font-size: 0.92rem;
+            }
+            .btn-nav-bottom {
+                font-size: 0.85rem;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="top-navigation">
+            <a href="javascript:history.back()" class="btn-back">
+                <i class="fa-solid fa-arrow-left"></i> Kembali
+            </a>
+        </div>
+
+        <div class="material-card">
+            <h1 class="main-title">
+                <i class="fa-solid fa-earth-asia"></i> A. Daratan dan Lautan di Indonesia
+            </h1>
+            
+            <p class="paragraph">
+                Bumi kita terdiri atas dua area yaitu wilayah daratan dan wilayah perairan (laut dan samudra). Dalam peta, wilayah daratan digambarkan dengan warna hijau, cokelat, hingga putih. Sementara wilayah perairan digambarkan dengan warna biru. Berdasarkan peta, kita dapat mengetahui letak suatu wilayah di permukaan bumi, termasuk letak Indonesia.
+            </p>
+
+            <h2 class="sub-title">1. Letak Geografis Indonesia</h2>
+
+            <p class="paragraph">
+                Letak Indonesia dapat dilihat dari letak astronomis dan letak geografis. Letak astronomis adalah letak suatu tempat berdasarkan garis lintang dan garis bujur. Letak astronomis Indonesia berada di titik 6° Lintang Utara (LU) hingga 11° Lintang Selatan (LS) dan 95° Bujur Timur (BT) - 141° Bujur Timur (BT). Titik paling Utara Indonesia ada di Pulau Miangas (Provinsi Sulawesi Utara), sementara titik paling Selatan adalah Pulau Rote (Provinsi Nusa Tenggara Timur). Ujung paling Barat Indonesia adalah Pulau Rondo (Provinsi Nanggroe Aceh Darussalam), dan ujung Timur Indonesia adalah Merauke (Provinsi Papua Selatan). Secara astronomis, wilayah Indonesia dilewati oleh garis lintang 0° yang disebut garis khatulistiwa/ekuator.
+            </p>
+
+            <p class="paragraph">
+                Letak astronomis tersebut menyebabkan Indonesia beriklim tropis, memiliki dua musim yaitu musim hujan dan musim kemarau, serta mendapat sinar matahari sepanjang tahun. Selain itu, letak ini juga memengaruhi perbedaan waktu di Indonesia yang terbagi menjadi tiga zona waktu, yaitu Waktu Indonesia Barat (WIB), Waktu Indonesia Tengah (WITA), dan Waktu Indonesia Timur (WIT).
+            </p>
+
+            <div class="image-container">
+                <div class="image-placeholder-text">
+                    <i class="fa-regular fa-image"></i>
+                    Silakan masukkan link gambar Google Drive Anda pada kode HTML komponen ini.
+                </div>
+                <img src="" alt="Ilustrasi Peta Letak Astronomis dan Geografis Indonesia">
+            </div>
+
+            <p class="paragraph">
+                Sementara letak geografis adalah kedudukan suatu tempat dibandingkan dengan daerah-daerah lain di sekitarnya. Letak geografis sering juga disebut sebagai posisi relatif, atau posisi yang sebenarnya dilihat dari daerah lain. Secara geografis, Indonesia diapit dua benua yaitu Benua Asia di sebelah Barat Laut dan Benua Australia di sebelah Tenggara. Indonesia juga diapit dua samudra, yaitu Samudra Hindia di sebelah Barat dan Selatan, dan Samudra Pasifik di sebelah Timur Laut. Letak geografis juga berhubungan dengan batas-batas negara Indonesia. Indonesia berbatasan darat dengan tiga negara, yaitu Malaysia, Timor Leste, dan Papua Nugini. Sementara di wilayah perairan, Indonesia berbatasan dengan sepuluh negara, yaitu India, Singapura, Malaysia, Thailand, Vietnam, Filipina, Palau, Australia, Timor Leste, dan Papua Nugini. Secara geografis, Indonesia adalah satu dari 13 negara yang berada di garis khatulistiwa.
+            </p>
+
+            <p class="paragraph">
+                Letak geografis Indonesia memberi banyak dampak positif. Berdasarkan letak geografis dan kondisi wilayahnya, Indonesia disebut sebagai negara kepulauan. Sebagai negara kepulauan yang berada di daerah khatulistiwa, iklim Indonesia di darat dan laut berciri hangat dan sejuk, surga bagi beragam flora dan fauna. Bentang alam Indonesia memungkinkan masyarakat untuk mengelola wilayah darat menjadi area persawahan, perkebunan, hingga pertambangan. Sementara di wilayah pesisir masyarakat biasanya menggantungkan kehidupan pada kekayaan laut sebagai nelayan, ataupun memanfaatkan potensi pariwisatanya.
+            </p>
+        </div>
+
+        <div class="task-card">
+            <div class="task-header">
+                <span class="task-badge">TUGAS MANDIRI</span>
+                <h2 class="task-title">Uji Pemahaman Materi</h2>
+            </div>
+
+            <div class="instruction-box">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>Petunjuk: Salin dan jawablah 12 pertanyaan di bawah ini dengan rapi di Buku Tulis masing-masing!</span>
+            </div>
+
+            <ol class="questions-list">
+                <li>Berdasarkan teks, sebutkan dua area utama yang menyusun bumi kita!</li>
+                <li>Warna apa saja yang digunakan untuk menggambarkan wilayah daratan dan perairan pada sebuah peta?</li>
+                <li>Jelaskan apa yang dimaksud dengan letak astronomis suatu wilayah!</li>
+                <li>Tuliskan letak astronomis negara Indonesia secara lengkap berdasarkan garis lintang dan garis bujurnya!</li>
+                <li>Sebutkan titik pulau terluar dan nama provinsi dari wilayah Indonesia di bagian Utara, Selatan, Barat, dan Timur!</li>
+                <li>Berapakah derajat garis lintang yang disebut sebagai garis khatulistiwa atau ekuator?</li>
+                <li>Sebutkan dampak letak astronomis Indonesia terhadap iklim dan pembagian musimnya!</li>
+                <li>Akibat letak astronomisnya, wilayah Indonesia terbagi menjadi tiga zona waktu. Sebutkan ketiga zona waktu tersebut!</li>
+                <li>Jelaskan apa yang dimaksud dengan letak geografis atau posisi relatif!</li>
+                <li>Sebutkan dua benua dan dua samudra yang mengapit posisi geografis Indonesia!</li>
+                <li>Sebutkan tiga negara yang berbatasan darat secara langsung dengan wilayah daratan Indonesia!</li>
+                <li>Berdasarkan potensi bentang alamnya, bagaimana cara masyarakat wilayah daratan dan masyarakat wilayah pesisir memanfaatkan lingkungan sekitarnya?</li>
+            </ol>
+        </div>
+
+        <div class="bottom-navigation">
+            <a href="javascript:history.back()" class="btn-nav-bottom back">
+                <i class="fa-solid fa-chevron-left"></i> Materi Sebelumnya
+            </a>
+            <a href="materi-selanjutnya.html" class="btn-nav-bottom next">
+                Materi Selanjutnya <i class="fa-solid fa-chevron-right"></i>
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        // Script opsional untuk menghilangkan text bantuan jika user sudah mengisi link gambar src
+        const imgElement = document.querySelector('.image-container img');
+        const placeholderText = document.querySelector('.image-placeholder-text');
+        
+        if(imgElement && imgElement.getAttribute('src') !== "") {
+            placeholderText.style.display = 'none';
+        }
+        
+        imgElement.addEventListener('load', () => {
+            placeholderText.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
