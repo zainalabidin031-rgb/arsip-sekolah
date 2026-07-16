@@ -323,7 +323,7 @@ document.getElementById("btnCari").addEventListener("click", () => {
     const tahunSelect = document.getElementById("tahunSelect");
     tahunSelect.innerHTML = '<option value="">Pilih Tahun Ajaran</option>';
 
-    ...new Set(hasil.map(x => x[3]))].forEach(tahun => {
+    [...new Set(hasil.map(x => x[3]))].forEach(tahun => {
         tahunSelect.innerHTML += `<option value="${tahun}">${tahun}</option>`;
     });
 
@@ -345,7 +345,7 @@ document.getElementById("tahunSelect").addEventListener("change", () => {
     );
 
     // Ambil opsi Semester secara unik dari kolom indeks 4
-    ...new Set(data.map(x => x[4]))].forEach(semester => {
+    [...new Set(data.map(x => x[4]))].forEach(semester => {
         semesterSelect.innerHTML += `<option value="${semester}">${semester}</option>`;
     });
 });
