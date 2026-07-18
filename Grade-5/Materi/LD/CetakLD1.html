@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cetak Soal: Uji Pemahaman Digital</title>
+    
+    <!-- FontAwesome untuk keindahan tampilan di layar -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* --- Pengaturan Dasar Dokumen --- */
+        body {
+            font-family: Arial, sans-serif;
+            color: #1e293b;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f5f9;
+        }
+
+        /* --- Kontainer Utama (Simulasi Ukuran F4 di Layar) --- */
+        .wrapper {
+            background-color: #ffffff;
+            width: 210mm;
+            min-height: 320mm;
+            margin: 20px auto;
+            padding: 20px 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* --- Tombol Aksi di Layar --- */
+        .no-print-zone {
+            max-width: 210mm;
+            margin: 20px auto 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #4f46e5;
+            padding: 12px 20px;
+            border-radius: 12px;
+            color: white;
+        }
+        .btn-print {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+        .btn-print:hover { background: #059669; }
+
+        /* --- Header Identitas Siswa --- */
+        .student-info {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px double #000;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+            font-size: 11pt;
+        }
+        .student-info table {
+            border: none;
+        }
+        .student-info td {
+            padding: 2px 5px;
+            vertical-align: middle;
+        }
+
+        /* --- Judul Lembar Kerja --- */
+        .header-title {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .header-title h2 {
+            margin: 0;
+            font-size: 14pt;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .header-title p {
+            margin: 4px 0 0 0;
+            font-size: 10pt;
+            font-style: italic;
+            color: #475569;
+        }
+
+        /* --- Ruang Soal 2 Kolom --- */
+        .questions-grid {
+            column-count: 2;
+            column-gap: 30px;
+            column-rule: 1px dashed #cbd5e1;
+            text-align: justify;
+        }
+
+        .question-item {
+            break-inside: avoid; /* Mencegah soal terpotong setengah ke kolom sebelah */
+            margin-bottom: 12px;
+            font-size: 9.5pt;
+            line-height: 1.4;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .q-number {
+            font-weight: bold;
+            min-width: 20px;
+        }
+
+        .q-text {
+            flex: 1;
+        }
+
+        /* Area Garis Titik-titik untuk Menulis Jawaban Mandiri */
+        .answer-space {
+            margin-top: 5px;
+            border-bottom: 1px dotted #94a3b8;
+            height: 18px;
+            width: 100%;
+        }
+
+        /* ===================================================
+           PENGATURAN KHUSUS SAAT DICETAK (PRINT CSS)
+        ====================================================== */
+        @media print {
+            /* Atur ukuran kertas ke Folio / F4 Resmi */
+            @page {
+                size: 215mm 330mm;
+                margin: 15mm 15mm 10mm 15mm;
+            }
+            
+            body {
+                background-color: transparent;
+                color: #000000;
+            }
+
+            .wrapper {
+                width: 100%;
+                min-height: auto;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            /* Sembunyikan tombol cetak dan bar navigasi dari kertas */
+            .no-print-zone {
+                display: none !important;
+            }
+
+            .header-title p {
+                color: #000;
+            }
+
+            .custom-table th {
+                color: #000 !important;
+            }
+            
+            .questions-grid {
+                column-rule: 1px dashed #000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- BAR NOTIFIKASI & TOMBOL CETAK (TIDAK AKAN IKUT TERCETAK) -->
+<div class="no-print-zone">
+    <span><i class="fa-solid fa-file-pdf"></i> Kotak Pratinjau Cetak Kertas Ukuran Folio/F4</span>
+    <button class="btn-print" onclick="window.print()">
+        <i class="fa-solid fa-print"></i> Cetak Sekarang
+    </button>
+</div>
+
+<!-- AREA KERTAS F4 -->
+<div class="wrapper">
+    
+    <!-- IDENTITAS SISWA -->
+    <div class="student-info">
+        <table>
+            <tr>
+                <td><b>Nama Siswa</b></td>
+                <td>: .......................................</td>
+            </tr>
+            <tr>
+                <td><b>Kelas / No. Absen</b></td>
+                <td>: V (Lima) / ......</td>
+            </tr>
+        </table>
+        <table style="text-align: right;">
+            <tr>
+                <td><b>Mata Pelajaran</b></td>
+                <td>: Pendidikan Pancasila</td>
+            </tr>
+            <tr>
+                <td><b>Tanggal Tugas</b></td>
+                <td>: .......................................</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- JUDUL -->
+    <div class="header-title">
+        <h2>Tugas Mandiri: Uji Pemahaman Digital</h2>
+        <p>Petunjuk: Jawablah 16 pertanyaan uraian berikut dengan teliti dan rapi!</p>
+    </div>
+
+    <!-- DAFTAR SOAL 2 KOLOM (1-8 KIRI, 9-16 KANAN) -->
+    <div class="questions-grid">
+        
+        <!-- Soal 1 -->
+        <div class="question-item">
+            <div class="q-number">1.</div>
+            <div class="q-text">
+                Apa arti dari menjadi bijak di dunia digital menurut paragraf pertama teks bacaan?
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 2 -->
+        <div class="question-item">
+            <div class="q-number">2.</div>
+            <div class="q-text">
+                Sebutkan dua hal yang harus dilindungi saat diri kita terhubung dengan jaringan internet!
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 3 -->
+        <div class="question-item">
+            <div class="q-number">3.</div>
+            <div class="q-text">
+                Mengapa sikap bijak sangat penting dan dibutuhkan dalam dunia digital saat ini?
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 4 -->
+        <div class="question-item">
+            <div class="q-number">4.</div>
+            <div class="q-text">
+                Sebutkan contoh gawai atau perangkat digital yang sering kita gunakan untuk belajar atau bermain setiap hari!
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 5 -->
+        <div class="question-item">
+            <div class="q-number">5.</div>
+            <div class="q-text">
+                Apa yang tersembunyi pada setiap kegiatan dalam dunia digital yang bisa dimasuki orang lain jika kita tidak waspada?
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 6 -->
+        <div class="question-item">
+            <div class="q-number">6.</div>
+            <div class="q-text">
+                Jelaskan pengertian dari keamanan digital secara umum berdasarkan teks di atas!
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 7 -->
+        <div class="question-item">
+            <div class="q-number">7.</div>
+            <div class="q-text">
+                Sebutkan 5 contoh data atau informasi pribadi kita yang harus dilindungi agar tidak disalahgunakan oleh orang lain!
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 8 -->
+        <div class="question-item">
+            <div class="q-number">8.</div>
+            <div class="q-text">
+                Selain data pribadi, akun <i>online</i> apa saja yang harus kita lindungi dari tindakan orang yang tidak bertanggung jawab?
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 9 -->
+        <div class="question-item">
+            <div class="q-number">9.</div>
+            <div class="q-text">
+                Mengapa dikatakan bahwa penerapan keamanan digital sebenarnya bukanlah merupakan sesuatu hal yang rumit?
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 10 -->
+        <div class="question-item">
+            <div class="q-number">10.</div>
+            <div class="q-text">
+                Apa tindakan keamanan digital paling dasar yang bisa kita terapkan pada ponsel kita di rumah?
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 11 -->
+        <div class="question-item">
+            <div class="q-number">11.</div>
+            <div class="q-text">
+                Jelaskan apa tujuan utama dari mengunci ponsel kita menggunakan kata sandi (<i>password</i>) atau pola!
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 12 -->
+        <div class="question-item">
+            <div class="q-number">12.</div>
+            <div class="q-text">
+                Mengapa kita wajib memberikan kata sandi pengaman pada jaringan Wi-Fi yang dipasang di rumah?
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 13 -->
+        <div class="question-item">
+            <div class="q-number">13.</div>
+            <div class="q-text">
+                Apa bahaya yang mungkin terjadi apabila jaringan Wi-Fi di rumah kita dibiarkan terbuka tanpa kata sandi?
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 14 -->
+        <div class="question-item">
+            <div class="q-number">14.</div>
+            <div class="q-text">
+                Untuk mendukung kegiatan apakah teknologi digital biasanya disediakan dan digunakan saat berada di lingkungan sekolah?
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 15 -->
+        <div class="question-item">
+            <div class="q-number">15.</div>
+            <div class="q-text">
+                Bagaimana cara yang aman saat kita harus mencari atau mengunduh gambar dan materi tugas sekolah di internet?
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+        <!-- Soal 16 -->
+        <div class="question-item">
+            <div class="q-number">16.</div>
+            <div class="q-text">
+                Situs atau halaman web seperti apa yang harus kita hindari saat sedang menggunakan fasilitas internet di sekolah?
+                <div class="answer-space"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
