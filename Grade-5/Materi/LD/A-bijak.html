@@ -353,6 +353,39 @@
             .paragraph { font-size: 0.92rem; }
             .btn-nav-bottom { font-size: 0.85rem; padding: 12px; }
         }
+        /* Gaya tombol saat dilihat di layar HP / Laptop */
+.btn-cetak-melayang {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    padding: 14px 22px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 9999;
+    transition: all 0.2s ease;
+}
+
+/* Efek saat tombol didekati kursor */
+.btn-cetak-melayang:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+/* KUNCI UTAMA: Menyembunyikan tombol saat printer menyala */
+@media print {
+    .btn-cetak-melayang {
+        display: none !important;
+    }
+}
     </style>
 </head>
 <body>
@@ -492,6 +525,10 @@
                 <li>Situs atau halaman web seperti apa yang harus kita hindari saat sedang menggunakan fasilitas internet di sekolah?</li>
             </ol>
         </div>
+<!-- Tombol Cetak Otomatis -->
+<button class="btn-cetak-melayang" onclick="window.print()">
+    <i class="fa-solid fa-print"></i> Cetak Halaman
+</button>
 
         <!-- Bottom Navigation Buttons -->
         <div class="bottom-navigation">
