@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persiapan MPLS SD TA 2026/2027 - SDN Butoh 1 Ngasem</title>
+    <link rel="icon" type="image/png" href="../../favicon.png?v=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* RESET & GENERAL STYLES */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #2d3748;
+            line-height: 1.7;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .container-baca {
+            max-width: 800px; /* Lebih ramping agar mata tidak lelah membaca teks panjang */
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- STICKY NAVBAR (Sama persis) --- */
+        .navbar {
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 4px 15px rgba(0, 140, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #e6f2ff;
+        }
+        .navbar .flex-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .nav-logo h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: #0077ff;
+            line-height: 1;
+        }
+        .nav-logo p {
+            font-size: 11px;
+            color: #718096;
+            margin-top: 3px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+            align-items: center;
+        }
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #0077ff;
+            background-color: #e6f2ff;
+        }
+
+        /* --- STRUKTUR ARTIKEL BERITA --- */
+        .article-wrapper {
+            padding: 40px 0 80px 0;
+        }
+
+        /* Navigasi Kembali Kembali */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4c1d95; /* Ungu Matang */
+            margin-bottom: 25px;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #0077ff;
+        }
+
+        /* Meta & Judul */
+        .article-meta {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            font-size: 12px;
+            color: #718096;
+            margin-bottom: 15px;
+        }
+        .article-category {
+            background-color: #eef2ff;
+            color: #4c1d95;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .article-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a202c;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+        .article-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e2eefe;
+            margin-bottom: 30px;
+            font-size: 13px;
+            color: #4a5568;
+        }
+        .author-avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #4c1d95;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        /* Foto Utama Berita */
+        .featured-image-box {
+            width: 100%;
+            max-height: 450px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e2eefe;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+        .featured-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Isi Konten Tulisan */
+        .article-content p {
+            font-size: 15px;
+            color: #2d3748;
+            margin-bottom: 22px;
+            text-align: justify;
+        }
+        .article-content h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #4c1d95;
+            margin: 35px 0 15px 0;
+        }
+        .article-content ul {
+            margin-left: 20px;
+            margin-bottom: 25px;
+            font-size: 15px;
+            color: #2d3748;
+        }
+        .article-content li {
+            margin-bottom: 8px;
+        }
+
+        /* --- FOOTER (Sama Persis) --- */
+        footer {
+            background-color: #ffffff;
+            color: #4a5568;
+            padding: 50px 0 30px 0;
+            border-top: 1px solid #e2eefe;
+            font-size: 13px;
+        }
+        .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; color: #4c1d95; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px;}
+        .footer-col p { line-height: 1.6; color: #718096; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { color: #0077ff; font-weight: 600; }
+        .footer-links a:hover { text-decoration: underline; }
+        .footer-bottom { text-align: center; font-size: 12px; color: #a0aec0; border-top: 1px solid #e6f2ff; padding-top: 20px; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .navbar .flex-box { flex-direction: column; gap: 12px; }
+            .nav-links { width: 100%; justify-content: center; }
+            .article-title { font-size: 22px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container flex-box">
+            <div class="nav-logo">
+                <img src="../../assets/logo.png.png.png" alt="Logo Sekolah" style="width: 42px; height: 42px; object-fit: contain;">
+                <div>
+                    <h1>SDN BUTOH 1 NGASEM</h1>
+                    <p>KABUPATEN BOJONEGORO</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../">Home</a></li>
+                <li><a href="./" class="active">Berita</a></li>
+                <li><a href="../../statistik/">Statistik</a></li>
+                <li><a href="../../hubungi-kami/">Hubungi</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="article-wrapper">
+        <div class="container-baca">
+            
+            <a href="./" class="back-link"><i class="fa-solid fa-arrow-left"></i> Kembali ke Berita</a>
+            
+            <div class="article-meta">
+                <span class="article-category">Informasi</span> <span><i class="fa-regular fa-calendar"></i> 13 Juli 2026</span> </div>
+            
+            <h2 class="article-title">Semarak Upacara Pembukaan MPLS 2026 di SDN Butoh 1: Sambut Generasi Emas dengan Keceriaan</h2>
+            
+            <div class="article-author">
+                <div class="author-avatar">ADM</div>
+                <div>Ditulis oleh: <strong>Tim Publikasi Sekolah</strong></div>
+            </div>
+            
+            <div class="featured-image-box">
+                <img src="https://lh3.googleusercontent.com/d/1KO7MM6EcYpinHwKbIZ6-KamcK-BrBQHy" alt="Foto Utama Kegiatan"> </div>
+            
+           <article class="article-content">
+    <p><strong>Ngasem, Bojonegoro</strong> - Suasana ceria dan penuh semangat menyelimuti halaman SDN Butoh 1 Ngasem pagi ini. Lembaga pendidikan ini resmi memulai kegiatan Masa Pengenalan Lingkungan Sekolah (MPLS) Tahun Ajaran 2026/2027 melalui upacara pembukaan yang dikemas secara hangat, edukatif, dan menyenangkan bagi para peserta didik baru kelas 1.</p>
+
+    <p>Upacara yang dihadiri oleh kepala sekolah, seluruh jajaran guru, tenaga kependidikan, serta perwakilan wali murid ini bertujuan memberikan impresi pertama yang positif. Dengan mengedepankan lingkungan belajar yang aman dan bebas perploncoan, kegiatan ini menjadi langkah awal dalam membangun rasa percaya diri anak-anak saat bertransisi ke jenjang sekolah dasar.</p>
+
+    <h4>Keseruan Prosesi Pembukaan MPLS</h4>
+    <p>Berikut adalah rangkaian momen menarik dan bermakna dalam upacara pembukaan MPLS 2026 di SDN Butoh 1 Ngasem:</p>
+    <ul>
+        <li>Sambutan hangat dan penuh motivasi dari Kepala SDN Butoh 1 sekaligus membuka acara secara resmi.</li>
+        <li>Penyematan tanda pengenal peserta MPLS secara simbolis kepada perwakilan siswa baru kelas 1.</li>
+        <li>Pelepasan balon berwarna-warni ke udara sebagai simbol harapan dan cita-cita anak-anak yang setinggi langit.</li>
+        <li>Penampilan seni sederhana dari kakak kelas sebagai bentuk ucapan selamat datang kepada adik-adik baru.</li>
+        <li>Sesi jabat tangan ramah antara siswa baru dengan para guru demi memupuk rasa kedekatan dan kekeluargaan.</li>
+        <li>Foto bersama antara murid baru, guru, dan orang tua untuk mengabadikan momen hari pertama sekolah.</li>
+    </ul>
+
+    <h4>Sinergi Sekolah dan Orang Tua Murid</h4>
+    <p>Kehadiran serta pendampingan langsung dari orang tua dalam prosesi upacara pembukaan ini memberikan dukungan psikologis yang sangat besar bagi anak-anak. SDN Butoh 1 Ngasem menyadari bahwa keberhasilan pendidikan berawal dari kolaborasi dan sinergi yang harmonis antara pihak sekolah dengan lingkungan keluarga di rumah.</p>
+
+    <p>Melalui upacara pembukaan MPLS yang ceria ini, diharapkan seluruh siswa baru kelas 1 dapat merasa nyaman, dihargai, dan tidak sabar untuk mengikuti rangkaian petualangan belajar di SDN Butoh 1 Ngasem. Selamat datang para peserta didik baru, mari belajar dengan bahagia dan tunjukkan prestasi terbaik kalian!</p>
+</article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>SDN Butoh 1 Ngasem</h4>
+                    <p>Satuan pendidikan tingkat dasar resmi di bawah naungan Pemerintah Kabupaten Bojonegoro.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Alamat Resmi</h4>
+                    <p>Desa Butoh, Kecamatan Ngasem, Kabupaten Bojonegoro.<br>Email: info@sdnbutoh1ngasem.my.id</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Tautan Cepat</h4>
+                    <ul class="footer-links">
+                        <li><a href="../">Kembali ke Beranda &rarr;</a></li>
+                        <li><a href="../latihan-soal/">Ruang Belajar Mandiri &rarr;</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SDN Butoh 1 Ngasem. All Rights Reserved. | Dinas Pendidikan Kab. Bojonegoro</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
