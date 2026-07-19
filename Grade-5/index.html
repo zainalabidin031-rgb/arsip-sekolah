@@ -518,44 +518,15 @@
                     <a href="Aktivitas/" class="btn-more-news">Lihat Semua Wawasan &rarr;</a>
                 </div>
             </div> 
-<!-- 📊 PENGHITUNG PENGUNJUNG HALAMAN UTAMA KELAS 5 (VERSI FORCED LIVE UPDATE) -->
+<!-- 📊 PENGHITUNG PENGUNJUNG HALAMAN UTAMA KELAS 5 (VERSI FINAL ANTI-BLOKIR) -->
 <div class="visitor-counter" style="text-align: center; margin: 40px auto 20px auto; padding-top: 20px; border-top: 1px dashed #ddd; max-width: 400px; font-family: sans-serif;">
     <p style="margin-bottom: 12px; font-size: 13px; color: #666; font-weight: 500;">
         🎒 Total Pengunjung Halaman Utama Kelas 5
     </p>
     
-    <div style="display: inline-flex; align-items: center; font-size: 12px; font-weight: bold; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        <span style="background: #555; color: #fff; padding: 5px 10px;">Dilihat</span>
-        <span id="angka-pengunjung" style="background: #28a745; color: #fff; padding: 5px 10px;">...</span>
-    </div>
+    <!-- Langsung memanggil gambar badge live dengan ID unik khusus halamanmu -->
+    <img src="https://api.visitorbadge.io/api/visitors?id=zainalabidin031-rgb.arsip-sekolah.kelas5&label=Dilihat&color=28a745&style=flat-square" alt="Statistik Pengunjung Kelas 5">
 </div>
-
-<script>
-    // 1. Kita pakai kunci baru 'kelas5-fresh' agar hitungan diulang dari awal dengan bersih
-    // 2. Kita tambahkan '?cb=' + Date.now() agar link-nya selalu berubah setiap milidetik (Anti-Cache)
-    const URL_COUNTER = 'https://api.counterapi.dev/v1/zainal031/kelas5-fresh/up?cb=' + Date.now();
-    
-    fetch(URL_COUNTER, { 
-        method: 'GET',
-        cache: 'no-store', // Perintah tegas ke browser untuk TIDAK menyimpan cache
-        headers: {
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if(data && typeof data.value !== 'undefined') {
-            // Menampilkan angka asli hasil update terbaru dari database
-            document.getElementById('angka-pengunjung').innerText = data.value + " Kali";
-        } else {
-            document.getElementById('angka-pengunjung').innerText = "1 Kali";
-        }
-    })
-    .catch(() => {
-        document.getElementById('angka-pengunjung').innerText = "Aktif";
-    });
-</script>
             <div class="contact-section">
                 <div class="contact-box">
                     <h4>KONTAK & ALAMAT</h4>
