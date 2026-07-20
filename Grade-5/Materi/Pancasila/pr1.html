@@ -3,252 +3,362 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tugas PR Online</title>
-  <link rel="icon" type="image/png" href="../../../favicon.png">
+    <title>PR Sejarah: Masa Pendudukan Jepang</title>
     <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 800px;
-            margin: 20px auto;
+            background-color: #f1f5f9;
+            margin: 0;
             padding: 20px;
-            background-color: #f4f7f6;
-            color: #333;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 850px;
         }
         .card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 15px;
             margin-bottom: 20px;
         }
-        h1, h2 {
-            color: #2c3e50;
-            text-align: center;
+        .header h1 {
+            color: #1e293b;
+            margin: 0 0 8px 0;
+            font-size: 22px;
         }
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-        select, button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+        .header p {
+            color: #64748b;
+            margin: 0;
             font-size: 14px;
         }
-        .matching-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #fafafa;
-            padding: 10px 15px;
-            border-left: 4px solid #3498db;
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #334155;
+        }
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background-color: #fff;
+            font-size: 14px;
+            color: #1e293b;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        select:focus {
+            border-color: #3b82f6;
+        }
+        .question-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid #3b82f6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .question-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #0f172a;
             margin-bottom: 10px;
-            border-radius: 4px;
+            line-height: 1.4;
         }
-        .matching-item p {
-            margin: 0;
-            flex: 1;
-            padding-right: 10px;
-        }
-        .matching-item select {
-            flex: 1;
-            margin: 0;
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background 0.2s;
         }
         .btn-submit {
-            background-color: #2ecc71;
+            background-color: #16a34a;
             color: white;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .btn-submit:hover {
-            background-color: #27ae60;
-        }
-        .btn-view {
-            background-color: #3498db;
-            color: white;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .btn-view:hover {
-            background-color: #2980b9;
-        }
-        #result {
-            display: none;
             margin-top: 20px;
         }
-        .correct {
-            color: #27ae60;
-            font-weight: bold;
+        .btn-submit:hover {
+            background-color: #15803d;
         }
-        .incorrect {
-            color: #e74c3c;
-            font-weight: bold;
+        .btn-view {
+            background-color: #2563eb;
+            color: white;
+            margin-top: 10px;
         }
-        .feedback-item {
-            margin-bottom: 8px;
-            padding: 8px;
-            background: #f8f9fa;
-            border-radius: 4px;
+        .btn-view:hover {
+            background-color: #1d4ed8;
+        }
+        .btn-submit:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+        }
+        #resultCard {
+            display: none;
+        }
+        .score-box {
+            text-align: center;
+            padding: 20px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .score-box h2 {
+            margin: 0;
+            color: #166534;
+            font-size: 40px;
+        }
+        .correction-item {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .correction-item.correct {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+        }
+        .correction-item.incorrect {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
+        .status-msg {
+            text-align: center;
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h1>Pekerjaan Rumah (PR)</h1>
-    <p style="text-align: center; color: #666;">Silakan pilih nama Anda dan pasangkan soal dengan jawaban yang benar.</p>
-    <hr><br>
-
-    <form id="quizForm">
-        <!-- Dropdown Nama Siswa -->
-        <label for="studentName">Pilih Nama Siswa:</label>
-        <select id="studentName" required>
-            <option value="">-- Pilih Nama --</option>
-            <option value="Achmat Juli Setyawan">Achmat Juli Setyawan</option>
-            <option value="Afifa Refanda Oktavia">Afifa Refanda Oktavia</option>
-            <option value="Ahmad Noval Nugroho">Ahmad Noval Nugroho</option>
-            <option value="Ahmad Syahrul Dermawan">Ahmad Syahrul Dermawan</option>
-            <option value="Farel Galih Revander">Farel Galih Revander</option>
-            <option value="Mochammad Noer Azzam">Mochammad Noer Azzam</option>
-            <option value="Muhamad Adi nur Mahendra">Muhamad Adi nur Mahendra</option>
-            <option value="Muhammad Alfian Hidayatulloh">Muhammad Alfian Hidayatulloh</option>
-            <option value="Muhammad David AufalMarom">Muhammad David AufalMarom</option>
-            <option value="Muhammad Fajar Ibrahim">Muhammad Fajar Ibrahim</option>
-            <option value="Natasya Syabila Azzahra">Natasya Syabila Azzahra</option>
-            <option value="Ramadhani Rizki Hermawan">Ramadhani Rizki Hermawan</option>
-            <option value="Rosalina Ayu Kirana Putri">Rosalina Ayu Kirana Putri</option>
-            <option value="Tri Nurdiana">Tri Nurdiana</option>
-            <option value="Tri Nurdiani">Tri Nurdiani</option>
-        </select>
-
-        <h3>Soal Menjodohkan</h3>
-
-        <!-- Soal 1 -->
-        <div class="matching-item">
-            <p>1. Ibu Kota Negara Indonesia adalah...</p>
-            <select class="answer" data-q="1" required>
-                <option value="">-- Pasangkan Jawaban --</option>
-                <option value="Jakarta">Jakarta</option>
-                <option value="Rupiah">Rupiah</option>
-                <option value="Pancasila">Pancasila</option>
-                <option value="Indonesia Raya">Indonesia Raya</option>
-            </select>
+<div class="container">
+    <!-- Form PR Utama -->
+    <div class="card" id="quizCard">
+        <div class="header">
+            <h1>PR SEJARAH: MASA PENDUDUKAN JEPANG</h1>
+            <p>Pilih nama Anda, lalu pasangkan setiap pertanyaan dengan jawaban yang paling tepat.</p>
         </div>
 
-        <!-- Soal 2 -->
-        <div class="matching-item">
-            <p>2. Mata uang resmi Indonesia adalah...</p>
-            <select class="answer" data-q="2" required>
-                <option value="">-- Pasangkan Jawaban --</option>
-                <option value="Jakarta">Jakarta</option>
-                <option value="Rupiah">Rupiah</option>
-                <option value="Pancasila">Pancasila</option>
-                <option value="Indonesia Raya">Indonesia Raya</option>
-            </select>
+        <form id="prForm">
+            <!-- Dropdown Nama Siswa -->
+            <div class="form-group">
+                <label for="studentName">Nama Siswa:</label>
+                <select id="studentName" required>
+                    <option value="">-- Pilih Nama Anda --</option>
+                    <option value="Achmat Juli Setyawan">Achmat Juli Setyawan</option>
+                    <option value="Afifa Refanda Oktavia">Afifa Refanda Oktavia</option>
+                    <option value="Ahmad Noval Nugroho">Ahmad Noval Nugroho</option>
+                    <option value="Ahmad Syahrul Dermawan">Ahmad Syahrul Dermawan</option>
+                    <option value="Farel Galih Revander">Farel Galih Revander</option>
+                    <option value="Mochammad Noer Azzam">Mochammad Noer Azzam</option>
+                    <option value="Muhamad Adi nur Mahendra">Muhamad Adi nur Mahendra</option>
+                    <option value="Muhammad Alfian Hidayatulloh">Muhammad Alfian Hidayatulloh</option>
+                    <option value="Muhammad David AufalMarom">Muhammad David AufalMarom</option>
+                    <option value="Muhammad Fajar Ibrahim">Muhammad Fajar Ibrahim</option>
+                    <option value="Natasya Syabila Azzahra">Natasya Syabila Azzahra</option>
+                    <option value="Ramadhani Rizki Hermawan">Ramadhani Rizki Hermawan</option>
+                    <option value="Rosalina Ayu Kirana Putri">Rosalina Ayu Kirana Putri</option>
+                    <option value="Tri Nurdiana">Tri Nurdiana</option>
+                    <option value="Tri Nurdiani">Tri Nurdiani</option>
+                </select>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;">
+
+            <!-- Kontainer Tempat Soal Dimuat via JS -->
+            <div id="questionsContainer"></div>
+
+            <button type="submit" id="btnSubmit" class="btn btn-submit">Kirim & Lihat Hasil</button>
+        </form>
+
+        <!-- Tombol Rekap Nilai untuk Siswa/Guru -->
+        <!-- Ganti href dengan link Google Sheets Anda -->
+        <a href="https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/edit?usp=sharing" target="_blank" class="btn btn-view">📊 Lihat Nilai PR</a>
+    </div>
+
+    <!-- Card Hasil & Koreksi Instan -->
+    <div class="card" id="resultCard">
+        <div class="header">
+            <h1>Hasil PR & Koreksi</h1>
+            <p id="studentInfo"></p>
         </div>
 
-        <!-- Soal 3 -->
-        <div class="matching-item">
-            <p>3. Dasar Negara Indonesia adalah...</p>
-            <select class="answer" data-q="3" required>
-                <option value="">-- Pasangkan Jawaban --</option>
-                <option value="Jakarta">Jakarta</option>
-                <option value="Rupiah">Rupiah</option>
-                <option value="Pancasila">Pancasila</option>
-                <option value="Indonesia Raya">Indonesia Raya</option>
-            </select>
+        <div class="score-box">
+            <span style="font-size: 14px; color: #15803d; font-weight: 600;">NILAI AKHIR:</span>
+            <h2 id="scoreDisplay">0</h2>
         </div>
 
-        <!-- Soal 4 -->
-        <div class="matching-item">
-            <p>4. Lagu Kebangsaan Indonesia adalah...</p>
-            <select class="answer" data-q="4" required>
-                <option value="">-- Pasangkan Jawaban --</option>
-                <option value="Jakarta">Jakarta</option>
-                <option value="Rupiah">Rupiah</option>
-                <option value="Pancasila">Pancasila</option>
-                <option value="Indonesia Raya">Indonesia Raya</option>
-            </select>
-        </div>
+        <h3 style="color: #334155; font-size: 16px;">Detail Koreksi Jawaban:</h3>
+        <div id="correctionContainer"></div>
 
-        <button type="submit" class="btn-submit">Kirim & Lihat Hasil</button>
-    </form>
+        <p class="status-msg" id="uploadStatus">Mengirim nilai ke spreadsheet...</p>
 
-    <!-- Tombol Lihat Rekap Nilai -->
-    <!-- Ganti href dengan Link Google Sheets Public / Viewer Anda -->
-    <a href="https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbztAbjsK7Crw5jcIt9IH-iP86TyHrZ3pnsts7ndAggBNOuXIgR2BodflpiPHk3r91A8/exec" target="_blank" class="btn-view">📊 Lihat Rekap Nilai PR</a>
-</div>
-
-<!-- Output Nilai dan Koreksi -->
-<div class="card" id="result">
-    <h2>Hasil & Koreksi Instan</h2>
-    <h3 id="scoreText" style="text-align: center; color: #2c3e50;"></h3>
-    <div id="correction"></div>
+        <button onclick="window.location.reload();" class="btn btn-view" style="margin-top: 15px;">Ulangi PR / Kembali</button>
+    </div>
 </div>
 
 <script>
-    // ** KUNCI JAWABAN ** (Sesuaikan dengan soal Anda)
-    const keyAnswers = {
-        "1": "Jakarta",
-        "2": "Rupiah",
-        "3": "Pancasila",
-        "4": "Indonesia Raya"
-    };
+    // =========================================================================
+    // 1. URL GOOGLE APPS SCRIPT (Ganti dengan Web App URL milik Anda)
+    // =========================================================================
+    const SCRIPT_URL = 'URL_WEB_APP_GOOGLE_SCRIPT_ANDA';
 
-    // ** URL GOOGLE APPS SCRIPT ** (Tempelkan Web App URL Anda di sini)
-    const scriptURL = 'URL_WEB_APP_GOOGLE_SCRIPT_ANDA';
+    // =========================================================================
+    // 2. SOAL & KUNCI JAWABAN (10 Soal Asli + 3 Jawaban Salah Pengecoh)
+    // =========================================================================
+    const quizData = [
+        { id: 1, question: "Mengapa pada awalnya rakyat Indonesia menyambut kedatangan Jepang dengan harapan?", answer: "Karena Jepang mengaku akan membebaskan Indonesia dari penjajahan Belanda." },
+        { id: 2, question: "Apa sebutan yang digunakan Jepang untuk menarik simpati rakyat Indonesia?", answer: "Saudara Tua." },
+        { id: 3, question: "Sebutkan isi Gerakan Tiga A!", answer: "Jepang Pemimpin Asia, Jepang Pelindung Asia, dan Jepang Cahaya Asia." },
+        { id: 4, question: "Kapan Gerakan Tiga A didirikan?", answer: "29 April 1942." },
+        { id: 5, question: "Apa yang dimaksud dengan romusa?", answer: "Romusa adalah kerja paksa yang dilakukan oleh Jepang." },
+        { id: 6, question: "Sebutkan penderitaan yang dialami rakyat Indonesia pada masa pendudukan Jepang!", answer: "kerja paksa (romusa), kelaparan, penyiksaan, perampasan hasil bumi." },
+        { id: 7, question: "Mengapa Jepang akhirnya menjanjikan kemerdekaan kepada Indonesia?", answer: "Karena Jepang mulai mengalami banyak kekalahan dalam Perang Dunia II dan ingin memperoleh dukungan rakyat Indonesia." },
+        { id: 8, question: "Pada tanggal berapakah Jepang mengumumkan janji kemerdekaan bagi Indonesia?", answer: "7 September 1944." },
+        { id: 9, question: "Siapakah Perdana Menteri Jepang yang mengumumkan janji kemerdekaan Indonesia?", answer: "Jenderal Kuniaki Koiso (Perdana Menteri Jepang)." },
+        { id: 10, question: "Mengapa rakyat Indonesia tidak langsung percaya pada janji kemerdekaan yang diberikan Jepang?", answer: "Karena janji tersebut belum jelas pelaksanaannya dan rakyat sudah merasakan penderitaan selama pendudukan Jepang." }
+    ];
 
-    document.getElementById('quizForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+    // 3 Jawaban Pengecoh Tambahan (Total opsi = 13)
+    const wrongOptions = [
+        "Laksamana Maeda.",
+        "1 Maret 1945.",
+        "Organisasi bentukan Jepang untuk melatih militer pemuda."
+    ];
 
-        const name = document.getElementById('studentName').value;
-        const answerElements = document.querySelectorAll('.answer');
+    // Menggabungkan seluruh opsi jawaban (10 kunci + 3 pengecoh = 13 opsi)
+    const allOptions = [...quizData.map(q => q.answer), ...wrongOptions];
+
+    // Fungsi Pengacak Urutan Pilihan Dropdown
+    function shuffleArray(array) {
+        return array.slice().sort(() => Math.random() - 0.5);
+    }
+
+    // Render Soal ke HTML secara Dinamis
+    const questionsContainer = document.getElementById('questionsContainer');
+    
+    quizData.forEach((q, index) => {
+        // Mengacak 13 pilihan jawaban untuk setiap nomor soal
+        const shuffledOptions = shuffleArray(allOptions);
         
-        let score = 0;
-        let totalQuestions = Object.keys(keyAnswers).length;
-        let correctionHtml = '';
-
-        answerElements.forEach((el) => {
-            let qNum = el.getAttribute('data-q');
-            let userAns = el.value;
-            let correctAns = keyAnswers[qNum];
-
-            if (userAns === correctAns) {
-                score += (100 / totalQuestions);
-                correctionHtml += `<div class="feedback-item">Soal ${qNum}: <span class="correct">✓ Benar</span> (Jawaban: ${userAns})</div>`;
-            } else {
-                correctionHtml += `<div class="feedback-item">Soal ${qNum}: <span class="incorrect">✗ Salah</span> (Jawaban Kamu: ${userAns} | <b>Kunci: ${correctAns}</b>)</div>`;
-            }
+        let optionsHtml = `<option value="">-- Pilih Jawaban Tepat --</option>`;
+        shuffledOptions.forEach(opt => {
+            optionsHtml += `<option value="${opt}">${opt}</option>`;
         });
 
-        // Tampilkan Hasil & Koreksi
-        document.getElementById('result').style.display = 'block';
-        document.getElementById('scoreText').innerText = `Nama: ${name}\nNilai Akhir: ${score}`;
-        document.getElementById('correction').innerHTML = correctionHtml;
+        const qHtml = `
+            <div class="question-card">
+                <div class="question-title">${index + 1}. ${q.question}</div>
+                <select class="user-answer" data-id="${q.id}" required>
+                    ${optionsHtml}
+                </select>
+            </div>
+        `;
+        questionsContainer.innerHTML += qHtml;
+    });
 
-        // Kirim Data ke Google Sheets secara otomatis
+    // =========================================================================
+    // 3. LOGIKA PENILAIAN & KOREKSI
+    // =========================================================================
+    document.getElementById('prForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('btnSubmit');
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Memproses Hasil...';
+
+        const studentName = document.getElementById('studentName').value;
+        const answerSelects = document.querySelectorAll('.user-answer');
+        
+        let correctCount = 0;
+        let totalQuestions = quizData.length; // 10 Soal
+        let correctionHtml = '';
+
+        answerSelects.forEach((select) => {
+            const qId = parseInt(select.getAttribute('data-id'));
+            const userAns = select.value;
+            const item = quizData.find(q => q.id === qId);
+
+            const isCorrect = (userAns === item.answer);
+            if (isCorrect) correctCount++;
+
+            correctionHtml += `
+                <div class="correction-item ${isCorrect ? 'correct' : 'incorrect'}">
+                    <strong>Soal ${qId}:</strong> ${item.question}<br>
+                    <strong>Jawaban Anda:</strong> ${userAns} ${isCorrect ? '✓ (Benar)' : '✗ (Salah)'}<br>
+                    ${!isCorrect ? `<strong>Kunci Jawaban:</strong> ${item.answer}` : ''}
+                </div>
+            `;
+        });
+
+        // Skor Skala 100 (Satu soal poinnya 10)
+        const finalScore = Math.round((correctCount / totalQuestions) * 100);
+
+        // Menampilkan Hasil ke Layar
+        document.getElementById('quizCard').style.display = 'none';
+        document.getElementById('resultCard').style.display = 'block';
+        document.getElementById('studentInfo').innerText = `Nama: ${studentName}`;
+        document.getElementById('scoreDisplay').innerText = finalScore;
+        document.getElementById('correctionContainer').innerHTML = correctionHtml;
+
+        // Mengirimkan Nilai ke Spreadsheet
+        sendDataToSheets(studentName, finalScore);
+    });
+
+    // =========================================================================
+    // 4. PROSES KIRIM DATA KE GOOGLE SHEETS
+    // =========================================================================
+    function sendDataToSheets(name, score) {
+        const statusMsg = document.getElementById('uploadStatus');
+
+        if (SCRIPT_URL === 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbztAbjsK7Crw5jcIt9IH-iP86TyHrZ3pnsts7ndAggBNOuXIgR2BodflpiPHk3r91A8/exec' || SCRIPT_URL === '') {
+            statusMsg.innerText = '⚠️ Nilai belum terhubung ke Google Sheets (URL script belum dipasang).';
+            statusMsg.style.color = '#d97706';
+            return;
+        }
+
         const formData = new FormData();
         formData.append('Nama', name);
         formData.append('Nilai', score);
         formData.append('Waktu', new Date().toLocaleString('id-ID'));
 
-        fetch(scriptURL, { method: 'POST', body: formData })
-            .then(response => alert('Nilai berhasil direkam ke spreadsheet!'))
-            .catch(error => console.error('Error!', error.message));
-    });
+        fetch(SCRIPT_URL, { method: 'POST', body: formData })
+            .then(res => {
+                statusMsg.innerText = '✅ Nilai berhasil tersimpan otomatis di Google Sheets!';
+                statusMsg.style.color = '#16a34a';
+            })
+            .catch(err => {
+                console.error(err);
+                statusMsg.innerText = '❌ Gagal mengirim nilai ke spreadsheet. Cek koneksi Anda.';
+                statusMsg.style.color = '#dc2626';
+            });
+    }
 </script>
 
 </body>
