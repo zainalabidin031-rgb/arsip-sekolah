@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas PR Online</title>
+  <link rel="icon" type="image/png" href="../../../favicon.png">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        .matching-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fafafa;
+            padding: 10px 15px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .matching-item p {
+            margin: 0;
+            flex: 1;
+            padding-right: 10px;
+        }
+        .matching-item select {
+            flex: 1;
+            margin: 0;
+        }
+        .btn-submit {
+            background-color: #2ecc71;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-submit:hover {
+            background-color: #27ae60;
+        }
+        .btn-view {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .btn-view:hover {
+            background-color: #2980b9;
+        }
+        #result {
+            display: none;
+            margin-top: 20px;
+        }
+        .correct {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .incorrect {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .feedback-item {
+            margin-bottom: 8px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Pekerjaan Rumah (PR)</h1>
+    <p style="text-align: center; color: #666;">Silakan pilih nama Anda dan pasangkan soal dengan jawaban yang benar.</p>
+    <hr><br>
+
+    <form id="quizForm">
+        <!-- Dropdown Nama Siswa -->
+        <label for="studentName">Pilih Nama Siswa:</label>
+        <select id="studentName" required>
+            <option value="">-- Pilih Nama --</option>
+            <option value="Achmat Juli Setyawan">Achmat Juli Setyawan</option>
+            <option value="Afifa Refanda Oktavia">Afifa Refanda Oktavia</option>
+            <option value="Ahmad Noval Nugroho">Ahmad Noval Nugroho</option>
+            <option value="Ahmad Syahrul Dermawan">Ahmad Syahrul Dermawan</option>
+            <option value="Farel Galih Revander">Farel Galih Revander</option>
+            <option value="Mochammad Noer Azzam">Mochammad Noer Azzam</option>
+            <option value="Muhamad Adi nur Mahendra">Muhamad Adi nur Mahendra</option>
+            <option value="Muhammad Alfian Hidayatulloh">Muhammad Alfian Hidayatulloh</option>
+            <option value="Muhammad David AufalMarom">Muhammad David AufalMarom</option>
+            <option value="Muhammad Fajar Ibrahim">Muhammad Fajar Ibrahim</option>
+            <option value="Natasya Syabila Azzahra">Natasya Syabila Azzahra</option>
+            <option value="Ramadhani Rizki Hermawan">Ramadhani Rizki Hermawan</option>
+            <option value="Rosalina Ayu Kirana Putri">Rosalina Ayu Kirana Putri</option>
+            <option value="Tri Nurdiana">Tri Nurdiana</option>
+            <option value="Tri Nurdiani">Tri Nurdiani</option>
+        </select>
+
+        <h3>Soal Menjodohkan</h3>
+
+        <!-- Soal 1 -->
+        <div class="matching-item">
+            <p>1. Ibu Kota Negara Indonesia adalah...</p>
+            <select class="answer" data-q="1" required>
+                <option value="">-- Pasangkan Jawaban --</option>
+                <option value="Jakarta">Jakarta</option>
+                <option value="Rupiah">Rupiah</option>
+                <option value="Pancasila">Pancasila</option>
+                <option value="Indonesia Raya">Indonesia Raya</option>
+            </select>
+        </div>
+
+        <!-- Soal 2 -->
+        <div class="matching-item">
+            <p>2. Mata uang resmi Indonesia adalah...</p>
+            <select class="answer" data-q="2" required>
+                <option value="">-- Pasangkan Jawaban --</option>
+                <option value="Jakarta">Jakarta</option>
+                <option value="Rupiah">Rupiah</option>
+                <option value="Pancasila">Pancasila</option>
+                <option value="Indonesia Raya">Indonesia Raya</option>
+            </select>
+        </div>
+
+        <!-- Soal 3 -->
+        <div class="matching-item">
+            <p>3. Dasar Negara Indonesia adalah...</p>
+            <select class="answer" data-q="3" required>
+                <option value="">-- Pasangkan Jawaban --</option>
+                <option value="Jakarta">Jakarta</option>
+                <option value="Rupiah">Rupiah</option>
+                <option value="Pancasila">Pancasila</option>
+                <option value="Indonesia Raya">Indonesia Raya</option>
+            </select>
+        </div>
+
+        <!-- Soal 4 -->
+        <div class="matching-item">
+            <p>4. Lagu Kebangsaan Indonesia adalah...</p>
+            <select class="answer" data-q="4" required>
+                <option value="">-- Pasangkan Jawaban --</option>
+                <option value="Jakarta">Jakarta</option>
+                <option value="Rupiah">Rupiah</option>
+                <option value="Pancasila">Pancasila</option>
+                <option value="Indonesia Raya">Indonesia Raya</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn-submit">Kirim & Lihat Hasil</button>
+    </form>
+
+    <!-- Tombol Lihat Rekap Nilai -->
+    <!-- Ganti href dengan Link Google Sheets Public / Viewer Anda -->
+    <a href="https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbztAbjsK7Crw5jcIt9IH-iP86TyHrZ3pnsts7ndAggBNOuXIgR2BodflpiPHk3r91A8/exec" target="_blank" class="btn-view">📊 Lihat Rekap Nilai PR</a>
+</div>
+
+<!-- Output Nilai dan Koreksi -->
+<div class="card" id="result">
+    <h2>Hasil & Koreksi Instan</h2>
+    <h3 id="scoreText" style="text-align: center; color: #2c3e50;"></h3>
+    <div id="correction"></div>
+</div>
+
+<script>
+    // ** KUNCI JAWABAN ** (Sesuaikan dengan soal Anda)
+    const keyAnswers = {
+        "1": "Jakarta",
+        "2": "Rupiah",
+        "3": "Pancasila",
+        "4": "Indonesia Raya"
+    };
+
+    // ** URL GOOGLE APPS SCRIPT ** (Tempelkan Web App URL Anda di sini)
+    const scriptURL = 'URL_WEB_APP_GOOGLE_SCRIPT_ANDA';
+
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('studentName').value;
+        const answerElements = document.querySelectorAll('.answer');
+        
+        let score = 0;
+        let totalQuestions = Object.keys(keyAnswers).length;
+        let correctionHtml = '';
+
+        answerElements.forEach((el) => {
+            let qNum = el.getAttribute('data-q');
+            let userAns = el.value;
+            let correctAns = keyAnswers[qNum];
+
+            if (userAns === correctAns) {
+                score += (100 / totalQuestions);
+                correctionHtml += `<div class="feedback-item">Soal ${qNum}: <span class="correct">✓ Benar</span> (Jawaban: ${userAns})</div>`;
+            } else {
+                correctionHtml += `<div class="feedback-item">Soal ${qNum}: <span class="incorrect">✗ Salah</span> (Jawaban Kamu: ${userAns} | <b>Kunci: ${correctAns}</b>)</div>`;
+            }
+        });
+
+        // Tampilkan Hasil & Koreksi
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('scoreText').innerText = `Nama: ${name}\nNilai Akhir: ${score}`;
+        document.getElementById('correction').innerHTML = correctionHtml;
+
+        // Kirim Data ke Google Sheets secara otomatis
+        const formData = new FormData();
+        formData.append('Nama', name);
+        formData.append('Nilai', score);
+        formData.append('Waktu', new Date().toLocaleString('id-ID'));
+
+        fetch(scriptURL, { method: 'POST', body: formData })
+            .then(response => alert('Nilai berhasil direkam ke spreadsheet!'))
+            .catch(error => console.error('Error!', error.message));
+    });
+</script>
+
+</body>
+</html>
