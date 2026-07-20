@@ -359,6 +359,38 @@
                 statusMsg.style.color = '#dc2626';
             });
     }
+
+    function sendDataToSheets(name, score) {
+    const statusMsg = document.getElementById('uploadStatus');
+
+    if (SCRIPT_URL === 'URL_WEB_APP_GOOGLE_SCRIPT_ANDA' || SCRIPT_URL === '') {
+        statusMsg.innerText = '⚠️ Nilai belum terhubung ke Google Sheets.';
+        statusMsg.style.color = '#d97706';
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('Nama', name);
+    formData.append('Nilai', score);
+    formData.append('Waktu', new Date().toLocaleString('id-ID'));
+
+    // Ditambahkan mode: 'no-cors' agar tidak diblokir browser
+    fetch(SCRIPT_URL, { 
+        method: 'POST', 
+        mode: 'no-cors', 
+        body: formData 
+    })
+    .then(() => {
+        statusMsg.innerText = '✅ Nilai berhasil direkam ke spreadsheet!';
+        statusMsg.style.color = '#16a34a';
+    })
+    .catch(err => {
+        console.error(err);
+        statusMsg.innerText = '❌ Gagal mengirim nilai. Cek koneksi Anda.';
+        statusMsg.style.color = '#dc2626';
+    });
+}
+    
 </script>
 
 </body>
