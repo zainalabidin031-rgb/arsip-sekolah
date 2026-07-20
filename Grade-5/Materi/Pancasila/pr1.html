@@ -197,8 +197,6 @@
             <button type="submit" id="btnSubmit" class="btn btn-submit">Kirim & Lihat Hasil</button>
         </form>
 
-        <!-- Tombol Rekap Nilai untuk Siswa/Guru -->
-        <!-- Ganti href dengan link Google Sheets Anda -->
         <a href="https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/edit?usp=sharing" target="_blank" class="btn btn-view">📊 Lihat Nilai PR</a>
     </div>
 
@@ -225,12 +223,13 @@
 
 <script>
     // =========================================================================
-    // 1. URL GOOGLE APPS SCRIPT (Ganti dengan Web App URL milik Anda)
+    // 1. URL GOOGLE APPS SCRIPT
+    // Ganti string di bawah dengan Web App URL hasil Deploy Google Apps Script Anda
     // =========================================================================
-    const SCRIPT_URL = 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbztAbjsK7Crw5jcIt9IH-iP86TyHrZ3pnsts7ndAggBNOuXIgR2BodflpiPHk3r91A8/exec';
+    const SCRIPT_URL = 'PASTE_URL_WEB_APP_ANDA_DI_SINI';
 
     // =========================================================================
-    // 2. SOAL & KUNCI JAWABAN (10 Soal Asli + 3 Jawaban Salah Pengecoh)
+    // 2. SOAL & KUNCI JAWABAN
     // =========================================================================
     const quizData = [
         { id: 1, question: "Mengapa pada awalnya rakyat Indonesia menyambut kedatangan Jepang dengan harapan?", answer: "Karena Jepang mengaku akan membebaskan Indonesia dari penjajahan Belanda." },
@@ -245,26 +244,21 @@
         { id: 10, question: "Mengapa rakyat Indonesia tidak langsung percaya pada janji kemerdekaan yang diberikan Jepang?", answer: "Karena janji tersebut belum jelas pelaksanaannya dan rakyat sudah merasakan penderitaan selama pendudukan Jepang." }
     ];
 
-    // 3 Jawaban Pengecoh Tambahan (Total opsi = 13)
     const wrongOptions = [
         "Laksamana Maeda.",
         "1 Maret 1945.",
         "Organisasi bentukan Jepang untuk melatih militer pemuda."
     ];
 
-    // Menggabungkan seluruh opsi jawaban (10 kunci + 3 pengecoh = 13 opsi)
     const allOptions = [...quizData.map(q => q.answer), ...wrongOptions];
 
-    // Fungsi Pengacak Urutan Pilihan Dropdown
     function shuffleArray(array) {
         return array.slice().sort(() => Math.random() - 0.5);
     }
 
-    // Render Soal ke HTML secara Dinamis
     const questionsContainer = document.getElementById('questionsContainer');
     
     quizData.forEach((q, index) => {
-        // Mengacak 13 pilihan jawaban untuk setiap nomor soal
         const shuffledOptions = shuffleArray(allOptions);
         
         let optionsHtml = `<option value="">-- Pilih Jawaban Tepat --</option>`;
@@ -297,7 +291,7 @@
         const answerSelects = document.querySelectorAll('.user-answer');
         
         let correctCount = 0;
-        let totalQuestions = quizData.length; // 10 Soal
+        let totalQuestions = quizData.length;
         let correctionHtml = '';
 
         answerSelects.forEach((select) => {
@@ -317,17 +311,14 @@
             `;
         });
 
-        // Skor Skala 100 (Satu soal poinnya 10)
         const finalScore = Math.round((correctCount / totalQuestions) * 100);
 
-        // Menampilkan Hasil ke Layar
         document.getElementById('quizCard').style.display = 'none';
         document.getElementById('resultCard').style.display = 'block';
         document.getElementById('studentInfo').innerText = `Nama: ${studentName}`;
         document.getElementById('scoreDisplay').innerText = finalScore;
         document.getElementById('correctionContainer').innerHTML = correctionHtml;
 
-        // Mengirimkan Nilai ke Spreadsheet
         sendDataToSheets(studentName, finalScore);
     });
 
@@ -337,60 +328,37 @@
     function sendDataToSheets(name, score) {
         const statusMsg = document.getElementById('uploadStatus');
 
-        if (SCRIPT_URL === 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbztAbjsK7Crw5jcIt9IH-iP86TyHrZ3pnsts7ndAggBNOuXIgR2BodflpiPHk3r91A8/exec' || SCRIPT_URL === '') {
-            statusMsg.innerText = '⚠️ Nilai belum terhubung ke Google Sheets (URL script belum dipasang).';
+        if (!SCRIPT_URL || SCRIPT_URL === 'PASTE_URL_WEB_APP_ANDA_DI_SINI') {
+            statusMsg.innerText = '⚠️ Nilai belum terhubung ke Google Sheets (URL Web App belum dipasang).';
             statusMsg.style.color = '#d97706';
             return;
         }
 
-        const formData = new FormData();
-        formData.append('Nama', name);
-        formData.append('Nilai', score);
-        formData.append('Waktu', new Date().toLocaleString('id-ID'));
+        const payload = {
+            Nama: name,
+            Nilai: score,
+            Waktu: new Date().toLocaleString('id-ID')
+        };
 
-        fetch(SCRIPT_URL, { method: 'POST', body: formData })
-            .then(res => {
-                statusMsg.innerText = '✅ Nilai berhasil tersimpan otomatis di Google Sheets!';
-                statusMsg.style.color = '#16a34a';
-            })
-            .catch(err => {
-                console.error(err);
-                statusMsg.innerText = '❌ Gagal mengirim nilai ke spreadsheet. Cek koneksi Anda.';
-                statusMsg.style.color = '#dc2626';
-            });
+        // Menggunakan mode text/plain untuk melewati preflight CORS browser
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'text/plain;charset=utf-8'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            statusMsg.innerText = '✅ Nilai berhasil direkam ke spreadsheet!';
+            statusMsg.style.color = '#16a34a';
+        })
+        .catch(err => {
+            console.error(err);
+            statusMsg.innerText = '❌ Gagal mengirim nilai ke spreadsheet. Cek koneksi Anda.';
+            statusMsg.style.color = '#dc2626';
+        });
     }
-
-    function sendDataToSheets(name, score) {
-    const statusMsg = document.getElementById('uploadStatus');
-
-    if (SCRIPT_URL === 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbztAbjsK7Crw5jcIt9IH-iP86TyHrZ3pnsts7ndAggBNOuXIgR2BodflpiPHk3r91A8/exec' || SCRIPT_URL === '') {
-        statusMsg.innerText = '⚠️ Nilai belum terhubung ke Google Sheets.';
-        statusMsg.style.color = '#d97706';
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('Nama', name);
-    formData.append('Nilai', score);
-    formData.append('Waktu', new Date().toLocaleString('id-ID'));
-
-    // Ditambahkan mode: 'no-cors' agar tidak diblokir browser
-    fetch(SCRIPT_URL, { 
-        method: 'POST', 
-        mode: 'no-cors', 
-        body: formData 
-    })
-    .then(() => {
-        statusMsg.innerText = '✅ Nilai berhasil direkam ke spreadsheet!';
-        statusMsg.style.color = '#16a34a';
-    })
-    .catch(err => {
-        console.error(err);
-        statusMsg.innerText = '❌ Gagal mengirim nilai. Cek koneksi Anda.';
-        statusMsg.style.color = '#dc2626';
-    });
-}
-    
 </script>
 
 </body>
