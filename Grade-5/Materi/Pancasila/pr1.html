@@ -226,7 +226,7 @@
     // 1. URL GOOGLE APPS SCRIPT
     // Ganti string di bawah dengan Web App URL hasil Deploy Google Apps Script Anda
     // =========================================================================
-    const SCRIPT_URL = 'PASTE_URL_WEB_APP_ANDA_DI_SINI';
+    const SCRIPT_URL = 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbztAbjsK7Crw5jcIt9IH-iP86TyHrZ3pnsts7ndAggBNOuXIgR2BodflpiPHk3r91A8/exec';
 
     // =========================================================================
     // 2. SOAL & KUNCI JAWABAN
@@ -328,7 +328,7 @@
     function sendDataToSheets(name, score) {
         const statusMsg = document.getElementById('uploadStatus');
 
-        if (!SCRIPT_URL || SCRIPT_URL === 'PASTE_URL_WEB_APP_ANDA_DI_SINI') {
+        if (!SCRIPT_URL || SCRIPT_URL === 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbztAbjsK7Crw5jcIt9IH-iP86TyHrZ3pnsts7ndAggBNOuXIgR2BodflpiPHk3r91A8/exec') {
             statusMsg.innerText = '⚠️ Nilai belum terhubung ke Google Sheets (URL Web App belum dipasang).';
             statusMsg.style.color = '#d97706';
             return;
