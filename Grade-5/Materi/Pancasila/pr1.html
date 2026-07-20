@@ -197,7 +197,8 @@
             <button type="submit" id="btnSubmit" class="btn btn-submit">Kirim & Lihat Hasil</button>
         </form>
 
-        <a href="https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/edit?usp=sharing" target="_blank" class="btn btn-view">📊 Lihat Nilai PR</a>
+        <!-- Link Spreadsheet Sudah Diperbaiki -->
+        <a href="https://docs.google.com/spreadsheets/d/10kmgHJBXNYTODbdy3_It-rUy9PwIiFbjmpBEqgshuhA/edit?usp=sharing" target="_blank" class="btn btn-view">📊 Lihat Nilai PR</a>
     </div>
 
     <!-- Card Hasil & Koreksi Instan -->
@@ -224,7 +225,6 @@
 <script>
     // =========================================================================
     // 1. URL GOOGLE APPS SCRIPT
-    // Ganti string di bawah dengan Web App URL hasil Deploy Google Apps Script Anda
     // =========================================================================
     const SCRIPT_URL = 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbztAbjsK7Crw5jcIt9IH-iP86TyHrZ3pnsts7ndAggBNOuXIgR2BodflpiPHk3r91A8/exec';
 
@@ -328,19 +328,12 @@
     function sendDataToSheets(name, score) {
         const statusMsg = document.getElementById('uploadStatus');
 
-        if (!SCRIPT_URL || SCRIPT_URL === 'https://script.google.com/a/macros/guru.sd.belajar.id/s/AKfycbztAbjsK7Crw5jcIt9IH-iP86TyHrZ3pnsts7ndAggBNOuXIgR2BodflpiPHk3r91A8/exec') {
-            statusMsg.innerText = '⚠️ Nilai belum terhubung ke Google Sheets (URL Web App belum dipasang).';
-            statusMsg.style.color = '#d97706';
-            return;
-        }
-
         const payload = {
             Nama: name,
             Nilai: score,
-            Waktu: new Date().toLocaleString('id-ID')
+            Waktu: new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })
         };
 
-        // Menggunakan mode text/plain untuk melewati preflight CORS browser
         fetch(SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
